@@ -7,7 +7,7 @@ Roles:
 ## Fase de Análisis
 Enlace al documento: https://docs.google.com/document/d/1RDWUf4Ce8BehggwBAA-tuACt8UM82fsac4ONaPSLtUI/edit   
 Enlace al Trello: https://trello.com/b/pfe1WL35/fase-de-an%C3%A1lisis
-## Fase de Desarrollo
+## Fase de Diseño
 Enlace al Trello: 
 Documento: [Explicación diagramas diseño MP.docx](https://github.com/Javier-Vallejo/AplicacionMP/files/11179992/Explicacion.diagramas.diseno.MP.docx)
 
