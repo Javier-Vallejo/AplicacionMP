@@ -1,0 +1,100 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package fase3mp;
+
+/**
+ *
+ * @author david
+ */
+public class Usuario implements UsuariosANotificar{
+    
+    private String nombre;
+    private String nick;
+    private String password;
+
+
+    private enum tipoUsuario{AdministradorSistema, Jugador};
+    private enum State{baneado, noBaneado};
+    private tipoUsuario rol;
+    private State estadoObservador;
+    private EntidadesActivas entidades;
+    private DesafiosActivos desafiosAct;
+    private ManagerUsuarios managerUsuarios;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public tipoUsuario getRol() {
+        return rol;
+    }
+
+    public void setRol(tipoUsuario rol) {
+        this.rol = rol;
+    }
+
+    public State getEstadoObservador() {
+        return estadoObservador;
+    }
+
+    public void setEstadoObservador(State estadoObservador) {
+        this.estadoObservador = estadoObservador;
+    }
+
+    public EntidadesActivas getEntidades() {
+        return entidades;
+    }
+
+    public void setEntidades(EntidadesActivas entidades) {
+        this.entidades = entidades;
+    }
+
+    public DesafiosActivos getDesafiosAct() {
+        return desafiosAct;
+    }
+
+    public void setDesafiosAct(DesafiosActivos desafiosAct) {
+        this.desafiosAct = desafiosAct;
+    }
+
+    public ManagerUsuarios getManagerUsuarios() {
+        return managerUsuarios;
+    }
+
+    public void setManagerUsuarios(ManagerUsuarios managerUsuarios) {
+        this.managerUsuarios = managerUsuarios;
+    }
+    
+    
+    @Override
+    public void update() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    public void DarseDeBaja(Usuario usuario){
+        managerUsuarios.eliminarUsuario(usuario.getNick(), usuario.getPassword());    
+    }
+    
+}
