@@ -8,8 +8,12 @@ package fase3mp;
  *
  * @author d.rubio.2019
  */
-public class OperadorSistema extends Usuario{
+public class OperadorSistema extends Usuario{ 
     private Publisher notificador;
+
+    public OperadorSistema(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador) {
+        super(nombre, nick, password, rol, estadoObservador);
+    }
     
     private void editarPersonaje(Personaje personaje){
         

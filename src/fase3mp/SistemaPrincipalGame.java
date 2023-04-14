@@ -48,11 +48,19 @@ public class SistemaPrincipalGame {
         
     }
     
-    private Registro registrarse(){
-        Registro registro = new Registro();
-        List<String> datosRegistro = new ArrayList<String>();
-        registro.registrarse(datosRegistro);
-        return null;
+    private void registrarse(){ //habria que poner un while por si introduce otra cosa
+        Scanner escanerRegistro = new Scanner(System.in);
+        System.out.print("Desea registrarse como jugador o como operador: \n");
+        String rol = escanerRegistro.nextLine();
+        if(rol == "jugador"){
+            Registro registro = new RegistroJugador();
+            registro.registrarse(TipoUsuario.Jugador);
+        }
+        else if(rol == "operador"){
+            Registro registro = new RegistroJugador();
+            registro.registrarse(TipoUsuario.OperadorSistema);
+        }
+        
     }
     
     

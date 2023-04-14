@@ -15,6 +15,7 @@ import java.util.Map;
 public class ManagerUsuarios {
     private ArrayList<Map> credencialesUsuarios;
     private ArrayList<Usuario> usuariosRegistrados;
+
     
     public ArrayList<Map> getCredencialesUsuarios() {
         return credencialesUsuarios;
@@ -24,19 +25,32 @@ public class ManagerUsuarios {
         return usuariosRegistrados;
     }
     
-    public Usuario CrearUsuario(String nombre, String password){
-        Usuario usuario = new Usuario();
-        return usuario;
+    public Jugador CrearJugador(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador){
+        Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador, estadoObservador);
+        guardarUsuario(jugador);
+        guardarCredenciales(jugador);
+        return jugador;
     }
     
-    public void guardarUsuario(Usuario usuario){
-        usuariosRegistrados.add(usuario);      
+    public OperadorSistema CrearOperador(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador){
+        OperadorSistema operador = new OperadorSistema(nombre, nick, password, rol, estadoObservador);
+        guardarUsuario(operador);
+        guardarCredenciales(operador);
+        return operador;
+    }
+     
+    private void guardarUsuario(Usuario usuario){
+        if (existeUsuario(usuario.getNick(),usuario.getPassword()) == false){
+            usuariosRegistrados.add(usuario);
+        }      
     }
     
-    public void guardarCredenciales(Usuario usuario){
-        Map<String, String> credenciales = new HashMap<>();
-        credenciales.put(usuario.getNick(), usuario.getPassword());
-        credencialesUsuarios.add(credenciales);
+    private void guardarCredenciales(Usuario usuario){
+        if (existeUsuario(usuario.getNick(),usuario.getPassword()) == false){
+            Map<String, String> credenciales = new HashMap<>();
+            credenciales.put(usuario.getNick(), usuario.getPassword());
+            credencialesUsuarios.add(credenciales);
+        }
     }
     
     public Boolean existeUsuario(String nick, String password){

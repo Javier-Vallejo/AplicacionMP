@@ -13,6 +13,53 @@ public class Jugador extends Usuario{
     private Publisher notificador;
     private boolean estaBaneado;
     private Personaje personajeActivo;
+
+    
+    public Jugador(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador) {
+        super(nombre, nick, password, rol, estadoObservador);
+        if(estadoObservador == State.noBaneado){
+            this.setEstaBaneado(false);
+        }
+        else{
+            this.setEstaBaneado(true);
+        }
+    }
+    
+    
+    public int getOro() {
+        return oro;
+    }
+
+    public void setOro(int oro) {
+        this.oro = oro;
+    }
+
+    public Publisher getNotificador() {
+        return notificador;
+    }
+
+    public void setNotificador(Publisher notificador) {
+        this.notificador = notificador;
+    }
+
+    public boolean getEstaBaneado() {
+        return estaBaneado;
+    }
+
+    public void setEstaBaneado(boolean estaBaneado) {
+        this.estaBaneado = estaBaneado;
+    }
+
+    public Personaje getPersonajeActivo() {
+        return personajeActivo;
+    }
+
+    public void setPersonajeActivo(Personaje personajeActivo) {
+        this.personajeActivo = personajeActivo;
+    }
+    
+    
+
     
     private void RegistrarPersonaje(Personaje personaje){
         

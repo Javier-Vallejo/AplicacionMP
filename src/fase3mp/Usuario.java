@@ -13,16 +13,16 @@ public class Usuario implements UsuariosANotificar{
     private String nombre;
     private String nick;
     private String password;
-
-
-    private enum tipoUsuario{AdministradorSistema, Jugador};
-    private enum State{baneado, noBaneado};
-    private tipoUsuario rol;
-    private State estadoObservador;
+    private TipoUsuario rol;
+    private State estadoObservador; //que es????
     private EntidadesActivas entidades;
     private DesafiosActivos desafiosAct;
     private ManagerUsuarios managerUsuarios;
-
+    
+    
+    public Usuario(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador){
+        
+    }
     public String getNombre() {
         return nombre;
     }
@@ -47,11 +47,11 @@ public class Usuario implements UsuariosANotificar{
         this.password = password;
     }
 
-    public tipoUsuario getRol() {
+    public TipoUsuario getRol() {
         return rol;
     }
 
-    public void setRol(tipoUsuario rol) {
+    public void setRol(TipoUsuario rol) {
         this.rol = rol;
     }
 
