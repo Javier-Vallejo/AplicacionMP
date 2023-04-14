@@ -4,6 +4,8 @@
  */
 package fase3mp;
 
+import java.util.Random;
+
 /**
  *
  * @author d.rubio.2019
@@ -13,6 +15,7 @@ public class Jugador extends Usuario{
     private Publisher notificador;
     private boolean estaBaneado;
     private Personaje personajeActivo;
+    private String NumeroRegistro;
 
     
     public Jugador(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador) {
@@ -23,6 +26,7 @@ public class Jugador extends Usuario{
         else{
             this.setEstaBaneado(true);
         }
+        GenerarNumRegistro();
     }
     
     
@@ -57,6 +61,14 @@ public class Jugador extends Usuario{
     public void setPersonajeActivo(Personaje personajeActivo) {
         this.personajeActivo = personajeActivo;
     }
+
+    public String getNumeroRegistro() {
+        return NumeroRegistro;
+    }
+
+    public void setNumeroRegistro(String NumeroRegistro) {
+        this.NumeroRegistro = NumeroRegistro;
+    }
     
     
 
@@ -87,6 +99,27 @@ public class Jugador extends Usuario{
     }
     private void ElegirPersonaje(EntidadesActivas entidades){
         
+    }
+    
+    private void GenerarNumRegistro(){//formato LNNLL
+        String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        Random rand = new Random();
+        StringBuilder sb = new StringBuilder();
+        //ahora genero la primera letra 
+        char letra1 = letras.charAt(rand.nextInt(letras.length()));
+        sb.append(letra1);
+        //genero los dos numeros
+        for (int i = 0; i < 2; i++) {
+           int numero = rand.nextInt(10);
+           sb.append(numero);
+        }   
+        //genero las ultimas 2 letras
+        char letra2 = letras.charAt(rand.nextInt(letras.length()));
+        char letra3 = letras.charAt(rand.nextInt(letras.length()));
+        sb.append(letra2);
+        sb.append(letra3);
+        String numRegistro = sb.toString();
+        setNumeroRegistro(numRegistro);
     }
     
 }

@@ -23,6 +23,8 @@ public class Usuario implements UsuariosANotificar{
     public Usuario(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador){
         
     }
+    
+    
     public String getNombre() {
         return nombre;
     }

@@ -42,7 +42,10 @@ public class ManagerUsuarios {
     private void guardarUsuario(Usuario usuario){
         if (existeUsuario(usuario.getNick(),usuario.getPassword()) == false){
             usuariosRegistrados.add(usuario);
-        }      
+        }
+        else{
+            System.out.println("Ya estas registrado con estos datos, no puedes volver a hacerlo");
+        }
     }
     
     private void guardarCredenciales(Usuario usuario){
