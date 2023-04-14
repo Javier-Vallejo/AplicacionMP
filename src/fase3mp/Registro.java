@@ -22,8 +22,8 @@ public class Registro {
         this.manager = manager;
     }
      
-    public void registrarse(TipoUsuario rol){
-        
+    public Usuario registrarse(TipoUsuario rol){
+        return null;   
     }
     
 }

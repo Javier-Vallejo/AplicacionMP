@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class RegistroJugador extends Registro {
     
     @Override
-    public void registrarse(TipoUsuario rol){
+    public Usuario registrarse(TipoUsuario rol){
         Scanner escanerJugador = new Scanner(System.in);
         System.out.print("Introduzca su nombre: \n");
         String nombre = escanerJugador.nextLine();
@@ -22,7 +22,8 @@ public class RegistroJugador extends Registro {
         String nick = escanerJugador.nextLine();
         System.out.print("Introduzca su password: \n");
         String password = escanerJugador.nextLine();
-        super.getManager().CrearJugador(nombre, nick, password, rol, State.noBaneado);
+        Jugador jugador = super.getManager().CrearJugador(nombre, nick, password, rol, State.noBaneado);
+        return jugador;
     }
     
 }
