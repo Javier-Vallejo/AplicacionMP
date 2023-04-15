@@ -26,7 +26,7 @@ public class SistemaPrincipalGame {
     }
     
     public void run(){
-        leerPersonajes("a.txt");
+        leerPersonajes("a.txt");//habra que hacer un leer Usuarios tambien
         Scanner escaner = new Scanner(System.in);
         System.out.println("Desea Iniciar Sesion o Registrarse");
         String opcionElegida = escaner.nextLine();
@@ -43,7 +43,7 @@ public class SistemaPrincipalGame {
             if(usuario.getRol() == TipoUsuario.Jugador){
                 Jugador jugador = (Jugador) usuario;
                 while(eleccionMenu != 10){
-                    Menu menu = new MenuJugador();
+                    Menu menu = new MenuJugador();//deberia ponerlo fuera 
                     menu.mostrarOpciones();
                     eleccionMenu = escaner.nextInt();
                     jugador.realizarFuncionMenuJugador(eleccionMenu);
@@ -101,12 +101,13 @@ public class SistemaPrincipalGame {
         Scanner escanerRegistro = new Scanner(System.in);
         System.out.print("Desea registrarse como jugador o como operador: \n");
         String rol = escanerRegistro.nextLine();//habria que poner un while por si introduce otra cosa
+        rol = rol.toLowerCase();
         if(rol == "jugador"){
-            Registro registro = new RegistroJugador();
+            Registro registro = new RegistroJugador(); //nuevas clases
             Usuario usuario = registro.registrarse(TipoUsuario.Jugador);
         }
         else if(rol == "operador"){
-            Registro registro = new RegistroJugador();
+            Registro registro = new RegistroOperador();
             Usuario usuario = registro.registrarse(TipoUsuario.OperadorSistema);
         }
     }

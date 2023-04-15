@@ -38,20 +38,20 @@ public class OperadorSistema extends Usuario{
                 break;
             case 2://Editar Personaje
                 Personaje personaje = super.getEntidades().elegirPersonaje();
-                editarPersonaje(personaje);               
+                editarPersonaje(personaje);//podria estar en la clase personaje             
                 break;
             case 3://Aniadir Personaje
                 aniadirPersonaje();
                 break;
             case 4://Validar Desafio
-                Desafio desafio = super.getDesafiosAct().obtenerDesafio();//al hacer esto deberia borrarlo de desafios activos 
+                Desafio desafio = super.getDesafiosAct().obtenerDesafio();
                 desafio.setEstado(Desafio.State.Validado);//y notificarlo con el observer
                 break;
             case 5://Banear Usuario
-                Scanner escanerUsuario = new Scanner(System.in);
+                Scanner escanerUsuario = new Scanner(System.in);//se podrian mostrar los nicks de todos los jugadores
                 System.out.println("Introduzca nick del usuario a banear: ");
                 String nick = escanerUsuario.nextLine();
-                System.out.println("Introduzca la contrasenia del usuario a banear: ");
+                System.out.println("Introduzca la contrasenia del usuario a banear: ");//se obtendra a partir del jugador que elija
                 String password= escanerUsuario.nextLine();
                 Usuario usuario = super.getManagerUsuarios().obtenerUsuario(nick, password);
                 usuario.setEstadoObservador(State.baneado);

@@ -131,7 +131,7 @@ public class Jugador extends Usuario{
                 //no se bien que es
                 break;
             case 3://Gestionar Personaje
-                Personaje personaje = getPersonajeActivo();
+                Personaje personaje = getPersonajeActivo();//debo poner un if por si no hay personaje guardado
                 personaje.editarPersonaje();//nuevo metodo
                 break;
             case 4://Dar de baja Personaje
@@ -139,7 +139,7 @@ public class Jugador extends Usuario{
                 break;
             case 5://Elegir Armas y Armadura
                 Arma arma = super.getEntidades().elegirArma();
-                arma.editarArma();//nuevo metodo
+                arma.editarArma();//deberia ser editar personajeActivo
                 Armadura armadura = super.getEntidades().elegirArmadura();
                 armadura.editarArmadura();
                 break;
@@ -151,7 +151,7 @@ public class Jugador extends Usuario{
                 System.out.println("Su oro actual es: " + getOro());
                 break;
             case 8://Consultar Ranking
-                
+                //hay que hacerlo con la clase nueva ranking
                 break;
             case 9://Elegir Personaje
                 if(getPersonajeActivo() != null){

@@ -26,6 +26,7 @@ public class ManagerUsuarios {
     }
     
     public Jugador CrearJugador(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador){
+        //deberia comprobar aqui si existe ya en el sistema el jugador
         Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador, estadoObservador);
         guardarUsuario(jugador);
         guardarCredenciales(jugador);
