@@ -35,4 +35,8 @@ public class Personaje { //a lo mejor habria que hacer que fueran ArrayList
     public int calculoVida(){
         return 0;
     }
+
+    void editarPersonaje() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

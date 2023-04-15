@@ -5,6 +5,7 @@
 package fase3mp;
 
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  *
@@ -120,6 +121,65 @@ public class Jugador extends Usuario{
         sb.append(letra3);
         String numRegistro = sb.toString();
         setNumeroRegistro(numRegistro);
+    }
+    public void realizarFuncionMenuJugador(int opcion){
+        switch (opcion){
+            case 1://Darse de baja
+                DarseDeBaja(this);
+                break;
+            case 2://Registrar Personaje
+                //no se bien que es
+                break;
+            case 3://Gestionar Personaje
+                Personaje personaje = getPersonajeActivo();
+                personaje.editarPersonaje();//nuevo metodo
+                break;
+            case 4://Dar de baja Personaje
+                setPersonajeActivo(null);
+                break;
+            case 5://Elegir Armas y Armadura
+                Arma arma = super.getEntidades().elegirArma();
+                arma.editarArma();//nuevo metodo
+                Armadura armadura = super.getEntidades().elegirArmadura();
+                armadura.editarArmadura();
+                break;
+            case 6://Desafiar
+                Desafio desafio = new Desafio();
+                super.getDesafiosAct().guardarDesafio(desafio);
+                break;
+            case 7://Consultar Oro
+                System.out.println("Su oro actual es: " + getOro());
+                break;
+            case 8://Consultar Ranking
+                
+                break;
+            case 9://Elegir Personaje
+                if(getPersonajeActivo() != null){
+                    System.out.println("El personaje que elijas sustituira al tuyo.");
+                    System.out.println("¿Deseas continuar? Si o No");
+                    String opcionSioNO = "";
+                    Scanner escanerSioNo = new Scanner(System.in);
+                    while(opcionSioNO != "SI" || opcionSioNO != "NO"){
+                        System.out.println("¿Desas iniciar sesion? si o no");
+                        opcionSioNO = escanerSioNo.nextLine();
+                        opcionSioNO = opcionSioNO.toUpperCase();
+                    }
+                    if (opcionSioNO.equals("SI")){
+                        setPersonajeActivo(super.getEntidades().elegirPersonaje());
+                    }
+                    else if(opcionSioNO.equals("NO")){
+                        System.out.println("Su personaje no se cambiara");
+                    }            
+                }
+                else{
+                    setPersonajeActivo(super.getEntidades().elegirPersonaje());
+                }
+                break;
+            case 10://Salir
+                System.out.println("Cerrando sesion y saliendo");
+                System.exit(0);
+                break;
+        }
     }
     
 }

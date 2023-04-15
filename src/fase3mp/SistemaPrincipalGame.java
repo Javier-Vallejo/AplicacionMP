@@ -30,28 +30,40 @@ public class SistemaPrincipalGame {
         Scanner escaner = new Scanner(System.in);
         System.out.println("Desea Iniciar Sesion o Registrarse");
         String opcionElegida = escaner.nextLine();
-        while(opcionElegida != "Iniciar Sesion" || opcionElegida != "Registrarse"){
+        while(opcionElegida != "INICIARSESION" || opcionElegida != "REGISTRARSE"){
             System.out.println("Desea Iniciar Sesion o Registrarse");
             opcionElegida = escaner.nextLine();
+            opcionElegida = opcionElegida.replaceAll("\\s","").toUpperCase();
         }
-        if (opcionElegida.equals("Iniciar Sesion")){
+        if (opcionElegida.equals("Iniciar Sesion")){//Inicio de sesion
             Usuario usuario = this.iniciarSesion();
             System.out.println("Bienvenido " + usuario.getNick());
             System.out.println("Que deseas hacer: ");
+            int eleccionMenu = 0;
             if(usuario.getRol() == TipoUsuario.Jugador){
-                Menu menu = new MenuJugador();
-                menu.mostrarOpciones();
+                Jugador jugador = (Jugador) usuario;
+                while(eleccionMenu != 10){
+                    Menu menu = new MenuJugador();
+                    menu.mostrarOpciones();
+                    eleccionMenu = escaner.nextInt();
+                    jugador.realizarFuncionMenuJugador(eleccionMenu);
+                }
             }
             else{
-                Menu menu = new MenuOperador();
-                menu.mostrarOpciones();
+                OperadorSistema operador = (OperadorSistema) usuario;
+                while(eleccionMenu != 7){
+                    Menu menu = new MenuOperador();
+                    menu.mostrarOpciones();
+                    eleccionMenu = escaner.nextInt();
+                    operador.realizarFuncionMenuOperador(eleccionMenu);
+                }
             }
         }
-        else if (opcionElegida == "Registrarse"){
+        else if (opcionElegida == "Registrarse"){ //Registro
             this.registrarse();
             Scanner escanerSioNo = new Scanner(System.in);
             String opcion = "";
-            while(opcion != "SI" || opcionElegida != "NO"){
+            while(opcion != "SI" || opcion != "NO"){
                 System.out.println("¿Desas iniciar sesion? si o no");
                 opcion = escanerSioNo.nextLine();
                 opcion = opcion.toUpperCase();
@@ -64,8 +76,7 @@ public class SistemaPrincipalGame {
             }            
         }
         
-        
-        
+            
         
     }
     
@@ -103,6 +114,6 @@ public class SistemaPrincipalGame {
     private void leerPersonajes(String fichero) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-        
     
+       
 }

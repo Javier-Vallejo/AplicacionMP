@@ -9,6 +9,10 @@ package fase3mp;
  * @author david
  */
 public class Arma extends Equipo implements IEquipo{
+
+    void editarArma() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     public enum tipoArma{de1mano, de2manos}
     private tipoArma tipodeArma;
     
