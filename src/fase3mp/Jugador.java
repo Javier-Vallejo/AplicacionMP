@@ -157,7 +157,10 @@ public class Jugador extends Usuario{
                 System.out.println("Su oro actual es: " + getOro());
                 break;
             case 8://Consultar Ranking
-                //hay que hacerlo con la clase nueva ranking
+                //Esto va a cambiar, porque pondremos que el jugador tenga una propiedad ranking,-
+                //- entonces solo tendremos que actualizar el ranking de vez en cuando, no crear uno nuevo siempre.
+                Ranking ranking = new Ranking();
+                ranking.consultarRanking();
                 break;
             case 9://Elegir Personaje
                 if(getPersonajeActivo() != null){
@@ -165,7 +168,7 @@ public class Jugador extends Usuario{
                     System.out.println("¿Deseas continuar? Si o No");
                     String opcionSioNO = "";
                     Scanner escanerSioNo = new Scanner(System.in);
-                    while(opcionSioNO != "SI" || opcionSioNO != "NO"){
+                    while(!(opcionSioNO.equals("SI") == false ^ opcionSioNO.equals("NO") == false)){
                         System.out.println("¿Desas iniciar sesion? si o no");
                         opcionSioNO = escanerSioNo.nextLine();
                         opcionSioNO = opcionSioNO.toUpperCase();
