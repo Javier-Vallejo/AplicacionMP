@@ -13,7 +13,10 @@ import java.util.Scanner;
  */
 public class Registro {
     private ManagerUsuarios manager;
-
+    
+    public Registro(ManagerUsuarios manager){
+        setManager(manager);
+    }
     public ManagerUsuarios getManager() {
         return manager;
     }

@@ -26,7 +26,10 @@ public class SistemaPrincipalGame {
     }
     
     public void run(){
-        //leerPersonajes("a.txt");//habra que hacer un leer Usuarios tambien
+        ManagerUsuarios manager = new ManagerUsuarios();
+        usuariosSistema = manager;
+        //leerUsuarios("usuarios.txt");
+        //leerPersonajes("personajes.txt");//habra que hacer un leer Usuarios tambien
         Scanner escaner = new Scanner(System.in);
         String opcionElegida = "";
         while(!(opcionElegida.equals("INICIARSESION")==false ^ opcionElegida.equals("REGISTRARSE")==false)){
@@ -42,7 +45,7 @@ public class SistemaPrincipalGame {
             this.registrarse();
             Scanner escanerSioNo = new Scanner(System.in);
             String opcion = "";
-            while(opcion != "SI" || opcion != "NO"){
+            while(!(opcion.equals("SI")^ opcion.equals("NO"))){
                 System.out.println("¿Desas iniciar sesion? si o no");
                 opcion = escanerSioNo.nextLine();
                 opcion = opcion.toUpperCase();
@@ -62,7 +65,9 @@ public class SistemaPrincipalGame {
     private void iniciarSesion(){ 
         System.out.println("-----Inicio de Sesion-----");
         Scanner escanerIniSesion = new Scanner(System.in);
+        System.out.println("Introduzca su nick: ");
         String nick = escanerIniSesion.nextLine();
+        System.out.println("Introduzca su contrasenia: ");
         String password = escanerIniSesion.nextLine();
         if(usuariosSistema.existeUsuario(nick, password)==false){
             System.out.println("No estas registrado en el sistema");
@@ -102,11 +107,11 @@ public class SistemaPrincipalGame {
         String rol = escanerRegistro.nextLine();//habria que poner un while por si introduce otra cosa
         rol = rol.toLowerCase();
         if(rol.equals("jugador")){
-            Registro registro = new RegistroJugador(); //nuevas clases
+            Registro registro = new RegistroJugador(usuariosSistema); //nuevas clases
             Usuario usuario = registro.registrarse(TipoUsuario.Jugador);
         }
         else if(rol.equals("operador")){
-            Registro registro = new RegistroOperador();
+            Registro registro = new RegistroOperador(usuariosSistema);
             Usuario usuario = registro.registrarse(TipoUsuario.OperadorSistema);
         }
     }

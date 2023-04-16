@@ -12,6 +12,10 @@ import java.util.Scanner;
  * @author d.rubio.2019
  */
 public class RegistroJugador extends Registro {
+
+    public RegistroJugador(ManagerUsuarios manager) {
+        super(manager);
+    }
     
     @Override
     public Usuario registrarse(TipoUsuario rol){

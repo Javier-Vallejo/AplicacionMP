@@ -27,6 +27,7 @@ public class Jugador extends Usuario{
         else{
             this.setEstaBaneado(true);
         }
+        
         GenerarNumRegistro();
     }
     

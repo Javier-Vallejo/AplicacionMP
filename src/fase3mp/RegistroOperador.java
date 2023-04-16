@@ -12,6 +12,10 @@ import java.util.Scanner;
  */
 public class RegistroOperador extends Registro {
 
+    public RegistroOperador(ManagerUsuarios manager) {
+        super(manager);
+    }
+
     @Override
     public Usuario registrarse(TipoUsuario rol){
         Scanner escanerOperador = new Scanner(System.in);

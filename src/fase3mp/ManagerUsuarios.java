@@ -16,7 +16,11 @@ public class ManagerUsuarios {
     private ArrayList<Map> credencialesUsuarios;
     private ArrayList<Usuario> usuariosRegistrados;
 
-    
+    public ManagerUsuarios() {
+        credencialesUsuarios = new ArrayList<Map>();
+        usuariosRegistrados = new ArrayList<Usuario>();
+    }
+
     public ArrayList<Map> getCredencialesUsuarios() {
         return credencialesUsuarios;
     }
@@ -27,43 +31,64 @@ public class ManagerUsuarios {
     
     public Jugador CrearJugador(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador){
         //deberia comprobar aqui si existe ya en el sistema el jugador
-        Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador, estadoObservador);
-        guardarUsuario(jugador);
-        guardarCredenciales(jugador);
-        return jugador;
+        if(usuariosRegistrados.isEmpty()){
+            Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador, estadoObservador);
+            guardarUsuario(jugador);
+            guardarCredenciales(jugador);
+            return jugador;
+        }
+        else{
+            if (existeUsuario(nick,password) == false){
+                Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador, estadoObservador);
+                guardarUsuario(jugador);
+                guardarCredenciales(jugador);
+                return jugador;
+            }
+            else{
+                System.out.println("Ya estas registrado con estos datos, no puedes volver a hacerlo");
+                return null;
+            }
+        }
     }
     
     public OperadorSistema CrearOperador(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador){
-        OperadorSistema operador = new OperadorSistema(nombre, nick, password, rol, estadoObservador);
-        guardarUsuario(operador);
-        guardarCredenciales(operador);
-        return operador;
+        if(usuariosRegistrados.isEmpty()){
+            OperadorSistema operador = new OperadorSistema(nombre, nick, password, rol, estadoObservador);
+            guardarUsuario(operador);
+            guardarCredenciales(operador);
+            return operador;
+        }
+        else{
+            if (existeUsuario(nick,password) == false){
+                OperadorSistema operador = new OperadorSistema(nombre, nick, password, rol, estadoObservador);
+                guardarUsuario(operador);
+                guardarCredenciales(operador);
+                return operador;
+            }
+            else{
+                System.out.println("Ya estas registrado con estos datos, no puedes volver a hacerlo");
+                return null;
+            }
+        }
     }
      
     private void guardarUsuario(Usuario usuario){
-        if (existeUsuario(usuario.getNick(),usuario.getPassword()) == false){
-            usuariosRegistrados.add(usuario);
-        }
-        else{
-            System.out.println("Ya estas registrado con estos datos, no puedes volver a hacerlo");
-        }
+        usuariosRegistrados.add(usuario);
     }
     
     private void guardarCredenciales(Usuario usuario){
-        if (existeUsuario(usuario.getNick(),usuario.getPassword()) == false){
-            Map<String, String> credenciales = new HashMap<>();
-            credenciales.put(usuario.getNick(), usuario.getPassword());
-            credencialesUsuarios.add(credenciales);
-        }
+        Map<String, String> credenciales = new HashMap<>();
+        credenciales.put(usuario.getNick(), usuario.getPassword());
+        credencialesUsuarios.add(credenciales);
     }
     
     public Boolean existeUsuario(String nick, String password){
         for (int i = 0; i == credencialesUsuarios.size(); i++){
-            if (credencialesUsuarios.get(i).containsKey(nick) && credencialesUsuarios.get(i).containsValue(password)){
+            if ((credencialesUsuarios.get(i).containsKey(nick)) && (credencialesUsuarios.get(i).containsValue(password))){
                 return true;
             }
         }
-        return false;  
+        return false; 
     }
     public Usuario obtenerUsuario(String nick, String password){
         if (existeUsuario(nick,password)){
