@@ -13,5 +13,11 @@ public class Equipo {
     private int modDanio;
     private int modDefensa;
     
-    
+    public int devolverAtaque () {
+        return modDanio;
+    }
+
+    public int devolverDefensa () {
+        return modDefensa;
+    }
 }

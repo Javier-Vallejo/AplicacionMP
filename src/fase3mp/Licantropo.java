@@ -10,6 +10,8 @@ package fase3mp;
  */
 public class Licantropo extends Personaje implements InterfazPersonaje{
     
+    private int rabia;
+
     public Personaje crearPersonaje(){
         return null;
     }
@@ -17,6 +19,23 @@ public class Licantropo extends Personaje implements InterfazPersonaje{
     @Override
     public Personaje clonar() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+
+    
+    @Override
+    public int calculoDanio() {
+        Habilidad habilidad = super.devolverHabilidad();
+        return super.devolverPoder() + super.devolverDañoArma() + super.devolverDañoHabilidad(habilidad) + habilidadActiva() + rabia;
+    }
+
+    private int habilidadActiva() {
+        Dones dones  =  (Dones) super.devolverHabilidad();
+        int danioBase = super.devolverDañoHabilidad(dones);
+        if (rabia >= dones.getLimitante()) {
+            return dones.activarDon(danioBase);
+        }
+        return 0;
     }
     
 }

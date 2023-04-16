@@ -11,12 +11,14 @@ package fase3mp;
 public class Armadura extends Equipo implements IEquipo{
 
     @Override
-    public int devolverModificadores() {
+    public int devolverModificadores(int opcion) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     void editarArmadura() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+   
     
 }

@@ -19,5 +19,24 @@ public class Demonio extends Esbirro implements IEsbirros{
     public int calcularVidaRestante() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public int devolverSalud () {
+        int saludTotal = super.devolverSalud();
+        if (tieneEsbirros()) {
+
+            for (int i2 = 0; i2 <esbirros.size() ; i2++) {
+                Esbirro esbirro = esbirros.get(i2);
+                int saludEsbirro = esbirro.devolverSalud();
+                saludTotal += saludEsbirro;
+             }  
+        }
+        return saludTotal;
+    }
     
+
+    public boolean tieneEsbirros (){
+        return esbirros.size() >0;
+
+    }
 }

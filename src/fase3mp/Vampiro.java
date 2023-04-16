@@ -10,6 +10,8 @@ package fase3mp;
  */
 public class Vampiro extends Personaje implements InterfazPersonaje{
     
+    private int sangre;
+
     public Personaje crearPersonaje(){
         return null;
     }
@@ -17,6 +19,22 @@ public class Vampiro extends Personaje implements InterfazPersonaje{
     @Override
     public Personaje clonar() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public int dañoDeSangre (int sangre) {
+        if (sangre >= 5) {
+            return 2;
+        }
+            
+        else{
+            return 0;
+        }
+}
+
+    @Override
+    public int calculoDanio() {
+        Habilidad habilidad = super.devolverHabilidad();
+        return super.devolverPoder() + super.devolverDañoArma() + super.devolverDañoHabilidad(habilidad)+ dañoDeSangre(sangre);
     }
     
 }

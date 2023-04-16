@@ -9,5 +9,5 @@ package fase3mp;
  * @author d.rubio.2019
  */
 public interface IEquipo {
-    public int devolverModificadores();
+    public int devolverModificadores(int opcion);
 }

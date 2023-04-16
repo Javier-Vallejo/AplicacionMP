@@ -17,8 +17,15 @@ public class Arma extends Equipo implements IEquipo{
     private tipoArma tipodeArma;
     
     @Override
-    public int devolverModificadores() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int devolverModificadores(int opcion) {
+        if (opcion == 1 ){
+            return super.devolverAtaque();
+        }
+
+        else if (opcion == 2) {
+            return super.devolverDefensa();
+        }
+        return 0;
     }
     
     

@@ -8,6 +8,10 @@ package fase3mp;
  *
  * @author d.rubio.2019
  */
-public class Dones {
+public class Dones extends Habilidad {
+
+public int activarDon(int danio) {
+        return danio +10;
+}
     
 }
