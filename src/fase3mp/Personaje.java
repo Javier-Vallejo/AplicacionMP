@@ -39,7 +39,7 @@ public class Personaje { //a lo mejor habria que hacer que fueran ArrayList
         int vidaPersonaje = this.Salud;
         int saludTotal = 0;
         saludTotal +=vidaPersonaje;
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < esbirros.length; i++) {
             Esbirro esbirro = esbirros[i];
             int saludEsbirro = esbirro.devolverSalud();
             saludTotal += saludEsbirro;          

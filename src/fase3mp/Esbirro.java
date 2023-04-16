@@ -20,7 +20,7 @@ public class Esbirro  {
 
             for (int i2 = 0; i2 <esbirros.length ; i2++) {
                 Esbirro esbirro = esbirros[i2];
-                int saludEsbirro = esbirro.salud;
+                int saludEsbirro = esbirro.devolverSalud();
                 saludTotal += saludEsbirro;
              }  
         }
