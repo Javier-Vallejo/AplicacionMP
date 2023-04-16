@@ -26,40 +26,19 @@ public class SistemaPrincipalGame {
     }
     
     public void run(){
-        leerPersonajes("a.txt");//habra que hacer un leer Usuarios tambien
+        //leerPersonajes("a.txt");//habra que hacer un leer Usuarios tambien
         Scanner escaner = new Scanner(System.in);
-        System.out.println("Desea Iniciar Sesion o Registrarse");
-        String opcionElegida = escaner.nextLine();
-        while(opcionElegida != "INICIARSESION" || opcionElegida != "REGISTRARSE"){
+        String opcionElegida = "";
+        while(!(opcionElegida.equals("INICIARSESION")==false ^ opcionElegida.equals("REGISTRARSE")==false)){
             System.out.println("Desea Iniciar Sesion o Registrarse");
             opcionElegida = escaner.nextLine();
             opcionElegida = opcionElegida.replaceAll("\\s","").toUpperCase();
         }
-        if (opcionElegida.equals("Iniciar Sesion")){//Inicio de sesion
-            Usuario usuario = this.iniciarSesion();
-            System.out.println("Bienvenido " + usuario.getNick());
-            System.out.println("Que deseas hacer: ");
-            int eleccionMenu = 0;
-            if(usuario.getRol() == TipoUsuario.Jugador){
-                Jugador jugador = (Jugador) usuario;
-                while(eleccionMenu != 10){
-                    Menu menu = new MenuJugador();//deberia ponerlo fuera 
-                    menu.mostrarOpciones();
-                    eleccionMenu = escaner.nextInt();
-                    jugador.realizarFuncionMenuJugador(eleccionMenu);
-                }
-            }
-            else{
-                OperadorSistema operador = (OperadorSistema) usuario;
-                while(eleccionMenu != 7){
-                    Menu menu = new MenuOperador();
-                    menu.mostrarOpciones();
-                    eleccionMenu = escaner.nextInt();
-                    operador.realizarFuncionMenuOperador(eleccionMenu);
-                }
-            }
+        if (opcionElegida.equals("INICIARSESION")){//Inicio de sesion
+            this.iniciarSesion();
+            
         }
-        else if (opcionElegida == "Registrarse"){ //Registro
+        else if (opcionElegida.equals("REGISTRARSE")){ //Registro
             this.registrarse();
             Scanner escanerSioNo = new Scanner(System.in);
             String opcion = "";
@@ -80,19 +59,39 @@ public class SistemaPrincipalGame {
         
     }
     
-    private Usuario iniciarSesion(){ //habria que hacer que devolviera usuario para despues mostrar menu
+    private void iniciarSesion(){ 
         System.out.println("-----Inicio de Sesion-----");
         Scanner escanerIniSesion = new Scanner(System.in);
         String nick = escanerIniSesion.nextLine();
         String password = escanerIniSesion.nextLine();
         if(usuariosSistema.existeUsuario(nick, password)==false){
             System.out.println("No estas registrado en el sistema");
+            return;
         }
         else{
             Usuario usuario = usuariosSistema.obtenerUsuario(nick, password);
-            return usuario; 
+            System.out.println("Bienvenido " + usuario.getNick());
+            System.out.println("Que deseas hacer: ");
+            int eleccionMenu = 0;
+            if(usuario.getRol() == TipoUsuario.Jugador){
+                Jugador jugador = (Jugador) usuario;
+                while(eleccionMenu != 10){//hacer restriccion para que solo meta enteros
+                    Menu menu = new MenuJugador();//deberia ponerlo fuera 
+                    menu.mostrarOpciones();
+                    eleccionMenu = escanerIniSesion.nextInt();
+                    jugador.realizarFuncionMenuJugador(eleccionMenu);
+                }
+            }
+            else{
+                OperadorSistema operador = (OperadorSistema) usuario;
+                while(eleccionMenu != 7){
+                    Menu menu = new MenuOperador();
+                    menu.mostrarOpciones();
+                    eleccionMenu = escanerIniSesion.nextInt();
+                    operador.realizarFuncionMenuOperador(eleccionMenu);
+                }
+            }
         }
-        return null;
         
     }
     
@@ -102,11 +101,11 @@ public class SistemaPrincipalGame {
         System.out.print("Desea registrarse como jugador o como operador: \n");
         String rol = escanerRegistro.nextLine();//habria que poner un while por si introduce otra cosa
         rol = rol.toLowerCase();
-        if(rol == "jugador"){
+        if(rol.equals("jugador")){
             Registro registro = new RegistroJugador(); //nuevas clases
             Usuario usuario = registro.registrarse(TipoUsuario.Jugador);
         }
-        else if(rol == "operador"){
+        else if(rol.equals("operador")){
             Registro registro = new RegistroOperador();
             Usuario usuario = registro.registrarse(TipoUsuario.OperadorSistema);
         }

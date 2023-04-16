@@ -20,7 +20,7 @@ public class Usuario implements UsuariosANotificar{
     private ManagerUsuarios managerUsuarios;
     
     
-    public Usuario(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador){
+    public Usuario(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador){//habria que pasarle un objeto ranking
         
     }
     

@@ -21,7 +21,7 @@ public class Jugador extends Usuario{
     
     public Jugador(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador) {
         super(nombre, nick, password, rol, estadoObservador);
-        if(estadoObservador == State.noBaneado){
+        if(estadoObservador == State.noBaneado){//cambiar
             this.setEstaBaneado(false);
         }
         else{
@@ -131,15 +131,20 @@ public class Jugador extends Usuario{
                 //no se bien que es
                 break;
             case 3://Gestionar Personaje
-                Personaje personaje = getPersonajeActivo();//debo poner un if por si no hay personaje guardado
-                personaje.editarPersonaje();//nuevo metodo
+                if(getPersonajeActivo() == null){
+                    System.out.println("No tienes ningun personaje activo");
+                }
+                else{
+                    Personaje personaje = getPersonajeActivo();//debo poner un if por si no hay personaje guardado
+                    personaje.editarPersonaje();//nuevo metodo
+                }
                 break;
             case 4://Dar de baja Personaje
                 setPersonajeActivo(null);
                 break;
             case 5://Elegir Armas y Armadura
                 Arma arma = super.getEntidades().elegirArma();
-                arma.editarArma();//deberia ser editar personajeActivo
+                arma.editarArma();//deberia ser guardarlo en tus armas
                 Armadura armadura = super.getEntidades().elegirArmadura();
                 armadura.editarArmadura();
                 break;
