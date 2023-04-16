@@ -3,21 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package fase3mp;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-
 /**
  *
  * @author d.rubio.2019
  */
 class Ranking {
-    
     public ManagerUsuarios manager;
     public ArrayList<Map> ordenados;
-    
     public void consultarRanking() {
         Map<Integer, String> ranking = new HashMap<>();
         Usuario user;
