@@ -23,6 +23,7 @@ public class OperadorSistema extends Usuario{
     private void aniadirPersonaje(){
         Personaje personajeNuevo = new Personaje();
         super.getEntidades().aniadir(personajeNuevo);
+        //guardar nuevo personaje en fichero para persistencia
     }
     private void validarDesafio(){
         Desafio desafio = super.getDesafiosAct().obtenerDesafio();
