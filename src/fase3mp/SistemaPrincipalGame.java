@@ -4,9 +4,11 @@
  */
 package fase3mp;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
 
 /**
  *
@@ -116,8 +118,24 @@ public class SistemaPrincipalGame {
         }
     }
 
-    private void leerPersonajes(String fichero) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private void leerPersonajes(String fichero)throws FileNotFoundException {
+        File miFichero = new File(fichero);
+        Scanner scanner = new Scanner(miFichero);
+        while(scanner.hasNextLine()){
+            String linea = scanner.nextLine();   
+            String [] camposPersonaje = linea.split(";");
+            String [] armasLeidas = camposPersonaje[3].split(",");
+            ArrayList <Arma> armas = new ArrayList<>();
+            for (int i = 0; i < armasLeidas.length; i++) {
+                String [] caracteristicaArma = armasLeidas[i].split("|");
+                //Arma arma = new Arma(caracteristicaArma[0],caracteristicaArma[1],caracteristicaArma[2]);
+            }
+            String [] armadurasStr = camposPersonaje[5].split(",");
+            String [] esbirrosStr = camposPersonaje[7].split(",");
+            if (camposPersonaje[0]=="Vampiro"){
+                //Vampiro vampiro = new Vampiro(camposPersonaje[1],camposPersonaje[2], armas, camposPersonaje[4], armaduras, camposPersonaje[6], esbirros, camposPersonaje[8], camposPersonaje[9], camposPersonaje[10], camposPersonaje[11]);
+            }
+        }
     }
     
        
