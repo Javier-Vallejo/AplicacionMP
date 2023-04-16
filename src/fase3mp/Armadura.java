@@ -9,6 +9,14 @@ package fase3mp;
  * @author david
  */
 public class Armadura extends Equipo implements IEquipo{
+    
+    public Armadura(String nombre, String potenciadorDanio, String potenciadorDefensa){
+        super.setNombre(nombre);
+        int potDanio = Integer.parseInt(potenciadorDanio);
+        int potDef = Integer.parseInt(potenciadorDefensa);
+        super.setModDanio(potDanio);
+        super.setModDefensa(potDef);
+    }
 
     @Override
     public int devolverModificadores() {

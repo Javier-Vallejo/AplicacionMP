@@ -11,7 +11,7 @@ package fase3mp;
 public class FabricaArmaduras extends FabricaEquipo{
     @Override
     public Equipo crearEquipo(){
-        Armadura armadura = new Armadura();
-        return armadura;
+        //Armadura armadura = new Armadura();
+        return null;
     }
 }

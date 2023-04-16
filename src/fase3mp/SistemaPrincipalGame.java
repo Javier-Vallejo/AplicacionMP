@@ -128,9 +128,14 @@ public class SistemaPrincipalGame {
             ArrayList <Arma> armas = new ArrayList<>();
             for (int i = 0; i < armasLeidas.length; i++) {
                 String [] caracteristicaArma = armasLeidas[i].split("|");
-                //Arma arma = new Arma(caracteristicaArma[0],caracteristicaArma[1],caracteristicaArma[2]);
+                Arma arma = new Arma(caracteristicaArma[0],caracteristicaArma[1],caracteristicaArma[2], caracteristicaArma[3]);
             }
-            String [] armadurasStr = camposPersonaje[5].split(",");
+            String [] armadurasLeidas = camposPersonaje[5].split(",");
+            for (int j = 0; j < armadurasLeidas.length; j++) {
+                String [] caracteristicaArmadura = armadurasLeidas[j].split("|");
+                Armadura armadura = new Armadura(caracteristicaArmadura[0],caracteristicaArmadura[1],caracteristicaArmadura[2]);
+                
+            }
             String [] esbirrosStr = camposPersonaje[7].split(",");
             if (camposPersonaje[0]=="Vampiro"){
                 //Vampiro vampiro = new Vampiro(camposPersonaje[1],camposPersonaje[2], armas, camposPersonaje[4], armaduras, camposPersonaje[6], esbirros, camposPersonaje[8], camposPersonaje[9], camposPersonaje[10], camposPersonaje[11]);
