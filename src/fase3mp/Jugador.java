@@ -156,10 +156,10 @@ public class Jugador extends Usuario{
                 System.out.println("Su oro actual es: " + getOro());
                 break;
             case 8://Consultar Ranking
-                //hay que hacerlo con la clase nueva ranking
+                //Esto va a cambiar, porque pondremos que el jugador tenga una propiedad ranking,-
+                //- entonces solo tendremos que actualizar el ranking de vez en cuando, no crear uno nuevo siempre.
                 Ranking ranking = new Ranking();
                 ranking.consultarRanking();
-                
                 break;
             case 9://Elegir Personaje
                 if(getPersonajeActivo() != null){
