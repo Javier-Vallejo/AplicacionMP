@@ -158,6 +158,9 @@ public class Jugador extends Usuario{
                 break;
             case 8://Consultar Ranking
                 //hay que hacerlo con la clase nueva ranking
+                Ranking ranking = new Ranking();
+                ranking.consultarRanking();
+                
                 break;
             case 9://Elegir Personaje
                 if(getPersonajeActivo() != null){
@@ -165,7 +168,7 @@ public class Jugador extends Usuario{
                     System.out.println("¿Deseas continuar? Si o No");
                     String opcionSioNO = "";
                     Scanner escanerSioNo = new Scanner(System.in);
-                    while(opcionSioNO != "SI" || opcionSioNO != "NO"){
+                    while(!(opcionSioNO.equals("SI") == false ^ opcionSioNO.equals("NO") == false)){
                         System.out.println("¿Desas iniciar sesion? si o no");
                         opcionSioNO = escanerSioNo.nextLine();
                         opcionSioNO = opcionSioNO.toUpperCase();
