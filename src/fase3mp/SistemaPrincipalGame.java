@@ -139,7 +139,6 @@ public class SistemaPrincipalGame {
                 Armadura armadura = new Armadura(caracteristicaArmadura[0],caracteristicaArmadura[1],caracteristicaArmadura[2]);
                 armaduras.add(armadura);
                 Armadura[] arrayArmas = (Armadura[]) armas.toArray();
-                
             }
             String [] esbirrosStr = camposPersonaje[7].split(",");
             if (camposPersonaje[0]=="Vampiro"){
@@ -147,10 +146,12 @@ public class SistemaPrincipalGame {
                 //camposPersonaje[8], camposPersonaje[9], camposPersonaje[10], camposPersonaje[11], camposPersonaje[12],camposPersonaje[13]);
             }
             else if(camposPersonaje[0]=="Cazador"){
-                
+                //Cazador cazador = new Cazador(camposPersonaje[1],camposPersonaje[2], armas, camposPersonaje[4], armaduras, camposPersonaje[6], esbirros, 
+                //camposPersonaje[8], camposPersonaje[9], camposPersonaje[10], camposPersonaje[11], camposPersonaje[12],camposPersonaje[13]);
             }
             else if(camposPersonaje[0]=="Licantropo"){
-                
+                //Licantropo licantropo = new Licantropo(camposPersonaje[1],camposPersonaje[2], armas, camposPersonaje[4], armaduras, camposPersonaje[6], esbirros, 
+                //camposPersonaje[8], camposPersonaje[9], camposPersonaje[10], camposPersonaje[11], camposPersonaje[12],camposPersonaje[13]);
             }
         }
     }

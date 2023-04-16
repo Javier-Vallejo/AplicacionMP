@@ -4,6 +4,7 @@
  */
 package fase3mp;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -21,8 +22,23 @@ public class OperadorSistema extends Usuario{
         
     }
     private void aniadirPersonaje(){
-        //Personaje personajeNuevo = new Personaje();
-        //super.getEntidades().aniadir(personajeNuevo);
+        System.out.println("Que tipo de personaje desea crear? - Escriba el numero de su tipo:");
+        System.out.println("1. Licantropo --- 2. Vampiro --- 3.Cazador");
+        Scanner lectura = new Scanner(System.in);
+        Integer leido = lectura.nextInt();
+        switch (leido){
+            case 1: //creamos un licantropo
+                Personaje licanNuevo = new Licantropo();
+                break;
+            case 2: // creamos un vampiro
+                Personaje vampNuevo = new Vampiro();
+                break;
+            case 3: //creamos un cazador 
+                Personaje cazNuevo = new Cazador();
+                break;
+        }
+        //super.getEntidades().aniadir(licanNuevo); Esta linea hay que ver como integrarla en cada case.
+        //guardar nuevo personaje en fichero para persistencia
     }
     private void validarDesafio(){
         Desafio desafio = super.getDesafiosAct().obtenerDesafio();
