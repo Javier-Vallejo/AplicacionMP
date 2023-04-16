@@ -39,5 +39,11 @@ public class Equipo {
     
     
     
-    
+    public int devolverAtaque () {
+        return modDanio;
+    }
+
+    public int devolverDefensa () {
+        return modDefensa;
+    }
 }

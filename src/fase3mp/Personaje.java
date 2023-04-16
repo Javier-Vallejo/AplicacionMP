@@ -10,33 +10,60 @@ import java.lang.reflect.Array;
  *
  * @author david
  */
-public class Personaje { //a lo mejor habria que hacer que fueran ArrayList
+public abstract class Personaje { //a lo mejor habria que hacer que fueran ArrayList
     private String nombre;
     private Habilidad habilidadPersonaje;
-    private Array[] armas;
-    private Array[] armasActivas;
-    private Array[] armaduras;
+    private Arma[] armas;
+    private Arma[] armasActivas;
+    private Armadura[] armaduras;
     private Armadura armaduraActiva;
-    private Array[] esbirros;
+    private Esbirro[] esbirros;
     private int Salud;
     private int Poder;
     private Array[] debilidades;
     private Array[] fortalezas;
     
-    
-    public int calculoDanio(){
-        return 0;
+    public int devolverPoder  () {
+        return Poder;
     }
-    
+
+    public Habilidad devolverHabilidad  () {
+        return habilidadPersonaje;
+    }
+
+    public int devolverDañoArma () {
+        int dañoArma = 0;
+        for (int i = 0; i < armasActivas.length; i++) {
+              dañoArma += armasActivas[i].devolverAtaque();     
+         } 
+        return dañoArma;
+    }
+
+
+    public abstract int calculoDanio();
+
     public int calculoDefensa(){
         return 0;
     }
     
     public int calculoVida(){
-        return 0;
+
+        int vidaPersonaje = this.Salud;
+        int saludTotal = 0;
+        saludTotal +=vidaPersonaje;
+        for (int i = 0; i < esbirros.length; i++) {
+            Esbirro esbirro = esbirros[i];
+            int saludEsbirro = esbirro.devolverSalud();
+            saludTotal += saludEsbirro;          
+         } 
+        return saludTotal;
     }
 
     void editarPersonaje() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public int devolverDañoHabilidad(Habilidad habilidad) {
+        return habilidad.getValorAtaque();
     }
 }

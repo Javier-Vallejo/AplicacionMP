@@ -10,6 +10,8 @@ package fase3mp;
  */
 public class Cazador extends Personaje implements InterfazPersonaje{
     
+    private int voluntad ;
+
     public Personaje crearPersonaje(){
         return null;
     }
@@ -18,5 +20,15 @@ public class Cazador extends Personaje implements InterfazPersonaje{
     public Personaje clonar() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public int calculoDanio() {
+        
+        Habilidad habilidad = super.devolverHabilidad();
+        return super.devolverPoder() + super.devolverDañoArma() + super.devolverDañoHabilidad(habilidad) + voluntad;
+
+    }
+
+    
     
 }

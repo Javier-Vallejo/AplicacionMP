@@ -8,7 +8,17 @@ package fase3mp;
  *
  * @author d.rubio.2019
  */
-public class Esbirro {
+public class Esbirro  {
     private String nombre;
     private int salud;
+    
+
+
+    public int devolverSalud () {
+        int saludTotal = salud;
+        
+        return saludTotal;
+    }
+
+    
 }
