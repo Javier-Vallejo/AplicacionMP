@@ -83,20 +83,20 @@ public class ManagerUsuarios {
     }
     
     public Boolean existeUsuario(String nick, String password){
-        for (int i = 0; i == credencialesUsuarios.size(); i++){
-            if ((credencialesUsuarios.get(i).containsKey(nick)) && (credencialesUsuarios.get(i).containsValue(password))){
+        for (int j = 0; j < credencialesUsuarios.size(); j++) {
+            if ((credencialesUsuarios.get(j).containsKey(nick)) && (credencialesUsuarios.get(j).containsValue(password))){
                 return true;
-            }
+            }   
         }
         return false; 
     }
     public Usuario obtenerUsuario(String nick, String password){
         if (existeUsuario(nick,password)){
-            for (int i = 0; i == usuariosRegistrados.size(); i++){
-                if(usuariosRegistrados.get(i).getNick()== nick){
+            for (int i = 0; i < credencialesUsuarios.size(); i++) {
+                if(usuariosRegistrados.get(i).getNick().equals(nick)){
                     return usuariosRegistrados.get(i);
                 }
-            }
+            }            
         }
         return null;
     }
