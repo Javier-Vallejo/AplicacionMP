@@ -22,6 +22,97 @@ public abstract class Personaje { //a lo mejor habria que hacer que fueran Array
     private int Poder;
     private Array[] debilidades;
     private Array[] fortalezas;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Habilidad getHabilidadPersonaje() {
+        return habilidadPersonaje;
+    }
+
+    public void setHabilidadPersonaje(Habilidad habilidadPersonaje) {
+        this.habilidadPersonaje = habilidadPersonaje;
+    }
+
+    public Arma[] getArmas() {
+        return armas;
+    }
+
+    public void setArmas(Arma[] armas) {
+        this.armas = armas;
+    }
+
+    public Arma[] getArmasActivas() {
+        return armasActivas;
+    }
+
+    public void setArmasActivas(Arma[] armasActivas) {
+        this.armasActivas = armasActivas;
+    }
+
+    public Armadura[] getArmaduras() {
+        return armaduras;
+    }
+
+    public void setArmaduras(Armadura[] armaduras) {
+        this.armaduras = armaduras;
+    }
+
+    public Armadura getArmaduraActiva() {
+        return armaduraActiva;
+    }
+
+    public void setArmaduraActiva(Armadura armaduraActiva) {
+        this.armaduraActiva = armaduraActiva;
+    }
+
+    public Esbirro[] getEsbirros() {
+        return esbirros;
+    }
+
+    public void setEsbirros(Esbirro[] esbirros) {
+        this.esbirros = esbirros;
+    }
+
+    public int getSalud() {
+        return Salud;
+    }
+
+    public void setSalud(int Salud) {
+        this.Salud = Salud;
+    }
+
+    public int getPoder() {
+        return Poder;
+    }
+
+    public void setPoder(int Poder) {
+        this.Poder = Poder;
+    }
+
+    public Array[] getDebilidades() {
+        return debilidades;
+    }
+
+    public void setDebilidades(Array[] debilidades) {
+        this.debilidades = debilidades;
+    }
+
+    public Array[] getFortalezas() {
+        return fortalezas;
+    }
+
+    public void setFortalezas(Array[] fortalezas) {
+        this.fortalezas = fortalezas;
+    }
+    
+    
+    
     
     public int devolverPoder  () {
         return Poder;

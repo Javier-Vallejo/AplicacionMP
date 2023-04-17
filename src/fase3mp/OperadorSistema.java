@@ -26,22 +26,22 @@ public class OperadorSistema extends Usuario{
         Scanner lectura = new Scanner(System.in);
         System.out.println("Escriba el nombre del personaje:");
         String nombreCarac = lectura.nextLine();
-        
+        //armas
         System.out.println("Escriba los numeros de las armas que quiere que tenga su personaje: ");
         ArrayList<Integer> armasEleg = super.getEntidades().MostraryElegir("ARMAS");
         Arma[] armasPersonaje = new Arma[armasEleg.size()];
         for (int idx = 0; idx < armasEleg.size(); idx++) {
-            
+            armasPersonaje[idx] = super.getEntidades().elegirArma(armasEleg.get(idx));
         }
- 
+        //armaduras
+        System.out.println("Escriba el numero de la armadura que quiere que tenga su personaje: ");
+        ArrayList<Integer> armadurasEleg = super.getEntidades().MostraryElegir("ARMADURAS");
+        Armadura[] armadurasPersonaje = new Armadura[armadurasEleg.size()];
+        for (int i = 0; i < armadurasEleg.size(); i++) {
+            armadurasPersonaje[i] = super.getEntidades().elegirArmadura(armasEleg.get(i));   
         }
-        int armaduraChar = -1;
-        while (armaduraChar > super.getEntidades().getArmaduras().size() && armaduraChar < 0) {
-            System.out.println("Escriba el numero de la armadura que quiere que tenga su personaje:");
-            super.getEntidades().MostraryElegir("ARMADURA");
-            armaduraChar = lectura.nextInt(); 
-        }
-        
+         
+       
         System.out.println("Escriba la salud del personaje: [Limitada entre 1 y 5]");       
         int saludChar = lectura.nextInt();
         while (saludChar < 1 && saludChar > 5){

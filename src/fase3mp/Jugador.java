@@ -4,6 +4,7 @@
  */
 package fase3mp;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -144,10 +145,12 @@ public class Jugador extends Usuario{
                 setPersonajeActivo(null);
                 break;
             case 5://Elegir Armas y Armadura
-                Arma arma = super.getEntidades().elegirArma();
-                arma.editarArma();//deberia ser guardarlo en tus armas
-                Armadura armadura = super.getEntidades().elegirArmadura();
-                armadura.editarArmadura();
+                Arma[] armasPersonaje = personajeActivo.getArmas(); 
+                System.out.println("Elige un arma: ");
+                for (int i = 0; i < armasPersonaje.length; i++) {
+                    System.out.println("Arma "+i+ armasPersonaje[i]);
+                }
+                //aqui ya se comprobaria si es de una mano o dos y ya se aniadiria
                 break;
             case 6://Desafiar
                 Desafio desafio = new Desafio();
@@ -169,20 +172,21 @@ public class Jugador extends Usuario{
                     String opcionSioNO = "";
                     Scanner escanerSioNo = new Scanner(System.in);
                     while(!(opcionSioNO.equals("SI") == false ^ opcionSioNO.equals("NO") == false)){
-                        System.out.println("¿Desas iniciar sesion? si o no");
+                        System.out.println("¿Deseas continuar? Si o No");
                         opcionSioNO = escanerSioNo.nextLine();
                         opcionSioNO = opcionSioNO.toUpperCase();
                     }
                     if (opcionSioNO.equals("SI")){
                         ArrayList<Integer> personaje = super.getEntidades().MostraryElegir("PERSONAJES");
-                        setPersonajeActivo(super.getEntidades().elegirPersonaje(personaje.get(0)));
+                        setPersonajeActivo(super.getEntidades().elegirPersonaje(personaje.get(0)));//habra que hacer que elegir personaje llame a clone
                     }
                     else if(opcionSioNO.equals("NO")){
                         System.out.println("Su personaje no se cambiara");
                     }            
                 }
                 else{
-                    setPersonajeActivo(super.getEntidades().elegirPersonaje());
+                    ArrayList<Integer> personaje = super.getEntidades().MostraryElegir("PERSONAJES");
+                    setPersonajeActivo(super.getEntidades().elegirPersonaje(personaje.get(0)));
                 }
                 break;
             case 10://Salir
