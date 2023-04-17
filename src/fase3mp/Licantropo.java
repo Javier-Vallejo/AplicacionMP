@@ -11,6 +11,11 @@ package fase3mp;
 public class Licantropo extends Personaje implements InterfazPersonaje{
     
     private int rabia;
+    
+    public Licantropo (String nombre, Habilidad habilidad, Arma[] armas, Arma[] armaActiva, Armadura[] armaduras, Armadura armaduraActiva, Esbirro[] esbirros, int salud, int poder, Debilidad[] debilidades, Fortaleza[] fortalezas, int rabia){
+        
+    
+    }
 
     public Personaje crearPersonaje(){
         return null;

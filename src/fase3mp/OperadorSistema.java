@@ -22,19 +22,60 @@ public class OperadorSistema extends Usuario{
         
     }
     private void aniadirPersonaje(){
+        Scanner lectura = new Scanner(System.in);
+        System.out.println("Escriba el nombre del personaje:");
+        String nombreChar = lectura.nextLine();
+        
+        
+        int armaChar = -1;
+        while (armaChar > super.getEntidades().getArmas().size() && armaChar < 0) {
+            System.out.println("Escriba el numero del arma que quiere que tenga su personaje:");
+            super.getEntidades().Mostrar("ARMAS");
+            armaChar = lectura.nextInt(); 
+        }
+        int armaduraChar = -1;
+        while (armaduraChar > super.getEntidades().getArmaduras().size() && armaChar < 0) {
+            System.out.println("Escriba el numero de la armadura que quiere que tenga su personaje:");
+            super.getEntidades().Mostrar("ARMADURA");
+            armaduraChar = lectura.nextInt(); 
+        }
+        
+        System.out.println("Escriba la salud del personaje: [Limitada entre 1 y 5]");       
+        int saludChar = lectura.nextInt();
+        while (saludChar < 1 && saludChar > 5){
+            System.out.println("El valor de salud debe estar entre 1 y 5");
+            System.out.println("Por favor introduzca el valor de nuevo: ");
+            saludChar = lectura.nextInt();
+        }        
+        System.out.println("Escriba el poder del personaje: [Limitado entre 1 y 5]");
+        int poderChar = lectura.nextInt();
+        while (poderChar < 1 && poderChar > 5){
+            System.out.println("El valor de poder debe estar entre 1 y 5");
+            System.out.println("Por favor introduzca el valor de nuevo: ");
+            poderChar = lectura.nextInt();
+        }
+        
+        //Falta recabar la informacion respecto a las debilidades y fortalezas
+        
+        
         System.out.println("Que tipo de personaje desea crear? - Escriba el numero de su tipo:");
         System.out.println("1. Licantropo --- 2. Vampiro --- 3.Cazador");
-        Scanner lectura = new Scanner(System.in);
+        
         Integer leido = lectura.nextInt();
         switch (leido){
+            //cada tipo de personaje integrará su propia habilidad
             case 1: //creamos un licantropo
-                Personaje licanNuevo = new Licantropo();
+                //Personaje licanNuevo = new Licantropo(nombreChar, etc);
+                //super.getEntidades().aniadir(licanNuevo);
+                
                 break;
             case 2: // creamos un vampiro
                 Personaje vampNuevo = new Vampiro();
+                super.getEntidades().aniadir(vampNuevo);
                 break;
             case 3: //creamos un cazador 
                 Personaje cazNuevo = new Cazador();
+                super.getEntidades().aniadir(cazNuevo);
                 break;
         }
         //super.getEntidades().aniadir(licanNuevo); Esta linea hay que ver como integrarla en cada case.
