@@ -5,6 +5,7 @@
 package fase3mp;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -56,36 +57,58 @@ public class EntidadesActivas {
             armaduras.add(armadura);
         }
     }
-    public Personaje elegirPersonaje(){
-        return null;
+    public Personaje elegirPersonaje(int eleccion){
+        return personajes.get(eleccion);
     }
-    public Arma elegirArma(){
-        return null;
+    public Arma elegirArma(int eleccion){
+        return armas.get(eleccion);
     }
     
-    public Armadura elegirArmadura(){
-        return null;
+    public Armadura elegirArmadura(int eleccion){
+        return armaduras.get(eleccion);
     }
-    public void Mostrar(String objetoMostrar){
-       if (objetoMostrar.equals("PERSONAJES")){
-           for (int i = 0; i < personajes.size(); i++) {
-               System.out.println("Personaje " + i + personajes.get(i));
-           }
-       }
-       else if (objetoMostrar.equals("ARMAS")){
-           for (int i = 0; i < armas.size(); i++) {
-               System.out.println("Arma " + i + armas.get(i));
-           }
-           
-       }
-       else if (objetoMostrar.equals("ARMADURAS")){
-           for (int i = 0; i < armaduras.size(); i++) {
-               System.out.println("Armadura " + i + armaduras.get(i));
-           }
-           
-       }
-       else {
+    public ArrayList<Integer> MostraryElegir(String objetoMostrar){//se podrian poner if para controlar que meta un numero 
+        Scanner escaner = new Scanner(System.in);//en el rango correcto
+        if (objetoMostrar.equals("PERSONAJES")){
+            for (int i = 0; i < personajes.size(); i++) {
+                System.out.println("Personaje " + i + personajes.get(i));
+            }
+            System.out.println((personajes.size()+1)+" Salir");
+            int personajeEle = escaner.nextInt();
+            ArrayList<Integer> personajesElegidos = new ArrayList<>();
+            personajesElegidos.add(personajeEle);
+            return personajesElegidos;      
+        }
+        else if (objetoMostrar.equals("ARMAS")){
+            int armaEle = 0;
+            for (int i = 0; i < armas.size(); i++) {
+                System.out.println("Arma " + i + armas.get(i));
+            }
+            System.out.println((armas.size()+1)+" Salir");
+            while(armaEle != armas.size()+1){
+                armaEle = escaner.nextInt();
+                ArrayList<Integer> armasElegidas = new ArrayList<>();
+                armasElegidas.add(armaEle);
+                return armasElegidas;
+            }
+        }
+        else if (objetoMostrar.equals("ARMADURAS")){
+            int armaduraEle = 0;
+            for (int i = 0; i < armaduras.size(); i++) {
+                System.out.println("Armadura " + i + armaduras.get(i));
+            }
+            System.out.println((armaduras.size()+1)+" Salir");
+            while(armaduraEle != armaduras.size()+1){
+                armaduraEle = escaner.nextInt();
+                ArrayList<Integer> armadurasElegidas = new ArrayList<>();
+                armadurasElegidas.add(armaduraEle);
+                return armadurasElegidas;
+            }
+        }
+        else {
            System.out.println("No existe el contenido "+ objetoMostrar);
-       }
+           return null;
+        }
+        return null;
     }
 }

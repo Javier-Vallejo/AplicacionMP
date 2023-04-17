@@ -11,8 +11,9 @@ package fase3mp;
 public class FabricaLicantropo extends FabricaPersonajes{
     @Override
     public Personaje crearPersonaje(){
-        Licantropo lican = new Licantropo();
-        return lican;
+        //Licantropo lican = new Licantropo();
+        //return lican;
+        return null;
     }
     
 }

@@ -174,7 +174,8 @@ public class Jugador extends Usuario{
                         opcionSioNO = opcionSioNO.toUpperCase();
                     }
                     if (opcionSioNO.equals("SI")){
-                        setPersonajeActivo(super.getEntidades().elegirPersonaje());
+                        ArrayList<Integer> personaje = super.getEntidades().MostraryElegir("PERSONAJES");
+                        setPersonajeActivo(super.getEntidades().elegirPersonaje(personaje.get(0)));
                     }
                     else if(opcionSioNO.equals("NO")){
                         System.out.println("Su personaje no se cambiara");

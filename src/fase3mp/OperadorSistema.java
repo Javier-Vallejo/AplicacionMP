@@ -4,6 +4,7 @@
  */
 package fase3mp;
 
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -24,19 +25,20 @@ public class OperadorSistema extends Usuario{
     private void aniadirPersonaje(){
         Scanner lectura = new Scanner(System.in);
         System.out.println("Escriba el nombre del personaje:");
-        String nombreChar = lectura.nextLine();
+        String nombreCarac = lectura.nextLine();
         
-        
-        int armaChar = -1;
-        while (armaChar > super.getEntidades().getArmas().size() && armaChar < 0) {
-            System.out.println("Escriba el numero del arma que quiere que tenga su personaje:");
-            super.getEntidades().Mostrar("ARMAS");
-            armaChar = lectura.nextInt(); 
+        System.out.println("Escriba los numeros de las armas que quiere que tenga su personaje: ");
+        ArrayList<Integer> armasEleg = super.getEntidades().MostraryElegir("ARMAS");
+        Arma[] armasPersonaje = new Arma[armasEleg.size()];
+        for (int idx = 0; idx < armasEleg.size(); idx++) {
+            
+        }
+ 
         }
         int armaduraChar = -1;
-        while (armaduraChar > super.getEntidades().getArmaduras().size() && armaChar < 0) {
+        while (armaduraChar > super.getEntidades().getArmaduras().size() && armaduraChar < 0) {
             System.out.println("Escriba el numero de la armadura que quiere que tenga su personaje:");
-            super.getEntidades().Mostrar("ARMADURA");
+            super.getEntidades().MostraryElegir("ARMADURA");
             armaduraChar = lectura.nextInt(); 
         }
         
@@ -94,7 +96,8 @@ public class OperadorSistema extends Usuario{
                 DarseDeBaja(this);
                 break;
             case 2://Editar Personaje
-                Personaje personaje = super.getEntidades().elegirPersonaje();
+                ArrayList<Integer> personajeEle = super.getEntidades().MostraryElegir("PERSONAJES");
+                Personaje personaje = super.getEntidades().elegirPersonaje(personajeEle.get(0));
                 editarPersonaje(personaje);//podria estar en la clase personaje             
                 break;
             case 3://Aniadir Personaje
