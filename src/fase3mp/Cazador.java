@@ -29,6 +29,12 @@ public class Cazador extends Personaje implements InterfazPersonaje{
 
     }
 
+    @Override
+    public int calculoDefensa() {
+        Habilidad habilidad = devolverHabilidad();
+        return  super.devolverDefensaArma() + habilidad.getValorDefensa();
+    }
+
     
     
 }

@@ -26,16 +26,25 @@ public class Licantropo extends Personaje implements InterfazPersonaje{
     @Override
     public int calculoDanio() {
         Habilidad habilidad = super.devolverHabilidad();
-        return super.devolverPoder() + super.devolverDañoArma() + super.devolverDañoHabilidad(habilidad) + habilidadActiva() + rabia;
+        return super.devolverPoder() + super.devolverDañoArma() + super.devolverDañoHabilidad(habilidad) + activarDon(rabia,"Ataque") + rabia;
     }
 
-    private int habilidadActiva() {
+    private int activarDon(int rabia, String opcion) {
         Dones dones  =  (Dones) super.devolverHabilidad();
         int danioBase = super.devolverDañoHabilidad(dones);
-        if (rabia >= dones.getLimitante()) {
-            return dones.activarDon(danioBase);
+        if (rabia >= dones.getLimitante() && opcion == "Ataque") {
+            return dones.activar(danioBase,opcion);
+        }
+        else if ((rabia >= dones.getLimitante() && opcion == "Defensa")) {
+            return dones.activar(danioBase,opcion);
         }
         return 0;
+    }
+
+    @Override
+    public int calculoDefensa() {
+        Dones dones = (Dones) super.devolverHabilidad();
+        return  super.devolverDefensaArma() + dones.getValorDefensa() + activarDon(rabia,"Defensa");
     }
     
 }
