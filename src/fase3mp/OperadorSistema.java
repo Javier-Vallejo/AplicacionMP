@@ -57,6 +57,18 @@ public class OperadorSistema extends Usuario{
             poderChar = lectura.nextInt();
         }
         
+
+        System.out.println("Escriba el nombre de la habilidad");
+        String nombre  = lectura.nextLine();
+        System.out.println("Escriba el poder que se obtiene de base de la habilidad");
+        int poderHabilidad = lectura.nextInt();
+        System.out.println("Escriba la defensa que se obtiene de base de la habilidad");
+        int defensaHabilidad = lectura.nextInt();
+        System.out.println("Escriba el limitante para poder activar la habilidad");
+        int limitante = lectura.nextInt();
+
+        Habilidad habilidad = new Habilidad(nombre, poderHabilidad, defensaHabilidad, limitante);
+
         //Falta recabar la informacion respecto a las debilidades y fortalezas
         
         
@@ -67,17 +79,25 @@ public class OperadorSistema extends Usuario{
         switch (leido){
             //cada tipo de personaje integrará su propia habilidad
             case 1: //creamos un licantropo
-                //Personaje licanNuevo = new Licantropo(nombreChar, etc);
+                FabricaPersonajes fabricaPersonajes= new FabricaLicantropo();
+                System.out.println("¿Cual va a ser la cantidad de rabia de este licantropo?");
+                int rabia = lectura.nextInt();
+                Licantropo  licantropo= (Licantropo) fabricaPersonajes.crearPersonaje(nombreCarac, habilidad, armasPersonaje, armasPersonaje, armadurasPersonaje, null, null, saludChar, poderChar, null, null);
+                licantropo.setRabia(rabia);
                 //super.getEntidades().aniadir(licanNuevo);
                 
                 break;
             case 2: // creamos un vampiro
-                //Personaje vampNuevo = new Vampiro();
+            fabricaPersonajes= new FabricaVampiro();
+            System.out.println("¿Cual va a ser la cantidad de rabia de este licantropo?");
+                int sangre = lectura.nextInt();
+            Vampiro vamìro = (Vampiro) fabricaPersonajes.crearPersonaje(nombreCarac, habilidad, armasPersonaje, armasPersonaje, armadurasPersonaje, null, null, saludChar, poderChar, null, null);
+            //vamìro.setSa
                 //super.getEntidades().aniadir(vampNuevo);
                 break;
             case 3: //creamos un cazador 
-                //Personaje cazNuevo = new Cazador();
-                //super.getEntidades().aniadir(cazNuevo);
+            fabricaPersonajes= new FabricaCazador();
+            fabricaPersonajes.crearPersonaje(nombreCarac, habilidad, armasPersonaje, armasPersonaje, armadurasPersonaje, null, null, saludChar, poderChar, null, null);
                 break;
         }
         //super.getEntidades().aniadir(licanNuevo); Esta linea hay que ver como integrarla en cada case.

@@ -19,7 +19,6 @@ public class Cazador extends Personaje implements InterfazPersonaje{
     Armadura armaduraActiva,Esbirro[] esbirros,int Salud,int Poder,Array[] debilidades,Array[] fortalezas) {
         super(nombre, habilidadPersonaje, armas, armasActivas, armaduras, armaduraActiva, esbirros, Salud, Poder,debilidades,fortalezas);
 
-        setVoluntad(voluntad);
     }
 
     @Override

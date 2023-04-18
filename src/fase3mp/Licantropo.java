@@ -15,14 +15,13 @@ public class Licantropo extends Personaje implements InterfazPersonaje{
     private int rabia;
     
     public Licantropo (String nombre,Habilidad habilidadPersonaje,Arma[] armas,Arma[] armasActivas,Armadura[] armaduras, 
-    Armadura armaduraActiva,Esbirro[] esbirros,int Salud,int Poder,Array[] debilidades,Array[] fortalezas, int rabia){
+    Armadura armaduraActiva,Esbirro[] esbirros,int Salud,int Poder,Array[] debilidades,Array[] fortalezas){
         super(nombre, habilidadPersonaje, armas, armasActivas, armaduras, armaduraActiva, esbirros, Salud, Poder,debilidades,fortalezas);
 
-        setRabia(rabia);
     
     }
 
-    private void setRabia(int rabia) {
+    public void setRabia(int rabia) {
 
         this.rabia = rabia;
     }

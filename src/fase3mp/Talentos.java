@@ -8,6 +8,6 @@ package fase3mp;
  *
  * @author d.rubio.2019
  */
-public class Talentos {
+public class Talentos  {
     
 }

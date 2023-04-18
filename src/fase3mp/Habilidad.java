@@ -14,6 +14,14 @@ public class Habilidad {
     private int valorDefensa;
     private int limitante;
 
+
+    public Habilidad (String nombre,int valorAtaque,int valorDefensa,int limitante) {
+        setNombre(nombre);
+        setValorAtaque(valorAtaque);
+        setValorDefensa(valorDefensa);
+        setLimitante(limitante);
+    }
+
     public String getNombre() {
         return nombre;
     }
