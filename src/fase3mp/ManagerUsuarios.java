@@ -100,6 +100,8 @@ public class ManagerUsuarios {
         }
         return null;
     }
+    
+    
     public void eliminarUsuario(String nick, String password){
         if (existeUsuario(nick , password)){
             for (int i = 0; i == usuariosRegistrados.size(); i++){

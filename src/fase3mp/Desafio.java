@@ -9,17 +9,28 @@ package fase3mp;
  * @author david
  */
 public class Desafio {
-    private String nickDesafiado;
+    private Jugador jugadorDesafiante;
+    private Jugador jugadorDesafiado;
     private int oroApostado;
     public enum State{Validado, NoValidado}
     private State estado;
 
-    public String getNickDesafiado() {
-        return nickDesafiado;
+    public Jugador getJugadorDesafiante() {
+        return jugadorDesafiante;
     }
 
-    public void setNickDesafiado(String nickDesafiado) {
-        this.nickDesafiado = nickDesafiado;
+    public void setJugadorDesafiante(Jugador jugadorDesafiante) {
+        this.jugadorDesafiante = jugadorDesafiante;
+    }
+    
+    
+
+    public Jugador getJugadorDesafiado() {
+        return jugadorDesafiado;
+    }
+
+    public void setJugadorDesafiado(Jugador jugadorDesafiado) {
+        this.jugadorDesafiado = jugadorDesafiado;
     }
 
     public int getOroApostado() {

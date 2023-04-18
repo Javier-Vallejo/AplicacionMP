@@ -92,7 +92,23 @@ public class Jugador extends Usuario{
         
     }
     private void AceptaroRechazarDesafio(Desafio desafio){
+        //System.out.println();
+        Scanner lectura = new Scanner(System.in);
+        int opcion = lectura.nextInt();
         
+        if (opcion == 1){ //1 es aceptar el desafio
+            Combate combate = new Combate(desafio.getJugadorDesafiante(), this, desafio.getOroApostado());
+            ArrayList<Ronda> rondas = new ArrayList();
+            while((combate.getVida2() > 0) && (combate.getVida1() > 0)){
+                Ronda rondaX = combate.EmpezarRonda(combate.getPersonaje1(), combate.getPersonaje2(), combate.getVida1(), combate.getVida2());
+                rondas.add(rondaX);
+            }
+            //Sujeto a cambios la manera de añadir las rondas a la clase combate
+            Ronda[] misRondas = new Ronda[rondas.size()];
+            misRondas = rondas.toArray(misRondas);
+            combate.setRondas(misRondas);
+            
+        }
     }
     private void ConsultarOro(){
         
