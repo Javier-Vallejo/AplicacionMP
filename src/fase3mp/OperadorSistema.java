@@ -72,12 +72,12 @@ public class OperadorSistema extends Usuario{
                 
                 break;
             case 2: // creamos un vampiro
-                Personaje vampNuevo = new Vampiro();
-                super.getEntidades().aniadir(vampNuevo);
+                //Personaje vampNuevo = new Vampiro();
+                //super.getEntidades().aniadir(vampNuevo);
                 break;
             case 3: //creamos un cazador 
-                Personaje cazNuevo = new Cazador();
-                super.getEntidades().aniadir(cazNuevo);
+                //Personaje cazNuevo = new Cazador();
+                //super.getEntidades().aniadir(cazNuevo);
                 break;
         }
         //super.getEntidades().aniadir(licanNuevo); Esta linea hay que ver como integrarla en cada case.
