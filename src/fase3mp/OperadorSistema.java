@@ -71,7 +71,7 @@ public class OperadorSistema extends Usuario{
         System.out.println("Escriba el limitante para poder activar la habilidad");
         int limitante = lectura.nextInt();
 
-        Habilidad habilidad = new Habilidad(nombre, poderHabilidad, defensaHabilidad, limitante);
+        Habilidad habilidadPersonaje = new Habilidad(nombre, poderHabilidad, defensaHabilidad, limitante);
 
         //Falta recabar la informacion respecto a las debilidades y fortalezas
         //habra que poner las debilidades y fortalezas en entidades activas
