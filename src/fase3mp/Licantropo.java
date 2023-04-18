@@ -37,10 +37,10 @@ public class Licantropo extends Personaje implements InterfazPersonaje{
     private int activarDon(int rabia, String opcion) {
         Dones dones  =  (Dones) super.devolverHabilidad();
         int danioBase = super.devolverDañoHabilidad(dones);
-        if (rabia >= dones.getLimitante() && opcion == "Ataque") {
+        if (rabia >= dones.getLimitante() && opcion.equals("Ataque")) {
             return dones.activar(danioBase,opcion);
         }
-        else if ((rabia >= dones.getLimitante() && opcion == "Defensa")) {
+        else if ((rabia >= dones.getLimitante() && opcion.equals("Defensa"))) {
             return dones.activar(danioBase,opcion);
         }
         return 0;

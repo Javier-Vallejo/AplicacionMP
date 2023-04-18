@@ -40,11 +40,11 @@ public class Vampiro extends Personaje implements InterfazPersonaje{
     private int activarDisciplina(int sangre, String opcion) {
         Disciplinas disciplina  =  (Disciplinas) super.devolverHabilidad();
 
-        if (sangre >= disciplina.getLimitante() && opcion == "Ataque") {
+        if (sangre >= disciplina.getLimitante() && opcion.equals("Ataque")) {
                 return disciplina.activar(opcion);
         }
 
-        else if (sangre >= disciplina.getLimitante() && opcion == "Defensa") {
+        else if (sangre >= disciplina.getLimitante() && opcion.equals("Defensa")) {
                 return disciplina.activar(opcion);
         }
 
