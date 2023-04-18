@@ -4,6 +4,8 @@
  */
 package fase3mp;
 
+import java.lang.reflect.Array;
+
 /**
  *
  * @author d.rubio.2019
@@ -12,14 +14,20 @@ public class Licantropo extends Personaje implements InterfazPersonaje{
     
     private int rabia;
     
-    public Licantropo (String nombre, Habilidad habilidad, Arma[] armas, Arma[] armaActiva, Armadura[] armaduras, Armadura armaduraActiva, Esbirro[] esbirros, int salud, int poder, Debilidad[] debilidades, Fortaleza[] fortalezas, int rabia){
-        
+    public Licantropo (String nombre,Habilidad habilidadPersonaje,Arma[] armas,Arma[] armasActivas,Armadura[] armaduras, 
+    Armadura armaduraActiva,Esbirro[] esbirros,int Salud,int Poder,Array[] debilidades,Array[] fortalezas, int rabia){
+        super(nombre, habilidadPersonaje, armas, armasActivas, armaduras, armaduraActiva, esbirros, Salud, Poder,debilidades,fortalezas);
+
+        setRabia(rabia);
     
     }
 
-    public Personaje crearPersonaje(){
-        return null;
+    private void setRabia(int rabia) {
+
+        this.rabia = rabia;
     }
+
+    
 
     @Override
     public Personaje clonar() {
@@ -37,10 +45,10 @@ public class Licantropo extends Personaje implements InterfazPersonaje{
     private int activarDon(int rabia, String opcion) {
         Dones dones  =  (Dones) super.devolverHabilidad();
         int danioBase = super.devolverDañoHabilidad(dones);
-        if (rabia >= dones.getLimitante() && opcion == "Ataque") {
+        if (rabia >= dones.getLimitante() && opcion.equals("Ataque")) {
             return dones.activar(danioBase,opcion);
         }
-        else if ((rabia >= dones.getLimitante() && opcion == "Defensa")) {
+        else if ((rabia >= dones.getLimitante() && opcion.equals("Defensa"))) {
             return dones.activar(danioBase,opcion);
         }
         return 0;
