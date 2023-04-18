@@ -18,7 +18,7 @@ public class Usuario implements UsuariosANotificar{
     private EntidadesActivas entidades;
     private DesafiosActivos desafiosAct;
     private ManagerUsuarios managerUsuarios;
-    
+    private FabricaPersonajes fabricaPersonajes;//habra que pasarselo en el constructor tambien
     
     public Usuario(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador){//habria que pasarle un objeto ranking
         setNombre(nombre);
@@ -27,7 +27,10 @@ public class Usuario implements UsuariosANotificar{
         setRol(rol);
         setEstadoObservador(estadoObservador);
     }
-    
+
+    public FabricaPersonajes getFabricaPersonajes() {
+        return fabricaPersonajes;
+    }
     
     public String getNombre() {
         return nombre;
