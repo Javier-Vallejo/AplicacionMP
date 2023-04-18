@@ -125,17 +125,21 @@ public abstract class Personaje { //a lo mejor habria que hacer que fueran Array
     public int devolverDañoArma () {
         int dañoArma = 0;
         for (int i = 0; i < armasActivas.length; i++) {
-              dañoArma += armasActivas[i].devolverAtaque();     
+              dañoArma += armasActivas[i].devolverModificadores();     
          } 
         return dañoArma;
     }
 
 
+    public int devolverDefensaArma () {
+        
+        return armaduraActiva.devolverModificadores();
+    }
+
     public abstract int calculoDanio();
 
-    public int calculoDefensa(){
-        return 0;
-    }
+    public abstract int calculoDefensa();
+
     
     public int calculoVida(){
 

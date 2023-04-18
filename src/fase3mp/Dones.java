@@ -10,8 +10,16 @@ package fase3mp;
  */
 public class Dones extends Habilidad {
 
-public int activarDon(int danio) {
-        return danio +10;
+public int activar(int danio, String opcion) {
+        if ( opcion == "Ataque") {
+                return danio +10;
+        }
+        else if (opcion == "Defensa") {
+                return 25;
+        }
+
+        return 0;
+
 }
     
 }
