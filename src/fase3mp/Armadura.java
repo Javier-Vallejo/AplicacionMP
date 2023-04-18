@@ -19,8 +19,8 @@ public class Armadura extends Equipo implements IEquipo{
     }
 
     @Override
-    public int devolverModificadores(int opcion) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int devolverModificadores() {
+        return super.devolverDefensa();
     }
 
     void editarArmadura() {

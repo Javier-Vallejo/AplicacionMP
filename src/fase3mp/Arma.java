@@ -32,15 +32,8 @@ public class Arma extends Equipo implements IEquipo{
     
     
     @Override
-    public int devolverModificadores(int opcion) {
-        if (opcion == 1 ){
-            return super.devolverAtaque();
-        }
-
-        else if (opcion == 2) {
-            return super.devolverDefensa();
-        }
-        return 0;
+    public int devolverModificadores() {
+        return super.devolverAtaque();
     }
     
     

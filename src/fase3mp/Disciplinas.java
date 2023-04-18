@@ -8,6 +8,16 @@ package fase3mp;
  *
  * @author d.rubio.2019
  */
-public class Disciplinas {
+public class Disciplinas extends Habilidad {
+
+    public int activar(String opcion) {
+        if (opcion=="Ataque") {
+            return 15;
+        }
+        else if (opcion == "Defensa") {
+            return 10;
+        }
+        return 0;
+    }
     
 }
