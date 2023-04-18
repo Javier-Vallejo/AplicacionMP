@@ -11,11 +11,8 @@ import java.util.ArrayList;
  * @author d.rubio.2019
  */
 public class Demonio extends Esbirro implements IEsbirros{
-    public Demonio(String nombre, int salud,boolean tienePacto,
-     Pacto pacto) {
+    public Demonio(String nombre, int salud) {
         super(nombre, salud);
-        setBooleanPacto(tienePacto);
-        setPacto(pacto);
         //TODO Auto-generated constructor stub
     }
 

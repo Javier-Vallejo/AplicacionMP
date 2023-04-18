@@ -9,7 +9,7 @@ package fase3mp;
  * @author d.rubio.2019
  */
 public class Humano extends Esbirro implements IEsbirros {
-    public Humano(String nombre, int salud,nivelLealtad lealtad) {
+    public Humano(String nombre, int salud) {
         super(nombre, salud);
         
     }

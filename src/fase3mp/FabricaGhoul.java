@@ -9,9 +9,9 @@ package fase3mp;
  * @author d.rubio.2019
  */
 public class FabricaGhoul extends FabricaEsbirros {
-    public Esbirro crearEsbirro(String nombre,
-    int salud, int dependencia){
-        Ghoul ghoul = new Ghoul(nombre, salud,dependencia);
+    @Override
+    public Esbirro crearEsbirro(String nombre, int salud) {
+        Ghoul ghoul = new Ghoul(nombre, salud);
         return ghoul;
-     }
+    }
 }

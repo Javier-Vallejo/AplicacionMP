@@ -13,17 +13,7 @@ import java.util.Scanner;
  */
 public abstract class FabricaPersonajes {
     
-    public  Personaje crearPersonaje(String nombre,Habilidad habilidadPersonaje,Arma[] armas,Arma[] armasActivas,Armadura[] armaduras, 
-    Armadura armaduraActiva,Esbirro[] esbirros,int Salud,int Poder,Array[] debilidades,Array[] fortalezas) {
-
-
-        System.out.println("Escoja el tipo de personaje a crear");
-        Scanner escanerTipo = new Scanner(System.in);
-        String tipoPersonaje = escanerTipo.nextLine();
-        escanerTipo.close();
-        switch(tipoPersonaje) { 
-            
-    }   
-      return null;
-}
+    public  abstract Personaje  crearPersonaje(String nombre,Habilidad habilidadPersonaje,Arma[] armas,Arma[] armasActivas,Armadura[] armaduras, 
+    Armadura armaduraActiva,Esbirro[] esbirros,int Salud,int Poder,Array[] debilidades,Array[] fortalezas);
+      
 }
