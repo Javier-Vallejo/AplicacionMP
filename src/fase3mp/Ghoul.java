@@ -9,6 +9,15 @@ package fase3mp;
  * @author d.rubio.2019
  */
 public class Ghoul extends Esbirro implements IEsbirros{
+    public Ghoul(String nombre, int salud,int dependencia) {
+        super(nombre, salud);
+        setDependencia(dependencia);
+        }
+
+    private void setDependencia(int dependencia) {
+        this.dependencia = dependencia;
+    }
+
     private int dependencia;
     
     @Override

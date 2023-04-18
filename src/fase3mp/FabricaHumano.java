@@ -9,9 +9,9 @@ package fase3mp;
  * @author d.rubio.2019
  */
 public class FabricaHumano extends FabricaEsbirros {
-    @Override
-    public Esbirro crearEsbirro(){
-        Humano humano = new Humano();
+    public Esbirro crearEsbirro(String nombre,
+    int salud,   Humano.nivelLealtad lealtad){
+        Humano humano = new Humano(nombre, salud,lealtad);
         return humano;
-    }
+     }
 }

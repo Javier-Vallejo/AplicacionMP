@@ -9,9 +9,11 @@ package fase3mp;
  * @author d.rubio.2019
  */
 public class FabricaDemonio extends FabricaEsbirros {
-    @Override
-    public Esbirro crearEsbirro(){
-        Demonio demonio = new Demonio();
+    
+    public Esbirro crearEsbirro(String nombre,
+    int salud, boolean tienePacto,
+    Pacto pacto){
+        Demonio demonio = new Demonio(nombre, salud,tienePacto,pacto);
         return demonio;
-    }
+     }
 }
