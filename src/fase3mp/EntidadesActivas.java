@@ -82,10 +82,10 @@ public class EntidadesActivas {
         else if (objetoMostrar.equals("ARMAS")){
             int armaEle = 0;
             for (int i = 0; i < armas.size(); i++) {
-                System.out.println("Arma " + i + armas.get(i));
+                System.out.println("Arma " + i + armas.get(i).getNombre());
             }
             System.out.println((armas.size()+1)+" Salir");
-            while(armaEle != armas.size()+1){
+            while(armaEle != armas.size()+1){//habria que limitar para que no acepte enteros mayores que el size
                 armaEle = escaner.nextInt();
                 ArrayList<Integer> armasElegidas = new ArrayList<>();
                 armasElegidas.add(armaEle);
@@ -95,7 +95,7 @@ public class EntidadesActivas {
         else if (objetoMostrar.equals("ARMADURAS")){
             int armaduraEle = 0;
             for (int i = 0; i < armaduras.size(); i++) {
-                System.out.println("Armadura " + i + armaduras.get(i));
+                System.out.println("Armadura " + i + armaduras.get(i).getNombre());
             }
             System.out.println((armaduras.size()+1)+" Salir");
             while(armaduraEle != armaduras.size()+1){
