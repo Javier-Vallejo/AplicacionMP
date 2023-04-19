@@ -9,9 +9,13 @@ package fase3mp;
  * @author d.rubio.2019
  */
 public class FabricaArmaduras extends FabricaEquipo{
+
     @Override
-    public Equipo crearEquipo(){
-        //Armadura armadura = new Armadura();
-        return null;
+    public Equipo crearEquipo(String nombre, String modDanio, String modDefensa) {
+        Armadura armadura = new Armadura(nombre, modDanio, modDefensa);
+         return armadura;
+
     }
+
+    
 }

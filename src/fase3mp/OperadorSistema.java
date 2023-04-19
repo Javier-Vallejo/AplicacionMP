@@ -7,6 +7,7 @@ package fase3mp;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 //import java.util.Locale;
 import java.util.Scanner;
@@ -83,11 +84,14 @@ public class OperadorSistema extends Usuario{
         
         FileWriter escritorFich = new FileWriter(ficheroPersonajes); //escritor en fichero
         FabricaPersonajes fabricaPersonajes = super.getFabricaPersonajes();
+        Debilidad[] debilidades =  new Debilidad[2];
+
+        Fortaleza[] fortalezas = new Fortaleza[2];
         switch (leido){
             //cada tipo de personaje integrará su propia habilidad
             case 1: //creamos un licantropo
                 fabricaPersonajes = new FabricaLicantropo();
-                //Licantropo licanNuevo = fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje, armasPersonaje, armasPersonaje, armadurasPersonaje, armaduraActiva, esbirros, 0, 0, debilidades, fortalezas, 0);
+                //Licantropo licanNuevo = fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje, armasPersonaje, armasPersonaje, armadurasPersonaje, armadurasPersonaje, null, 0, 0, debilidades, fortalezas);
                 //System.out.println("Que cantidad de rabia quieres que tenga: ");
                 //int cantidadRabia = lectura.nextInt();
                 //licanNuevo.setRabia(cantidadRabia);
