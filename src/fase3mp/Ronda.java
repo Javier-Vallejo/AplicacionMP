@@ -44,12 +44,27 @@ public class Ronda {
     public void CalcularVidaRestante(ArrayList<Integer> potenciales, int vida1, int vida2){
         int pot1 = potenciales.get(0);
         int pot2 = potenciales.get(1);
+        int daño1 = 0;
+        int daño2 = 0;
         
         Random rand = new Random();
         
-        for (int i = 0; i < 2; i++) {
-           int numero = rand.nextInt(10);
+        for (int i = 0; i < pot1; i++) {
+           //int numero = rand.nextInt(10);
+           int dado = (int) (Math.floor(Math.random()*(6-0+1)+0));
+           if (dado > 5){
+               daño1 = daño1 + 1;
+           }
         }
+        for (int i = 0; i < pot1; i++) {
+           //int numero = rand.nextInt(10);
+           int dado = (int) (Math.floor(Math.random()*(6-0+1)+0));
+           if (dado > 5){
+               daño2 = daño2 + 1;
+           }
+        }
+        vida1 = vida1 - daño2;
+        vida2 = vida2 - daño1;
         
     }
     
