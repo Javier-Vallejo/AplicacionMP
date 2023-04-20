@@ -9,5 +9,8 @@ package fase3mp;
  * @author d.rubio.2019
  */
 public class Debilidad extends Modificador{
-    
+
+    public int debilitar () {
+        return super.getValor();
+    }
 }
