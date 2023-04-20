@@ -4,6 +4,8 @@
  */
 package fase3mp;
 
+import java.lang.reflect.Array;
+
 /**
  *
  * @author d.rubio.2019
@@ -12,8 +14,11 @@ public class Cazador extends Personaje implements InterfazPersonaje{
     
     private int voluntad ;
 
-    public Personaje crearPersonaje(){
-        return null;
+
+    public Cazador (String nombre,Habilidad habilidadPersonaje,Arma[] armas,Arma[] armasActivas,Armadura[] armaduras, 
+    Armadura armaduraActiva,Esbirro[] esbirros,int Salud,int Poder,Array[] debilidades,Array[] fortalezas) {
+        super(nombre, habilidadPersonaje, armas, armasActivas, armaduras, armaduraActiva, esbirros, Salud, Poder,debilidades,fortalezas);
+
     }
 
     @Override
@@ -35,6 +40,8 @@ public class Cazador extends Personaje implements InterfazPersonaje{
         return  super.devolverDefensaArma() + habilidad.getValorDefensa();
     }
 
-    
+    private void setVoluntad(int voluntad) {
+        this.voluntad = voluntad;
+    }
     
 }

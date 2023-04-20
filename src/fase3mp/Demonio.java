@@ -11,10 +11,26 @@ import java.util.ArrayList;
  * @author d.rubio.2019
  */
 public class Demonio extends Esbirro implements IEsbirros{
+    public Demonio(String nombre, int salud) {
+        super(nombre, salud);
+        //TODO Auto-generated constructor stub
+    }
+
+
     private ArrayList<Esbirro> esbirros;
     private boolean tienePacto;
     private Pacto pacto;
     
+
+    public void setBooleanPacto (boolean tienePacto) {
+        this.tienePacto = tienePacto;
+    }
+    public void setPacto (Pacto pacto) {
+        this.pacto = pacto;
+    };
+
+
+
     @Override
     public int calcularVidaRestante() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

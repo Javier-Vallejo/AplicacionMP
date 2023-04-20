@@ -23,6 +23,22 @@ public abstract class Personaje { //a lo mejor habria que hacer que fueran Array
     private Array[] debilidades;
     private Array[] fortalezas;
 
+     public  Personaje( String nombre,Habilidad habilidadPersonaje,Arma[] armas,Arma[] armasActivas,Armadura[] armaduras, 
+     Armadura armaduraActiva,Esbirro[] esbirros,int Salud,int Poder,Array[] debilidades,Array[] fortalezas) {
+        setNombre(nombre);
+        setHabilidadPersonaje(habilidadPersonaje); 
+        setArmas(armas); 
+        setArmaduras(armaduras);
+        setArmaduraActiva(armaduraActiva);
+        setArmasActivas(armasActivas);
+        setEsbirros(esbirros);
+        setSalud(Salud);
+        setPoder(Poder); 
+        setDebilidades(debilidades); 
+        setFortalezas(fortalezas);
+        
+    }
+
     public String getNombre() {
         return nombre;
     }

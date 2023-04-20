@@ -4,16 +4,18 @@
  */
 package fase3mp;
 
+import java.lang.reflect.Array;
+
 /**
  *
  * @author d.rubio.2019
  */
 public class FabricaLicantropo extends FabricaPersonajes{
     @Override
-    public Personaje crearPersonaje(){
-        //Licantropo lican = new Licantropo();
-        //return lican;
-        return null;
-    }
+    public Personaje crearPersonaje (String nombre,Habilidad habilidadPersonaje,Arma[] armas,Arma[] armasActivas,Armadura[] armaduras, 
+    Armadura armaduraActiva,Esbirro[] esbirros,int Salud,int Poder,Array[] debilidades,Array[] fortalezas) {
+        Licantropo licantropo = new Licantropo(nombre, habilidadPersonaje, armas, armasActivas, armaduras, armaduraActiva, esbirros, Salud, Poder, debilidades, fortalezas);
+        return licantropo;
     
+}
 }

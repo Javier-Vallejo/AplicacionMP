@@ -4,13 +4,14 @@
  */
 package fase3mp;
 
+import java.util.Scanner;
+
 /**
  *
  * @author d.rubio.2019
  */
 public abstract class FabricaEsbirros {
-    public Esbirro crearEsbirro(){
-        return null;
-    }
+    public abstract Esbirro crearEsbirro(String nombre,
+    int salud);
     
 }

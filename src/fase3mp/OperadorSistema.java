@@ -4,8 +4,12 @@
  */
 package fase3mp;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Locale;
+//import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -22,7 +26,8 @@ public class OperadorSistema extends Usuario{
     private void editarPersonaje(Personaje personaje){
         
     }
-    private void aniadirPersonaje(){
+    private void aniadirPersonaje() throws IOException{
+        File ficheroPersonajes = new File("Personajes.txt");
         Scanner lectura = new Scanner(System.in);
         System.out.println("Escriba el nombre del personaje:");
         String nombreCarac = lectura.nextLine();
@@ -41,7 +46,7 @@ public class OperadorSistema extends Usuario{
             armadurasPersonaje[i] = super.getEntidades().elegirArmadura(armasEleg.get(i));   
         }
          
-       
+        //habra que meter en entidades activas los esbirros tambien para poder mostrarle y elija
         System.out.println("Escriba la salud del personaje: [Limitada entre 1 y 5]");       
         int saludChar = lectura.nextInt();
         while (saludChar < 1 && saludChar > 5){
@@ -57,27 +62,58 @@ public class OperadorSistema extends Usuario{
             poderChar = lectura.nextInt();
         }
         
+
+        System.out.println("Escriba el nombre de la habilidad");
+        String nombre  = lectura.nextLine();
+        System.out.println("Escriba el poder que se obtiene de base de la habilidad");
+        int poderHabilidad = lectura.nextInt();
+        System.out.println("Escriba la defensa que se obtiene de base de la habilidad");
+        int defensaHabilidad = lectura.nextInt();
+        System.out.println("Escriba el limitante para poder activar la habilidad");
+        int limitante = lectura.nextInt();
+
+        Habilidad habilidadPersonaje = new Habilidad(nombre, poderHabilidad, defensaHabilidad, limitante);
+
         //Falta recabar la informacion respecto a las debilidades y fortalezas
-        
+        //habra que poner las debilidades y fortalezas en entidades activas
         
         System.out.println("Que tipo de personaje desea crear? - Escriba el numero de su tipo:");
         System.out.println("1. Licantropo --- 2. Vampiro --- 3.Cazador");
-        
+        //habria que poner un while por si mete otro valor
         Integer leido = lectura.nextInt();
+        
+        FileWriter escritorFich = new FileWriter(ficheroPersonajes); //escritor en fichero
+        FabricaPersonajes fabricaPersonajes = super.getFabricaPersonajes();
+        Debilidad[] debilidades =  new Debilidad[2];
+
+        Fortaleza[] fortalezas = new Fortaleza[2];
         switch (leido){
             //cada tipo de personaje integrará su propia habilidad
             case 1: //creamos un licantropo
-                //Personaje licanNuevo = new Licantropo(nombreChar, etc);
+                fabricaPersonajes = new FabricaLicantropo();
+                //Licantropo licanNuevo = fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje, armasPersonaje, armasPersonaje, armadurasPersonaje, armadurasPersonaje, null, 0, 0, debilidades, fortalezas);
+                //System.out.println("Que cantidad de rabia quieres que tenga: ");
+                //int cantidadRabia = lectura.nextInt();
+                //licanNuevo.setRabia(cantidadRabia);
                 //super.getEntidades().aniadir(licanNuevo);
-                
+                escritorFich.write(""); //habra que convertir las propiedades que no sean string
                 break;
             case 2: // creamos un vampiro
-                Personaje vampNuevo = new Vampiro();
-                super.getEntidades().aniadir(vampNuevo);
+                fabricaPersonajes = new FabricaVampiro();
+                //Vampiro vampNuevo = fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje, armasPersonaje, armasPersonaje, armadurasPersonaje, armaduraActiva, esbirros, 0, 0, debilidades, fortalezas, 0);
+                //System.out.println("Que cantidad de sangre quieres que tenga: ");
+                //int cantidadSangre = lectura.nextInt();
+                //vampNuevo.setCantidadSangre(cantidadSangre);
+                //System.out.println("Que edad quieres que tenga: ");
+                //int edad = lectura.nextInt();
+                //vampNuevo.setEdad(edad);
+                //super.getEntidades().aniadir(vampNuevo);
+                escritorFich.write("");
                 break;
             case 3: //creamos un cazador 
-                Personaje cazNuevo = new Cazador();
-                super.getEntidades().aniadir(cazNuevo);
+                fabricaPersonajes = new FabricaCazador();
+                //super.getEntidades().aniadir(cazNuevo);
+                escritorFich.write("");
                 break;
         }
         //super.getEntidades().aniadir(licanNuevo); Esta linea hay que ver como integrarla en cada case.
@@ -101,7 +137,7 @@ public class OperadorSistema extends Usuario{
                 editarPersonaje(personaje);//podria estar en la clase personaje             
                 break;
             case 3://Aniadir Personaje
-                aniadirPersonaje();
+                //aniadirPersonaje();
                 break;
             case 4://Validar Desafio
                 Desafio desafio = super.getDesafiosAct().obtenerDesafio();

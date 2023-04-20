@@ -10,6 +10,10 @@ package fase3mp;
  */
 public class Dones extends Habilidad {
 
+public Dones(String nombre, int valorAtaque, int valorDefensa, int limitante) {
+                super(nombre, valorAtaque, valorDefensa, limitante);
+        }
+
 public int activar(int danio, String opcion) {
         if ( opcion == "Ataque") {
                 return danio +10;

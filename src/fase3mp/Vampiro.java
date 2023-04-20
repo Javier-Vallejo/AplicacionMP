@@ -4,16 +4,37 @@
  */
 package fase3mp;
 
+import java.lang.reflect.Array;
+
 /**
  *
  * @author d.rubio.2019
  */
 public class Vampiro extends Personaje implements InterfazPersonaje{
     
+    public Vampiro(String nombre, Habilidad habilidadPersonaje, Arma[] armas, Arma[] armasActivas, Armadura[] armaduras,
+            Armadura armaduraActiva, Esbirro[] esbirros, int Salud, int Poder, Array[] debilidades,
+            Array[] fortalezas) {
+        super(nombre, habilidadPersonaje, armas, armasActivas, armaduras, armaduraActiva, esbirros, Salud, Poder, debilidades,
+                fortalezas);
+        
+                
+        
+    }
+
+
+
+
+    
+
+
+
+
     private int sangre;
 
-    public Personaje crearPersonaje(){
-        return null;
+    private void setSangre(int sangre) {
+
+        this.sangre = sangre;
     }
 
     @Override

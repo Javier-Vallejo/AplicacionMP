@@ -118,7 +118,7 @@ public class SistemaPrincipalGame {
         }
     }
 
-    private void leerPersonajes(String fichero)throws FileNotFoundException {
+    private void leerPersonajes(String fichero)throws FileNotFoundException { //habria que hacer uno para cada tipo de entidad
         File miFichero = new File(fichero);
         Scanner scanner = new Scanner(miFichero);
         while(scanner.hasNextLine()){
