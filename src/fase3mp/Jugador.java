@@ -107,6 +107,7 @@ public class Jugador extends Usuario{
             Ronda[] misRondas = new Ronda[rondas.size()];
             misRondas = rondas.toArray(misRondas);
             combate.setRondas(misRondas);
+            //Falta ver en que lista/estructura añadimos la ronda//combate
             
         }
     }
