@@ -25,10 +25,17 @@ public class Ronda {
         int danio2 = this.CalcularDanio(per2);
         int defensa2 = this.CalcularDefensa(per2);
         
+        String[] climas = {"soleado","luna llena","aniversario cazador"};
+        Random randomClima = new Random();
+        int nuemroClima = (int) (Math.floor(Math.random()*(0-2+1)+2));  // Valor entre M y N, ambos incluidos.
+        String tiempoCombate = climas[nuemroClima];
+        /*
+         * Aqui faltaria tener en cuenta el tiempo elegido (tiempo Combate) para ver si hay que debilitar o no
+         */
+
         int potencial1 = danio1-defensa2;
         int potencial2 = danio2-defensa1;
         
-        potenciales.add(potencial1);
         potenciales.add(potencial2);
         
         return potenciales;

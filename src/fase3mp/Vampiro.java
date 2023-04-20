@@ -55,7 +55,7 @@ public class Vampiro extends Personaje implements InterfazPersonaje{
     @Override
     public int calculoDanio() {
         Habilidad habilidad = super.devolverHabilidad();
-        return super.devolverPoder() + super.devolverDañoArma() + super.devolverDañoHabilidad(habilidad)+ dañoDeSangre(sangre) + activarDisciplina(sangre,"Defensa");
+        return super.devolverPoder() + super.devolverDañoArma() + super.devolverDañoHabilidad(habilidad)+ dañoDeSangre(sangre) + activarDisciplina(sangre,"Ataque");
     }
 
     private int activarDisciplina(int sangre, String opcion) {
