@@ -23,9 +23,7 @@ public class OperadorSistema extends Usuario{
         super(nombre, nick, password, rol, estadoObservador);
     }
     
-    private void editarPersonaje(Personaje personaje){
-        
-    }
+
     private void aniadirPersonaje() throws IOException{
         File ficheroPersonajes = new File("Personajes.txt");
         Scanner lectura = new Scanner(System.in);
@@ -35,9 +33,35 @@ public class OperadorSistema extends Usuario{
         System.out.println("Escriba los numeros de las armas que quiere que tenga su personaje: ");
         ArrayList<Integer> armasEleg = super.getEntidades().MostraryElegir("ARMAS");
         Arma[] armasPersonaje = new Arma[armasEleg.size()];
-        for (int idx = 0; idx < armasEleg.size(); idx++) {
-            armasPersonaje[idx] = super.getEntidades().elegirArma(armasEleg.get(idx));
+        for (int i = 0; i < armasEleg.size(); i++) {
+            armasPersonaje[i] = super.getEntidades().elegirArma(armasEleg.get(i));
         }
+        //armas activas
+        System.out.println("Elige el numero del arma o armas que va a tener como activas: ");
+        System.out.println("(Ten en cuenta que va a ser una de dos manos o dos de una mano)");
+        for (int i = 0; i < armasPersonaje.length; i++) {
+            System.out.println(i + "_" + armasPersonaje[i].getNombre()+ armasPersonaje[i].getTipodeArma().toString());    
+        }
+        System.out.println(armasPersonaje.length+1 + " Salir");
+        int numArmaActiva = 0;
+        ArrayList<Arma> armasActivas = new ArrayList<>();
+        while(numArmaActiva != armasPersonaje.length+1){
+            numArmaActiva = lectura.nextInt();
+            if(armasPersonaje[numArmaActiva].getTipodeArma()== Arma.tipoArma.de2manos && armasActivas.isEmpty()){
+                armasActivas.add(armasPersonaje[numArmaActiva]);
+            }
+            else if(armasPersonaje[numArmaActiva].getTipodeArma()== Arma.tipoArma.de1mano && armasActivas.isEmpty()){
+                armasActivas.add(armasPersonaje[numArmaActiva]);
+            }
+            else if(armasPersonaje[numArmaActiva].getTipodeArma()== Arma.tipoArma.de1mano && armasActivas.size()==1){
+                armasActivas.add(armasPersonaje[numArmaActiva]);
+            }
+            else{
+                System.out.println("El arma que intentas establecer como activa no cabe");
+            }
+        }
+        Arma[] armasActivasPersonaje = armasActivas.toArray(new Arma[2]);
+        
         //armaduras
         System.out.println("Escriba el numero de la armadura que quiere que tenga su personaje: ");
         ArrayList<Integer> armadurasEleg = super.getEntidades().MostraryElegir("ARMADURAS");
@@ -45,24 +69,48 @@ public class OperadorSistema extends Usuario{
         for (int i = 0; i < armadurasEleg.size(); i++) {
             armadurasPersonaje[i] = super.getEntidades().elegirArmadura(armasEleg.get(i));   
         }
-         
-        //habra que meter en entidades activas los esbirros tambien para poder mostrarle y elija
-        System.out.println("Escriba la salud del personaje: [Limitada entre 1 y 5]");       
-        int saludChar = lectura.nextInt();
-        while (saludChar < 1 && saludChar > 5){
-            System.out.println("El valor de salud debe estar entre 1 y 5");
-            System.out.println("Por favor introduzca el valor de nuevo: ");
-            saludChar = lectura.nextInt();
-        }        
-        System.out.println("Escriba el poder del personaje: [Limitado entre 1 y 5]");
-        int poderChar = lectura.nextInt();
-        while (poderChar < 1 && poderChar > 5){
-            System.out.println("El valor de poder debe estar entre 1 y 5");
-            System.out.println("Por favor introduzca el valor de nuevo: ");
-            poderChar = lectura.nextInt();
+        //armadura activa
+        System.out.println("Elige el numero de la armadura que va tener activa: ");
+        for (int i = 0; i < armadurasPersonaje.length; i++) {
+            System.out.println(i + "_" + armadurasPersonaje[i].getNombre());    
+        }
+        System.out.println(armadurasPersonaje.length+1 + " Salir");
+        int numArmaduraActiva = 0;
+        while(numArmaduraActiva != armadurasPersonaje.length+1){
+            numArmaduraActiva = lectura.nextInt();
+        }
+        Armadura armaduraActivaPersonaje = armadurasPersonaje[numArmaduraActiva];
+        //fortaleza
+        System.out.println("Escriba el numero de la/las fortaleza/fortalezas que quiere que tenga su personaje: ");
+        ArrayList<Integer> fortalezasEleg = super.getEntidades().MostraryElegir("FORTALEZAS");
+        Fortaleza[] fortalezasPersonaje = new Fortaleza[fortalezasEleg.size()];
+        for (int i = 0; i < fortalezasEleg.size(); i++) {
+            fortalezasPersonaje[i] = super.getEntidades().elegirFortaleza(fortalezasEleg.get(i));   
+        }
+        //debilidad
+        System.out.println("Escriba el numero de la/las debilidad/debilidades que quiere que tenga su personaje: ");
+        ArrayList<Integer> debilidadesEleg = super.getEntidades().MostraryElegir("DEBILIDADES");
+        Debilidad[] debilidadesPersonaje = new Debilidad[debilidadesEleg.size()];
+        for (int i = 0; i < debilidadesEleg.size(); i++) {
+            debilidadesPersonaje[i] = super.getEntidades().elegirDebilidad(debilidadesEleg.get(i));   
         }
         
-
+        //habra que meter en entidades activas los esbirros tambien para poder mostrarle y elija
+        System.out.println("Escriba la salud del personaje: [Limitada entre 1 y 5]");       
+        int saludPersonaje = lectura.nextInt();
+        while (saludPersonaje < 1 && saludPersonaje > 5){
+            System.out.println("El valor de salud debe estar entre 1 y 5");
+            System.out.println("Por favor introduzca el valor de nuevo: ");
+            saludPersonaje = lectura.nextInt();
+        }        
+        System.out.println("Escriba el poder del personaje: [Limitado entre 1 y 5]");
+        int poderPersonaje = lectura.nextInt();
+        while (poderPersonaje < 1 && poderPersonaje > 5){
+            System.out.println("El valor de poder debe estar entre 1 y 5");
+            System.out.println("Por favor introduzca el valor de nuevo: ");
+            poderPersonaje = lectura.nextInt();
+        }
+  
         System.out.println("Escriba el nombre de la habilidad");
         String nombre  = lectura.nextLine();
         System.out.println("Escriba el poder que se obtiene de base de la habilidad");
@@ -91,7 +139,7 @@ public class OperadorSistema extends Usuario{
             //cada tipo de personaje integrará su propia habilidad
             case 1: //creamos un licantropo
                 fabricaPersonajes = new FabricaLicantropo();
-                //Licantropo licanNuevo = fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje, armasPersonaje, armasPersonaje, armadurasPersonaje, armadurasPersonaje, null, 0, 0, debilidades, fortalezas);
+                Licantropo licanNuevo = (Licantropo) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje, armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje, null, saludPersonaje, poderPersonaje, debilidadesPersonaje, fortalezasPersonaje);
                 //System.out.println("Que cantidad de rabia quieres que tenga: ");
                 //int cantidadRabia = lectura.nextInt();
                 //licanNuevo.setRabia(cantidadRabia);
@@ -126,18 +174,26 @@ public class OperadorSistema extends Usuario{
         desafio.setEstado(Desafio.State.Validado);
     }
     
-    public void realizarFuncionMenuOperador(int opcion){
+    public void realizarFuncionMenuOperador(int opcion) throws IOException{
         switch (opcion){
             case 1://Darse de baja
                 DarseDeBaja(this);
                 break;
             case 2://Editar Personaje
-                ArrayList<Integer> personajeEle = super.getEntidades().MostraryElegir("PERSONAJES");
-                Personaje personaje = super.getEntidades().elegirPersonaje(personajeEle.get(0));
-                editarPersonaje(personaje);//podria estar en la clase personaje             
+                ArrayList<Integer> personajeEle = super.getEntidades().MostraryElegir("PERSONAJES");//se podria hacer que entidades de usuario fuera publico
+                Personaje personaje = super.getEntidades().elegirPersonaje(personajeEle.get(0));//para que lo hereden los hijos sin tener que hacer get
+                personaje.editarPersonaje();
+                ManagerUsuarios manager = super.getManagerUsuarios();
+                for (int i = 0; i < manager.getUsuariosRegistrados().size(); i++) { //esto
+                    if (manager.getUsuariosRegistrados().get(i) instanceof Jugador jugador){
+                        if(jugador.getPersonajeActivo().getNombre().equals(personaje.getNombre())){
+                            jugador.setPersonajeActivo(personaje.clonar()); //por polimorfismo se ejecutara el clonar del personaje especifico
+                        }
+                    }    
+                }
                 break;
             case 3://Aniadir Personaje
-                //aniadirPersonaje();
+                aniadirPersonaje();
                 break;
             case 4://Validar Desafio
                 Desafio desafio = super.getDesafiosAct().obtenerDesafio();

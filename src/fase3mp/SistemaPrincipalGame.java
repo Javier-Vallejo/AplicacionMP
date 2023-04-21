@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.io.File;
+import java.io.IOException;
 
 /**
  *
@@ -27,7 +28,7 @@ public class SistemaPrincipalGame {
         return null;
     }
     
-    public void run(){
+    public void run() throws IOException{
         ManagerUsuarios manager = new ManagerUsuarios();
         usuariosSistema = manager;
         //leerUsuarios("usuarios.txt");
@@ -64,7 +65,7 @@ public class SistemaPrincipalGame {
         
     }
     
-    private void iniciarSesion(){ 
+    private void iniciarSesion() throws IOException{ 
         System.out.println("-----Inicio de Sesion-----");
         Scanner escanerIniSesion = new Scanner(System.in);
         System.out.println("Introduzca su nick: ");

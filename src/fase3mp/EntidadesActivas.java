@@ -15,7 +15,17 @@ public class EntidadesActivas {
     private ArrayList<Personaje> personajes;
     private ArrayList<Arma> armas;
     private ArrayList<Armadura> armaduras;
+    private ArrayList<Fortaleza> fortalezas;
+    private ArrayList<Debilidad> debilidades;
 
+    public ArrayList<Fortaleza> getFortalezas() {
+        return fortalezas;
+    }
+
+    public ArrayList<Debilidad> getDebilidades() {
+        return debilidades;
+    }
+    
     public ArrayList<Personaje> getPersonajes() {
         return personajes;
     }
@@ -39,8 +49,7 @@ public class EntidadesActivas {
     public void setArmaduras(ArrayList<Armadura> armaduras) {
         this.armaduras = armaduras;
     }
-    
-    
+   
     
     public void aniadir(Object objeto){
         //comprobar de que clase es objeto y meterlo en su respectiva lista
@@ -67,6 +76,15 @@ public class EntidadesActivas {
     public Armadura elegirArmadura(int eleccion){
         return armaduras.get(eleccion);
     }
+    
+    public Fortaleza elegirFortaleza(int eleccion) {
+        return fortalezas.get(eleccion);
+    }
+    
+    public Debilidad elegirDebilidad(int eleccion) {
+        return debilidades.get(eleccion);
+    }
+    
     public ArrayList<Integer> MostraryElegir(String objetoMostrar){//se podrian poner if para controlar que meta un numero 
         Scanner escaner = new Scanner(System.in);//en el rango correcto
         if (objetoMostrar.equals("PERSONAJES")){
@@ -105,10 +123,26 @@ public class EntidadesActivas {
                 return armadurasElegidas;
             }
         }
+        else if (objetoMostrar.equals("FORTALEZAS")){
+            int fortalezaEle = 0;
+            for (int i = 0; i < fortalezas.size(); i++) {
+                System.out.println("Fortaleza "+ i + fortalezas.get(i).getNombre());
+            System.out.println((fortalezas.size()+1)+" Salir");
+            while(fortalezaEle != fortalezas.size()+1){
+                fortalezaEle = escaner.nextInt();
+                ArrayList<Integer> fortalezasElegidas = new ArrayList<>();
+                fortalezasElegidas.add(fortalezaEle);
+                return fortalezasElegidas;
+            }
+            
+        }
+        }
         else {
            System.out.println("No existe el contenido "+ objetoMostrar);
            return null;
         }
         return null;
     }
+
+
 }

@@ -10,7 +10,7 @@ import java.lang.reflect.Array;
  *
  * @author david
  */
-public abstract class Personaje { //a lo mejor habria que hacer que fueran ArrayList
+public abstract class Personaje implements InterfazPersonaje{ //a lo mejor habria que hacer que fueran ArrayList
     private String nombre;
     private Habilidad habilidadPersonaje;
     private Arma[] armas;
@@ -20,11 +20,11 @@ public abstract class Personaje { //a lo mejor habria que hacer que fueran Array
     private Esbirro[] esbirros;
     private int Salud;
     private int Poder;
-    private Array[] debilidades;
-    private Array[] fortalezas;
+    private Debilidad[] debilidades;
+    private Fortaleza[] fortalezas;
 
      public  Personaje( String nombre,Habilidad habilidadPersonaje,Arma[] armas,Arma[] armasActivas,Armadura[] armaduras, 
-     Armadura armaduraActiva,Esbirro[] esbirros,int Salud,int Poder,Array[] debilidades,Array[] fortalezas) {
+     Armadura armaduraActiva,Esbirro[] esbirros,int Salud,int Poder,Debilidad[] debilidades,Fortaleza[] fortalezas) {
         setNombre(nombre);
         setHabilidadPersonaje(habilidadPersonaje); 
         setArmas(armas); 
@@ -111,19 +111,19 @@ public abstract class Personaje { //a lo mejor habria que hacer que fueran Array
         this.Poder = Poder;
     }
 
-    public Array[] getDebilidades() {
+    public Debilidad[] getDebilidades() {
         return debilidades;
     }
 
-    public void setDebilidades(Array[] debilidades) {
+    public void setDebilidades(Debilidad[] debilidades) {
         this.debilidades = debilidades;
     }
 
-    public Array[] getFortalezas() {
+    public Fortaleza[] getFortalezas() {
         return fortalezas;
     }
 
-    public void setFortalezas(Array[] fortalezas) {
+    public void setFortalezas(Fortaleza[] fortalezas) {
         this.fortalezas = fortalezas;
     }
     
@@ -170,11 +170,16 @@ public abstract class Personaje { //a lo mejor habria que hacer que fueran Array
         return saludTotal;
     }
 
-    void editarPersonaje() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void editarPersonaje(){
+        
     }
 
     public int devolverDañoHabilidad(Habilidad habilidad) {
         return habilidad.getValorAtaque();
+    }
+
+    @Override
+    public Personaje clonar() {
+        return null;
     }
 }

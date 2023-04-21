@@ -11,6 +11,14 @@ package fase3mp;
 public class Arma extends Equipo implements IEquipo{
     public enum tipoArma{de1mano, de2manos}
     private tipoArma tipodeArma;
+
+    public tipoArma getTipodeArma() {
+        return tipodeArma;
+    }
+
+    public void setTipodeArma(tipoArma tipodeArma) {
+        this.tipodeArma = tipodeArma;
+    }
     
     public Arma(String nombre, String potenciadorDanio, String potenciadorDefensa, String tipoDeArma) {
         super.setNombre(nombre);
