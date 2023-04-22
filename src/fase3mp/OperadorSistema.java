@@ -172,6 +172,8 @@ public class OperadorSistema extends Usuario{
         System.out.println("Deseas validar o no validar el desafio");
         //habria que meter un escaner
         desafio.setEstado(Desafio.State.Validado);
+        //LLamada al ¿publisher? para notificar al usuario.....
+        //Devuelve ese objeto desafio a el usuario desafiado
     }
     
     public void realizarFuncionMenuOperador(int opcion) throws IOException{

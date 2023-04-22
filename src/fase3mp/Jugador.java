@@ -97,6 +97,7 @@ public class Jugador extends Usuario{
         int opcion = lectura.nextInt();
         
         if (opcion == 1){ //1 es aceptar el desafio
+            //En algun momento hay que suscribir al usuario desafiado y desafiante
             Combate combate = new Combate(desafio.getJugadorDesafiante(), this, desafio.getOroApostado());
             ArrayList<Ronda> rondas = new ArrayList();
             while((combate.getVida2() > 0) && (combate.getVida1() > 0)){
@@ -112,7 +113,7 @@ public class Jugador extends Usuario{
         }
     }
     private void ConsultarOro(){
-        
+        //TODO
     }
     private void ConsultarRanking(Ranking ranking){
         
@@ -142,11 +143,13 @@ public class Jugador extends Usuario{
         setNumeroRegistro(numRegistro);
     }
     public void realizarFuncionMenuJugador(int opcion){
+        //un if para saber si el usuario tiene algun desafio pendiente que aceptar
+        //si lo tiene, ¿hacemos notificar? para que se escriba la informacion del desafio
         switch (opcion){
             case 1://Darse de baja
                 DarseDeBaja(this);
                 break;
-            case 2://Registrar Personaje
+            case 2://Registrar Personaje -- Elegir el personaje
                 //no se bien que es
                 break;
             case 3://Gestionar Personaje
@@ -167,6 +170,7 @@ public class Jugador extends Usuario{
                 for (int i = 0; i < armasPersonaje.length; i++) {
                     System.out.println("Arma "+i+ armasPersonaje[i]);
                 }
+                
                 //aqui ya se comprobaria si es de una mano o dos y ya se aniadiria
                 break;
             case 6://Desafiar
