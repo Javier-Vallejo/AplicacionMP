@@ -33,7 +33,10 @@ public class Ronda {
         danio2 = comprobarDebilidades(tiempoCombate,per2,danio2,per1);
 
 
-        // TODO mirar calcular fortalezas
+        
+        danio1 = comprobarFortalezas( tiempoCombate,  per1,   danio1,  per2);
+        danio2 = comprobarFortalezas( tiempoCombate,  per2,   danio2,  per2);
+
         int potencial1 = danio1-defensa2;
         int potencial2 = danio2-defensa1;
 
@@ -42,6 +45,7 @@ public class Ronda {
         
         return potenciales;
     }
+    
     private int CalcularDanio(Personaje perX){
         return perX.calculoDanio();
         
@@ -77,31 +81,70 @@ public class Ronda {
         
     }
 
-    public int comprobarDebilidades(String tiempo, Personaje personaje1,  int danio1, Personaje personaje2) {
+    public int comprobarDebilidades(String tiempo, Personaje personaje1,  int danio, Personaje personaje2) {
 
         if (tiempo.equals("soleado") && personaje1 instanceof Vampiro) {
             Debilidad debilidadActivada = personaje1.seleccionarDebilidad(tiempo);
             if (debilidadActivada != null) {
-                return danio1 = danio1 * debilidadActivada.debilitar();
+                return danio = danio * debilidadActivada.debilitar();
             }
             
         }
         else if (personaje1 instanceof Cazador && personaje2 instanceof Licantropo) {
             Debilidad debilidadActivada = personaje1.seleccionarDebilidad("Licantropo");
             if (debilidadActivada != null) {
-                return danio1 = danio1 * debilidadActivada.debilitar();
+                return danio = danio * debilidadActivada.debilitar();
             }
         }
 
         else if (personaje1 instanceof Licantropo && personaje2 instanceof Vampiro) {
             Debilidad debilidadActivada = personaje1.seleccionarDebilidad("Licantropo");
             if (debilidadActivada != null) {
-                return danio1 = danio1 * debilidadActivada.debilitar();
+                return danio = danio * debilidadActivada.debilitar();
             }
         }
 
-        return danio1;
+        return danio;
 
+    }
+
+    private int comprobarFortalezas(String tiempo, Personaje personaje1,  int danio, Personaje personaje2) {
+        if (tiempo.equals("luna llena") && personaje1 instanceof Licantropo) {
+            Fortaleza fortalezaActiva = personaje1.seleccionarFortaleza(tiempo);
+            if (fortalezaActiva != null) {
+                return danio = danio * fortalezaActiva.Fortalecer();
+            }
+            
+        }
+        else if (personaje1 instanceof Cazador && personaje2 instanceof Licantropo) {
+            Fortaleza fortalezaActiva = personaje1.seleccionarFortaleza("Licantropo");
+            if (fortalezaActiva != null) {
+                return danio = danio * fortalezaActiva.Fortalecer();
+            }
+        }
+
+        else if (personaje1 instanceof Cazador && personaje2 instanceof Vampiro) {
+            Fortaleza fortalezaActiva = personaje1.seleccionarFortaleza("Vampiro");
+            if (fortalezaActiva != null) {
+                return danio = danio * fortalezaActiva.Fortalecer();
+            }
+        }
+
+        else if (personaje1 instanceof Licantropo && personaje2 instanceof Cazador) {
+            Fortaleza fortalezaActiva = personaje1.seleccionarFortaleza("Cazador");
+            if (fortalezaActiva != null) {
+                return danio = danio * fortalezaActiva.Fortalecer();
+            }
+        }
+
+        else if (personaje1 instanceof Vampiro && personaje2 instanceof Licantropo) {
+            Fortaleza fortalezaActiva = personaje1.seleccionarFortaleza("Licantropo");
+            if (fortalezaActiva != null) {
+                return danio = danio * fortalezaActiva.Fortalecer();
+            }
+        }
+
+        return danio;
     }
     
 }

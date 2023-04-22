@@ -184,13 +184,24 @@ public abstract class Personaje implements InterfazPersonaje{ //a lo mejor habri
         return null;
     }
 
-    public Debilidad seleccionarDebilidad(String clima) {
+    public Debilidad seleccionarDebilidad(String factor) {
 
         for(Debilidad debilidad: debilidades){
-            if (debilidad.getNombre().equals(clima) ) {
+            if (debilidad.getNombre().equals(factor) ) {
                 return debilidad;
             }
         }
+        return null;
+    }
+
+    public Fortaleza seleccionarFortaleza(String factor) {
+        
+        for(Fortaleza fortaleza: fortalezas){
+            if (fortaleza.getNombre().equals(factor) ) {
+                return fortaleza;
+            }
+        }
+        
         return null;
     }
 }

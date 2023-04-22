@@ -166,7 +166,7 @@ public class SistemaPrincipalGame {
     private void inicializarHabilidades(EntidadesActivas entidadesActivas) {
         Habilidad habilidadVampiro = new Habilidad("ChuparSangre", 4, 4, 3);
         Habilidad habilidadLicantropo = new Habilidad("GolpeDeRabia", 7, 2, 1);
-        Habilidad habilidadCazador = new Habilidad("Cazar", 5, 7, 4);
+        Habilidad habilidadCazador = new Habilidad("Cazar", 5, 7, 0);
 
         entidadesActivas.aniadir(habilidadVampiro);
         entidadesActivas.aniadir(habilidadLicantropo);
