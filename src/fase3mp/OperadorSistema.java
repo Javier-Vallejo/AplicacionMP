@@ -111,16 +111,17 @@ public class OperadorSistema extends Usuario{
             poderPersonaje = lectura.nextInt();
         }
   
-        System.out.println("Escriba el nombre de la habilidad");
+        /* System.out.println("Escriba el nombre de la habilidad");
         String nombre  = lectura.nextLine();
         System.out.println("Escriba el poder que se obtiene de base de la habilidad");
         int poderHabilidad = lectura.nextInt();
         System.out.println("Escriba la defensa que se obtiene de base de la habilidad");
         int defensaHabilidad = lectura.nextInt();
         System.out.println("Escriba el limitante para poder activar la habilidad");
-        int limitante = lectura.nextInt();
+        int limitante = lectura.nextInt(); */
 
-        Habilidad habilidadPersonaje = new Habilidad(nombre, poderHabilidad, defensaHabilidad, limitante);
+
+       // Habilidad habilidadPersonaje = new Habilidad(nombre, poderHabilidad, defensaHabilidad, limitante);
 
         //Falta recabar la informacion respecto a las debilidades y fortalezas
         //habra que poner las debilidades y fortalezas en entidades activas
@@ -139,7 +140,7 @@ public class OperadorSistema extends Usuario{
             //cada tipo de personaje integrará su propia habilidad
             case 1: //creamos un licantropo
                 fabricaPersonajes = new FabricaLicantropo();
-                Licantropo licanNuevo = (Licantropo) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje, armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje, null, saludPersonaje, poderPersonaje, debilidadesPersonaje, fortalezasPersonaje);
+                //Licantropo licanNuevo = (Licantropo) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje, armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje, null, saludPersonaje, poderPersonaje, debilidadesPersonaje, fortalezasPersonaje);
                 //System.out.println("Que cantidad de rabia quieres que tenga: ");
                 //int cantidadRabia = lectura.nextInt();
                 //licanNuevo.setRabia(cantidadRabia);
