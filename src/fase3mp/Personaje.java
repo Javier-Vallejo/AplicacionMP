@@ -183,4 +183,14 @@ public abstract class Personaje implements InterfazPersonaje{ //a lo mejor habri
     public Personaje clonar() {
         return null;
     }
+
+    public Debilidad seleccionarDebilidad(String clima) {
+
+        for(Debilidad debilidad: debilidades){
+            if (debilidad.getNombre().equals(clima) ) {
+                return debilidad;
+            }
+        }
+        return null;
+    }
 }

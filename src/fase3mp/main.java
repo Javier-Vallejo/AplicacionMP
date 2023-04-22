@@ -4,12 +4,14 @@
  */
 package fase3mp;
 
+import java.io.IOException;
+
 /**
  *
  * @author david
  */
 public class main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         SistemaPrincipalGame sistemaPrincipal = new SistemaPrincipalGame();
         sistemaPrincipal.run();
         System.exit(0);
