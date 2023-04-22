@@ -19,11 +19,6 @@ public class Vampiro extends Personaje implements InterfazPersonaje{
     public Vampiro(String nombre, Habilidad habilidadPersonaje, Arma[] armas, Arma[] armasActivas, Armadura[] armaduras,
         Armadura armaduraActiva, Esbirro[] esbirros, int Salud, int Poder, Debilidad[] debilidades,Fortaleza[] fortalezas){           
         super(nombre, habilidadPersonaje, armas, armasActivas, armaduras, armaduraActiva, esbirros, Salud, Poder, debilidades,fortalezas);
-        Scanner escanerVamp = new Scanner(System.in);
-        System.out.println("Que cantidad de sangre quieres que tenga: ");
-        sangre = escanerVamp.nextInt();
-        System.out.println("Que edad quieres que tenga: ");
-        edad = escanerVamp.nextInt();                    
     }
 
     public void setEdad(int edad) {
@@ -34,6 +29,18 @@ public class Vampiro extends Personaje implements InterfazPersonaje{
         this.sangre = sangre;
     }
 
+    @Override
+    public void rellenarPropiedadesEspecificas() {
+        Scanner escanerVamp = new Scanner(System.in);
+        System.out.println("Que cantidad de sangre quieres que tenga: ");
+        sangre = escanerVamp.nextInt();
+        System.out.println("Que edad quieres que tenga: ");
+        edad = escanerVamp.nextInt();                    
+    }
+    
+    
+    
+    
     @Override
     public Personaje clonar() {
         Vampiro vampiroCopia = new Vampiro(super.getNombre(),super.getHabilidadPersonaje(), super.getArmas(), super.getArmasActivas(), super.getArmaduras(), super.getArmaduraActiva(), super.getEsbirros(), super.getSalud(), super.getPoder(), super.getDebilidades(), super.getFortalezas());
