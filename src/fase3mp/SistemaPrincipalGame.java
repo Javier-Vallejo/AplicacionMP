@@ -33,6 +33,10 @@ public class SistemaPrincipalGame {
         usuariosSistema = manager;
         //leerUsuarios("usuarios.txt");
         //leerPersonajes("personajes.txt");//habra que hacer un leer Usuarios tambien
+        //leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
+        EntidadesActivas entidadesActivas = new EntidadesActivas();
+        inicializarHabilidades(entidadesActivas);
+  
         Scanner escaner = new Scanner(System.in);
         String opcionElegida = "";
         while(!(opcionElegida.equals("INICIARSESION")==false ^ opcionElegida.equals("REGISTRARSE")==false)){
@@ -64,6 +68,7 @@ public class SistemaPrincipalGame {
             
         
     }
+    
     
     private void iniciarSesion() throws IOException{ 
         System.out.println("-----Inicio de Sesion-----");
@@ -157,5 +162,13 @@ public class SistemaPrincipalGame {
         }
     }
     
-       
+    private void inicializarHabilidades(EntidadesActivas entidadesActivas) {
+        Habilidad habilidadVampiro = new Habilidad("ChuparSangre", 4, 4, 3);
+        Habilidad habilidadLicantropo = new Habilidad("GolpeDeRabia", 7, 2, 1);
+        Habilidad habilidadCazador = new Habilidad("Cazar", 5, 7, 4);
+
+        entidadesActivas.aniadir(habilidadVampiro);
+        entidadesActivas.aniadir(habilidadLicantropo);
+        entidadesActivas.aniadir(habilidadCazador);
+    }  
 }

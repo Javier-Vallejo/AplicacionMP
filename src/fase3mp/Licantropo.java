@@ -5,6 +5,7 @@
 package fase3mp;
 
 import java.lang.reflect.Array;
+import java.util.Scanner;
 
 /**
  *
@@ -16,21 +17,28 @@ public class Licantropo extends Personaje implements InterfazPersonaje{
     
     public Licantropo (String nombre,Habilidad habilidadPersonaje,Arma[] armas,Arma[] armasActivas,Armadura[] armaduras, 
     Armadura armaduraActiva,Esbirro[] esbirros,int Salud,int Poder,Debilidad[] debilidades,Fortaleza[] fortalezas){
-        super(nombre, habilidadPersonaje, armas, armasActivas, armaduras, armaduraActiva, esbirros, Salud, Poder,debilidades,fortalezas);
-
-    
+        super(nombre, habilidadPersonaje, armas, armasActivas, armaduras, armaduraActiva, esbirros, Salud, Poder,debilidades,fortalezas);      
     }
 
     public void setRabia(int rabia) {
-
         this.rabia = rabia;
+    }
+
+    @Override
+    public void rellenarPropiedadesEspecificas() {
+        Scanner escanerlican = new Scanner(System.in);
+        System.out.println("Introduzca el valor de rabia: ");
+        int valorRabia = escanerlican.nextInt();
+        rabia = valorRabia;
     }
 
     
 
     @Override
     public Personaje clonar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Licantropo licantropoCopia = new Licantropo(super.getNombre(),super.getHabilidadPersonaje(), super.getArmas(), super.getArmasActivas(), super.getArmaduras(), super.getArmaduraActiva(), super.getEsbirros(), super.getSalud(), super.getPoder(), super.getDebilidades(), super.getFortalezas());
+        licantropoCopia.setRabia(rabia);
+        return licantropoCopia;
     }
 
 

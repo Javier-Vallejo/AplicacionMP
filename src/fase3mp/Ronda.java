@@ -25,17 +25,19 @@ public class Ronda {
         int danio2 = this.CalcularDanio(per2);
         int defensa2 = this.CalcularDefensa(per2);
         
-        String[] climas = {"soleado","luna llena","aniversario cazador"};
+        String[] climas = {"soleado","luna llena"};
         Random randomClima = new Random();
-        int nuemroClima = (int) (Math.floor(Math.random()*(0-2+1)+2));  // Valor entre M y N, ambos incluidos.
-        String tiempoCombate = climas[nuemroClima];
-        /*
-         * Aqui faltaria tener en cuenta el tiempo elegido (tiempo Combate) para ver si hay que debilitar o no
-         */
+        int numeroClima = (int) (Math.floor(Math.random()*(0-1+1)+1));  // Valor entre M y N, ambos incluidos.
+        String tiempoCombate = climas[numeroClima];
+        danio1 = comprobarDebilidades(tiempoCombate,per1,danio1,per2);
+        danio2 = comprobarDebilidades(tiempoCombate,per2,danio2,per1);
 
+
+        // TODO mirar calcular fortalezas
         int potencial1 = danio1-defensa2;
         int potencial2 = danio2-defensa1;
-        
+
+        potenciales.add(potencial1);
         potenciales.add(potencial2);
         
         return potenciales;
@@ -73,6 +75,33 @@ public class Ronda {
         vida1 = vida1 - daño2;
         vida2 = vida2 - daño1;
         
+    }
+
+    public int comprobarDebilidades(String tiempo, Personaje personaje1,  int danio1, Personaje personaje2) {
+
+        if (tiempo.equals("soleado") && personaje1 instanceof Vampiro) {
+            Debilidad debilidadActivada = personaje1.seleccionarDebilidad(tiempo);
+            if (debilidadActivada != null) {
+                return danio1 = danio1 * debilidadActivada.debilitar();
+            }
+            
+        }
+        else if (personaje1 instanceof Cazador && personaje2 instanceof Licantropo) {
+            Debilidad debilidadActivada = personaje1.seleccionarDebilidad("Licantropo");
+            if (debilidadActivada != null) {
+                return danio1 = danio1 * debilidadActivada.debilitar();
+            }
+        }
+
+        else if (personaje1 instanceof Licantropo && personaje2 instanceof Vampiro) {
+            Debilidad debilidadActivada = personaje1.seleccionarDebilidad("Licantropo");
+            if (debilidadActivada != null) {
+                return danio1 = danio1 * debilidadActivada.debilitar();
+            }
+        }
+
+        return danio1;
+
     }
     
 }

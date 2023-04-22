@@ -20,7 +20,6 @@ class Ranking {
         Jugador jugador;
         ArrayList lista = manager.getUsuariosRegistrados();
         for (int i = 0; i < lista.size(); i++) {
-
             user = (Usuario) lista.get(i);
             if (user.getRol() == TipoUsuario.Jugador) {
                 jugador = (Jugador) user;

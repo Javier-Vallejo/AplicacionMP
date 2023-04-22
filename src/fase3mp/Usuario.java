@@ -18,6 +18,7 @@ public class Usuario implements UsuariosANotificar{
     private DesafiosActivos desafiosAct;
     private ManagerUsuarios managerUsuarios;
     private FabricaPersonajes fabricaPersonajes;//habra que pasarselo en el constructor tambien
+    private FabricaEsbirros fabricaEsbirros;
     
     public Usuario(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador){//habria que pasarle un objeto ranking
         setNombre(nombre);
@@ -27,6 +28,10 @@ public class Usuario implements UsuariosANotificar{
         setEstadoObservador(estadoObservador);
     }
 
+    public FabricaEsbirros getFabricaEsbirros() {
+        return fabricaEsbirros;
+    }
+    
     public FabricaPersonajes getFabricaPersonajes() {
         return fabricaPersonajes;
     }
@@ -104,5 +109,7 @@ public class Usuario implements UsuariosANotificar{
     public void DarseDeBaja(Usuario usuario){
         managerUsuarios.eliminarUsuario(usuario.getNick(), usuario.getPassword());    
     }
+
+    
     
 }

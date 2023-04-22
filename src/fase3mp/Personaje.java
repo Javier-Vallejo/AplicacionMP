@@ -147,8 +147,7 @@ public abstract class Personaje implements InterfazPersonaje{ //a lo mejor habri
     }
 
 
-    public int devolverDefensaArma () {
-        
+    public int devolverDefensaArma () {       
         return armaduraActiva.devolverModificadores();
     }
 
@@ -158,28 +157,40 @@ public abstract class Personaje implements InterfazPersonaje{ //a lo mejor habri
 
     
     public int calculoVida(){
-
         int vidaPersonaje = this.Salud;
         int saludTotal = 0;
         saludTotal +=vidaPersonaje;
-        for (int i = 0; i < esbirros.length; i++) {
-            Esbirro esbirro = esbirros[i];
+        for (Esbirro esbirro : esbirros) {
             int saludEsbirro = esbirro.devolverSalud();
-            saludTotal += saludEsbirro;          
-         } 
+            saludTotal += saludEsbirro;
+        } 
         return saludTotal;
     }
 
     public void editarPersonaje(){
         
     }
-
+    
+    public void rellenarPropiedadesEspecificas(){
+        
+    }
+    
     public int devolverDañoHabilidad(Habilidad habilidad) {
         return habilidad.getValorAtaque();
     }
 
     @Override
     public Personaje clonar() {
+        return null;
+    }
+
+    public Debilidad seleccionarDebilidad(String clima) {
+
+        for(Debilidad debilidad: debilidades){
+            if (debilidad.getNombre().equals(clima) ) {
+                return debilidad;
+            }
+        }
         return null;
     }
 }

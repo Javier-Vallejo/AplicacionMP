@@ -85,8 +85,48 @@ public class Jugador extends Usuario{
     private void DarDeBajaPersonaje(Personaje personaje){
         
     }
-    private void ElegirArmasyArmaduras(Arma arma, Armadura armadura){
-        
+    private void elegirArmasActivas(){
+        Scanner escanerArmas = new Scanner(System.in);
+        Arma[] armasPersonaje = personajeActivo.getArmas(); 
+        System.out.println("Elige el numero del arma o armas que va a tener como activas tu personaje: ");
+        System.out.println("(Ten en cuenta que va a ser una de dos manos o dos de una mano)");
+        for (int i = 0; i < armasPersonaje.length; i++) {
+            System.out.println(i + "_" + armasPersonaje[i].getNombre()+ armasPersonaje[i].getTipodeArma().toString()); 
+        }
+        System.out.println(armasPersonaje.length+1 + " Salir");
+        int numArmaActiva = 0;
+        ArrayList<Arma> armasActivas = new ArrayList<>();//habria que hacer tambien un proceso para que pueda quitarse alguna que tenga activa
+        while(numArmaActiva != armasPersonaje.length+1){
+            numArmaActiva = escanerArmas.nextInt();
+            if(armasPersonaje[numArmaActiva].getTipodeArma()== Arma.tipoArma.de2manos && armasActivas.isEmpty()){
+                armasActivas.add(armasPersonaje[numArmaActiva]);
+            }
+            else if(armasPersonaje[numArmaActiva].getTipodeArma()== Arma.tipoArma.de1mano && armasActivas.isEmpty()){
+                armasActivas.add(armasPersonaje[numArmaActiva]);
+            }
+            else if(armasPersonaje[numArmaActiva].getTipodeArma()== Arma.tipoArma.de1mano && armasActivas.size()==1){
+                armasActivas.add(armasPersonaje[numArmaActiva]);
+            }
+            else{
+                System.out.println("El arma que intentas establecer como activa no cabe");
+            }
+        }
+        armasPersonaje = (Arma[]) armasActivas.toArray();
+        personajeActivo.setArmasActivas(armasPersonaje);
+    }
+    private void elegirArmaduraActiva(){
+        Scanner escanerArmaduras = new Scanner(System.in);
+        Armadura[] armadurasPersonaje = personajeActivo.getArmaduras();
+        System.out.println("Elige el numero de la armadura que va tener activa: ");
+        for (int i = 0; i < armadurasPersonaje.length; i++) {
+            System.out.println(i + "_" + armadurasPersonaje[i].getNombre());    
+        }
+        System.out.println(armadurasPersonaje.length+1 + " Salir");
+        int numArmaduraActiva = 0;
+        while(numArmaduraActiva != armadurasPersonaje.length+1){
+            numArmaduraActiva = escanerArmaduras.nextInt();
+        }
+        personajeActivo.setArmaduraActiva(armadurasPersonaje[numArmaduraActiva]);
     }
     private void Desafiar(){
         
@@ -165,13 +205,9 @@ public class Jugador extends Usuario{
                 setPersonajeActivo(null);
                 break;
             case 5://Elegir Armas y Armadura
-                Arma[] armasPersonaje = personajeActivo.getArmas(); 
-                System.out.println("Elige un arma: ");
-                for (int i = 0; i < armasPersonaje.length; i++) {
-                    System.out.println("Arma "+i+ armasPersonaje[i]);
-                }
-                
-                //aqui ya se comprobaria si es de una mano o dos y ya se aniadiria
+                elegirArmasActivas();
+                elegirArmaduraActiva();
+                //se podria preguntar si quiere cambiar arma, armadura o las dos
                 break;
             case 6://Desafiar
                 Desafio desafio = new Desafio();

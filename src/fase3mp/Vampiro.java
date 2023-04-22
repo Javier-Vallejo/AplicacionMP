@@ -5,6 +5,7 @@
 package fase3mp;
 
 import java.lang.reflect.Array;
+import java.util.Scanner;
 
 /**
  *
@@ -12,34 +13,40 @@ import java.lang.reflect.Array;
  */
 public class Vampiro extends Personaje implements InterfazPersonaje{
     
+    private int sangre;
+    private int edad;
+    
     public Vampiro(String nombre, Habilidad habilidadPersonaje, Arma[] armas, Arma[] armasActivas, Armadura[] armaduras,
-            Armadura armaduraActiva, Esbirro[] esbirros, int Salud, int Poder, Debilidad[] debilidades,
-            Fortaleza[] fortalezas) {
-        super(nombre, habilidadPersonaje, armas, armasActivas, armaduras, armaduraActiva, esbirros, Salud, Poder, debilidades,
-                fortalezas);
-        
-                
-        
+        Armadura armaduraActiva, Esbirro[] esbirros, int Salud, int Poder, Debilidad[] debilidades,Fortaleza[] fortalezas){           
+        super(nombre, habilidadPersonaje, armas, armasActivas, armaduras, armaduraActiva, esbirros, Salud, Poder, debilidades,fortalezas);
     }
 
-
-
-
-    
-
-
-
-
-    private int sangre;
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
 
     private void setSangre(int sangre) {
-
         this.sangre = sangre;
     }
 
     @Override
+    public void rellenarPropiedadesEspecificas() {
+        Scanner escanerVamp = new Scanner(System.in);
+        System.out.println("Que cantidad de sangre quieres que tenga: ");
+        sangre = escanerVamp.nextInt();
+        System.out.println("Que edad quieres que tenga: ");
+        edad = escanerVamp.nextInt();                    
+    }
+    
+    
+    
+    
+    @Override
     public Personaje clonar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Vampiro vampiroCopia = new Vampiro(super.getNombre(),super.getHabilidadPersonaje(), super.getArmas(), super.getArmasActivas(), super.getArmaduras(), super.getArmaduraActiva(), super.getEsbirros(), super.getSalud(), super.getPoder(), super.getDebilidades(), super.getFortalezas());
+        vampiroCopia.setSangre(sangre);
+        vampiroCopia.setEdad(edad);
+        return vampiroCopia;
     }
 
     public int dañoDeSangre (int sangre) {
