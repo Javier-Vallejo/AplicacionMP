@@ -4,13 +4,11 @@
  */
 package fase3mp;
 
-import java.lang.reflect.Array;
-
 /**
  *
  * @author david
  */
-public abstract class Personaje implements InterfazPersonaje{ //a lo mejor habria que hacer que fueran ArrayList
+public abstract class Personaje implements InterfazPersonaje { // a lo mejor habria que hacer que fueran ArrayList
     private String nombre;
     private Habilidad habilidadPersonaje;
     private Arma[] armas;
@@ -23,20 +21,22 @@ public abstract class Personaje implements InterfazPersonaje{ //a lo mejor habri
     private Debilidad[] debilidades;
     private Fortaleza[] fortalezas;
 
-     public  Personaje( String nombre,Habilidad habilidadPersonaje,Arma[] armas,Arma[] armasActivas,Armadura[] armaduras, 
-     Armadura armaduraActiva,Esbirro[] esbirros,int Salud,int Poder,Debilidad[] debilidades,Fortaleza[] fortalezas) {
+    public Personaje(String nombre, Habilidad habilidadPersonaje, Arma[] armas, Arma[] armasActivas,
+            Armadura[] armaduras,
+            Armadura armaduraActiva, Esbirro[] esbirros, int Salud, int Poder, Debilidad[] debilidades,
+            Fortaleza[] fortalezas) {
         setNombre(nombre);
-        setHabilidadPersonaje(habilidadPersonaje); 
-        setArmas(armas); 
+        setHabilidadPersonaje(habilidadPersonaje);
+        setArmas(armas);
         setArmaduras(armaduras);
         setArmaduraActiva(armaduraActiva);
         setArmasActivas(armasActivas);
         setEsbirros(esbirros);
         setSalud(Salud);
-        setPoder(Poder); 
-        setDebilidades(debilidades); 
+        setPoder(Poder);
+        setDebilidades(debilidades);
         setFortalezas(fortalezas);
-        
+
     }
 
     public String getNombre() {
@@ -126,28 +126,24 @@ public abstract class Personaje implements InterfazPersonaje{ //a lo mejor habri
     public void setFortalezas(Fortaleza[] fortalezas) {
         this.fortalezas = fortalezas;
     }
-    
-    
-    
-    
-    public int devolverPoder  () {
+
+    public int devolverPoder() {
         return Poder;
     }
 
-    public Habilidad devolverHabilidad  () {
+    public Habilidad devolverHabilidad() {
         return habilidadPersonaje;
     }
 
-    public int devolverDañoArma () {
+    public int devolverDañoArma() {
         int dañoArma = 0;
         for (int i = 0; i < armasActivas.length; i++) {
-              dañoArma += armasActivas[i].devolverModificadores();     
-         } 
+            dañoArma += armasActivas[i].devolverModificadores();
+        }
         return dañoArma;
     }
 
-
-    public int devolverDefensaArma () {       
+    public int devolverDefensaArma() {
         return armaduraActiva.devolverModificadores();
     }
 
@@ -155,26 +151,25 @@ public abstract class Personaje implements InterfazPersonaje{ //a lo mejor habri
 
     public abstract int calculoDefensa();
 
-    
-    public int calculoVida(){
+    public int calculoVida() {
         int vidaPersonaje = this.Salud;
         int saludTotal = 0;
-        saludTotal +=vidaPersonaje;
+        saludTotal += vidaPersonaje;
         for (Esbirro esbirro : esbirros) {
             int saludEsbirro = esbirro.devolverSalud();
             saludTotal += saludEsbirro;
-        } 
+        }
         return saludTotal;
     }
 
-    public void editarPersonaje(){
-        
+    public void editarPersonaje() {
+
     }
-    
-    public void rellenarPropiedadesEspecificas(){
-        
+
+    public void rellenarPropiedadesEspecificas() {
+
     }
-    
+
     public int devolverDañoHabilidad(Habilidad habilidad) {
         return habilidad.getValorAtaque();
     }
@@ -186,8 +181,8 @@ public abstract class Personaje implements InterfazPersonaje{ //a lo mejor habri
 
     public Debilidad seleccionarDebilidad(String clima) {
 
-        for(Debilidad debilidad: debilidades){
-            if (debilidad.getNombre().equals(clima) ) {
+        for (Debilidad debilidad : debilidades) {
+            if (debilidad.getNombre().equals(clima)) {
                 return debilidad;
             }
         }

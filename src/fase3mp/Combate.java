@@ -6,7 +6,6 @@ package fase3mp;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -25,25 +24,21 @@ public class Combate {
     private int vida1;
     private int vida2;
 
-    
-     public Combate(Jugador jugDesafiante, Jugador jugDesafiado, int oroApostado ){
-         desafiante = jugDesafiante;
-         desafiado = jugDesafiado;
-         fecha = LocalDate.now().toString();
-         oroGanado = oroApostado + 100;
-         personaje1 = jugDesafiante.getPersonajeActivo();
-         personaje2 = jugDesafiado.getPersonajeActivo();
-         vida1 = personaje1.getSalud();
-         vida2 = personaje2.getSalud();
+    public Combate(Jugador jugDesafiante, Jugador jugDesafiado, int oroApostado) {
+        desafiante = jugDesafiante;
+        desafiado = jugDesafiado;
+        fecha = LocalDate.now().toString();
+        oroGanado = oroApostado + 100;
+        personaje1 = jugDesafiante.getPersonajeActivo();
+        personaje2 = jugDesafiado.getPersonajeActivo();
+        vida1 = personaje1.getSalud();
+        vida2 = personaje2.getSalud();
     }
-     
+
     public void setRondas(Ronda[] rondas) {
         this.rondas = rondas;
     }
 
-    
-    
-    
     public Ronda[] getRondas() {
         return rondas;
     }
@@ -87,22 +82,13 @@ public class Combate {
     public int getVida2() {
         return vida2;
     }
-    
-    
-    
-    
 
-    
-    public Ronda EmpezarRonda(Personaje per1, Personaje per2, int vida1, int vida2){
+    public Ronda EmpezarRonda(Personaje per1, Personaje per2, int vida1, int vida2) {
         Ronda rondaX = new Ronda();
         ArrayList<Integer> potenciales = rondaX.Calculo_Potencial(per1, per2);
         rondaX.CalcularVidaRestante(potenciales, vida1, vida2);
-        
-        
+
         return rondaX;
     }
-    
-    
-    
-    
+
 }

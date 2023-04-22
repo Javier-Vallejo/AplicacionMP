@@ -4,7 +4,6 @@
  */
 package fase3mp;
 
-import java.util.List;
 import java.util.Scanner;
 
 /**
