@@ -109,7 +109,12 @@ public class OperadorSistema extends Usuario{
             System.out.println("El valor de poder debe estar entre 1 y 5");
             System.out.println("Por favor introduzca el valor de nuevo: ");
             poderPersonaje = lectura.nextInt();
-        }      
+        }
+  
+        System.out.println("Escriba el numero de la habilidad que quiere que tenga su personaje: ");
+        int habilidadElegida = super.getEntidades().MostraryElegirHabilidad();
+        Habilidad habilidadPersonaje = super.getEntidades().getHabilidades().get(habilidadElegida);
+        
         //Esbirros
         FabricaEsbirros fabricaEsbirros = super.getFabricaEsbirros();
         String tipoEsbirro = "";
@@ -149,12 +154,6 @@ public class OperadorSistema extends Usuario{
             }
         }
         Esbirro[] esbirrosPersonaje = (Esbirro[]) esbirrosPers.toArray();
-        System.out.println("Escriba el numero de la habilidad que quiere que tenga su personaje: ");
-        int habilidadElegida = super.getEntidades().MostraryElegirHabilidad();
-        Habilidad habilidadPersonaje = super.getEntidades().getHabilidades().get(habilidadElegida);
-
-        //Falta recabar la informacion respecto a las debilidades y fortalezas
-        //habra que poner las debilidades y fortalezas en entidades activas
         
         System.out.println("Que tipo de personaje desea crear? - Escriba el numero de su tipo:");
         System.out.println("1. Licantropo --- 2. Vampiro --- 3.Cazador");
