@@ -33,9 +33,8 @@ public class SistemaPrincipalGame {
         usuariosSistema = manager;
         //leerUsuarios("usuarios.txt");
         //leerPersonajes("personajes.txt");//habra que hacer un leer Usuarios tambien
-
+        //leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
         EntidadesActivas entidadesActivas = new EntidadesActivas();
-
         inicializarHabilidades(entidadesActivas);
   
         Scanner escaner = new Scanner(System.in);

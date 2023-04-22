@@ -67,7 +67,7 @@ public class OperadorSistema extends Usuario{
         ArrayList<Integer> armadurasEleg = super.getEntidades().MostraryElegir("ARMADURAS");
         Armadura[] armadurasPersonaje = new Armadura[armadurasEleg.size()];
         for (int i = 0; i < armadurasEleg.size(); i++) {
-            armadurasPersonaje[i] = super.getEntidades().elegirArmadura(armasEleg.get(i));   
+            armadurasPersonaje[i] = super.getEntidades().elegirArmadura(armadurasEleg.get(i));   
         }
         //armadura activa
         System.out.println("Elige el numero de la armadura que va tener activa: ");
@@ -95,14 +95,15 @@ public class OperadorSistema extends Usuario{
             debilidadesPersonaje[i] = super.getEntidades().elegirDebilidad(debilidadesEleg.get(i));   
         }
         
-        //habra que meter en entidades activas los esbirros tambien para poder mostrarle y elija
+        //salud personaje
         System.out.println("Escriba la salud del personaje: [Limitada entre 1 y 5]");       
         int saludPersonaje = lectura.nextInt();
         while (saludPersonaje < 1 && saludPersonaje > 5){
             System.out.println("El valor de salud debe estar entre 1 y 5");
             System.out.println("Por favor introduzca el valor de nuevo: ");
             saludPersonaje = lectura.nextInt();
-        }        
+        }
+        //poder personaje
         System.out.println("Escriba el poder del personaje: [Limitado entre 1 y 5]");
         int poderPersonaje = lectura.nextInt();
         while (poderPersonaje < 1 && poderPersonaje > 5){
@@ -110,7 +111,8 @@ public class OperadorSistema extends Usuario{
             System.out.println("Por favor introduzca el valor de nuevo: ");
             poderPersonaje = lectura.nextInt();
         }
-  
+        
+        //habilidad
         System.out.println("Escriba el numero de la habilidad que quiere que tenga su personaje: ");
         int habilidadElegida = super.getEntidades().MostraryElegirHabilidad();
         Habilidad habilidadPersonaje = super.getEntidades().getHabilidades().get(habilidadElegida);
@@ -128,7 +130,7 @@ public class OperadorSistema extends Usuario{
             String nombreEsbirro = lectura.nextLine();
             System.out.println("Introduzca la salud del esbirro: ");
             int saludEsbirro = lectura.nextInt();
-            switch (tipoEsbirro) {
+            switch (tipoEsbirro) { //se deberia poder elegir si crear nuevos esbirros o elegir algunos del sistema
                 case "humano" -> {
                     fabricaEsbirros = new FabricaHumano();
                     Humano humano = (Humano) fabricaEsbirros.crearEsbirro(nombreEsbirro, saludEsbirro);
@@ -162,7 +164,7 @@ public class OperadorSistema extends Usuario{
         
         FileWriter escritorFich = new FileWriter(ficheroPersonajes); //escritor en fichero
         FabricaPersonajes fabricaPersonajes = super.getFabricaPersonajes();
-        
+
         switch (leido){
             //cada tipo de personaje integrará su propia habilidad
             case 1: //creamos un licantropo
