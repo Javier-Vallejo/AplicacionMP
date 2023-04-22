@@ -169,8 +169,6 @@ public class OperadorSistema extends Usuario{
         
         FileWriter escritorFich = new FileWriter(ficheroPersonajes); //escritor en fichero
         FabricaPersonajes fabricaPersonajes = super.getFabricaPersonajes();
-        Debilidad[] debilidades =  new Debilidad[2];
-        Fortaleza[] fortalezas = new Fortaleza[2];
         
         switch (leido){
             //cada tipo de personaje integrará su propia habilidad
