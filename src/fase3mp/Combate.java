@@ -87,6 +87,48 @@ public class Combate {
     public int getVida2() {
         return vida2;
     }
+
+    public void setDesafiante(Jugador desafiante) {
+        this.desafiante = desafiante;
+    }
+
+    public void setDesafiado(Jugador desafiado) {
+        this.desafiado = desafiado;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setVencedor(Jugador Vencedor) {
+        this.Vencedor = Vencedor;
+    }
+
+    public void setJugadoresConEsbirros(ArrayList<Personaje> jugadoresConEsbirros) {
+        this.jugadoresConEsbirros = jugadoresConEsbirros;
+    }
+
+    public void setOroGanado(int oroGanado) {
+        this.oroGanado = oroGanado;
+    }
+
+    public void setPersonaje1(Personaje personaje1) {
+        this.personaje1 = personaje1;
+    }
+
+    public void setPersonaje2(Personaje personaje2) {
+        this.personaje2 = personaje2;
+    }
+
+    public void setVida1(int vida1) {
+        this.vida1 = vida1;
+    }
+
+    public void setVida2(int vida2) {
+        this.vida2 = vida2;
+    }
+    
+    
     
     
     

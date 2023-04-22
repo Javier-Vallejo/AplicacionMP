@@ -144,7 +144,27 @@ public class Jugador extends Usuario{
                 Ronda rondaX = combate.EmpezarRonda(combate.getPersonaje1(), combate.getPersonaje2(), combate.getVida1(), combate.getVida2());
                 rondas.add(rondaX);
             }
-            //Sujeto a cambios la manera de añadir las rondas a la clase combate
+            //Setear el jugador vencedor
+            if (combate.getVida1() == 0){
+                combate.setVencedor(combate.getDesafiado());
+            } else {
+                combate.setVencedor(combate.getDesafiante());
+            }
+            //Sumar y restar el dinero apostado
+            combate.getVencedor().setOro(combate.getVencedor().getOro() + combate.getOroGanado() + 10);
+            //TODO - Restar y sumar el oro a perdedor y ganador
+            if (combate.getVencedor() == combate.getDesafiante()){
+                combate.getDesafiado().setOro(combate.getDesafiado().getOro() - combate.getOroGanado()); 
+                if (combate.getDesafiado().getOro() < 0){
+                    combate.getDesafiado().setOro(0);
+                }
+            } else{
+                combate.getDesafiante().setOro(combate.getDesafiante().getOro() - combate.getOroGanado());
+                if (combate.getDesafiante().getOro() < 0){
+                    combate.getDesafiante().setOro(0);
+                }
+            }
+            
             Ronda[] misRondas = new Ronda[rondas.size()];
             misRondas = rondas.toArray(misRondas);
             combate.setRondas(misRondas);
