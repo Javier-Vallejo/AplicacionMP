@@ -17,15 +17,19 @@ public class Licantropo extends Personaje implements InterfazPersonaje{
     
     public Licantropo (String nombre,Habilidad habilidadPersonaje,Arma[] armas,Arma[] armasActivas,Armadura[] armaduras, 
     Armadura armaduraActiva,Esbirro[] esbirros,int Salud,int Poder,Debilidad[] debilidades,Fortaleza[] fortalezas){
-        super(nombre, habilidadPersonaje, armas, armasActivas, armaduras, armaduraActiva, esbirros, Salud, Poder,debilidades,fortalezas);
-        Scanner escanerlican = new Scanner(System.in);
-        System.out.println("Introduzca el valor de rabia: ");
-        int valorRabia = escanerlican.nextInt();
-        rabia = valorRabia;
+        super(nombre, habilidadPersonaje, armas, armasActivas, armaduras, armaduraActiva, esbirros, Salud, Poder,debilidades,fortalezas);      
     }
 
     public void setRabia(int rabia) {
         this.rabia = rabia;
+    }
+
+    @Override
+    public void rellenarPropiedadesEspecificas() {
+        Scanner escanerlican = new Scanner(System.in);
+        System.out.println("Introduzca el valor de rabia: ");
+        int valorRabia = escanerlican.nextInt();
+        rabia = valorRabia;
     }
 
     

@@ -33,6 +33,7 @@ public class SistemaPrincipalGame {
         usuariosSistema = manager;
         //leerUsuarios("usuarios.txt");
         //leerPersonajes("personajes.txt");//habra que hacer un leer Usuarios tambien
+        //leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
         Scanner escaner = new Scanner(System.in);
         String opcionElegida = "";
         while(!(opcionElegida.equals("INICIARSESION")==false ^ opcionElegida.equals("REGISTRARSE")==false)){

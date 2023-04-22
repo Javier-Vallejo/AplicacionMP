@@ -103,9 +103,9 @@ public class EntidadesActivas {
                 System.out.println("Arma " + i + armas.get(i).getNombre());
             }
             System.out.println((armas.size()+1)+" Salir");
+            ArrayList<Integer> armasElegidas = new ArrayList<>();
             while(armaEle != armas.size()+1){//habria que limitar para que no acepte enteros mayores que el size
                 armaEle = escaner.nextInt();
-                ArrayList<Integer> armasElegidas = new ArrayList<>();
                 armasElegidas.add(armaEle);
                 return armasElegidas;
             }
@@ -116,9 +116,9 @@ public class EntidadesActivas {
                 System.out.println("Armadura " + i + armaduras.get(i).getNombre());
             }
             System.out.println((armaduras.size()+1)+" Salir");
+            ArrayList<Integer> armadurasElegidas = new ArrayList<>();
             while(armaduraEle != armaduras.size()+1){
                 armaduraEle = escaner.nextInt();
-                ArrayList<Integer> armadurasElegidas = new ArrayList<>();
                 armadurasElegidas.add(armaduraEle);
                 return armadurasElegidas;
             }
@@ -127,16 +127,29 @@ public class EntidadesActivas {
             int fortalezaEle = 0;
             for (int i = 0; i < fortalezas.size(); i++) {
                 System.out.println("Fortaleza "+ i + fortalezas.get(i).getNombre());
+            }
             System.out.println((fortalezas.size()+1)+" Salir");
+            ArrayList<Integer> fortalezasElegidas = new ArrayList<>();
             while(fortalezaEle != fortalezas.size()+1){
                 fortalezaEle = escaner.nextInt();
-                ArrayList<Integer> fortalezasElegidas = new ArrayList<>();
                 fortalezasElegidas.add(fortalezaEle);
                 return fortalezasElegidas;
             }
-            
         }
+        else if (objetoMostrar.equals("DEBILIDADES")){
+            int debilidadEle = 0;
+            for (int i = 0; i < debilidades.size(); i++) {
+                System.out.println("Debilidad "+ i + debilidades.get(i).getNombre());    
+            }
+            System.out.println((debilidades.size()+1)+" Salir");
+            ArrayList<Integer> debilidadesElegidas = new ArrayList<>();
+            while(debilidadEle != debilidades.size()+1){
+                debilidadEle = escaner.nextInt();
+                debilidadesElegidas.add(debilidadEle);
+                return debilidadesElegidas;
+            }    
         }
+        
         else {
            System.out.println("No existe el contenido "+ objetoMostrar);
            return null;

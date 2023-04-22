@@ -5,31 +5,95 @@
 package fase3mp;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
  * @author d.rubio.2019
  */
 public class Demonio extends Esbirro implements IEsbirros{
-    public Demonio(String nombre, int salud) {
-        super(nombre, salud);
-        //TODO Auto-generated constructor stub
-    }
-
-
+    
     private ArrayList<Esbirro> esbirros;
     private boolean tienePacto;
     private Pacto pacto;
+    private FabricaEsbirros fabricaEsbirros;
     
+    public Demonio(String nombre, int salud) {
+        super(nombre, salud);        
+    }
 
     public void setBooleanPacto (boolean tienePacto) {
         this.tienePacto = tienePacto;
     }
     public void setPacto (Pacto pacto) {
         this.pacto = pacto;
-    };
+    }
 
+    public void setFabricaEsbirros(FabricaEsbirros fabricaEsbirros) {
+        this.fabricaEsbirros = fabricaEsbirros;
+    }
+    
+    
+    @Override
+    public void rellenarPropiedadesEspec() {
+        Scanner escanerDemon = new Scanner(System.in);
+        System.out.println("Tiene pacto su demonio? Si o no");
+        String tienePact = escanerDemon.nextLine();
+        tienePact = tienePact.toLowerCase().trim();
+        if(tienePact.equals("si")){
+            tienePacto = true;
+            Pacto pactoDem = new Pacto();
+            pacto = pactoDem;
+        }
+        else if(tienePact.equals("no")){
+            tienePacto = false;
+        }
+        System.out.println("Tiene esbirros tu demonio? Si o no");
+        String tieneEsbi = escanerDemon.nextLine();
+        tieneEsbi = tieneEsbi.toLowerCase().trim();
+        if (tieneEsbi.equals("si")){
+            ArrayList<Esbirro> esbirrosDeEsbirro = new ArrayList<>();
+            String tipoEsbirro = "";
+            while(!tipoEsbirro.equals("salir")){
+                System.out.println("De que tipo seran los esbirros, ghoul o demonio. Pulse salir para terminar.");
+                tipoEsbirro = escanerDemon.nextLine();
+                tipoEsbirro = tipoEsbirro.toLowerCase().trim();
+                switch (tipoEsbirro) {
+                    case "ghoul" -> {
+                        System.out.println("Introduzca el nombre que le quiere poner al ghoul esbirro: ");
+                        String nombreGhoul = escanerDemon.nextLine();
+                        System.out.println("Introduzca la salud del esbirro: ");
+                        int saludGhoul = escanerDemon.nextInt();
+                        fabricaEsbirros = new FabricaGhoul();
+                        Ghoul ghoul = (Ghoul) fabricaEsbirros.crearEsbirro(nombreGhoul, saludGhoul);
+                        ghoul.rellenarPropiedadesEspec();
+                        esbirrosDeEsbirro.add(ghoul);
+                    }
+                    case "demonio" -> { //se le rellenaran sus esbirros de forma recursiva
+                        System.out.println("Introduzca el nombre que le quiere poner al demonio esbirro: ");
+                        String nombreDemonioEsbi = escanerDemon.nextLine();
+                        System.out.println("Introduzca la salud del esbirro: ");
+                        int saludDemonioEsbi = escanerDemon.nextInt();
+                        fabricaEsbirros = new FabricaDemonio();
+                        Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreDemonioEsbi, saludDemonioEsbi);
+                        demonio.rellenarPropiedadesEspec();
+                        esbirrosDeEsbirro.add(demonio);
+                    }
+                    case "salir" -> {
+                        System.out.println("No se aniadiran mas esbirros a "+ super.getNombre());
+                        esbirros = esbirrosDeEsbirro;
+                    }
+                    default -> {
+                    }
+                }
+            }
+        }
+        else if(tieneEsbi.equals("no")){
+            System.out.println("No se aniadiran esbirros a "+ super.getNombre());
+        }
+    }
 
+    
 
     @Override
     public int calcularVidaRestante() {

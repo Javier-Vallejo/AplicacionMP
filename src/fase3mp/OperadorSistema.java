@@ -121,9 +121,46 @@ public class OperadorSistema extends Usuario{
         int limitante = lectura.nextInt();
 
         Habilidad habilidadPersonaje = new Habilidad(nombre, poderHabilidad, defensaHabilidad, limitante);
-
-        //Falta recabar la informacion respecto a las debilidades y fortalezas
-        //habra que poner las debilidades y fortalezas en entidades activas
+        
+        //Esbirros
+        FabricaEsbirros fabricaEsbirros = super.getFabricaEsbirros();
+        String tipoEsbirro = "";
+        ArrayList<Esbirro> esbirrosPers = new ArrayList<>();
+        while(!tipoEsbirro.equals("salir")){
+            System.out.println("Escriba el tipo de esbirro que desea introducirle: ");
+            System.out.println("Las opciones son Humano, Ghoul y Demonio. Escriba salir para terminar.");
+            tipoEsbirro = lectura.nextLine();
+            tipoEsbirro = tipoEsbirro.toLowerCase().trim();
+            System.out.println("Introduzca el nombre que le quiere poner al esbirro: ");
+            String nombreEsbirro = lectura.nextLine();
+            System.out.println("Introduzca la salud del esbirro: ");
+            int saludEsbirro = lectura.nextInt();
+            switch (tipoEsbirro) {
+                case "humano" -> {
+                    fabricaEsbirros = new FabricaHumano();
+                    Humano humano = (Humano) fabricaEsbirros.crearEsbirro(nombreEsbirro, saludEsbirro);
+                    humano.rellenarPropiedadesEspec();
+                    esbirrosPers.add(humano);
+                }
+                case "ghoul" -> {
+                    fabricaEsbirros = new FabricaGhoul();
+                    Ghoul ghoul = (Ghoul) fabricaEsbirros.crearEsbirro(nombreEsbirro, saludEsbirro);
+                    ghoul.rellenarPropiedadesEspec();
+                    esbirrosPers.add(ghoul);
+                }
+                case "demonio" -> {
+                    fabricaEsbirros = new FabricaDemonio();
+                    Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsbirro, saludEsbirro);
+                    demonio.setFabricaEsbirros(super.getFabricaEsbirros());
+                    demonio.rellenarPropiedadesEspec();
+                    esbirrosPers.add(demonio);
+                }
+                default -> {
+                    System.out.println("Nombre de esbirro no correcto");
+                }
+            }
+        }
+        Esbirro[] esbirrosPersonaje = (Esbirro[]) esbirrosPers.toArray();
         
         System.out.println("Que tipo de personaje desea crear? - Escriba el numero de su tipo:");
         System.out.println("1. Licantropo --- 2. Vampiro --- 3.Cazador");
@@ -133,25 +170,27 @@ public class OperadorSistema extends Usuario{
         FileWriter escritorFich = new FileWriter(ficheroPersonajes); //escritor en fichero
         FabricaPersonajes fabricaPersonajes = super.getFabricaPersonajes();
         Debilidad[] debilidades =  new Debilidad[2];
-
         Fortaleza[] fortalezas = new Fortaleza[2];
+        
         switch (leido){
             //cada tipo de personaje integrará su propia habilidad
             case 1: //creamos un licantropo
                 fabricaPersonajes = new FabricaLicantropo();
-                Licantropo licanNuevo = (Licantropo) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje, armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje, null, saludPersonaje, poderPersonaje, debilidadesPersonaje, fortalezasPersonaje);
+                Licantropo licanNuevo = (Licantropo) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje, armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje, esbirrosPersonaje, saludPersonaje, poderPersonaje, debilidadesPersonaje, fortalezasPersonaje);
+                licanNuevo.rellenarPropiedadesEspecificas();
                 super.getEntidades().aniadir(licanNuevo);
                 escritorFich.write(""); //habra que convertir las propiedades que no sean string
                 break;
             case 2: // creamos un vampiro
                 fabricaPersonajes = new FabricaVampiro();
-                Vampiro vampNuevo = (Vampiro) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje, armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje, null, saludPersonaje, poderPersonaje, debilidadesPersonaje, fortalezasPersonaje);
+                Vampiro vampNuevo = (Vampiro) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje, armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje, esbirrosPersonaje, saludPersonaje, poderPersonaje, debilidadesPersonaje, fortalezasPersonaje);
+                vampNuevo.rellenarPropiedadesEspecificas();
                 super.getEntidades().aniadir(vampNuevo);
                 escritorFich.write("");
                 break;
             case 3: //creamos un cazador 
                 fabricaPersonajes = new FabricaCazador();
-                Cazador cazNuevo = (Cazador) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje, armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje, null, saludPersonaje, poderPersonaje, debilidadesPersonaje, fortalezasPersonaje);
+                Cazador cazNuevo = (Cazador) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje, armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje, esbirrosPersonaje, saludPersonaje, poderPersonaje, debilidadesPersonaje, fortalezasPersonaje);
                 super.getEntidades().aniadir(cazNuevo);
                 escritorFich.write("");
                 break;
