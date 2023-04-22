@@ -140,28 +140,20 @@ public class OperadorSistema extends Usuario{
             //cada tipo de personaje integrará su propia habilidad
             case 1: //creamos un licantropo
                 fabricaPersonajes = new FabricaLicantropo();
-                //Licantropo licanNuevo = (Licantropo) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje, armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje, null, saludPersonaje, poderPersonaje, debilidadesPersonaje, fortalezasPersonaje);
-                //System.out.println("Que cantidad de rabia quieres que tenga: ");
-                //int cantidadRabia = lectura.nextInt();
-                //licanNuevo.setRabia(cantidadRabia);
-                //super.getEntidades().aniadir(licanNuevo);
+                Licantropo licanNuevo = (Licantropo) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje, armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje, null, saludPersonaje, poderPersonaje, debilidadesPersonaje, fortalezasPersonaje);
+                super.getEntidades().aniadir(licanNuevo);
                 escritorFich.write(""); //habra que convertir las propiedades que no sean string
                 break;
             case 2: // creamos un vampiro
                 fabricaPersonajes = new FabricaVampiro();
-                //Vampiro vampNuevo = fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje, armasPersonaje, armasPersonaje, armadurasPersonaje, armaduraActiva, esbirros, 0, 0, debilidades, fortalezas, 0);
-                //System.out.println("Que cantidad de sangre quieres que tenga: ");
-                //int cantidadSangre = lectura.nextInt();
-                //vampNuevo.setCantidadSangre(cantidadSangre);
-                //System.out.println("Que edad quieres que tenga: ");
-                //int edad = lectura.nextInt();
-                //vampNuevo.setEdad(edad);
-                //super.getEntidades().aniadir(vampNuevo);
+                Vampiro vampNuevo = (Vampiro) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje, armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje, null, saludPersonaje, poderPersonaje, debilidadesPersonaje, fortalezasPersonaje);
+                super.getEntidades().aniadir(vampNuevo);
                 escritorFich.write("");
                 break;
             case 3: //creamos un cazador 
                 fabricaPersonajes = new FabricaCazador();
-                //super.getEntidades().aniadir(cazNuevo);
+                Cazador cazNuevo = (Cazador) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje, armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje, null, saludPersonaje, poderPersonaje, debilidadesPersonaje, fortalezasPersonaje);
+                super.getEntidades().aniadir(cazNuevo);
                 escritorFich.write("");
                 break;
         }
