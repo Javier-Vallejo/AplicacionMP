@@ -17,6 +17,7 @@ public class EntidadesActivas {
     private ArrayList<Armadura> armaduras;
     private ArrayList<Fortaleza> fortalezas;
     private ArrayList<Debilidad> debilidades;
+    private ArrayList<Habilidad> habilidades; 
 
     public ArrayList<Fortaleza> getFortalezas() {
         return fortalezas;
@@ -49,6 +50,10 @@ public class EntidadesActivas {
     public void setArmaduras(ArrayList<Armadura> armaduras) {
         this.armaduras = armaduras;
     }
+
+    public ArrayList<Habilidad> getHabilidades() {
+        return habilidades;
+    }
    
     
     public void aniadir(Object objeto){
@@ -65,6 +70,11 @@ public class EntidadesActivas {
             Armadura armadura = (Armadura) objeto;
             armaduras.add(armadura);
         }
+        else if(objeto instanceof Habilidad){
+            Habilidad habilidad = (Habilidad) objeto;
+            habilidades.add(habilidad);
+        }
+
     }
     public Personaje elegirPersonaje(int eleccion){
         return personajes.get(eleccion);
@@ -127,6 +137,7 @@ public class EntidadesActivas {
             int fortalezaEle = 0;
             for (int i = 0; i < fortalezas.size(); i++) {
                 System.out.println("Fortaleza "+ i + fortalezas.get(i).getNombre());
+            }
             System.out.println((fortalezas.size()+1)+" Salir");
             while(fortalezaEle != fortalezas.size()+1){
                 fortalezaEle = escaner.nextInt();
@@ -135,13 +146,28 @@ public class EntidadesActivas {
                 return fortalezasElegidas;
             }
             
-        }
+        
         }
         else {
            System.out.println("No existe el contenido "+ objetoMostrar);
            return null;
         }
         return null;
+    }
+
+
+    public int MostraryElegirHabilidad () {
+            int habilidadElegida = 0;
+            Scanner escaner = new Scanner(System.in);
+            for (int i = 0; i < habilidades.size(); i++) {
+                System.out.println("Habilidad "+ i + habilidades.get(i).getNombre());
+            }
+            System.out.println((habilidades.size()+1)+" Salir");
+            habilidadElegida = escaner.nextInt();
+            return habilidadElegida;
+            
+        
+        
     }
 
 

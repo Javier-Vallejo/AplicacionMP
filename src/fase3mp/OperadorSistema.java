@@ -111,17 +111,9 @@ public class OperadorSistema extends Usuario{
             poderPersonaje = lectura.nextInt();
         }
   
-        /* System.out.println("Escriba el nombre de la habilidad");
-        String nombre  = lectura.nextLine();
-        System.out.println("Escriba el poder que se obtiene de base de la habilidad");
-        int poderHabilidad = lectura.nextInt();
-        System.out.println("Escriba la defensa que se obtiene de base de la habilidad");
-        int defensaHabilidad = lectura.nextInt();
-        System.out.println("Escriba el limitante para poder activar la habilidad");
-        int limitante = lectura.nextInt(); */
-
-
-       // Habilidad habilidadPersonaje = new Habilidad(nombre, poderHabilidad, defensaHabilidad, limitante);
+        System.out.println("Escriba el numero de la habilidad que quiere que tenga su personaje: ");
+        int habilidadElegida = super.getEntidades().MostraryElegirHabilidad();
+        Habilidad habilidadPersonaje = super.getEntidades().getHabilidades().get(habilidadElegida);
 
         //Falta recabar la informacion respecto a las debilidades y fortalezas
         //habra que poner las debilidades y fortalezas en entidades activas
@@ -133,9 +125,6 @@ public class OperadorSistema extends Usuario{
         
         FileWriter escritorFich = new FileWriter(ficheroPersonajes); //escritor en fichero
         FabricaPersonajes fabricaPersonajes = super.getFabricaPersonajes();
-        Debilidad[] debilidades =  new Debilidad[2];
-
-        Fortaleza[] fortalezas = new Fortaleza[2];
         switch (leido){
             //cada tipo de personaje integrará su propia habilidad
             case 1: //creamos un licantropo
