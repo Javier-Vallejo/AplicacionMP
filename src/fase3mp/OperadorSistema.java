@@ -67,7 +67,7 @@ public class OperadorSistema extends Usuario{
         ArrayList<Integer> armadurasEleg = super.getEntidades().MostraryElegir("ARMADURAS");
         Armadura[] armadurasPersonaje = new Armadura[armadurasEleg.size()];
         for (int i = 0; i < armadurasEleg.size(); i++) {
-            armadurasPersonaje[i] = super.getEntidades().elegirArmadura(armasEleg.get(i));   
+            armadurasPersonaje[i] = super.getEntidades().elegirArmadura(armadurasEleg.get(i));   
         }
         //armadura activa
         System.out.println("Elige el numero de la armadura que va tener activa: ");

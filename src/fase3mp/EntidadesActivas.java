@@ -18,6 +18,7 @@ public class EntidadesActivas {
     private ArrayList<Fortaleza> fortalezas;
     private ArrayList<Debilidad> debilidades;
     private ArrayList<Habilidad> habilidades; 
+    private ArrayList<Esbirro> esbirros;
 
     public ArrayList<Fortaleza> getFortalezas() {
         return fortalezas;
