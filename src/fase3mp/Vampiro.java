@@ -30,11 +30,12 @@ public class Vampiro extends Personaje{
 
     @Override
     public void rellenarPropiedadesEspecificas() {
-        Scanner escanerVamp = new Scanner(System.in);
-        System.out.println("Que cantidad de sangre quieres que tenga: ");
-        sangre = escanerVamp.nextInt();
-        System.out.println("Que edad quieres que tenga: ");
-        edad = escanerVamp.nextInt();                    
+        try (Scanner escanerVamp = new Scanner(System.in)) {
+            System.out.println("Que cantidad de sangre quieres que tenga: ");
+            sangre = escanerVamp.nextInt();
+            System.out.println("Que edad quieres que tenga: ");
+            edad = escanerVamp.nextInt();
+        }                    
     }
     
     

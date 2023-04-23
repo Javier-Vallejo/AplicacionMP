@@ -84,48 +84,55 @@ public class Jugador extends Usuario {
     }
 
     private void elegirArmasActivas() {
-        Scanner escanerArmas = new Scanner(System.in);
         Arma[] armasPersonaje = personajeActivo.getArmas();
         System.out.println("Elige el numero del arma o armas que va a tener como activas tu personaje: ");
         System.out.println("(Ten en cuenta que va a ser una de dos manos o dos de una mano)");
-        for (int i = 0; i < armasPersonaje.length; i++) {
-            System.out.println(i + "_" + armasPersonaje[i].getNombre() + armasPersonaje[i].getTipodeArma().toString());
-        }
-        System.out.println(armasPersonaje.length + 1 + " Salir");
-        int numArmaActiva = 0;
-        ArrayList<Arma> armasActivas = new ArrayList<>();// habria que hacer tambien un proceso para que pueda quitarse
-                                                         // alguna que tenga activa
-        while (numArmaActiva != armasPersonaje.length + 1) {
-            numArmaActiva = escanerArmas.nextInt();
-            if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de2manos && armasActivas.isEmpty()) {
-                armasActivas.add(armasPersonaje[numArmaActiva]);
-            } else if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de1mano
-                    && armasActivas.isEmpty()) {
-                armasActivas.add(armasPersonaje[numArmaActiva]);
-            } else if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de1mano
-                    && armasActivas.size() == 1) {
-                armasActivas.add(armasPersonaje[numArmaActiva]);
-            } else {
-                System.out.println("El arma que intentas establecer como activa no cabe");
+
+        try (Scanner escanerArmas = new Scanner(System.in)) {
+            for (int i = 0; i < armasPersonaje.length; i++) {
+                System.out.println(
+                        i + "_" + armasPersonaje[i].getNombre() + armasPersonaje[i].getTipodeArma().toString());
             }
+            System.out.println(armasPersonaje.length + 1 + " Salir");
+            int numArmaActiva = 0;
+            ArrayList<Arma> armasActivas = new ArrayList<>();// habria que hacer tambien un proceso para que pueda
+                                                             // quitarse
+                                                             // alguna que tenga activa
+            while (numArmaActiva != armasPersonaje.length + 1) {
+                numArmaActiva = escanerArmas.nextInt();
+                if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de2manos && armasActivas.isEmpty()) {
+                    armasActivas.add(armasPersonaje[numArmaActiva]);
+                } else if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de1mano
+                        && armasActivas.isEmpty()) {
+                    armasActivas.add(armasPersonaje[numArmaActiva]);
+                } else if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de1mano
+                        && armasActivas.size() == 1) {
+                    armasActivas.add(armasPersonaje[numArmaActiva]);
+                } else {
+                    System.out.println("El arma que intentas establecer como activa no cabe");
+                }
+            }
+            armasPersonaje = (Arma[]) armasActivas.toArray();
+            personajeActivo.setArmasActivas(armasPersonaje);
         }
-        armasPersonaje = (Arma[]) armasActivas.toArray();
-        personajeActivo.setArmasActivas(armasPersonaje);
     }
 
     private void elegirArmaduraActiva() {
-        Scanner escanerArmaduras = new Scanner(System.in);
         Armadura[] armadurasPersonaje = personajeActivo.getArmaduras();
         System.out.println("Elige el numero de la armadura que va tener activa: ");
-        for (int i = 0; i < armadurasPersonaje.length; i++) {
-            System.out.println(i + "_" + armadurasPersonaje[i].getNombre());
+
+        try (Scanner escanerArmaduras = new Scanner(System.in)) {
+
+            for (int i = 0; i < armadurasPersonaje.length; i++) {
+                System.out.println(i + "_" + armadurasPersonaje[i].getNombre());
+            }
+            System.out.println(armadurasPersonaje.length + 1 + " Salir");
+            int numArmaduraActiva = 0;
+            while (numArmaduraActiva != armadurasPersonaje.length + 1) {
+                numArmaduraActiva = escanerArmaduras.nextInt();
+            }
+            personajeActivo.setArmaduraActiva(armadurasPersonaje[numArmaduraActiva]);
         }
-        System.out.println(armadurasPersonaje.length + 1 + " Salir");
-        int numArmaduraActiva = 0;
-        while (numArmaduraActiva != armadurasPersonaje.length + 1) {
-            numArmaduraActiva = escanerArmaduras.nextInt();
-        }
-        personajeActivo.setArmaduraActiva(armadurasPersonaje[numArmaduraActiva]);
     }
 
     private void Desafiar() {
@@ -134,23 +141,23 @@ public class Jugador extends Usuario {
 
     private void AceptaroRechazarDesafio(Desafio desafio) {
         // System.out.println();
-        Scanner lectura = new Scanner(System.in);
-        int opcion = lectura.nextInt();
+        try (Scanner lectura = new Scanner(System.in)) {
+            int opcion = lectura.nextInt();
 
-        if (opcion == 1) { // 1 es aceptar el desafio
-            Combate combate = new Combate(desafio.getJugadorDesafiante(), this, desafio.getOroApostado());
-            ArrayList<Ronda> rondas = new ArrayList<>();
-            while ((combate.getVida2() > 0) && (combate.getVida1() > 0)) {
-                Ronda rondaX = combate.EmpezarRonda(combate.getPersonaje1(), combate.getPersonaje2(),
-                        combate.getVida1(), combate.getVida2());
-                rondas.add(rondaX);
+            if (opcion == 1) { // 1 es aceptar el desafio
+                Combate combate = new Combate(desafio.getJugadorDesafiante(), this, desafio.getOroApostado());
+                ArrayList<Ronda> rondas = new ArrayList<>();
+                while ((combate.getVida2() > 0) && (combate.getVida1() > 0)) {
+                    Ronda rondaX = combate.EmpezarRonda(combate.getPersonaje1(), combate.getPersonaje2(),
+                            combate.getVida1(), combate.getVida2());
+                    rondas.add(rondaX);
+                }
+                // Sujeto a cambios la manera de añadir las rondas a la clase combate
+                Ronda[] misRondas = new Ronda[rondas.size()];
+                misRondas = rondas.toArray(misRondas);
+                combate.setRondas(misRondas);
+                // Falta ver en que lista/estructura añadimos la ronda//combate
             }
-            // Sujeto a cambios la manera de añadir las rondas a la clase combate
-            Ronda[] misRondas = new Ronda[rondas.size()];
-            misRondas = rondas.toArray(misRondas);
-            combate.setRondas(misRondas);
-            // Falta ver en que lista/estructura añadimos la ronda//combate
-
         }
     }
 
@@ -231,12 +238,14 @@ public class Jugador extends Usuario {
                     System.out.println("El personaje que elijas sustituira al tuyo.");
                     System.out.println("¿Deseas continuar? Si o No");
                     String opcionSioNO = "";
-                    Scanner escanerSioNo = new Scanner(System.in);
-                    while (!(opcionSioNO.equals("SI") == false ^ opcionSioNO.equals("NO") == false)) {
-                        System.out.println("¿Deseas continuar? Si o No");
-                        opcionSioNO = escanerSioNo.nextLine();
-                        opcionSioNO = opcionSioNO.toUpperCase();
+                    try (Scanner escanerSioNo = new Scanner(System.in)) {
+                        while (!(opcionSioNO.equals("SI") == false ^ opcionSioNO.equals("NO") == false)) {
+                            System.out.println("¿Deseas continuar? Si o No");
+                            opcionSioNO = escanerSioNo.nextLine();
+                            opcionSioNO = opcionSioNO.toUpperCase();
+                        }
                     }
+
                     if (opcionSioNO.equals("SI")) {
                         ArrayList<Integer> personaje = super.getEntidades().MostraryElegir("PERSONAJES");
                         setPersonajeActivo(super.getEntidades().elegirPersonaje(personaje.get(0)));// habra que hacer

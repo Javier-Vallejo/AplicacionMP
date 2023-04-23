@@ -25,27 +25,29 @@ public class Humano extends Esbirro implements IEsbirros {
 
     @Override
     public void rellenarPropiedadesEspec() {
-        Scanner escanerhuman = new Scanner(System.in);
-        String nivelLeal = "";
-        while (!nivelLeal.equals("alta") || !nivelLeal.equals("normal") || !nivelLeal.equals("baja")) {
-            System.out.println("Que nivel de lealtad quieres que tenga. Alta, normal o baja");
-            nivelLeal = escanerhuman.nextLine();
-            nivelLeal = nivelLeal.toLowerCase().trim();
-            switch (nivelLeal) {
-                case "alta" -> {
-                    lealtad = nivelLealtad.ALTA;
-                }
-                case "normal" -> {
-                    lealtad = nivelLealtad.NORMAL;
-                }
-                case "baja" -> {
-                    lealtad = nivelLealtad.BAJA;
-                }
-                default -> {
-                    System.out.println("Valor no correcto");
+
+        try (Scanner escanerhuman = new Scanner(System.in);) {
+            String nivelLeal = "";
+            while (!nivelLeal.equals("alta") || !nivelLeal.equals("normal") || !nivelLeal.equals("baja")) {
+                System.out.println("Que nivel de lealtad quieres que tenga. Alta, normal o baja");
+                nivelLeal = escanerhuman.nextLine();
+                nivelLeal = nivelLeal.toLowerCase().trim();
+                switch (nivelLeal) {
+                    case "alta" -> {
+                        lealtad = nivelLealtad.ALTA;
+                    }
+                    case "normal" -> {
+                        lealtad = nivelLealtad.NORMAL;
+                    }
+                    case "baja" -> {
+                        lealtad = nivelLealtad.BAJA;
+                    }
+                    default -> {
+                        System.out.println("Valor no correcto");
+                    }
                 }
             }
-        }
+        }//fin try
     }
 
     @Override
@@ -53,5 +55,15 @@ public class Humano extends Esbirro implements IEsbirros {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from
                                                                        // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    public nivelLealtad getLealtad() {
+        return lealtad;
+    }
+
+    public void setLealtad(nivelLealtad lealtad) {
+        this.lealtad = lealtad;
+    }
+
+    
 
 }

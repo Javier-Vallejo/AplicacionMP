@@ -21,10 +21,13 @@ public class Ghoul extends Esbirro implements IEsbirros {
 
     @Override
     public void rellenarPropiedadesEspec() {
-        Scanner escanerGhoul = new Scanner(System.in);
-        System.out.println("Introduzca el valor de dependencia: ");
-        int valorDependencia = escanerGhoul.nextInt();
-        dependencia = valorDependencia;
+
+        try (Scanner escanerGhoul = new Scanner(System.in);) {
+            System.out.println("Introduzca el valor de dependencia: ");
+            int valorDependencia = escanerGhoul.nextInt();
+            dependencia = valorDependencia;
+        }
+
     }
 
     @Override
@@ -35,6 +38,10 @@ public class Ghoul extends Esbirro implements IEsbirros {
 
     public void setDependencia(int dependencia) {
         this.dependencia = dependencia;
+    }
+
+    public int getDependencia() {
+        return dependencia;
     }
 
 }

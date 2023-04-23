@@ -31,4 +31,22 @@ public class Publisher {
 
     }
 
+    public ArrayList<Usuario> getSuscriptores() {
+        return suscriptores;
+    }
+
+    public void setSuscriptores(ArrayList<Usuario> suscriptores) {
+        this.suscriptores = suscriptores;
+    }
+
+    public OperadorSistema getOperador() {
+        return operador;
+    }
+
+    public void setOperador(OperadorSistema operador) {
+        this.operador = operador;
+    }
+
+    
+
 }
