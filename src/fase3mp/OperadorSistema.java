@@ -41,7 +41,8 @@ public class OperadorSistema extends Usuario {
             System.out.println("Elige el numero del arma o armas que va a tener como activas: ");
             System.out.println("(Ten en cuenta que va a ser una de dos manos o dos de una mano)");
             for (int i = 0; i < armasPersonaje.length; i++) {
-                System.out.println(i + "_" + armasPersonaje[i].getNombre() + armasPersonaje[i].getTipodeArma().toString());
+                System.out.println(
+                        i + "_" + armasPersonaje[i].getNombre() + armasPersonaje[i].getTipodeArma().toString());
             }
             System.out.println(armasPersonaje.length + 1 + " Salir");
             int numArmaActiva = 0;
@@ -172,9 +173,11 @@ public class OperadorSistema extends Usuario {
                     // cada tipo de personaje integrará su propia habilidad
                     case 1: // creamos un licantropo
                         fabricaPersonajes = new FabricaLicantropo();
-                        Licantropo licanNuevo = (Licantropo) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje,
+                        Licantropo licanNuevo = (Licantropo) fabricaPersonajes.crearPersonaje(nombreCarac,
+                                habilidadPersonaje,
                                 armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje,
-                                esbirrosPersonaje, saludPersonaje, poderPersonaje, debilidadesPersonaje, fortalezasPersonaje);
+                                esbirrosPersonaje, saludPersonaje, poderPersonaje, debilidadesPersonaje,
+                                fortalezasPersonaje);
                         licanNuevo.rellenarPropiedadesEspecificas();
                         super.getEntidades().aniadir(licanNuevo);
                         escritorFich.write(""); // habra que convertir las propiedades que no sean string
@@ -183,7 +186,8 @@ public class OperadorSistema extends Usuario {
                         fabricaPersonajes = new FabricaVampiro();
                         Vampiro vampNuevo = (Vampiro) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje,
                                 armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje,
-                                esbirrosPersonaje, saludPersonaje, poderPersonaje, debilidadesPersonaje, fortalezasPersonaje);
+                                esbirrosPersonaje, saludPersonaje, poderPersonaje, debilidadesPersonaje,
+                                fortalezasPersonaje);
                         vampNuevo.rellenarPropiedadesEspecificas();
                         super.getEntidades().aniadir(vampNuevo);
                         escritorFich.write("");
@@ -192,7 +196,8 @@ public class OperadorSistema extends Usuario {
                         fabricaPersonajes = new FabricaCazador();
                         Cazador cazNuevo = (Cazador) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje,
                                 armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje,
-                                esbirrosPersonaje, saludPersonaje, poderPersonaje, debilidadesPersonaje, fortalezasPersonaje);
+                                esbirrosPersonaje, saludPersonaje, poderPersonaje, debilidadesPersonaje,
+                                fortalezasPersonaje);
                         super.getEntidades().aniadir(cazNuevo);
                         escritorFich.write("");
                         break;
@@ -204,11 +209,77 @@ public class OperadorSistema extends Usuario {
         }
     }
 
-    private void validarDesafio() {
-        Desafio desafio = super.getDesafiosAct().obtenerDesafio();
-        System.out.println("Deseas validar o no validar el desafio");
-        // habria que meter un escaner
-        desafio.setEstado(Desafio.State.Validado);
+    private void validarDesafio(Desafio desafio) {
+
+        try (Scanner scanner = new Scanner(System.in)) {
+            int eleccion = 0;
+            // Sacamos las fortalezas y debilidades de los personajes desafiados y
+            // desafiantes
+            Debilidad[] debilidadesDesafiante = desafio.getJugadorDesafiante().getPersonajeActivo().getDebilidades();
+            Fortaleza[] fortalezasDesafiante = desafio.getJugadorDesafiante().getPersonajeActivo().getFortalezas();
+            Debilidad[] debilidadesDesafiado = desafio.getJugadorDesafiado().getPersonajeActivo().getDebilidades();
+            Fortaleza[] fortalezasDesafiado = desafio.getJugadorDesafiado().getPersonajeActivo().getFortalezas();
+
+            // arraylist donde se guardaran los resultados:
+            ArrayList<Fortaleza> FElegDesafiante = new ArrayList<>();
+            ArrayList<Fortaleza> FElegDesafiado = new ArrayList<>();
+            ArrayList<Debilidad> DElegDesafiante = new ArrayList<>();
+            ArrayList<Debilidad> DElegDesafiado = new ArrayList<>();
+
+            // mostramos debilidades por pantalla del desafiantes
+            listarDebilidades(debilidadesDesafiante);
+            System.out.println("Escoja los números de las debilidades del Jugador desafiante deseas: ");
+            // el operador elige debilidades y las guarda
+            while (eleccion != debilidadesDesafiante.length + 1) { // habra que comprobar que no elija una debilidad o
+                                                                   // fortaleza 2 veces
+                eleccion = scanner.nextInt();
+                DElegDesafiante.add(debilidadesDesafiante[eleccion]);
+            }
+            // mostramos fortalezas por pantalla del desafiantes
+            listarFortalezas(fortalezasDesafiante);
+            System.out.println("Escoja los números de las fortalezas del Jugador desafiante que desea: ");
+            // el operador elige fortalezas y las guarda
+            while (eleccion != fortalezasDesafiante.length + 1) { // habra que comprobar que no elija una debilidad o
+                                                                  // fortaleza 2 veces
+                eleccion = scanner.nextInt();
+                FElegDesafiante.add(fortalezasDesafiante[eleccion]);
+            }
+            // mostramos debilidades por pantalla del desafiado
+            listarDebilidades(debilidadesDesafiado);
+            System.out.println("Escoja los números de las debilidades del Jugador desafiado que desea: ");
+            while (eleccion != debilidadesDesafiante.length + 1) { // habra que comprobar que no elija una debilidad o
+                                                                   // fortaleza 2 veces
+                eleccion = scanner.nextInt();
+                DElegDesafiado.add(debilidadesDesafiado[eleccion]);
+            }
+            // mostramos fortalezas por pantalla del desafiado
+            listarFortalezas(fortalezasDesafiado);
+            System.out.println("Escoja los números de las fortalezas del Jugador desafiado que desea: ");
+            // el operador elige fortalezas y las guarda
+            while (eleccion != fortalezasDesafiado.length + 1) { // habra que comprobar que no elija una debilidad o
+                                                                 // fortaleza 2 veces
+                eleccion = scanner.nextInt();
+                FElegDesafiado.add(fortalezasDesafiado[eleccion]);
+            }
+
+            // comprobar oro desafiado
+            int oro = desafio.getOroApostado();
+            int oroDesafiado = desafio.getJugadorDesafiado().getOro();
+            System.out.println("Oro del usuario que ha sido desafiado: " + oroDesafiado);
+            System.out.println("Oro apostado: " + oro);
+
+            // ahora el operador decide si validar o no el desafio:
+            String validacion = null;
+            System.out.println("Deseas validar o no validar el desafio: SI/NO");
+            while (!validacion.equals("SI") || !validacion.equals("NO")) {
+                validacion = scanner.nextLine();
+                if (validacion.equals("SI")) { // habria que hacer que se cambie a mayus lo que escriba para que da igual que pona si, Si, o SI
+                    desafio.setEstado(Desafio.State.Validado);
+                } else if (!validacion.equals("SI") || !validacion.equals("NO")) {
+                    System.out.println("Por favor, intraduzca 'Si' si quiere validar el desafio o 'No' si quiere rechazarlo");
+                }
+            }
+        }
     }
 
     public void realizarFuncionMenuOperador(int opcion) throws IOException {
@@ -242,7 +313,7 @@ public class OperadorSistema extends Usuario {
                 break;
             case 4:// Validar Desafio
                 Desafio desafio = super.getDesafiosAct().obtenerDesafio();
-                desafio.setEstado(Desafio.State.Validado);// y notificarlo con el observer
+                validarDesafio(desafio);// y notificarlo con el observer
                 break;
             case 5:// Banear Usuario
                 imprimirListaUsuariosDesbaneados(usuarioEle);
@@ -300,6 +371,22 @@ public class OperadorSistema extends Usuario {
             if (estadoUsuario.equals(State.baneado)) {
                 System.out.println(i + "-" + usuario.getNick());
             }
+        }
+    }
+
+    public void listarDebilidades(Debilidad[] d) {
+
+        for (int i = 0; i < d.length; i++) {
+            Debilidad debilidad = d[i];
+            System.out.println(i + ":" + debilidad.getNombre());
+        }
+    }
+
+    public void listarFortalezas(Fortaleza[] f) {
+
+        for (int i = 0; i < f.length; i++) {
+            Fortaleza fortaleza = f[i];
+            System.out.println(i + ":" + fortaleza.getNombre());
         }
     }
 
