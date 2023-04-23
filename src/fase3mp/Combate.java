@@ -97,9 +97,43 @@ public class Combate {
         Ronda rondaX = new Ronda();
         ArrayList<Integer> potenciales = rondaX.Calculo_Potencial(per1, per2);
         rondaX.CalcularVidaRestante(potenciales, vida1, vida2);
-        
-        
+
+        recalcularPropiedadPersonaje(per1); // TODO falta mirar si hay un mejor nombre
+        recalcularPropiedadPersonaje(per2);        
         return rondaX;
+    }
+
+    private void recalcularPropiedadPersonaje(Personaje personaje) {
+
+
+        if (personaje instanceof Vampiro) {
+            Vampiro vamp = (Vampiro) personaje;
+            int sangrePersonaje =  vamp.getSangre();
+            sangrePersonaje = sangrePersonaje +1;
+            vamp.setSangre(sangrePersonaje);
+            personaje = vamp;            
+            
+
+        }
+
+        else if (personaje instanceof Licantropo) {
+            Licantropo Licantropo = (Licantropo) personaje;
+            int rabia =  Licantropo.getRabia();
+            rabia = rabia +1;
+            Licantropo.setRabia(rabia);
+            personaje = Licantropo;
+        }
+
+        else if(personaje instanceof Cazador) {
+            Cazador Cazador = (Cazador) personaje;
+            int voluntad =  Cazador.getVoluntad();
+            voluntad = voluntad -1;
+            Cazador.setVoluntad(voluntad);
+            personaje = Cazador;
+        }
+
+
+
     }
     
     

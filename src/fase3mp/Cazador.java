@@ -40,8 +40,12 @@ public class Cazador extends Personaje implements InterfazPersonaje{
         return  super.devolverDefensaArma() + habilidad.getValorDefensa();
     }
 
-    private void setVoluntad(int voluntad) {
+    void setVoluntad(int voluntad) {
         this.voluntad = voluntad;
+    }
+
+    public int getVoluntad() {
+        return voluntad;
     }
     
 }

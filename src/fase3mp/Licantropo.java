@@ -20,6 +20,11 @@ public class Licantropo extends Personaje implements InterfazPersonaje{
         super(nombre, habilidadPersonaje, armas, armasActivas, armaduras, armaduraActiva, esbirros, Salud, Poder,debilidades,fortalezas);      
     }
 
+
+    public int getRabia() {
+        return rabia;
+    }
+
     public void setRabia(int rabia) {
         this.rabia = rabia;
     }
@@ -66,5 +71,7 @@ public class Licantropo extends Personaje implements InterfazPersonaje{
         Dones dones = (Dones) super.devolverHabilidad();
         return  super.devolverDefensaArma() + dones.getValorDefensa() + activarDon(rabia,"Defensa");
     }
+
+    
     
 }

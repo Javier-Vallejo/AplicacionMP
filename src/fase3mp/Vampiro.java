@@ -25,7 +25,11 @@ public class Vampiro extends Personaje implements InterfazPersonaje{
         this.edad = edad;
     }
 
-    private void setSangre(int sangre) {
+    public int getSangre() {
+        return sangre;
+    }
+
+    void setSangre(int sangre) {
         this.sangre = sangre;
     }
 
