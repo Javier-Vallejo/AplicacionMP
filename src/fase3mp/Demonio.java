@@ -21,7 +21,7 @@ public class Demonio extends Esbirro implements IEsbirros{
     public Demonio(String nombre, int salud) {
         super(nombre, salud);        
     }
-
+    
     public void setBooleanPacto (boolean tienePacto) {
         this.tienePacto = tienePacto;
     }
@@ -55,7 +55,7 @@ public class Demonio extends Esbirro implements IEsbirros{
             ArrayList<Esbirro> esbirrosDeEsbirro = new ArrayList<>();
             String tipoEsbirro = "";
             while(!tipoEsbirro.equals("salir")){
-                System.out.println("De que tipo seran los esbirros, ghoul o demonio. Pulse salir para terminar.");
+                System.out.println("De que tipo seran los esbirros, ghoul o demonio. Escriba salir para terminar.");
                 tipoEsbirro = escanerDemon.nextLine();
                 tipoEsbirro = tipoEsbirro.toLowerCase().trim();
                 switch (tipoEsbirro) {
