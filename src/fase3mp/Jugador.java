@@ -137,6 +137,7 @@ public class Jugador extends Usuario{
         int opcion = lectura.nextInt();
         
         if (opcion == 1){ //1 es aceptar el desafio
+            
             //En algun momento hay que suscribir al usuario desafiado y desafiante
             Combate combate = new Combate(desafio.getJugadorDesafiante(), this, desafio.getOroApostado());
             ArrayList<Ronda> rondas = new ArrayList();
@@ -147,7 +148,7 @@ public class Jugador extends Usuario{
             //Setear el jugador vencedor
             if (combate.getVida1() == 0){
                 combate.setVencedor(combate.getDesafiado());
-            } else {
+            } else if (combate.getVida2() == 0){
                 combate.setVencedor(combate.getDesafiante());
             }
             //Sumar y restar el dinero apostado

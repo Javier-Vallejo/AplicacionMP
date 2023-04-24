@@ -102,8 +102,15 @@ public class Usuario implements UsuariosANotificar{
     
     
     @Override
-    public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void update(Object objeto) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (objeto instanceof Desafio){
+            System.out.println("Recibes un desafio: Quieres hacerlo?");
+            ((Desafio) objeto).getJugadorDesafiado().setDesafioPend(objeto);
+        } else if(objeto instanceof Combate){
+            System.out.println("Recibes el combate, muestra cada ronda");
+            ((Combate) objeto).getDesafiante().setCombateRealizado(objeto);
+        }
     }
     
     public void DarseDeBaja(Usuario usuario){

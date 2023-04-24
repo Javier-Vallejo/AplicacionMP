@@ -9,5 +9,5 @@ package fase3mp;
  * @author d.rubio.2019
  */
 public interface UsuariosANotificar {
-    public void update();
+    public void update(Object objeto);
 }
