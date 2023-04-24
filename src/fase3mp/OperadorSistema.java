@@ -180,6 +180,9 @@ public class OperadorSistema extends Usuario {
                         ArrayList<Integer> esbirroEle = super.getEntidades().MostraryElegir("ESBIRRO");
                         esbirrosPers.add(super.getEntidades().obtenerEsbirro(esbirroEle.get(0)));
                     }
+                    case 4 ->{
+                        break;
+                    }
                     default -> {
                         System.out.println("Opcion no valida");
                     }
