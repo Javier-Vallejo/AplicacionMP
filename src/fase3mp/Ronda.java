@@ -13,6 +13,7 @@ import java.util.Random;
  * @author juana
  */
 public class Ronda {
+
     private int PotencialPer1;
     private int PotencialPer2;
     
@@ -146,5 +147,20 @@ public class Ronda {
 
         return danio;
     }
+    
+    public int getPotencialPer1() {
+        return PotencialPer1;
+    }
+    public void setPotencialPer1(int potencialPer1) {
+        PotencialPer1 = potencialPer1;
+    }
+    public int getPotencialPer2() {
+        return PotencialPer2;
+    }
+    public void setPotencialPer2(int potencialPer2) {
+        PotencialPer2 = potencialPer2;
+    }
+
+    
     
 }

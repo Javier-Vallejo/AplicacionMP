@@ -4,9 +4,6 @@
  */
 package fase3mp;
 
-import java.lang.reflect.Array;
-import java.util.Scanner;
-
 /**
  *
  * @author d.rubio.2019

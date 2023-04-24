@@ -13,15 +13,15 @@ import java.util.Map;
  * @author david
  */
 public class ManagerUsuarios {
-    private ArrayList<Map> credencialesUsuarios;
+    private ArrayList<Map<String, String>> credencialesUsuarios;
     private ArrayList<Usuario> usuariosRegistrados;
 
     public ManagerUsuarios() {
-        credencialesUsuarios = new ArrayList<Map>();
+        credencialesUsuarios = new ArrayList<Map<String, String>>();
         usuariosRegistrados = new ArrayList<Usuario>();
     }
 
-    public ArrayList<Map> getCredencialesUsuarios() {
+    public ArrayList<Map<String, String>> getCredencialesUsuarios() {
         return credencialesUsuarios;
     }
 

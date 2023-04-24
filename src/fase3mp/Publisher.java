@@ -11,20 +11,42 @@ import java.util.ArrayList;
  * @author d.rubio.2019
  */
 public class Publisher {
+
     private ArrayList<Usuario> suscriptores;
     private OperadorSistema operador;
+
+    public void suscribirUsuario(Usuario usuario) {
+
+    }
+
+    public void desSuscribirUsuario(Usuario usuario) {
+
+    }
+
+    public void notificarUsuario(String nick) {
+
+    }
+
+    public void notificarOperador() {
+
+    }
+
+    public ArrayList<Usuario> getSuscriptores() {
+        return suscriptores;
+    }
+
+    public void setSuscriptores(ArrayList<Usuario> suscriptores) {
+        this.suscriptores = suscriptores;
+    }
+
+    public OperadorSistema getOperador() {
+        return operador;
+    }
+
+    public void setOperador(OperadorSistema operador) {
+        this.operador = operador;
+    }
+
     
-    public void suscribirUsuario(Usuario usuario){
-        
-    }
-    public void desSuscribirUsuario(Usuario usuario){
-        
-    }
-    public void notificarUsuario(String nick){
-        
-    }
-    public void notificarOperador(){
-        
-    }
-    
+
 }

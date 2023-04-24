@@ -18,14 +18,25 @@ public class RegistroOperador extends Registro {
 
     @Override
     public Usuario registrarse(TipoUsuario rol){
-        Scanner escanerOperador = new Scanner(System.in);
-        System.out.print("Introduzca su nombre: \n");
-        String nombre = escanerOperador.nextLine();
-        System.out.print("Introduzca su nick: \n");
-        String nick = escanerOperador.nextLine();
-        System.out.print("Introduzca su password: \n");
-        String password = escanerOperador.nextLine();
-        OperadorSistema operador = super.getManager().CrearOperador(nombre, nick, password, rol, State.noBaneado);
+        
+        ManagerUsuarios usuariosSistema = new ManagerUsuarios();
+        String nick = null;
+        String password = null;
+        String nombre = null;
+        OperadorSistema operador  = null;
+
+        try (Scanner escanerOperador = new Scanner(System.in)) {
+            while (!usuariosSistema.existeUsuario(nick, password)) {
+                System.out.print("Introduzca su nombre: \n");
+                nombre = escanerOperador.nextLine();
+                System.out.print("Introduzca su nick: \n");
+                nick = escanerOperador.nextLine();
+                System.out.print("Introduzca su password: \n");
+                password = escanerOperador.nextLine();
+                operador = super.getManager().CrearOperador(nombre, nick, password, rol, State.noBaneado);
+            }
+        }
+
         return operador;
     }    
 }

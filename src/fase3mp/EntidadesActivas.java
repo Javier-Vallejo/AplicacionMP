@@ -172,6 +172,7 @@ public class EntidadesActivas {
     public int MostraryElegirHabilidad () {
             int habilidadElegida = 0;
             Scanner escaner = new Scanner(System.in);
+            
             for (int i = 0; i < habilidades.size(); i++) {
                 System.out.println("Habilidad "+ i + habilidades.get(i).getNombre());
             }
