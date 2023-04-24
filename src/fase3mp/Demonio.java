@@ -19,7 +19,8 @@ public class Demonio extends Esbirro implements IEsbirros {
     private boolean tienePacto;
     private Pacto pacto;
     private FabricaEsbirros fabricaEsbirros;
-
+    private EntidadesActivas entidades;
+    
     public Demonio(String nombre, int salud) {
         super(nombre, salud);
     }
@@ -47,6 +48,10 @@ public class Demonio extends Esbirro implements IEsbirros {
     public Pacto getPacto() {
         return pacto;
     }
+
+    public void setEntidades(EntidadesActivas entidades) {
+        this.entidades = entidades;
+    }
         
     @Override
     public void rellenarPropiedadesEspec() {
@@ -66,40 +71,72 @@ public class Demonio extends Esbirro implements IEsbirros {
         String tieneEsbi = escanerDemon.nextLine();
         tieneEsbi = tieneEsbi.toLowerCase().trim();
         if (tieneEsbi.equals("si")) {
-            ArrayList<Esbirro> esbirrosDeEsbirro = new ArrayList<>();
-            String tipoEsbirro = "";
-            while(!tipoEsbirro.equals("salir")){
-                System.out.println("De que tipo seran los esbirros, ghoul o demonio. Escriba salir para terminar.");
-                tipoEsbirro = escanerDemon.nextLine();
-                tipoEsbirro = tipoEsbirro.toLowerCase().trim();
-                System.out.println("Introduzca el nombre que le quiere poner al esbirro: ");
-                String nombreEsbirro = escanerDemon.nextLine();
-                System.out.println("Introduzca la salud del esbirro: ");
-                switch (tipoEsbirro) {
-                    case "ghoul" -> {
-                        int saludGhoul = escanerDemon.nextInt();
-                        fabricaEsbirros = new FabricaGhoul();
-                        Ghoul ghoul = (Ghoul) fabricaEsbirros.crearEsbirro(nombreEsbirro, saludGhoul);
-                        ghoul.rellenarPropiedadesEspec();
-                        esbirrosDeEsbirro.add(ghoul);
+            int eleccionEsbirro = 0;
+            while(eleccionEsbirro != 4){
+                System.out.println("Desea aniadir esbirros que esten en el sistema o crear nuevos: ");
+                System.out.println("1-Aniadir conjunto de esbirros sistema ");
+                System.out.println("2-Crear nuevos "); ////habra que añadirlos a entidades activas
+                System.out.println("3-Aniadir un esbirro del sistema");
+                System.out.println("4-Salir");
+                eleccionEsbirro = escanerDemon.nextInt();
+                switch (eleccionEsbirro) {
+                    case 1 -> {
+                        //habria que contemplar la opcion de que elija solo un esbirro
+                        ArrayList<Integer> esbirrosEle = entidades.MostraryElegir("ESBIRROS");
+                        for (int i = 0; i < esbirrosEle.size(); i++) {
+                            esbirros.add(entidades.obtenerEsbirro(esbirrosEle.get(i)));
+                        }
                     }
-                    case "demonio" -> { // se le rellenaran sus esbirros de forma recursiva
-                        int saludDemonioEsbi = escanerDemon.nextInt();
-                        fabricaEsbirros = new FabricaDemonio();
-                        Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsbirro, saludDemonioEsbi);
-                        demonio.rellenarPropiedadesEspec();
-                        esbirrosDeEsbirro.add(demonio);
+                    case 2 -> {
+                        ArrayList<Esbirro> esbirrosDeEsbirro = new ArrayList<>();
+                        String tipoEsbirro = "";
+                        while(!tipoEsbirro.equals("salir")){
+                            System.out.println("Va a crear un nuevo esbirro");
+                            System.out.println("De que tipo seran los esbirros, ghoul o demonio. Escriba salir para terminar.");
+                            tipoEsbirro = escanerDemon.nextLine();
+                            tipoEsbirro = tipoEsbirro.toLowerCase().trim();
+                            System.out.println("Introduzca el nombre que le quiere poner al esbirro: ");
+                            String nombreEsbirro = escanerDemon.nextLine();
+                            System.out.println("Introduzca la salud del esbirro: ");
+                            switch (tipoEsbirro) {
+                                case "ghoul" -> {
+                                    int saludGhoul = escanerDemon.nextInt();
+                                    fabricaEsbirros = new FabricaGhoul();
+                                    Ghoul ghoul = (Ghoul) fabricaEsbirros.crearEsbirro(nombreEsbirro, saludGhoul);
+                                    ghoul.rellenarPropiedadesEspec();
+                                    esbirrosDeEsbirro.add(ghoul);
+                                }
+                                case "demonio" -> { // se le rellenaran sus esbirros de forma recursiva
+                                    int saludDemonioEsbi = escanerDemon.nextInt();
+                                    fabricaEsbirros = new FabricaDemonio();
+                                    Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsbirro, saludDemonioEsbi);
+                                    demonio.rellenarPropiedadesEspec();
+                                    esbirrosDeEsbirro.add(demonio);
+                                }
+                                case "salir" -> {
+                                    System.out.println("No se aniadiran mas esbirros a " + super.getNombre());
+                                    esbirros = esbirrosDeEsbirro;
+                                }
+                                default -> {
+                                    System.out.println("Nombre de esbirro no correcto");
+                                }
+                            }
+                        }
                     }
-                    case "salir" -> {
-                        System.out.println("No se aniadiran mas esbirros a " + super.getNombre());
-                        esbirros = esbirrosDeEsbirro;
+                    case 3 -> {
+                        ArrayList<Integer> esbirroEle = entidades.MostraryElegir("ESBIRRO");
+                        esbirros.add(entidades.obtenerEsbirro(esbirroEle.get(0)));
                     }
+                    case 4 ->{
+                        break;
+                    }    
                     default -> {
-                        System.out.println("Nombre de esbirro no correcto");
+                        System.out.println("Opcion no valida");
                     }
                 }
             }
-        } else if (tieneEsbi.equals("no")) {
+        } 
+        else if (tieneEsbi.equals("no")) {
             System.out.println("No se aniadiran esbirros a " + super.getNombre());
         }
     }

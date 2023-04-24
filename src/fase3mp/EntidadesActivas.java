@@ -96,6 +96,10 @@ public class EntidadesActivas {
         return debilidades.get(eleccion);
     }
     
+    public Esbirro obtenerEsbirro(int eleccion){
+        return esbirros.get(eleccion);
+    }
+    
     public ArrayList<Integer> MostraryElegir(String objetoMostrar){//se podrian poner if para controlar que meta un numero 
         Scanner escaner = new Scanner(System.in);//en el rango correcto
         if (objetoMostrar.equals("PERSONAJES")){
@@ -159,6 +163,19 @@ public class EntidadesActivas {
                 debilidadesElegidas.add(debilidadEle);
                 return debilidadesElegidas;
             }    
+        }
+        else if(objetoMostrar.equals("ESBIRROS")){
+            int esbirroEle = 0;
+            for (int i = 0; i < esbirros.size(); i++) {
+                System.out.println("Esbirro "+ i + esbirros.get(i).getNombre()+" "+ esbirros.get(i).getClass().getName());    
+            }
+            System.out.println((debilidades.size()+1)+" Salir");
+            ArrayList<Integer> esbirrosElegidos = new ArrayList<>();
+            while(esbirroEle != debilidades.size()+1){
+                esbirroEle = escaner.nextInt();
+                esbirrosElegidos.add(esbirroEle);
+                return esbirrosElegidos;
+            }
         }
         
         else {
