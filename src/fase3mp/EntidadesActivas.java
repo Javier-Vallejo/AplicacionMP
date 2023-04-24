@@ -177,6 +177,19 @@ public class EntidadesActivas {
                 return esbirrosElegidos;
             }
         }
+        else if(objetoMostrar.equals("ESBIRRO")){
+            int esbirroEle = 0;
+            for (int i = 0; i < esbirros.size(); i++) {
+                System.out.println("Esbirro "+ i + esbirros.get(i).getNombre()+" "+ esbirros.get(i).getClass().getName());    
+            }
+            System.out.println((esbirros.size()+1)+" Salir");
+            ArrayList<Integer> esbirroElegido = new ArrayList<>();
+            while(esbirroEle != esbirros.size()+1){
+                esbirroEle = escaner.nextInt();
+            }
+            esbirroElegido.add(esbirroEle);
+            return esbirroElegido;
+        }
         
         else {
            System.out.println("No existe el contenido "+ objetoMostrar);
