@@ -24,6 +24,10 @@ public class Vampiro extends Personaje{
         this.edad = edad;
     }
 
+    public int getEdad() {
+        return edad;
+    }
+
     public int getSangre() {
         return sangre;
     }
@@ -31,6 +35,7 @@ public class Vampiro extends Personaje{
     void setSangre(int sangre) {
         this.sangre = sangre;
     }
+    
 
     @Override
     public void rellenarPropiedadesEspecificas() {

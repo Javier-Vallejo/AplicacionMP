@@ -165,10 +165,11 @@ public class OperadorSistema extends Usuario {
 
                 try (FileWriter escritorFich = new FileWriter(ficheroPersonajes)) {
                     FabricaPersonajes fabricaPersonajes = super.getFabricaPersonajes();
-
+                    StringBuilder sb = new StringBuilder();
                     switch (leido) {
-                        // cada tipo de personaje integrará su propia habilidad
-                        case 1: // creamos un licantropo
+                        case 1 -> {
+                            // creamos un licantropo
+                            sb.setLength(0);
                             fabricaPersonajes = new FabricaLicantropo();
                             Licantropo licanNuevo = (Licantropo) fabricaPersonajes.crearPersonaje(nombreCarac,
                                     habilidadPersonaje,
@@ -177,9 +178,12 @@ public class OperadorSistema extends Usuario {
                                     fortalezasPersonaje);
                             licanNuevo.rellenarPropiedadesEspecificas();
                             super.getEntidades().aniadir(licanNuevo);
-                            escritorFich.write(""); // habra que convertir las propiedades que no sean string
-                            break;
-                        case 2: // creamos un vampiro
+                            rellenarStringBuilder(sb, licanNuevo);
+                            escritorFich.write(sb.toString()); // habra que convertir las propiedades que no sean string
+                        }
+                        case 2 -> {
+                            // creamos un vampiro
+                            sb.setLength(0);
                             fabricaPersonajes = new FabricaVampiro();
                             Vampiro vampNuevo = (Vampiro) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje,
                                     armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje,
@@ -187,26 +191,172 @@ public class OperadorSistema extends Usuario {
                                     fortalezasPersonaje);
                             vampNuevo.rellenarPropiedadesEspecificas();
                             super.getEntidades().aniadir(vampNuevo);
-                            escritorFich.write("");
-                            break;
-                        case 3: // creamos un cazador
+                            rellenarStringBuilder(sb, vampNuevo);
+                            escritorFich.write(sb.toString());
+                        }
+                        case 3 -> {
+                            // creamos un cazador
+                            sb.setLength(0);
                             fabricaPersonajes = new FabricaCazador();
                             Cazador cazNuevo = (Cazador) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje,
                                     armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje,
                                     esbirrosPersonaje, saludPersonaje, poderPersonaje, debilidadesPersonaje,
                                     fortalezasPersonaje);
                             super.getEntidades().aniadir(cazNuevo);
-                            escritorFich.write("");
-                            break;
+                            rellenarStringBuilder(sb, cazNuevo);
+                            escritorFich.write(sb.toString());
+                        }
                     }
-                    // super.getEntidades().aniadir(licanNuevo); Esta linea hay que ver como
-                    // integrarla en cada case.
-                    // guardar nuevo personaje en fichero para persistencia
                 }
             }
         }
     }
 
+    private void rellenarStringBuilder(StringBuilder sb, Personaje personaje){
+        if (personaje instanceof Vampiro) {
+            sb.append("vampiro;");
+        }
+        else if (personaje instanceof Licantropo) {
+            sb.append("licantropo;");
+        }
+
+        else if(personaje instanceof Cazador) {
+            sb.append("cazador;");
+        }
+        sb.append(personaje.getNombre());
+        sb.append(";");
+        sb.append(personaje.getHabilidadPersonaje().getNombre());
+        sb.append("/");
+        sb.append(personaje.getHabilidadPersonaje().getLimitante());
+        sb.append("/");
+        sb.append(personaje.getHabilidadPersonaje().getValorAtaque());
+        sb.append("/");
+        sb.append(personaje.getHabilidadPersonaje().getValorDefensa());
+        sb.append(";");
+        //armas
+        Arma[] armas = personaje.getArmas();
+        for (int i = 0; i < armas.length; i++) {
+            sb.append(armas[i].getNombre());
+            sb.append("/");
+            sb.append(armas[i].getModDanio());
+            sb.append("/");
+            sb.append(armas[i].getModDefensa());
+            sb.append("/");
+            sb.append(armas[i].getTipodeArma().toString());
+            sb.append("|");
+        }
+        //armas activas
+        armas = personaje.getArmasActivas();
+        for (int i = 0; i < armas.length; i++) {
+            sb.append(armas[i].getNombre());
+            sb.append("/");
+            sb.append(armas[i].getModDanio());
+            sb.append("/");
+            sb.append(armas[i].getModDefensa());
+            sb.append("/");
+            sb.append(armas[i].getTipodeArma().toString());
+            sb.append("|");    
+        }//se me guarda una barrita de mas
+        sb.append(";");
+        //armaduras
+        Armadura[] armaduras = personaje.getArmaduras();
+        for (int i = 0; i < armaduras.length; i++) {
+            sb.append(armaduras[i].getNombre());
+            sb.append("/");
+            sb.append(armaduras[i].getModDanio());
+            sb.append("/");
+            sb.append(armaduras[i].getModDefensa());
+            sb.append("|");
+        }
+        sb.append(";");
+        //armadura activa
+        sb.append(personaje.getArmaduraActiva().getNombre());
+        sb.append("/");
+        sb.append(personaje.getArmaduraActiva().getModDanio());
+        sb.append("/");
+        sb.append(personaje.getArmaduraActiva().getModDefensa());
+        sb.append(";");
+        //esbirros
+        Esbirro[] esbirros = personaje.getEsbirros();
+        escribirEsbirrosdeEsbirro(esbirros, sb);
+        sb.append(";");
+        //salud
+        sb.append(personaje.getSalud());
+        sb.append(";");
+        //poder
+        sb.append(personaje.getPoder());
+        sb.append(";");
+        //debilidades
+        Debilidad[] debilidades = personaje.getDebilidades();
+        for (int i = 0; i < debilidades.length; i++) {
+            sb.append(debilidades[i].getNombre());
+            sb.append("/");
+            sb.append(debilidades[i].getValor());
+            sb.append("|");
+        }
+        sb.append(";");
+        //fortalezas
+        Fortaleza[] fortalezas = personaje.getFortalezas();
+        for (int i = 0; i < fortalezas.length; i++) {
+            sb.append(fortalezas[i].getNombre());
+            sb.append("/");
+            sb.append(fortalezas[i].getValor());
+            sb.append("|");
+        }
+        sb.append(";");
+        if (personaje instanceof Vampiro vamp) {
+            sb.append(vamp.getSangre());
+            sb.append(";");
+            sb.append(vamp.getEdad());
+        }
+        else if (personaje instanceof Licantropo lican) {
+            sb.append(lican.getRabia());
+        }
+
+        else if(personaje instanceof Cazador cazador) {
+            sb.append(cazador.getVoluntad());
+        }
+    }
+    
+    private void escribirEsbirrosdeEsbirro(Esbirro[] esbirros, StringBuilder sb){ //guardar cada sub esbirro con recursividad
+        for (int i = 0; i < esbirros.length; i++) {
+            sb.append(esbirros[i].getNombre());
+            sb.append("/");
+            sb.append(esbirros[i].getSalud());
+            sb.append("/");
+            if(esbirros[i] instanceof Ghoul){
+                Ghoul ghoul = (Ghoul) esbirros[i];
+                sb.append(ghoul.getDependencia());
+                sb.append("|");//separara cada esbirro con |
+            }
+            else if(esbirros[i] instanceof Humano){
+                Humano humano = (Humano) esbirros[i];
+                sb.append(humano.getLealtad());
+                sb.append("|");
+            }
+            else if(esbirros[i] instanceof Demonio){
+                Demonio demonio = (Demonio) esbirros[i];
+                if(demonio.getTienePacto()){
+                    sb.append("si");
+                    sb.append("/");
+                    sb.append(demonio.getPacto().getAmo().getNombre());
+                    sb.append("/");
+                }
+                else{
+                    sb.append("no");
+                    sb.append("/");
+                    sb.append("null");
+                    sb.append("/");
+                }
+                sb.append("|");
+                ArrayList<Esbirro> esbirrosDeEsbirro= demonio.getEsbirros();
+                for (int j = 0; j < esbirrosDeEsbirro.size(); j++) {
+                    escribirEsbirrosdeEsbirro(esbirros, sb);    //recursividad           
+                }
+            }
+        }    
+    }
+    
     private void validarDesafio(Desafio desafio) {
 
         try (Scanner scanner = new Scanner(System.in)) {
@@ -285,10 +435,10 @@ public class OperadorSistema extends Usuario {
         ArrayList<Usuario> usuarioEle = manager.getUsuariosRegistrados();
         // insertar variables duplicadas en las opciones de banear y desbanear?
         switch (opcion) {
-            case 1:// Darse de baja
+            case 1 -> // Darse de baja
                 DarseDeBaja(this);
-                break;
-            case 2:// Editar Personaje
+            case 2 -> {
+                // Editar Personaje
                 ArrayList<Integer> personajeEle = super.getEntidades().MostraryElegir("PERSONAJES");// se podria hacer que entidades de usuario fuera publico
                 Personaje personaje = super.getEntidades().elegirPersonaje(personajeEle.get(0));// para que lo hereden los hijos sin tener que hacer get
                 personaje.editarPersonaje();
@@ -299,16 +449,17 @@ public class OperadorSistema extends Usuario {
                         }
                     }
                 }
-                break;
-            case 3:// Aniadir Personaje
+            }
+            case 3 -> // Aniadir Personaje
                 aniadirPersonaje();
-                break;
-            case 4:// Validar Desafio
+            case 4 -> {
+                // Validar Desafio
                 Desafio desafio = super.getDesafiosAct().obtenerDesafio();
                 validarDesafio(desafio);// y notificarlo con el observer
-                break;
-            case 5:// Banear Usuario
-                imprimirListaUsuariosDesbaneados(usuarioEle);//para que quieres imprimir solo los desbaneados?
+            }
+            case 5 -> {
+                // Banear Usuario
+                imprimirListaUsuariosDesbaneados(usuarioEle);
                 Scanner escanerUsuario = new Scanner(System.in);// se podrian mostrar los nicks de todos los jugadores
                 System.out.println("Introduzca el numero del usuario que desea banear: ");
                 Integer numero = escanerUsuario.nextInt();
@@ -325,10 +476,11 @@ public class OperadorSistema extends Usuario {
                  * String password = usuario.getPassword();
                  * Usuario usuario = super.getManagerUsuarios().obtenerUsuario(nick, password);
                  */
-                break;
-            case 6:// Desbanear Usuario
-                imprimirListaUsuariosBaneados(usuarioEle);
-                Scanner escanerUsu = new Scanner(System.in);// se podrian mostrar los nicks de todos los jugadores
+            }
+            case 6 -> {
+                // Desbanear Usuario
+                imprimirListaUsuariosBaneados(usuarioEle);//a lo mejor estaria mejor ponerlo en operador del sistema
+                Scanner escanerUsu = new Scanner(System.in);
                 System.out.println("Introduzca el numero del usuario que desea banear: ");
                 Integer num = escanerUsu.nextInt();
                 Usuario usu = usuarioEle.get(num);// habria que ver como elegir al usuario a banear
@@ -338,11 +490,12 @@ public class OperadorSistema extends Usuario {
                 if (op == 1) {
                     usu.setEstadoObservador(State.noBaneado);
                 }
-                break;
-            case 7:// Salir
+            }
+            case 7 -> {
+                // Salir
                 System.out.println("Cerrando sesion y saliendo");
                 System.exit(0);
-                break;
+            }
         }
     }
 

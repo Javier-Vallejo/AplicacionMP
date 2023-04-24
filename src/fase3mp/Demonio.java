@@ -36,6 +36,18 @@ public class Demonio extends Esbirro implements IEsbirros {
         this.fabricaEsbirros = fabricaEsbirros;
     }
 
+    public ArrayList<Esbirro> getEsbirros() {
+        return esbirros;
+    }
+
+    public boolean getTienePacto() {
+        return tienePacto;
+    }
+
+    public Pacto getPacto() {
+        return pacto;
+    }
+        
     @Override
     public void rellenarPropiedadesEspec() {
         Scanner escanerDemon = new Scanner(System.in);
