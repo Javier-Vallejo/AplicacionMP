@@ -504,7 +504,7 @@ public class OperadorSistema extends Usuario {
                 
                 personaje.editarPersonaje(personaje, entidades);
                 for (int i = 0; i < manager.getUsuariosRegistrados().size(); i++) { // esto
-                    if (manager.getUsuariosRegistrados().get(i) instanceof Jugador jugador) {
+                    if (manager.getUsuariosRegistrados().get(i) instanceof Jugador jugador) {//comprobar otros parametros a lo mejor
                         if (jugador.getPersonajeActivo().getNombre().equals(personaje.getNombre())) {
                             jugador.setPersonajeActivo(personaje.clonar()); // por polimorfismo se ejecutara el clonar
                                                                             // del personaje especifico
