@@ -112,6 +112,9 @@ public class EntidadesActivas {
     public Esbirro obtenerEsbirro(int eleccion){
         return esbirros.get(eleccion);
     }
+    public Habilidad elegirHabilidad(int eleccion){
+        return habilidades.get(eleccion);
+    }
     
 
     public ArrayList<Integer> MostraryElegir(String objetoMostrar){//se podrian poner if para controlar que meta un numero 
@@ -121,6 +124,7 @@ public class EntidadesActivas {
                 System.out.println("Personaje " + i + ": "+ personajes.get(i).getNombre());
             }
             System.out.println((personajes.size()+1)+" Salir");
+            System.out.println("Escoja el numero pro favor:");
             int personajeEle = escaner.nextInt();
             ArrayList<Integer> personajesElegidos = new ArrayList<>();
             personajesElegidos.add(personajeEle);

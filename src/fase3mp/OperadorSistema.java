@@ -23,6 +23,7 @@ public class OperadorSistema extends Usuario {
 
     public OperadorSistema(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador) {
         super(nombre, nick, password, rol, estadoObservador);
+        entidades = super.getEntidades();
     }
 
     public Publisher getNotificador() {
@@ -494,6 +495,8 @@ public class OperadorSistema extends Usuario {
                 DarseDeBaja(this);
             case 2 -> {
                 // Editar Personaje
+                System.out.println("Personajes disponibles:");
+                entidades = super.getEntidades();
                 ArrayList<Integer> personajeEle = super.getEntidades().MostraryElegir("PERSONAJES");// se podria hacer
                                                                                                     // que entidades de
                                                                                                     // usuario fuera
