@@ -16,6 +16,8 @@ public class Ronda {
 
     private int PotencialPer1;
     private int PotencialPer2;
+    private int vidaDesafiante;
+    private int vidaDesafiado;
     
     
     
@@ -78,7 +80,9 @@ public class Ronda {
            }
         }
         vida1 = vida1 - daño2;
+        vidaDesafiante = vida1;
         vida2 = vida2 - daño1;
+        vidaDesafiado = vida2;
         
     }
 
@@ -109,58 +113,38 @@ public class Ronda {
 
     }
 
-    private int comprobarFortalezas(String tiempo, Personaje personaje1,  int danio, Personaje personaje2) {
-        if (tiempo.equals("luna llena") && personaje1 instanceof Licantropo) {
-            Fortaleza fortalezaActiva = personaje1.seleccionarFortaleza(tiempo);
-            if (fortalezaActiva != null) {
-                return danio = danio * fortalezaActiva.Fortalecer();
-            }
-            
-        }
-        else if (personaje1 instanceof Cazador && personaje2 instanceof Licantropo) {
-            Fortaleza fortalezaActiva = personaje1.seleccionarFortaleza("Licantropo");
-            if (fortalezaActiva != null) {
-                return danio = danio * fortalezaActiva.Fortalecer();
-            }
-        }
-
-        else if (personaje1 instanceof Cazador && personaje2 instanceof Vampiro) {
-            Fortaleza fortalezaActiva = personaje1.seleccionarFortaleza("Vampiro");
-            if (fortalezaActiva != null) {
-                return danio = danio * fortalezaActiva.Fortalecer();
-            }
-        }
-
-        else if (personaje1 instanceof Licantropo && personaje2 instanceof Cazador) {
-            Fortaleza fortalezaActiva = personaje1.seleccionarFortaleza("Cazador");
-            if (fortalezaActiva != null) {
-                return danio = danio * fortalezaActiva.Fortalecer();
-            }
-        }
-
-        else if (personaje1 instanceof Vampiro && personaje2 instanceof Licantropo) {
-            Fortaleza fortalezaActiva = personaje1.seleccionarFortaleza("Licantropo");
-            if (fortalezaActiva != null) {
-                return danio = danio * fortalezaActiva.Fortalecer();
-            }
-        }
-
-        return danio;
-    }
-    
     public int getPotencialPer1() {
         return PotencialPer1;
     }
-    public void setPotencialPer1(int potencialPer1) {
-        PotencialPer1 = potencialPer1;
+
+    public void setPotencialPer1(int PotencialPer1) {
+        this.PotencialPer1 = PotencialPer1;
     }
+
     public int getPotencialPer2() {
         return PotencialPer2;
     }
-    public void setPotencialPer2(int potencialPer2) {
-        PotencialPer2 = potencialPer2;
+
+    public void setPotencialPer2(int PotencialPer2) {
+        this.PotencialPer2 = PotencialPer2;
     }
 
+    public int getVidaDesafiante() {
+        return vidaDesafiante;
+    }
+
+    public void setVidaDesafiante(int vidaDesafiante) {
+        this.vidaDesafiante = vidaDesafiante;
+    }
+
+    public int getVidaDesafiado() {
+        return vidaDesafiado;
+    }
+
+    public void setVidaDesafiado(int vidaDesafiado) {
+        this.vidaDesafiado = vidaDesafiado;
+    }
+    
     
     
 }

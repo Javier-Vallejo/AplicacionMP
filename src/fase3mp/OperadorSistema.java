@@ -386,6 +386,8 @@ public class OperadorSistema extends Usuario {
                 }
             }
         }    
+        //LLamada al ¿publisher? para notificar al usuario.....
+        //Devuelve ese objeto desafio a el usuario desafiado
     }
     
     private void validarDesafio(Desafio desafio) {

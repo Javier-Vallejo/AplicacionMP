@@ -138,39 +138,84 @@ public class Jugador extends Usuario {
     private void Desafiar() {
 
     }
-
-    private void AceptaroRechazarDesafio(Desafio desafio) {
-        // System.out.println();
-        try (Scanner lectura = new Scanner(System.in)) {
-            int opcion = lectura.nextInt();
-
-            if (opcion == 1) { // 1 es aceptar el desafio
-                Combate combate = new Combate(desafio.getJugadorDesafiante(), this, desafio.getOroApostado());
-                ArrayList<Ronda> rondas = new ArrayList<>();
-                while ((combate.getVida2() > 0) && (combate.getVida1() > 0)) {
-                    Ronda rondaX = combate.EmpezarRonda(combate.getPersonaje1(), combate.getPersonaje2(),
-                            combate.getVida1(), combate.getVida2());
-                    rondas.add(rondaX);
-                }
-                // Sujeto a cambios la manera de añadir las rondas a la clase combate
-                Ronda[] misRondas = new Ronda[rondas.size()];
-                misRondas = rondas.toArray(misRondas);
-                combate.setRondas(misRondas);
-                // Falta ver en que lista/estructura añadimos la ronda//combate
+    private void AceptaroRechazarDesafio(Desafio desafio){
+        System.out.println(">>>>>Desea aceptar o rechazar el siguiente desafio? Escriba la opcion numerica<<<<<");
+        System.out.println("Desafiante: " + desafio.getJugadorDesafiante().getNick() + " Oro apostado: " + desafio.getOroApostado());
+        System.out.println("1. Aceptar desafio // 2. Rechazar desafio");
+        Scanner lectura = new Scanner(System.in);
+        
+        int opcion = lectura.nextInt();
+        
+        if (opcion == 1){ //1 es aceptar el desafio
+            
+            //En algun momento hay que suscribir al usuario desafiado y desafiante
+            Combate combate = new Combate(desafio.getJugadorDesafiante(), this, desafio.getOroApostado());
+            ArrayList<Ronda> rondas = new ArrayList();
+            while((combate.getVida2() > 0) && (combate.getVida1() > 0)){
+                Ronda rondaX = combate.EmpezarRonda(combate.getPersonaje1(), combate.getPersonaje2(), combate.getVida1(), combate.getVida2());
+                rondas.add(rondaX);
             }
+            //Setear el jugador vencedor
+            if (combate.getVida1() == 0 && combate.getVida2() > 0){
+                combate.setVencedor(combate.getDesafiado());
+            } else if (combate.getVida2() == 0 && combate.getVida1() > 0){
+                combate.setVencedor(combate.getDesafiante());
+            } 
+            
+            //TODO - FALTA CONTEMPLAR EL CASO DE EMPATE!!!!
+            
+            //Sumar y restar el dinero apostado
+            combate.getVencedor().setOro(combate.getVencedor().getOro() + combate.getOroGanado() + 10);
+            //TODO - Restar y sumar el oro a perdedor y ganador
+            if (combate.getVencedor() == combate.getDesafiante()){
+                combate.getDesafiado().setOro(combate.getDesafiado().getOro() - combate.getOroGanado()); 
+                if (combate.getDesafiado().getOro() < 0){
+                    combate.getDesafiado().setOro(0);
+                }
+            } else{
+                combate.getDesafiante().setOro(combate.getDesafiante().getOro() - combate.getOroGanado());
+                if (combate.getDesafiante().getOro() < 0){
+                    combate.getDesafiante().setOro(0);
+                }
+            }
+            
+            Ronda[] misRondas = new Ronda[rondas.size()];
+            misRondas = rondas.toArray(misRondas);
+            combate.setRondas(misRondas);
+            //Falta ver en que lista/estructura añadimos la ronda//combate
+            
+        } else if (opcion == 2){ //Rechaza el desafio
+            this.setOro((int) (this.getOro() - (this.getOro() * 0.1)));
+            this.setDesafioPendiente(null);
         }
     }
-
-    private void ConsultarOro() {
-
+    private void ConsultarOro(){
+        //TODO
     }
 
     private void ConsultarRanking(Ranking ranking) {
-
+//TODO
     }
-
-    private void ElegirPersonaje(EntidadesActivas entidades) {
-
+    private void ElegirPersonaje(EntidadesActivas entidades){
+       //TODO 
+    }
+    
+    private void resultadosCombate(Combate combate){
+        //TODO
+        Ronda rondaX;
+        System.out.println(">=====RESULTADOS DEL COMBATE=====<");
+        System.out.println(">Jugador desafiante: " + combate.getDesafiante().getNick());
+        System.out.println(">Jugador desafiado: " + combate.getDesafiado().getNick());
+        System.out.println(">Ganador del combate: " + combate.getVencedor());
+        System.out.println(">Oro apostado: " + combate.getOroGanado());
+        for(int i = 0; i < combate.getRondas().length; i++){
+            rondaX = combate.getRondas()[i];
+            System.out.println("-----Ronda " +(i+1)+ ": -----");
+            System.out.println("Potencial del jugador Desafiante " + rondaX.getPotencialPer1());
+            System.out.println("Potencial del jugador Desafiado "+rondaX.getPotencialPer2());
+            System.out.println("Vida Desafiante: " + rondaX.getVidaDesafiante());
+            System.out.println("Vida Desafiado: "+ rondaX.getVidaDesafiado());
+        }
     }
 
     private void GenerarNumRegistro() {// formato LNNLL
@@ -193,14 +238,21 @@ public class Jugador extends Usuario {
         String numRegistro = sb.toString();
         setNumeroRegistro(numRegistro);
     }
-
-    public void realizarFuncionMenuJugador(int opcion) {
-        switch (opcion) {
-            case 1:// Darse de baja
+    public void realizarFuncionMenuJugador(int opcion){
+        //un if para saber si el usuario tiene algun desafio pendiente que aceptar
+        //si lo tiene, ¿hacemos notificar? para que se escriba la informacion del desafio
+        if (this.getCombateRealizado() != null){
+           this.resultadosCombate(this.getCombateRealizado());
+        }
+        if (this.getDesafioPendiente()!= null){
+            this.AceptaroRechazarDesafio(this.getDesafioPendiente());
+        }
+        switch (opcion){
+            case 1://Darse de baja
                 DarseDeBaja(this);
                 break;
-            case 2:// Registrar Personaje
-                   // no se bien que es
+            case 2://Registrar Personaje -- Elegir el personaje
+                //no se bien que es
                 break;
             case 3:// Gestionar Personaje
                 if (getPersonajeActivo() == null) {

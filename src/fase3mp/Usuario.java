@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package fase3mp;
-
 /**
  *
  * @author david
@@ -20,6 +19,8 @@ public class Usuario implements UsuariosANotificar{
     private ManagerUsuarios managerUsuarios;
     private FabricaPersonajes fabricaPersonajes;//habra que pasarselo en el constructor tambien
     private FabricaEsbirros fabricaEsbirros;
+    private Desafio desafioPendiente;
+    private Combate combateRealizado;
     
     public Usuario(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador){//habria que pasarle un objeto ranking
         setNombre(nombre);
@@ -27,10 +28,28 @@ public class Usuario implements UsuariosANotificar{
         setPassword(password);
         setRol(rol);
         setEstadoObservador(estadoObservador);
+        setDesafioPendiente(null);
+        setCombateRealizado(null);
     }
 
     public FabricaEsbirros getFabricaEsbirros() {
         return fabricaEsbirros;
+    }
+
+    public Desafio getDesafioPendiente() {
+        return desafioPendiente;
+    }
+
+    public void setDesafioPendiente(Desafio desafioPendiente) {
+        this.desafioPendiente = desafioPendiente;
+    }
+
+    public Combate getCombateRealizado() {
+        return combateRealizado;
+    }
+
+    public void setCombateRealizado(Combate combateRealizado) {
+        this.combateRealizado = combateRealizado;
     }
     
     public FabricaPersonajes getFabricaPersonajes() {
@@ -103,8 +122,15 @@ public class Usuario implements UsuariosANotificar{
     
     
     @Override
-    public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void update(Object objeto) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (objeto instanceof Desafio desafio){
+            //System.out.println("Recibes un desafio: Quieres hacerlo?");
+            desafio.getJugadorDesafiado().setDesafioPendiente(desafio);
+        } else if(objeto instanceof Combate combate){
+            //System.out.println("Recibes el combate, muestra cada ronda");
+            combate.getDesafiante().setCombateRealizado(combate);
+        }
     }
     
     public void DarseDeBaja(Usuario usuario){
