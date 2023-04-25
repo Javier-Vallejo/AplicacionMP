@@ -38,63 +38,60 @@ public class SistemaPrincipalGame {
         // leerPersonajes("personajes.txt");//habra que hacer un leer Usuarios tambien
         // leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
         inicializarHabilidades(entidadesActivas);
-
-        Scanner escaner = new Scanner(System.in);
+        Scanner escanerMain = new Scanner(System.in);
         String opcionElegida = "";
-        while (!(opcionElegida.equals("INICIARSESION") == false ^ opcionElegida.equals("REGISTRARSE") == false)) {
-            System.out.println("Desea Iniciar Sesion o Registrarse");
-            opcionElegida = escaner.nextLine();
-            opcionElegida = opcionElegida.replaceAll("\\s", "").toUpperCase();
-            if (opcionElegida.equals("INICIARSESION")) {// Inicio de sesion
-                this.iniciarSesion();
-            } else if (opcionElegida.equals("REGISTRARSE")) { // Registro
-                this.registrarse();
+        while (!(opcionElegida.equals("iniciarsesion") == false ^ opcionElegida.equals("registrarse") == false)) {
+            System.out.println("Desea iniciar sesion o registrarse");
+            opcionElegida = escanerMain.nextLine().replaceAll("\\s", "").toLowerCase();
+            if (opcionElegida.equals("iniciarsesion")) {
+                iniciarSesion();
+            } else if (opcionElegida.equals("registrarse")) {
+                registrarse();
                 String opcion = "";
-                Scanner escaner2 = new Scanner(System.in);
-                while (!(opcion.equals("SI") ^ opcion.equals("NO"))) {
-                    System.out.println("¿Deseas iniciar sesion? si o no");
-                    opcion = escaner2.nextLine().toUpperCase().trim();
+                while (!(opcion.equals("si") ^ opcion.equals("no"))) {
+                    //escanerMain.hasNextLine();
+                    System.out.println("Deseas iniciar sesion? si o no");
+                    opcion = escanerMain.nextLine().toLowerCase().trim();
                 }
-                if (opcion.equals("SI")) {
+                if (opcion.equals("si")) {
                     iniciarSesion();
-                } else if (opcion.equals("NO")) {
-                    System.exit(0);
                 }
+
             }
+
         }
     }
 
     private void iniciarSesion() throws IOException {
+        Scanner escIniSes = new Scanner(System.in);
         System.out.println("-----Inicio de Sesion-----");
-        try (Scanner escanerIniSesion = new Scanner(System.in)) {
-            System.out.println("Introduzca su nick: ");
-            String nick = escanerIniSesion.nextLine();
-            System.out.println("Introduzca su contrasenia: ");
-            String password = escanerIniSesion.nextLine();
-            if (usuariosSistema.existeUsuario(nick, password) == false) {
-                System.out.println("No estas registrado en el sistema");
-                return;
+        System.out.println("Introduzca su nick: ");
+        String nick = escIniSes.nextLine();
+        System.out.println("Introduzca su contrasenia: ");
+        String password = escIniSes.nextLine();
+        if (usuariosSistema.existeUsuario(nick, password) == false) {
+            System.out.println("No estas registrado en el sistema");
+            return;
+        } else {
+            Usuario usuario = usuariosSistema.obtenerUsuario(nick, password);
+            System.out.println("Bienvenido " + usuario.getNick());
+            System.out.println("Que deseas hacer: ");
+            int eleccionMenu = 0;
+            if (usuario.getRol() == TipoUsuario.Jugador) {
+                Jugador jugador = (Jugador) usuario;
+                while (eleccionMenu != 10) {// hacer restriccion para que solo meta enteros
+                    Menu menu = new MenuJugador();// deberia ponerlo fuera
+                    menu.mostrarOpciones();
+                    eleccionMenu = escIniSes.nextInt();
+                    jugador.realizarFuncionMenuJugador(eleccionMenu);
+                }
             } else {
-                Usuario usuario = usuariosSistema.obtenerUsuario(nick, password);
-                System.out.println("Bienvenido " + usuario.getNick());
-                System.out.println("Que deseas hacer: ");
-                int eleccionMenu = 0;
-                if (usuario.getRol() == TipoUsuario.Jugador) {
-                    Jugador jugador = (Jugador) usuario;
-                    while (eleccionMenu != 10) {// hacer restriccion para que solo meta enteros
-                        Menu menu = new MenuJugador();// deberia ponerlo fuera
-                        menu.mostrarOpciones();
-                        eleccionMenu = escanerIniSesion.nextInt();
-                        jugador.realizarFuncionMenuJugador(eleccionMenu);
-                    }
-                } else {
-                    OperadorSistema operador = (OperadorSistema) usuario;
-                    while (eleccionMenu != 7) {
-                        Menu menu = new MenuOperador();
-                        menu.mostrarOpciones();
-                        eleccionMenu = escanerIniSesion.nextInt();
-                        operador.realizarFuncionMenuOperador(eleccionMenu);
-                    }
+                OperadorSistema operador = (OperadorSistema) usuario;
+                while (eleccionMenu != 7) {
+                    Menu menu = new MenuOperador();
+                    menu.mostrarOpciones();
+                    eleccionMenu = escIniSes.nextInt();
+                    operador.realizarFuncionMenuOperador(eleccionMenu);
                 }
             }
         }
@@ -107,6 +104,7 @@ public class SistemaPrincipalGame {
         System.out.print("Desea registrarse como jugador o como operador: \n");
         String rol = escanerRegistro.nextLine();// habria que poner un while por si introduce otra cosa
         rol = rol.toLowerCase();
+        //escanerRegistro.close();
         if (rol.equals("jugador")) {
             Registro registro = new RegistroJugador(usuariosSistema); // nuevas clases
             Usuario usuario = registro.registrarse(TipoUsuario.Jugador);

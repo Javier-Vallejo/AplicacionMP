@@ -24,20 +24,20 @@ public class RegistroJugador extends Registro {
         String nombre = null;
         Jugador jugador = null;
 
-        try (Scanner escanerJugador = new Scanner(System.in)) {
-                System.out.print("Introduzca su nombre: \n");
-                nombre = escanerJugador.nextLine();
-                System.out.print("Introduzca su nick: \n");
-                nick = escanerJugador.nextLine();
-                System.out.print("Introduzca su password: \n");
-                password = escanerJugador.nextLine();
-                if(!usuariosSistema.existeUsuario(nick, password)) {
-                    jugador = super.getManager().CrearJugador(nombre, nick, password, rol, State.noBaneado);
-                }
-                else {
-                    System.out.print("Ya estás registrado en el sistema \n");
-                }
+        Scanner escanerJugador = new Scanner(System.in);
+        System.out.print("Introduzca su nombre: \n");
+        nombre = escanerJugador.nextLine();
+        System.out.print("Introduzca su nick: \n");
+        nick = escanerJugador.nextLine();
+        System.out.print("Introduzca su password: \n");
+        password = escanerJugador.nextLine();
+
+        if (!usuariosSistema.existeUsuario(nick, password)) {
+            jugador = super.getManager().CrearJugador(nombre, nick, password, rol, State.noBaneado);
+        } else {
+            System.out.print("Ya estás registrado en el sistema \n");
         }
+
         return jugador;
     }
 
