@@ -71,13 +71,13 @@ public class EntidadesActivas {
    
     
     public void aniadir(Object objeto){
-        //comprobar de que clase es objeto y meterlo en su respectiva lista
+        //comprueba de que clase es objeto y meterlo en su respectiva lista
         if(objeto instanceof Personaje){
             Personaje personaje = (Personaje) objeto;
             personajes.add(personaje);
         }
         else if(objeto instanceof Arma){
-            Arma arma = (Arma) objeto;
+            Arma arma = (Arma) objeto;//comprobar si ya estan en el sistema
             armas.add(arma);
         }
         else if(objeto instanceof Armadura){

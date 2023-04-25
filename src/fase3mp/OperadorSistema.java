@@ -57,8 +57,7 @@ public class OperadorSistema extends Usuario {
         System.out.println("Elige el numero del arma o armas que va a tener como activas: ");
         System.out.println("(Ten en cuenta que va a ser una de dos manos o dos de una mano)");
         for (int i = 0; i < armasPersonaje.length; i++) {
-            System.out.println(
-                    i + "_" + armasPersonaje[i].getNombre() + armasPersonaje[i].getTipodeArma().toString());
+            System.out.println(i + "_" + armasPersonaje[i].getNombre() + armasPersonaje[i].getTipodeArma().toString());      
         }
         System.out.println(armasPersonaje.length + " Salir");
         int numArmaActiva = 0;
