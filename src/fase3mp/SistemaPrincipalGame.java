@@ -19,8 +19,9 @@ public class SistemaPrincipalGame {
     private SistemaPrincipalGame sistema;
     private ManagerUsuarios usuariosSistema;
 
-    /** public Registro registro; */
-
+    /**
+     * public Registro registro;
+     */
     public SistemaPrincipalGame() {// constructor hay que ver como aplicar singleton
 
     }
@@ -38,24 +39,21 @@ public class SistemaPrincipalGame {
         // leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
         inicializarHabilidades(entidadesActivas);
 
-        try (// leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
-                Scanner escaner = new Scanner(System.in)) {
-            String opcionElegida = "";
-            while (!(opcionElegida.equals("INICIARSESION") == false ^ opcionElegida.equals("REGISTRARSE") == false)) {
-                System.out.println("Desea Iniciar Sesion o Registrarse");
-                opcionElegida = escaner.nextLine();
-                opcionElegida = opcionElegida.replaceAll("\\s", "").toUpperCase();
-            }
+        Scanner escaner = new Scanner(System.in);
+        String opcionElegida = "";
+        while (!(opcionElegida.equals("INICIARSESION") == false ^ opcionElegida.equals("REGISTRARSE") == false)) {
+            System.out.println("Desea Iniciar Sesion o Registrarse");
+            opcionElegida = escaner.nextLine();
+            opcionElegida = opcionElegida.replaceAll("\\s", "").toUpperCase();
             if (opcionElegida.equals("INICIARSESION")) {// Inicio de sesion
                 this.iniciarSesion();
-
             } else if (opcionElegida.equals("REGISTRARSE")) { // Registro
                 this.registrarse();
                 String opcion = "";
+                Scanner escaner2 = new Scanner(System.in);
                 while (!(opcion.equals("SI") ^ opcion.equals("NO"))) {
                     System.out.println("¿Deseas iniciar sesion? si o no");
-                    opcion = escaner.next();
-                    opcion = opcion.toUpperCase();
+                    opcion = escaner2.nextLine().toUpperCase().trim();
                 }
                 if (opcion.equals("SI")) {
                     iniciarSesion();
@@ -64,7 +62,6 @@ public class SistemaPrincipalGame {
                 }
             }
         }
-
     }
 
     private void iniciarSesion() throws IOException {
@@ -106,22 +103,21 @@ public class SistemaPrincipalGame {
 
     private void registrarse() {//// habria que hacer que devolviera usuario para despues mostrar menu
         System.out.println("-----Registro-----");
-        try (Scanner escanerRegistro = new Scanner(System.in)) {
-            System.out.print("Desea registrarse como jugador o como operador: \n");
-            String rol = escanerRegistro.nextLine();// habria que poner un while por si introduce otra cosa
-            rol = rol.toLowerCase();
-            if (rol.equals("jugador")) {
-                Registro registro = new RegistroJugador(usuariosSistema); // nuevas clases
-                Usuario usuario = registro.registrarse(TipoUsuario.Jugador);
-            } else if (rol.equals("operador")) {
-                Registro registro = new RegistroOperador(usuariosSistema);
-                Usuario usuario = registro.registrarse(TipoUsuario.OperadorSistema);
-            }
+        Scanner escanerRegistro = new Scanner(System.in);
+        System.out.print("Desea registrarse como jugador o como operador: \n");
+        String rol = escanerRegistro.nextLine();// habria que poner un while por si introduce otra cosa
+        rol = rol.toLowerCase();
+        if (rol.equals("jugador")) {
+            Registro registro = new RegistroJugador(usuariosSistema); // nuevas clases
+            Usuario usuario = registro.registrarse(TipoUsuario.Jugador);
+        } else if (rol.equals("operador")) {
+            Registro registro = new RegistroOperador(usuariosSistema);
+            Usuario usuario = registro.registrarse(TipoUsuario.OperadorSistema);
         }
     }
 
     private void leerPersonajes(String fichero) throws FileNotFoundException { // habria que hacer uno para cada tipo de
-                                                                               // entidad
+        // entidad
         File miFichero = new File(fichero);
         try (Scanner scanner = new Scanner(miFichero)) {
             while (scanner.hasNextLine()) {
