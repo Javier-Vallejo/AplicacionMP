@@ -18,7 +18,7 @@ public class SistemaPrincipalGame {
 
     private SistemaPrincipalGame sistema;
     private ManagerUsuarios usuariosSistema;
-
+    private EntidadesActivas entidadesSistema;
     /**
      * public Registro registro;
      */
@@ -33,6 +33,7 @@ public class SistemaPrincipalGame {
     public void run() throws IOException {
         ManagerUsuarios manager = new ManagerUsuarios();
         EntidadesActivas entidadesActivas = new EntidadesActivas();
+        entidadesSistema = entidadesActivas;
         usuariosSistema = manager;
         // leerUsuarios("usuarios.txt");
         // leerPersonajes("personajes.txt");//habra que hacer un leer Usuarios tambien
@@ -87,6 +88,8 @@ public class SistemaPrincipalGame {
                 }
             } else {
                 OperadorSistema operador = (OperadorSistema) usuario;
+                operador.setManagerUsuarios(usuariosSistema);
+                usuario.setEntidades(entidadesSistema);
                 while (eleccionMenu != 7) {
                     Menu menu = new MenuOperador();
                     menu.mostrarOpciones();

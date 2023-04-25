@@ -28,6 +28,7 @@ public class EntidadesActivas {
         debilidades = new ArrayList<>();
         habilidades = new ArrayList<>();
         esbirros = new ArrayList<>();
+        //leer de los ficheros correspondientes y rellenar
     }
 
     public ArrayList<Fortaleza> getFortalezas() {
