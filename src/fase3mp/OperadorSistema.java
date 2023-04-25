@@ -163,8 +163,7 @@ public class OperadorSistema extends Usuario {
                     while (!tipoEsbirro.equals("salir")) {
                         System.out.println("Va a crear un nuevo esbirro");
                         System.out.println("Escriba el tipo de esbirro que desea introducirle: ");
-                        System.out
-                                .println("Las opciones son Humano, Ghoul y Demonio. Escriba salir para terminar.");
+                        System.out.println("Las opciones son Humano, Ghoul y Demonio. Escriba salir para terminar.");          
                         lectura.nextLine();
                         tipoEsbirro = lectura.nextLine();
                         tipoEsbirro = tipoEsbirro.toLowerCase().trim();
@@ -178,24 +177,25 @@ public class OperadorSistema extends Usuario {
                                                    // algunos del sistema
                                 case "humano" -> {
                                     fabricaEsbirros = new FabricaHumano();
-                                    Humano humano = (Humano) fabricaEsbirros.crearEsbirro(nombreEsbirro,
-                                            saludEsbirro);
+                                    Humano humano = (Humano) fabricaEsbirros.crearEsbirro(nombreEsbirro,saludEsbirro);                                            
                                     humano.rellenarPropiedadesEspec();
+                                    super.getEntidades().aniadir(humano);
                                     esbirrosPers.add(humano);
                                 }
                                 case "ghoul" -> {
                                     fabricaEsbirros = new FabricaGhoul();
                                     Ghoul ghoul = (Ghoul) fabricaEsbirros.crearEsbirro(nombreEsbirro, saludEsbirro);
                                     ghoul.rellenarPropiedadesEspec();
+                                    super.getEntidades().aniadir(ghoul);
                                     esbirrosPers.add(ghoul);
                                 }
                                 case "demonio" -> {
                                     fabricaEsbirros = new FabricaDemonio();
-                                    Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsbirro,
-                                            saludEsbirro);
+                                    Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsbirro,saludEsbirro);                                            
                                     demonio.setFabricaEsbirros(super.getFabricaEsbirros());
                                     demonio.setEntidades(super.getEntidades());
                                     demonio.rellenarPropiedadesEspec();
+                                    super.getEntidades().aniadir(demonio);
                                     esbirrosPers.add(demonio);
                                 }
                                 default -> {

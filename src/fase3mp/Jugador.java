@@ -207,7 +207,7 @@ public class Jugador extends Usuario {
                     System.out.println("No tienes ningun personaje activo");
                 } else {
                     Personaje personaje = getPersonajeActivo();// debo poner un if por si no hay personaje guardado
-                    personaje.editarPersonaje();// nuevo metodo
+                    personaje.editarPersonaje(personaje, super.getEntidades());// nuevo metodo
                 }
                 break;
             case 4:// Dar de baja Personaje

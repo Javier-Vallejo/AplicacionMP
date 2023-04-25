@@ -212,15 +212,17 @@ public class SistemaPrincipalGame {
                 arrayFortalezas);
                 entidadesSistema.aniadir(vampiro);
             } else if (camposPersonaje[0] == "Cazador") {
-                // Cazador cazador = new Cazador(camposPersonaje[1],camposPersonaje[2], armas,
-                // camposPersonaje[4], armaduras, camposPersonaje[6], esbirros,
-                // camposPersonaje[8], camposPersonaje[9], camposPersonaje[10],
-                // camposPersonaje[11], camposPersonaje[12],camposPersonaje[13]);
+                Cazador cazador = new Cazador(camposPersonaje[1],habilidad, arrayArmas,
+                arrayArmasActivas, arrayArmaduras, armaduraActiva, arrayEsbirros,
+                salud, poder, arrayDebilidades,
+                arrayFortalezas);
+                entidadesSistema.aniadir(cazador);
             } else if (camposPersonaje[0] == "Licantropo") {
-                // Licantropo licantropo = new Licantropo(camposPersonaje[1],camposPersonaje[2],
-                // armas, camposPersonaje[4], armaduras, camposPersonaje[6], esbirros,
-                // camposPersonaje[8], camposPersonaje[9], camposPersonaje[10],
-                // camposPersonaje[11], camposPersonaje[12],camposPersonaje[13]);
+                Licantropo licantropo = new Licantropo(camposPersonaje[1],habilidad, arrayArmas,
+                arrayArmasActivas, arrayArmaduras, armaduraActiva, arrayEsbirros,
+                salud, poder, arrayDebilidades,
+                arrayFortalezas);
+                entidadesSistema.aniadir(licantropo);
             }
         }
 
