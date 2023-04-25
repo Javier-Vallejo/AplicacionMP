@@ -132,8 +132,11 @@ public class Jugador extends Usuario{
         
     }
     private void AceptaroRechazarDesafio(Desafio desafio){
-        //System.out.println();
+        System.out.println(">>>>>Desea aceptar o rechazar el siguiente desafio? Escriba la opcion numerica<<<<<");
+        System.out.println("Desafiante: " + desafio.getJugadorDesafiante().getNick() + " Oro apostado: " + desafio.getOroApostado());
+        System.out.println("1. Aceptar desafio // 2. Rechazar desafio");
         Scanner lectura = new Scanner(System.in);
+        
         int opcion = lectura.nextInt();
         
         if (opcion == 1){ //1 es aceptar el desafio
@@ -146,11 +149,14 @@ public class Jugador extends Usuario{
                 rondas.add(rondaX);
             }
             //Setear el jugador vencedor
-            if (combate.getVida1() == 0){
+            if (combate.getVida1() == 0 && combate.getVida2() > 0){
                 combate.setVencedor(combate.getDesafiado());
-            } else if (combate.getVida2() == 0){
+            } else if (combate.getVida2() == 0 && combate.getVida1() > 0){
                 combate.setVencedor(combate.getDesafiante());
-            }
+            } 
+            
+            //TODO - FALTA CONTEMPLAR EL CASO DE EMPATE!!!!
+            
             //Sumar y restar el dinero apostado
             combate.getVencedor().setOro(combate.getVencedor().getOro() + combate.getOroGanado() + 10);
             //TODO - Restar y sumar el oro a perdedor y ganador
@@ -171,16 +177,37 @@ public class Jugador extends Usuario{
             combate.setRondas(misRondas);
             //Falta ver en que lista/estructura añadimos la ronda//combate
             
+        } else if (opcion == 2){ //Rechaza el desafio
+            this.setOro((int) (this.getOro() - (this.getOro() * 0.1)));
+            this.setDesafioPendiente(null);
         }
     }
     private void ConsultarOro(){
         //TODO
     }
     private void ConsultarRanking(Ranking ranking){
-        
+        //TODO
     }
     private void ElegirPersonaje(EntidadesActivas entidades){
-        
+       //TODO 
+    }
+    
+    private void resultadosCombate(Combate combate){
+        //TODO
+        Ronda rondaX;
+        System.out.println(">=====RESULTADOS DEL COMBATE=====<");
+        System.out.println(">Jugador desafiante: " + combate.getDesafiante().getNick());
+        System.out.println(">Jugador desafiado: " + combate.getDesafiado().getNick());
+        System.out.println(">Ganador del combate: " + combate.getVencedor());
+        System.out.println(">Oro apostado: " + combate.getOroGanado());
+        for(int i = 0; i < combate.getRondas().length; i++){
+            rondaX = combate.getRondas()[i];
+            System.out.println("-----Ronda " +(i+1)+ ": -----");
+            System.out.println("Potencial del jugador Desafiante " + rondaX.getPotencialPer1());
+            System.out.println("Potencial del jugador Desafiado "+rondaX.getPotencialPer2());
+            System.out.println("Vida Desafiante: " + rondaX.getVidaDesafiante());
+            System.out.println("Vida Desafiado: "+ rondaX.getVidaDesafiado());
+        }
     }
     
     private void GenerarNumRegistro(){//formato LNNLL
@@ -206,6 +233,12 @@ public class Jugador extends Usuario{
     public void realizarFuncionMenuJugador(int opcion){
         //un if para saber si el usuario tiene algun desafio pendiente que aceptar
         //si lo tiene, ¿hacemos notificar? para que se escriba la informacion del desafio
+        if (this.getCombateRealizado() != null){
+           this.resultadosCombate(this.getCombateRealizado());
+        }
+        if (this.getDesafioPendiente()!= null){
+            this.AceptaroRechazarDesafio(this.getDesafioPendiente());
+        }
         switch (opcion){
             case 1://Darse de baja
                 DarseDeBaja(this);

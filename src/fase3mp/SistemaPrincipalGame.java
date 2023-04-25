@@ -31,6 +31,7 @@ public class SistemaPrincipalGame {
     public void run() throws IOException{
         ManagerUsuarios manager = new ManagerUsuarios();
         usuariosSistema = manager;
+        Publisher publisher = new Publisher();
         //leerUsuarios("usuarios.txt");
         //leerPersonajes("personajes.txt");//habra que hacer un leer Usuarios tambien
         //leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");

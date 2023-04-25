@@ -15,6 +15,8 @@ import java.util.Random;
 public class Ronda {
     private int PotencialPer1;
     private int PotencialPer2;
+    private int vidaDesafiante;
+    private int vidaDesafiado;
     
     
     
@@ -73,7 +75,9 @@ public class Ronda {
            }
         }
         vida1 = vida1 - daño2;
+        vidaDesafiante = vida1;
         vida2 = vida2 - daño1;
+        vidaDesafiado = vida2;
         
     }
 
@@ -103,5 +107,39 @@ public class Ronda {
         return danio1;
 
     }
+
+    public int getPotencialPer1() {
+        return PotencialPer1;
+    }
+
+    public void setPotencialPer1(int PotencialPer1) {
+        this.PotencialPer1 = PotencialPer1;
+    }
+
+    public int getPotencialPer2() {
+        return PotencialPer2;
+    }
+
+    public void setPotencialPer2(int PotencialPer2) {
+        this.PotencialPer2 = PotencialPer2;
+    }
+
+    public int getVidaDesafiante() {
+        return vidaDesafiante;
+    }
+
+    public void setVidaDesafiante(int vidaDesafiante) {
+        this.vidaDesafiante = vidaDesafiante;
+    }
+
+    public int getVidaDesafiado() {
+        return vidaDesafiado;
+    }
+
+    public void setVidaDesafiado(int vidaDesafiado) {
+        this.vidaDesafiado = vidaDesafiado;
+    }
+    
+    
     
 }
