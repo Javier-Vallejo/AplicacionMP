@@ -261,6 +261,7 @@ public class SistemaPrincipalGame {
         File file = new File("Ficheros/Usuarios.txt");
         FileWriter escritor = new FileWriter(file);
         escritor.write(sb.toString());
+        escritor.flush();
     }
 
     private void escribirEsbirrosdeEsbirro(Esbirro[] esbirros, StringBuilder sb) {
