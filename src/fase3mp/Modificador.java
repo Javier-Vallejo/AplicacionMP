@@ -12,6 +12,12 @@ public class Modificador {
     private String nombre;
     private int valor;
 
+
+    public Modificador(String nombre, int valor) {
+        this.nombre = nombre;
+        this.valor = valor;
+    }
+
     public String getNombre() {
         return nombre;
     }
