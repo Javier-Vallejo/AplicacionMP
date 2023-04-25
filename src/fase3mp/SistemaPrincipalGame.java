@@ -15,7 +15,7 @@ import java.io.IOException;
  * @author david
  */
 public class SistemaPrincipalGame {
-    
+
     private SistemaPrincipalGame sistema;
     private ManagerUsuarios usuariosSistema;
 
@@ -31,15 +31,15 @@ public class SistemaPrincipalGame {
 
     public void run() throws IOException {
         ManagerUsuarios manager = new ManagerUsuarios();
-        usuariosSistema = manager;
-        //leerUsuarios("usuarios.txt");
-        //leerPersonajes("personajes.txt");//habra que hacer un leer Usuarios tambien
-        //leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
         EntidadesActivas entidadesActivas = new EntidadesActivas();
+        usuariosSistema = manager;
+        // leerUsuarios("usuarios.txt");
+        // leerPersonajes("personajes.txt");//habra que hacer un leer Usuarios tambien
+        // leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
         inicializarHabilidades(entidadesActivas);
 
         try (// leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
-        Scanner escaner = new Scanner(System.in)) { 
+                Scanner escaner = new Scanner(System.in)) {
             String opcionElegida = "";
             while (!(opcionElegida.equals("INICIARSESION") == false ^ opcionElegida.equals("REGISTRARSE") == false)) {
                 System.out.println("Desea Iniciar Sesion o Registrarse");
@@ -51,18 +51,16 @@ public class SistemaPrincipalGame {
 
             } else if (opcionElegida.equals("REGISTRARSE")) { // Registro
                 this.registrarse();
-                try (Scanner escanerSioNo = new Scanner(System.in)) {
-                    String opcion = "";
-                    while (!(opcion.equals("SI") ^ opcion.equals("NO"))) {
-                        System.out.println("¿Desas iniciar sesion? si o no");
-                        opcion = escanerSioNo.nextLine();
-                        opcion = opcion.toUpperCase();
-                    }
-                    if (opcion.equals("SI")) {
-                        iniciarSesion();
-                    } else if (opcion.equals("NO")) {
-                        System.exit(0);
-                    }
+                String opcion = "";
+                while (!(opcion.equals("SI") ^ opcion.equals("NO"))) {
+                    System.out.println("¿Deseas iniciar sesion? si o no");
+                    opcion = escaner.next();
+                    opcion = opcion.toUpperCase();
+                }
+                if (opcion.equals("SI")) {
+                    iniciarSesion();
+                } else if (opcion.equals("NO")) {
+                    System.exit(0);
                 }
             }
         }
@@ -178,5 +176,4 @@ public class SistemaPrincipalGame {
         entidadesActivas.aniadir(habilidadCazador);
     }
 
-    
 }

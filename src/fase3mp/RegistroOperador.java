@@ -26,16 +26,20 @@ public class RegistroOperador extends Registro {
         OperadorSistema operador  = null;
 
         try (Scanner escanerOperador = new Scanner(System.in)) {
-            while (!usuariosSistema.existeUsuario(nick, password)) {
                 System.out.print("Introduzca su nombre: \n");
                 nombre = escanerOperador.nextLine();
                 System.out.print("Introduzca su nick: \n");
                 nick = escanerOperador.nextLine();
                 System.out.print("Introduzca su password: \n");
                 password = escanerOperador.nextLine();
-                operador = super.getManager().CrearOperador(nombre, nick, password, rol, State.noBaneado);
-            }
+                if(!usuariosSistema.existeUsuario(nick, password)) {
+                    operador = super.getManager().CrearOperador(nombre, nick, password, rol, State.noBaneado);
+                }
+                else {
+                    System.out.print("Ya estás registrado en el sistema \n");
+                }
         }
+        
 
         return operador;
     }    

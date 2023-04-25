@@ -20,6 +20,16 @@ public class EntidadesActivas {
     private ArrayList<Habilidad> habilidades; 
     private ArrayList<Esbirro> esbirros;
 
+    public EntidadesActivas () {
+        personajes = new ArrayList<>();
+        armas = new ArrayList<>();
+        armaduras = new ArrayList<>();
+        fortalezas = new ArrayList<>();
+        debilidades = new ArrayList<>();
+        habilidades = new ArrayList<>();
+        esbirros = new ArrayList<>();
+    }
+
     public ArrayList<Fortaleza> getFortalezas() {
         return fortalezas;
     }
