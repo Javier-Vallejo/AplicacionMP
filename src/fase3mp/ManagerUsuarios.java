@@ -29,10 +29,10 @@ public class ManagerUsuarios {
         return usuariosRegistrados;
     }
     
-    public Jugador CrearJugador(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador){
+    public Jugador CrearJugador(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador,int oro){
         //deberia comprobar aqui si existe ya en el sistema el jugador
         if(usuariosRegistrados.isEmpty()){
-            Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador, estadoObservador);
+            Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador, estadoObservador, oro);//habria que pasarle el oro del que dispone y su personaje activo
             guardarUsuario(jugador);
             guardarCredenciales(jugador);
             return jugador;

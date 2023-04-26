@@ -123,6 +123,12 @@ public class SistemaPrincipalGame {
             if (rol.equals("jugador")) {
                 Registro registro = new RegistroJugador(usuariosSistema); // nuevas clases
                 Usuario usuario = registro.registrarse(TipoUsuario.Jugador);
+                System.out.println("Ya casi has terminado de registrarte, ahora elige un personaje que luche a tu lado");
+                ArrayList<Integer> personajes = entidadesSistema.MostraryElegir("PERSONAJES");               
+                Personaje personajeElegido = entidadesSistema.elegirPersonaje(personajes.get(0));
+                Jugador jugador = (Jugador) usuario;
+                jugador.setPersonajeActivo(personajeElegido);
+                System.out.println("Se te ha guardado el persoanje");
                 guardarUsuarios(usuario);
             } else if (rol.equals("operador")) {
                 Registro registro = new RegistroOperador(usuariosSistema);
