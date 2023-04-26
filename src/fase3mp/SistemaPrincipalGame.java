@@ -7,6 +7,7 @@ package fase3mp;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -266,8 +267,9 @@ public class SistemaPrincipalGame {
             }
         }
         File file = new File("Ficheros/Usuarios.txt");
-        FileWriter escritor = new FileWriter(file);
-        escritor.write(sb.toString());
+        FileWriter escritor = new FileWriter(file, true);
+        //BufferedWriter bEscritor = new BufferedWriter(escritor);
+        escritor.write(sb.toString() + "\n");
         escritor.flush();
     }
 
