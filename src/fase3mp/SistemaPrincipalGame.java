@@ -141,7 +141,7 @@ public class SistemaPrincipalGame {
         }
     }
 
-    private void guardarUsuarios(Usuario usuario) throws IOException {
+    private void guardarUsuarios(Usuario usuario) throws IOException { //habria que moverlo a manager usuarios
         StringBuilder sb = new StringBuilder();
         if (usuario instanceof Jugador) {
             sb.append("jugador");
