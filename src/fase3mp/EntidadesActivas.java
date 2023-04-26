@@ -272,12 +272,26 @@ public class EntidadesActivas {
             }
             System.out.println((habilidades.size()+1)+" Salir");
             habilidadElegida = escaner.nextInt();
-            return habilidadElegida;
-            
-        
-        
+            return habilidadElegida;     
     }
-
+    
+    public Personaje obtenerPersonaje(String nombre, String tipo){
+        for (int i = 0; i < personajes.size(); i++) {
+            if(personajes.get(i).getNombre().equals(nombre)){
+                if(personajes.get(i) instanceof Vampiro && tipo.equals("vampiro")){
+                    return personajes.get(i);
+                }
+                else if(personajes.get(i) instanceof Licantropo && tipo.equals("licantropo")){
+                    return personajes.get(i);
+                }
+                else if(personajes.get(i) instanceof Cazador && tipo.equals("cazador")){
+                    return personajes.get(i);
+                }
+            } 
+        }
+        return null;
+    }
+    
     public void LeerEntidades() throws FileNotFoundException{
         File file = new File("Ficheros/Entidades.txt");
         Scanner scanner = new Scanner(file);

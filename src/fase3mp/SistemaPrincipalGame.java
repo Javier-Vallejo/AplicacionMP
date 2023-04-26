@@ -7,7 +7,6 @@ package fase3mp;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -38,10 +37,10 @@ public class SistemaPrincipalGame {
         EntidadesActivas entidadesActivas = new EntidadesActivas();
         entidadesActivas.LeerEntidades();
         entidadesSistema = entidadesActivas;
-        manager.LeerUsuarios();
         usuariosSistema = manager;
         //leerUsuarios("usuarios.txt");
         leerPersonajes("Ficheros/Personajes.txt");//habra que hacer un leer Usuarios tambien
+        manager.LeerUsuarios(entidadesSistema);
         // leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
         inicializarHabilidades(entidadesActivas);
         Scanner escanerMain = new Scanner(System.in);
@@ -168,11 +167,11 @@ public class SistemaPrincipalGame {
             sb.append(";");
             Personaje personaje = jugador.getPersonajeActivo();
             if (personaje instanceof Vampiro) {
-                sb.append("vampiro;");
+                sb.append("vampiro-");
             } else if (personaje instanceof Licantropo) {
-                sb.append("licantropo;");
+                sb.append("licantropo-");
             } else if (personaje instanceof Cazador) {
-                sb.append("cazador;");
+                sb.append("cazador-");
             }
             sb.append(personaje.getNombre());
             sb.append("-");
@@ -268,8 +267,7 @@ public class SistemaPrincipalGame {
         }
         File file = new File("Ficheros/Usuarios.txt");
         FileWriter escritor = new FileWriter(file, true);
-        //BufferedWriter bEscritor = new BufferedWriter(escritor);
-        escritor.write(sb.toString() + "\n");
+        escritor.write(sb.toString());
         escritor.flush();
     }
 
@@ -310,14 +308,6 @@ public class SistemaPrincipalGame {
         }
     }
 
-    private void leerUsuarios(String fichero) throws FileNotFoundException {
-        File miFichero = new File(fichero);
-        Scanner escanerUsu = new Scanner(miFichero);
-        while (escanerUsu.hasNextLine()) {
-            String linea = escanerUsu.nextLine();
-            String[] camposUsuario = linea.split(";");
-        }
-    }
 
     private void leerPersonajes(String fichero) throws FileNotFoundException { // habria que hacer uno para cada tipo de
         // entidad

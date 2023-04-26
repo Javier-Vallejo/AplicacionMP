@@ -163,27 +163,47 @@ public class ManagerUsuarios {
         }
     }
 
-    public void LeerUsuarios() throws FileNotFoundException {
+    public void LeerUsuarios(EntidadesActivas entidades) throws FileNotFoundException {
         File file = new File("Ficheros/Usuarios.txt");
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
             String linea = scanner.nextLine();
-            Map<String, String> credenciales = new HashMap<>();
+            
 
             String[] partes = linea.split(";");
             String tipo = partes[0];
             String nombre = partes[1];
 
             if (tipo.equals("operador")) {
+                Map<String, String> credencialesOperador = new HashMap<>();
                 TipoUsuario rol = TipoUsuario.OperadorSistema;
                 Usuario usuarioOperador = new OperadorSistema(nombre, partes[2], partes[3], rol);
-                credenciales.put(partes[2], partes[3]);
+                credencialesOperador.put(partes[2], partes[3]);
                 usuariosRegistrados.add(usuarioOperador);
-                credencialesUsuarios.add(credenciales);
+                credencialesUsuarios.add(credencialesOperador);
             } else if (tipo.equals("jugador")) {
+                Map<String, String> credencialesJugador = new HashMap<>();
                 TipoUsuario rol = TipoUsuario.Jugador;
                 State estadoObservador = State.noBaneado;
-                Usuario usuarioJugador = new Jugador(nombre, tipo, nombre, rol, 0);
+                int oro = Integer.parseInt(partes[5]);
+                Usuario usuarioJugador = new Jugador(nombre, partes[2], partes[3], rol, oro);
+                Jugador jugador = (Jugador) usuarioJugador;
+                if(partes[5].equals("false")){
+                    Boolean estaBaneado = false; 
+                    jugador.setEstaBaneado(estaBaneado);
+                }
+                else if(partes[5].equals("true")){
+                    Boolean estaBaneado = true;
+                    jugador.setEstaBaneado(estaBaneado);
+                }
+                String[] partesPersonaje = partes[7].split("-");
+                String tipoPers = partesPersonaje[0];
+                String nombrePers = partesPersonaje[1];
+                Personaje personaje = entidades.obtenerPersonaje(nombrePers, tipoPers);
+                jugador.setPersonajeActivo(personaje);
+                usuariosRegistrados.add(usuarioJugador);
+                credencialesJugador.put(partes[2], partes[3]);
+                credencialesUsuarios.add(credencialesJugador);
             }
 
         }
