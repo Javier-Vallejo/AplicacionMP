@@ -215,6 +215,22 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
         return;
     }
 
+    public void MostrarFortalezas(Personaje personajeEle){
+        int indice = 0;
+        Fortaleza[] fortalezasPersonaje = personajeEle.getFortalezas();
+        if (fortalezasPersonaje.length == 0) {
+            System.out.println("Este personaje no tiene debilidades.");
+        }
+        for (Fortaleza fortalezaPersonaje : fortalezasPersonaje) {
+            System.out.println(
+                    "- " + indice + ".Fortaleza " + ": " + fortalezaPersonaje.getNombre() + ", "
+                            + fortalezaPersonaje.getValor());
+            ++indice;
+        }
+        System.out.println("- " + fortalezasPersonaje.length + ".Salir");
+        return;
+    }
+
     public void editarPersonaje(Personaje personajeEle, EntidadesActivas entidades) {
         int opcion = 0;
         while (true) {
@@ -341,7 +357,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                                 personajeEle.setDebilidades(arrayDebilidades);
                             } else {
                                 System.out
-                                        .println("Armadura no incluida, por favor selecciona un armadura de la lista");
+                                        .println("Debilidad no incluida, por favor selecciona un debilidad de la lista");
                             }
                         }
 
@@ -359,40 +375,39 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                     }
                 }
                 case 6 -> {
-                    List<Armadura> listaArmaduras = Arrays.asList(personajeEle.getArmaduras());
-                    ArrayList<Armadura> arrayListArmaduras = new ArrayList<>(listaArmaduras);
-                    System.out.println("Quiere eliminar o aniadir armaduras: ");
+                    List<Fortaleza> listaFortalezas = Arrays.asList(personajeEle.getFortalezas());
+                    ArrayList<Fortaleza> arrayListFortalezas = new ArrayList<>(listaFortalezas);
+                    System.out.println("Quiere eliminar o aniadir fortalezas: ");
                     escanerLectura.nextLine();
                     String eleccion = escanerLectura.nextLine();
 
                     if (eleccion.equals("eliminar")) {
-                        int armadurasAeliminar = 0;
-                        System.out.println("Selecciona las armaduras que desea eliminar: ");
-                        while (armadurasAeliminar != arrayListArmaduras.size()) {// habria que limitar para que no
+                        int fortalezasAeliminar = 0;
+                        System.out.println("Selecciona las fortalezas que desea eliminar: ");
+                        while (fortalezasAeliminar != arrayListFortalezas.size()) {// habria que limitar para que no
                                                                                  // acepte enteros
                             // mayores que el size
-                            System.out.println("Armaduras actuales: ");
-                            MostrarArmaduras(personajeEle);
-                            armadurasAeliminar = escanerLectura.nextInt();
-                            if (!(armadurasAeliminar >= arrayListArmaduras.size())) {
-                                arrayListArmaduras.remove(armadurasAeliminar);
-                                Armadura[] arrayArmaduras = arrayListArmaduras.toArray(new Armadura[0]);
-                                personajeEle.setArmaduras(arrayArmaduras);
+                            System.out.println("Fortalezas actuales: ");
+                            MostrarFortalezas(personajeEle);
+                            fortalezasAeliminar = escanerLectura.nextInt();
+                            if (!(fortalezasAeliminar >= arrayListFortalezas.size())) {
+                                arrayListFortalezas.remove(fortalezasAeliminar);
+                                Fortaleza[] arrayFortalezas = arrayListFortalezas.toArray(new Fortaleza[0]);
+                                personajeEle.setFortalezas(arrayFortalezas);
                             } else {
-                                System.out
-                                        .println("Armadura no incluida, por favor selecciona un armadura de la lista");
+                                System.out.println("Fortaleza no incluida, por favor selecciona un fortaleza de la lista");
                             }
                         }
 
                     } else if (eleccion.equals("aniadir")) {
-                        System.out.println("Elige las armaduras que desea aniadir:");
-                        ArrayList<Integer> armadurasElegidas = entidades.MostraryElegir("ARMADURAS");
-                        for (int i = 0; i < armadurasElegidas.size(); ++i) {
-                            Armadura armaduraElegida = entidades.elegirArmadura(armadurasElegidas.get(i));
-                            arrayListArmaduras.add(armaduraElegida);
+                        System.out.println("Elige las fortalezas que desea aniadir:");
+                        ArrayList<Integer> fortalezasElegidas = entidades.MostraryElegir("FORTALEZAS");
+                        for (int i = 0; i < fortalezasElegidas.size(); ++i) {
+                            Fortaleza fortalezaElegida = entidades.elegirFortaleza(fortalezasElegidas.get(i));
+                            arrayListFortalezas.add(fortalezaElegida);
                         }
-                        Armadura[] arrayArmas = arrayListArmaduras.toArray(new Armadura[0]);
-                        personajeEle.setArmaduras(arrayArmas);
+                        Fortaleza[] arrayFortalezas = arrayListFortalezas.toArray(new Fortaleza[0]);
+                        personajeEle.setFortalezas(arrayFortalezas);
                     } else {
                         System.out.println("Por favor, escoja una de las opciones disponibles");
                     }
@@ -417,6 +432,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                 }
                 case 9 -> {
                     System.out.println("Volviendo a la pantalla del menu del operador");
+                    System.out.println();
                     return;
                 }
             }
@@ -429,6 +445,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                 eleccion = escanerLectura.nextInt();
                 if (eleccion == 2) {
                     System.out.println("Volviendo a la pantalla del menu del operador");
+                    System.out.println();
                     return;
                 } else if (eleccion != 1 && eleccion != 2) {
                     System.out.println("Por favor seleccione 1 o dos");
@@ -437,6 +454,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
 
         }
     }
+
 
     public void rellenarPropiedadesEspecificas() {
 

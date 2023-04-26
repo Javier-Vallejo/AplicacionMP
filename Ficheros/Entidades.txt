@@ -2,4 +2,3 @@ arma tpm 3 1 2manos
 armadura CorazonDeDragon 4 3
 debilidad luzSolar 3
 fortaleza nubarrones 3
-arma hadaVergonzosa 4 2 2manos
