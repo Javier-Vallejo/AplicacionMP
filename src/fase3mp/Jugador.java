@@ -20,16 +20,17 @@ public class Jugador extends Usuario {
     private Personaje personajeActivo;
     private String NumeroRegistro;
 
-    public Jugador(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador) {
-        super(nombre, nick, password, rol, estadoObservador);
-        if (estadoObservador == State.noBaneado) {// cambiar
-            this.setEstaBaneado(false);
-        } else {
-            this.setEstaBaneado(true);
-        }
+    public Jugador(String nombre, String nick, String password, TipoUsuario rol) {
+        super(nombre, nick, password, rol);
 
         GenerarNumRegistro();
     }
+
+    public Jugador(String nombre, String nick, String password, TipoUsuario rol, int oro) {
+        super(nombre, nick, password, rol);
+        this.oro = oro;
+    }
+    
 
     public int getOro() {
         return oro;
@@ -259,7 +260,7 @@ public class Jugador extends Usuario {
                     System.out.println("No tienes ningun personaje activo");
                 } else {
                     Personaje personaje = getPersonajeActivo();// debo poner un if por si no hay personaje guardado
-                    personaje.editarPersonaje();// nuevo metodo
+                    personaje.editarPersonaje(personaje, super.getEntidades());// nuevo metodo
                 }
                 break;
             case 4:// Dar de baja Personaje

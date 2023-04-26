@@ -4,6 +4,8 @@
  */
 package fase3mp;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -28,6 +30,7 @@ public class EntidadesActivas {
         debilidades = new ArrayList<>();
         habilidades = new ArrayList<>();
         esbirros = new ArrayList<>();
+        //leer de los ficheros correspondientes y rellenar
     }
 
     public ArrayList<Fortaleza> getFortalezas() {
@@ -68,13 +71,13 @@ public class EntidadesActivas {
    
     
     public void aniadir(Object objeto){
-        //comprobar de que clase es objeto y meterlo en su respectiva lista
+        //comprueba de que clase es objeto y meterlo en su respectiva lista
         if(objeto instanceof Personaje){
             Personaje personaje = (Personaje) objeto;
             personajes.add(personaje);
         }
         else if(objeto instanceof Arma){
-            Arma arma = (Arma) objeto;
+            Arma arma = (Arma) objeto;//comprobar si ya estan en el sistema
             armas.add(arma);
         }
         else if(objeto instanceof Armadura){
@@ -85,8 +88,46 @@ public class EntidadesActivas {
             Habilidad habilidad = (Habilidad) objeto;
             habilidades.add(habilidad);
         }
+        else if(objeto instanceof Humano){
+            Humano humano = (Humano) objeto;
+            if(!existeEsbirro(humano)){
+                esbirros.add(humano);
+            }
+            else{
+                System.out.println("No se ha agregado porque ya existe en el sistema");
+            }
+        }
+        else if(objeto instanceof Ghoul){
+            Ghoul ghoul = (Ghoul) objeto;
+            if(!existeEsbirro(ghoul)){
+                esbirros.add(ghoul);
+            }
+            else{
+                System.out.println("No se ha agregado porque ya existe en el sistema");
+            }   
+        }
+        else if(objeto instanceof Demonio){
+            Demonio demonio = (Demonio) objeto;
+            if(!existeEsbirro(demonio)){
+                esbirros.add(demonio);
+            }
+            else{
+                System.out.println("No se ha agregado porque ya existe en el sistema");
+            }   
+        }
 
     }
+    
+    public boolean existeEsbirro(Esbirro esbirro){//comparacion esbirros para si se guarda en sistema
+        if(esbirros.contains(esbirro)){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
+    }
+    
     public Personaje elegirPersonaje(int eleccion){
         return personajes.get(eleccion);
     }
@@ -109,14 +150,19 @@ public class EntidadesActivas {
     public Esbirro obtenerEsbirro(int eleccion){
         return esbirros.get(eleccion);
     }
+    public Habilidad elegirHabilidad(int eleccion){
+        return habilidades.get(eleccion);
+    }
     
+
     public ArrayList<Integer> MostraryElegir(String objetoMostrar){//se podrian poner if para controlar que meta un numero 
         Scanner escaner = new Scanner(System.in);//en el rango correcto
         if (objetoMostrar.equals("PERSONAJES")){
             for (int i = 0; i < personajes.size(); i++) {
-                System.out.println("Personaje " + i + personajes.get(i));
+                System.out.println("Personaje " + i + ": "+ personajes.get(i).getNombre());
             }
             System.out.println((personajes.size()+1)+" Salir");
+            System.out.println("Escoja el numero pro favor:");
             int personajeEle = escaner.nextInt();
             ArrayList<Integer> personajesElegidos = new ArrayList<>();
             personajesElegidos.add(personajeEle);
@@ -125,13 +171,15 @@ public class EntidadesActivas {
         else if (objetoMostrar.equals("ARMAS")){
             int armaEle = 0;
             for (int i = 0; i < armas.size(); i++) {
-                System.out.println("Arma " + i + armas.get(i).getNombre());
+                System.out.println("Arma " + i + ": "+ armas.get(i).getNombre() + " " + armas.get(i).getTipodeArma().toString());
             }
             System.out.println((armas.size()+1)+" Salir");
             ArrayList<Integer> armasElegidas = new ArrayList<>();
             while(armaEle != armas.size()+1){//habria que limitar para que no acepte enteros mayores que el size
-                armaEle = escaner.nextInt();
-                armasElegidas.add(armaEle);
+                if(!(armaEle==armas.size()+1)){
+                    armaEle = escaner.nextInt();
+                    armasElegidas.add(armaEle);
+                }
                 return armasElegidas;
             }
         }
@@ -143,8 +191,10 @@ public class EntidadesActivas {
             System.out.println((armaduras.size()+1)+" Salir");
             ArrayList<Integer> armadurasElegidas = new ArrayList<>();
             while(armaduraEle != armaduras.size()+1){
-                armaduraEle = escaner.nextInt();
-                armadurasElegidas.add(armaduraEle);
+                if(!(armaduraEle==armaduras.size()+1)){
+                    armaduraEle = escaner.nextInt();
+                    armadurasElegidas.add(armaduraEle);
+                }
                 return armadurasElegidas;
             }
         }
@@ -156,8 +206,10 @@ public class EntidadesActivas {
             System.out.println((fortalezas.size()+1)+" Salir");
             ArrayList<Integer> fortalezasElegidas = new ArrayList<>();
             while(fortalezaEle != fortalezas.size()+1){
-                fortalezaEle = escaner.nextInt();
-                fortalezasElegidas.add(fortalezaEle);
+                if(!(fortalezaEle==fortalezas.size()+1)){
+                    fortalezaEle = escaner.nextInt();
+                    fortalezasElegidas.add(fortalezaEle);
+                }
                 return fortalezasElegidas;
             }
         }
@@ -169,8 +221,10 @@ public class EntidadesActivas {
             System.out.println((debilidades.size()+1)+" Salir");
             ArrayList<Integer> debilidadesElegidas = new ArrayList<>();
             while(debilidadEle != debilidades.size()+1){
-                debilidadEle = escaner.nextInt();
-                debilidadesElegidas.add(debilidadEle);
+                if(!(debilidadEle==debilidades.size()+1)){
+                    debilidadEle = escaner.nextInt();
+                    debilidadesElegidas.add(debilidadEle);
+                }
                 return debilidadesElegidas;
             }    
         }
@@ -218,11 +272,51 @@ public class EntidadesActivas {
             }
             System.out.println((habilidades.size()+1)+" Salir");
             habilidadElegida = escaner.nextInt();
-            return habilidadElegida;
-            
-        
-        
+            return habilidadElegida;     
     }
+    
+    public Personaje obtenerPersonaje(String nombre, String tipo){
+        for (int i = 0; i < personajes.size(); i++) {
+            if(personajes.get(i).getNombre().equals(nombre)){
+                if(personajes.get(i) instanceof Vampiro && tipo.equals("vampiro")){
+                    return personajes.get(i);
+                }
+                else if(personajes.get(i) instanceof Licantropo && tipo.equals("licantropo")){
+                    return personajes.get(i);
+                }
+                else if(personajes.get(i) instanceof Cazador && tipo.equals("cazador")){
+                    return personajes.get(i);
+                }
+            } 
+        }
+        return null;
+    }
+    
+    public void LeerEntidades() throws FileNotFoundException{
+        File file = new File("Ficheros/Entidades.txt");
+        Scanner scanner = new Scanner(file);
+        while(scanner.hasNextLine()){
+            String linea = scanner.nextLine();
 
+            String[] partes = linea.split(" ");
+            String tipo = partes[0];
+            String nombre = partes[1];
+
+            if(tipo.equals("arma")){
+                Arma arma = new Arma(nombre, partes[2], partes[3], partes[4]);
+                armas.add(arma);
+            } else if(tipo.equals("armadura")){
+                Armadura armadura = new Armadura(nombre, partes[2], partes[3]);
+                armaduras.add(armadura);
+            } else if (tipo.equals("fortaleza")){
+                Fortaleza fortaleza = new Fortaleza(nombre, Integer.parseInt(partes[2]));
+                fortalezas.add(fortaleza);
+            } else if(tipo.equals("debilidad")){
+                Debilidad debilidad = new Debilidad(nombre, Integer.parseInt(partes[2]));
+                debilidades.add(debilidad);
+            }
+            
+        }
+    }
 
 }

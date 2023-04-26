@@ -26,28 +26,27 @@ public class Humano extends Esbirro implements IEsbirros {
     @Override
     public void rellenarPropiedadesEspec() {
 
-        try (Scanner escanerhuman = new Scanner(System.in);) {
-            String nivelLeal = "";
-            while (!nivelLeal.equals("alta") || !nivelLeal.equals("normal") || !nivelLeal.equals("baja")) {
-                System.out.println("Que nivel de lealtad quieres que tenga. Alta, normal o baja");
-                nivelLeal = escanerhuman.nextLine();
-                nivelLeal = nivelLeal.toLowerCase().trim();
-                switch (nivelLeal) {
-                    case "alta" -> {
-                        lealtad = nivelLealtad.ALTA;
-                    }
-                    case "normal" -> {
-                        lealtad = nivelLealtad.NORMAL;
-                    }
-                    case "baja" -> {
-                        lealtad = nivelLealtad.BAJA;
-                    }
-                    default -> {
-                        System.out.println("Valor no correcto");
-                    }
+        Scanner escanerhuman = new Scanner(System.in);
+        String nivelLeal = "";
+        while (!nivelLeal.equals("alta") && !nivelLeal.equals("normal") && !nivelLeal.equals("baja")) {
+            System.out.println("Que nivel de lealtad quieres que tenga. Alta, normal o baja");
+            nivelLeal = escanerhuman.nextLine();
+            nivelLeal = nivelLeal.toLowerCase().trim();
+            switch (nivelLeal) {
+                case "alta" -> {
+                    lealtad = nivelLealtad.ALTA;
+                }
+                case "normal" -> {
+                    lealtad = nivelLealtad.NORMAL;
+                }
+                case "baja" -> {
+                    lealtad = nivelLealtad.BAJA;
+                }
+                default -> {
+                    System.out.println("Valor no correcto");
                 }
             }
-        }//fin try
+        } // fin try
     }
 
     @Override
@@ -63,7 +62,5 @@ public class Humano extends Esbirro implements IEsbirros {
     public void setLealtad(nivelLealtad lealtad) {
         this.lealtad = lealtad;
     }
-
-    
 
 }

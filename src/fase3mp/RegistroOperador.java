@@ -11,7 +11,7 @@ import java.util.Scanner;
  * @author d.rubio.2019
  */
 public class RegistroOperador extends Registro {
-
+    
     public RegistroOperador(ManagerUsuarios manager) {
         super(manager);
     }
