@@ -121,6 +121,7 @@ public class Jugador extends Usuario {
         Armadura[] armadurasPersonaje = personajeActivo.getArmaduras();
         System.out.println("Elige el numero de la armadura que va tener activa: ");
 
+        
         try (Scanner escanerArmaduras = new Scanner(System.in)) {
 
             for (int i = 0; i < armadurasPersonaje.length; i++) {
@@ -134,11 +135,42 @@ public class Jugador extends Usuario {
             personajeActivo.setArmaduraActiva(armadurasPersonaje[numArmaduraActiva]);
         }
     }
-
-    private void Desafiar() {
-
+    private void Desafiar(Desafio desafioNuevo){
+        desafioNuevo.setJugadorDesafiante(this);
+        ArrayList users = super.getManagerUsuarios().getUsuariosRegistrados();
+        Scanner lectura = new Scanner(System.in);
+        String eleccionSN = "";
+        int elegido = -1;
+        while (eleccionSN.equals("si")){
+            System.out.println(">>>A qué jugador desea enfrentarse? (Ingrese el numero del jugador por favor)<<<");
+            for (int i = 0; i < users.size(); i++) {
+                Usuario usuarioX = (Usuario) users.get(i);
+                System.out.println("Jugador " + i + ": " + usuarioX.getNick());
+            }
+            elegido = lectura.nextInt();
+            Usuario usuarioY = (Usuario) users.get(elegido);
+            System.out.println("El jugador al que desea enfrentarse es el jugador" + elegido + " ,alias " + usuarioY.getNick() + "? (Por favor indique si o no)");
+            eleccionSN = lectura.nextLine();
+            eleccionSN.toLowerCase();
+        }
+        Jugador jugElegido = (Jugador) users.get(elegido);
+        desafioNuevo.setJugadorDesafiado(jugElegido);
+        
+        System.out.println("Cuanto oro desea apostar? (Recuerde que puede apostar 0)");
+        System.out.println("La cantidad de oro que posee es: " + this.getOro());
+        int oro = lectura.nextInt();
+        if (oro > this.getOro() || oro<0) {
+            System.out.println("Error, debe ingresar una cantidad de oro que se encuentre en su posesión.");
+            System.out.println("Cuanto oro desea apostar? (Recuerde que puede apostar 0)");
+            System.out.println("La cantidad de oro que posee es: " + this.getOro());
+            oro = lectura.nextInt();
+        }
+        System.out.println("Su peticion de desafio ha sido almacenada, le deseo mucha suerte en su batalla.");
+        desafioNuevo.setOroApostado(oro);       
     }
-    private void AceptaroRechazarDesafio(Desafio desafio){
+    
+    //COMPROBAR SI DEBERIA SER PUBLICA O ESTA MAL - NECESARIA PUBLICA PARA ANTES DEL MENU
+    public void AceptaroRechazarDesafio(Desafio desafio){
         System.out.println(">>>>>Desea aceptar o rechazar el siguiente desafio? Escriba la opcion numerica<<<<<");
         System.out.println("Desafiante: " + desafio.getJugadorDesafiante().getNick() + " Oro apostado: " + desafio.getOroApostado());
         System.out.println("1. Aceptar desafio // 2. Rechazar desafio");
@@ -148,6 +180,7 @@ public class Jugador extends Usuario {
         
         if (opcion == 1){ //1 es aceptar el desafio
             
+            this.setDesafioPendiente(null);
             //En algun momento hay que suscribir al usuario desafiado y desafiante
             Combate combate = new Combate(desafio.getJugadorDesafiante(), this, desafio.getOroApostado());
             ArrayList<Ronda> rondas = new ArrayList();
@@ -182,6 +215,9 @@ public class Jugador extends Usuario {
             Ronda[] misRondas = new Ronda[rondas.size()];
             misRondas = rondas.toArray(misRondas);
             combate.setRondas(misRondas);
+            notificador.suscribirUsuario(combate.getDesafiado());
+            notificador.notificarUsuario(combate);
+            
             //Falta ver en que lista/estructura añadimos la ronda//combate
             
         } else if (opcion == 2){ //Rechaza el desafio
@@ -200,7 +236,8 @@ public class Jugador extends Usuario {
        //TODO 
     }
     
-    private void resultadosCombate(Combate combate){
+    //COMPROBAR SI DEBERIA SER PUBLICA O ESTA MAL - NECESARIA PUBLICA PARA ANTES DEL MENU
+    public void resultadosCombate(Combate combate){
         //TODO
         Ronda rondaX;
         System.out.println(">=====RESULTADOS DEL COMBATE=====<");
@@ -242,12 +279,14 @@ public class Jugador extends Usuario {
         public void realizarFuncionMenuJugador(int opcion){
         //un if para saber si el usuario tiene algun desafio pendiente que aceptar
         //si lo tiene, ¿hacemos notificar? para que se escriba la informacion del desafio
-        if (this.getCombateRealizado() != null){
+        /**if (this.getCombateRealizado() != null){
            this.resultadosCombate(this.getCombateRealizado());
+           this.setCombateRealizado(null);
+           notificador.desSuscribirUsuario(this);
         }
         if (this.getDesafioPendiente()!= null){
             this.AceptaroRechazarDesafio(this.getDesafioPendiente());
-        }
+        }*/
         switch (opcion){
             case 1://Darse de baja
                 DarseDeBaja(this);
@@ -296,16 +335,13 @@ public class Jugador extends Usuario {
                 break;
             case 5:// Desafiar
                 Desafio desafio = new Desafio();
+                this.Desafiar(desafio);
                 super.getDesafiosAct().guardarDesafio(desafio);
                 break;
             case 6:// Consultar Oro
                 System.out.println("Su oro actual es: " + getOro());
                 break;
-            case 7:// Consultar Ranking
-                   // Esto va a cambiar, porque pondremos que el jugador tenga una propiedad
-                   // ranking,-
-                   // - entonces solo tendremos que actualizar el ranking de vez en cuando, no
-                   // crear uno nuevo siempre.
+            case 7: //Consultar Ranking
                 Ranking ranking = new Ranking();
                 ranking.consultarRanking();
                 break;

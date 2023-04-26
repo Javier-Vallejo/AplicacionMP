@@ -538,7 +538,7 @@ public class OperadorSistema extends Usuario {
         }
     }
 
-    private void validarDesafio(Desafio desafio) {
+    private void validarDesafio(Desafio desafio, Publisher notificador) {
 
         Scanner scanner = new Scanner(System.in);
         int eleccion = 0;
@@ -605,6 +605,8 @@ public class OperadorSistema extends Usuario {
             if (validacion.equals("SI")) { // habria que hacer que se cambie a mayus lo que escriba para que da
                                            // igual que pona si, Si, o SI
                 desafio.setEstado(Desafio.State.Validado);
+                notificador.suscribirUsuario(desafio.getJugadorDesafiado());
+                notificador.notificarUsuario(desafio);
             } else if (!validacion.equals("SI") || !validacion.equals("NO")) {
                 System.out.println(
                         "Por favor, intraduzca 'Si' si quiere validar el desafio o 'No' si quiere rechazarlo");
@@ -649,10 +651,10 @@ public class OperadorSistema extends Usuario {
             }
             case 3 -> // Aniadir Personaje
                 aniadirPersonaje();
-            case 4 -> {
-                // Validar Desafio
+            case 4 -> {// Validar Desafio
+                //NECESITO ACCEDER A LA LISTA DE DESAFIOS
                 Desafio desafio = super.getDesafiosAct().obtenerDesafio();
-                validarDesafio(desafio);// y notificarlo con el observer
+                validarDesafio(desafio, notificador);// y notificarlo con el observer
             }
             case 5 -> {
                 // Banear Usuario
