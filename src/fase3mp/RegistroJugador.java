@@ -33,7 +33,7 @@ public class RegistroJugador extends Registro {
         password = escanerJugador.nextLine();
 
         if (!usuariosSistema.existeUsuario(nick, password)) {
-            jugador = super.getManager().CrearJugador(nombre, nick, password, rol, State.noBaneado);
+            jugador = super.getManager().CrearJugador(nombre, nick, password, rol, State.noBaneado, 100);
         } else {
             System.out.print("Ya estás registrado en el sistema \n");
         }
