@@ -510,7 +510,7 @@ public class OperadorSistema extends Usuario {
                                                                                                 // los hijos sin tener
                                                                                                 // que hacer get
 
-                personaje.editarPersonaje(personaje, entidades);
+                personaje.editarPersonajeOperador(personaje, entidades);
                 for (int i = 0; i < manager.getUsuariosRegistrados().size(); i++) { // esto
                     if (manager.getUsuariosRegistrados().get(i) instanceof Jugador jugador) {// comprobar otros
                                                                                              // parametros a lo mejor
