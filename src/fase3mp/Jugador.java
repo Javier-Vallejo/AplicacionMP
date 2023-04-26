@@ -30,7 +30,6 @@ public class Jugador extends Usuario {
         super(nombre, nick, password, rol);
         this.oro = oro;
     }
-    
 
     public int getOro() {
         return oro;
@@ -121,6 +120,9 @@ public class Jugador extends Usuario {
     private void elegirArmaduraActiva() {
         Armadura[] armadurasPersonaje = personajeActivo.getArmaduras();
         System.out.println("Elige el numero de la armadura que va tener activa: ");
+        
+        try (Scanner escanerArmaduras = new Scanner(System.in)) {
+        
         for (int i = 0; i < armadurasPersonaje.length; i++) {
             System.out.println(i + "_" + armadurasPersonaje[i].getNombre());    
         }
@@ -130,10 +132,42 @@ public class Jugador extends Usuario {
             numArmaduraActiva = escanerArmaduras.nextInt();
         }
         personajeActivo.setArmaduraActiva(armadurasPersonaje[numArmaduraActiva]);
+        }
     }
-    private void Desafiar(){
+    private void Desafiar(Desafio desafioNuevo){
+        desafioNuevo.setJugadorDesafiante(this);
+        ArrayList users = super.getManagerUsuarios().getUsuariosRegistrados();
+        Scanner lectura = new Scanner(System.in);
+        String eleccionSN = "";
+        int elegido = -1;
+        while (eleccionSN.equals("si")){
+            System.out.println(">>>A qué jugador desea enfrentarse? (Ingrese el numero del jugador por favor)<<<");
+            for (int i = 0; i < users.size(); i++) {
+                Usuario usuarioX = (Usuario) users.get(i);
+                System.out.println("Jugador " + i + ": " + usuarioX.getNick());
+            }
+            elegido = lectura.nextInt();
+            Usuario usuarioY = (Usuario) users.get(elegido);
+            System.out.println("El jugador al que desea enfrentarse es el jugador" + elegido + " ,alias " + usuarioY.getNick() + "? (Por favor indique si o no)");
+            eleccionSN = lectura.nextLine();
+            eleccionSN.toLowerCase();
+        }
+        Jugador jugElegido = (Jugador) users.get(elegido);
+        desafioNuevo.setJugadorDesafiado(jugElegido);
         
+        System.out.println("Cuanto oro desea apostar? (Recuerde que puede apostar 0)");
+        System.out.println("La cantidad de oro que posee es: " + this.getOro());
+        int oro = lectura.nextInt();
+        if (oro > this.getOro() || oro<0) {
+            System.out.println("Error, debe ingresar una cantidad de oro que se encuentre en su posesión.");
+            System.out.println("Cuanto oro desea apostar? (Recuerde que puede apostar 0)");
+            System.out.println("La cantidad de oro que posee es: " + this.getOro());
+            oro = lectura.nextInt();
+        }
+        System.out.println("Su peticion de desafio ha sido almacenada, le deseo mucha suerte en su batalla.");
+        desafioNuevo.setOroApostado(oro);       
     }
+
     private void AceptaroRechazarDesafio(Desafio desafio){
         System.out.println(">>>>>Desea aceptar o rechazar el siguiente desafio? Escriba la opcion numerica<<<<<");
         System.out.println("Desafiante: " + desafio.getJugadorDesafiante().getNick() + " Oro apostado: " + desafio.getOroApostado());
@@ -144,6 +178,7 @@ public class Jugador extends Usuario {
         
         if (opcion == 1){ //1 es aceptar el desafio
             
+            this.setDesafioPendiente(null);
             //En algun momento hay que suscribir al usuario desafiado y desafiante
             Combate combate = new Combate(desafio.getJugadorDesafiante(), this, desafio.getOroApostado());
             ArrayList<Ronda> rondas = new ArrayList();
@@ -178,15 +213,15 @@ public class Jugador extends Usuario {
             Ronda[] misRondas = new Ronda[rondas.size()];
             misRondas = rondas.toArray(misRondas);
             combate.setRondas(misRondas);
+            notificador.suscribirUsuario(combate.getDesafiado());
+            notificador.notificarUsuario(combate);
+            
             //Falta ver en que lista/estructura añadimos la ronda//combate
             
         } else if (opcion == 2){ //Rechaza el desafio
             this.setOro((int) (this.getOro() - (this.getOro() * 0.1)));
             this.setDesafioPendiente(null);
         }
-    }
-    private void ConsultarOro(){
-        //TODO
     }
     private void ConsultarRanking(Ranking ranking){
         //TODO
@@ -238,6 +273,8 @@ public class Jugador extends Usuario {
         //si lo tiene, ¿hacemos notificar? para que se escriba la informacion del desafio
         if (this.getCombateRealizado() != null){
            this.resultadosCombate(this.getCombateRealizado());
+           this.setCombateRealizado(null);
+           notificador.desSuscribirUsuario(this);
         }
         if (this.getDesafioPendiente()!= null){
             this.AceptaroRechazarDesafio(this.getDesafioPendiente());
@@ -245,42 +282,9 @@ public class Jugador extends Usuario {
         switch (opcion){
             case 1://Darse de baja
                 DarseDeBaja(this);
-                break;
-            case 2://Registrar Personaje -- Elegir el personaje
-                //no se bien que es
-                break;
-            case 3:// Gestionar Personaje
-                if (getPersonajeActivo() == null) {
-                    System.out.println("No tienes ningun personaje activo");
-                } else {
-                    Personaje personaje = getPersonajeActivo();// debo poner un if por si no hay personaje guardado
-                    personaje.editarPersonaje(personaje, super.getEntidades());// nuevo metodo
-                }
-                break;
-            case 4:// Dar de baja Personaje
-                setPersonajeActivo(null);
-                break;
-            case 5:// Elegir Armas y Armadura
-                elegirArmasActivas();
-                elegirArmaduraActiva();
-                // se podria preguntar si quiere cambiar arma, armadura o las dos
-                break;
-            case 6:// Desafiar
-                Desafio desafio = new Desafio();
-                super.getDesafiosAct().guardarDesafio(desafio);
-                break;
-            case 7:// Consultar Oro
-                System.out.println("Su oro actual es: " + getOro());
-                break;
-            case 8:// Consultar Ranking
-                   // Esto va a cambiar, porque pondremos que el jugador tenga una propiedad
-                   // ranking,-
-                   // - entonces solo tendremos que actualizar el ranking de vez en cuando, no
-                   // crear uno nuevo siempre.
-                Ranking ranking = new Ranking();
-                ranking.consultarRanking();
-                break;
-            case 9:// Elegir Personaje
+                System.out.println("Saliendo del sistema.");
+                System.exit(0);
+            case 2://Registrar Personaje
                 if (getPersonajeActivo() != null) {
                     System.out.println("El personaje que elijas sustituira al tuyo.");
                     System.out.println("¿Deseas continuar? Si o No");
@@ -306,8 +310,34 @@ public class Jugador extends Usuario {
                     ArrayList<Integer> personaje = super.getEntidades().MostraryElegir("PERSONAJES");
                     setPersonajeActivo(super.getEntidades().elegirPersonaje(personaje.get(0)));
                 }
+                super.getManagerUsuarios().editarUsuarioEnFichero(this.getNick(), this.getPassword());
                 break;
-            case 10:// Salir
+            case 3:// Gestionar Personaje
+                if (getPersonajeActivo() == null) {
+                    System.out.println("No tienes ningun personaje activo");
+                } else {
+                    Personaje personaje = getPersonajeActivo();// debo poner un if por si no hay personaje guardado
+                    personaje.editarPersonajeJugador(personaje, super.getEntidades());// nuevo metodo
+                }
+                super.getManagerUsuarios().editarUsuarioEnFichero(this.getNick(), this.getPassword());
+                break;
+            case 4:// Dar de baja Personaje
+                setPersonajeActivo(null);
+                super.getManagerUsuarios().editarUsuarioEnFichero(this.getNick(), this.getPassword());
+                break;
+            case 5:// Desafiar
+                Desafio desafio = new Desafio();
+                this.Desafiar(desafio);
+                super.getDesafiosAct().guardarDesafio(desafio);
+                break;
+            case 6:// Consultar Oro
+                System.out.println("Su oro actual es: " + getOro());
+                break;
+            case 7: //Consultar Ranking
+                Ranking ranking = new Ranking();
+                ranking.consultarRanking();
+                break;
+            case 8:// Salir
                 System.out.println("Cerrando sesion y saliendo");
                 System.exit(0);
                 break;
