@@ -14,21 +14,17 @@ public class Publisher {
 
     private ArrayList<Usuario> suscriptores;
     private OperadorSistema operador;
-
-    public void suscribirUsuario(Usuario usuario) {
-
+    
+    public void suscribirUsuario(Usuario usuario){
+        suscriptores.add(usuario);
     }
-
-    public void desSuscribirUsuario(Usuario usuario) {
-
+    public void desSuscribirUsuario(Usuario usuario){
+        suscriptores.remove(usuario);
     }
-
-    public void notificarUsuario(String nick) {
-
-    }
-
-    public void notificarOperador() {
-
+    public void notificarUsuario(Object objetoX){
+        for (Usuario sus: suscriptores){
+            sus.update(objetoX);
+        }
     }
 
     public ArrayList<Usuario> getSuscriptores() {

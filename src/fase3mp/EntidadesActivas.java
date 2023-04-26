@@ -162,7 +162,7 @@ public class EntidadesActivas {
                 System.out.println("Personaje " + i + ": "+ personajes.get(i).getNombre());
             }
             System.out.println((personajes.size()+1)+" Salir");
-            System.out.println("Escoja el numero pro favor:");
+            System.out.println("Escoja el numero por favor:");
             int personajeEle = escaner.nextInt();
             ArrayList<Integer> personajesElegidos = new ArrayList<>();
             personajesElegidos.add(personajeEle);

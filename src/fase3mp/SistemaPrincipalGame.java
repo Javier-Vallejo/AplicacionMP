@@ -34,6 +34,11 @@ public class SistemaPrincipalGame {
 
     public void run() throws IOException {
         ManagerUsuarios manager = new ManagerUsuarios();
+        usuariosSistema = manager;
+        Publisher publisher = new Publisher();
+        //leerUsuarios("usuarios.txt");
+        //leerPersonajes("personajes.txt");//habra que hacer un leer Usuarios tambien
+        //leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
         EntidadesActivas entidadesActivas = new EntidadesActivas();
         entidadesActivas.LeerEntidades();
         entidadesSistema = entidadesActivas;
@@ -91,7 +96,7 @@ public class SistemaPrincipalGame {
             int eleccionMenu = 0;
             if (usuario.getRol() == TipoUsuario.Jugador) {
                 Jugador jugador = (Jugador) usuario;
-                while (eleccionMenu != 10) {// hacer restriccion para que solo meta enteros
+                while (eleccionMenu != 8) {// hacer restriccion para que solo meta enteros
                     Menu menu = new MenuJugador();// deberia ponerlo fuera
                     menu.mostrarOpciones();
                     eleccionMenu = escIniSes.nextInt();
@@ -130,11 +135,11 @@ public class SistemaPrincipalGame {
                 Jugador jugador = (Jugador) usuario;
                 jugador.setPersonajeActivo(personajeElegido);
                 System.out.println("Se te ha guardado el persoanje");
-                guardarUsuarios(usuario);
+                usuariosSistema.guardarUsuarios(usuario);
             } else if (rol.equals("operador")) {
                 Registro registro = new RegistroOperador(usuariosSistema);
                 Usuario usuario = registro.registrarse(TipoUsuario.OperadorSistema);
-                guardarUsuarios(usuario);
+                usuariosSistema.guardarUsuarios(usuario);
             } else {
                 System.out.print("Por favor escoja una de las opciones proporcionadas \n");
             }
