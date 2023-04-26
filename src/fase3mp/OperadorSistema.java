@@ -49,7 +49,7 @@ public class OperadorSistema extends Usuario {
     }
 
     public Arma CrearArma(String nombre, String modDanio, String modDefensa, String tipoArma) throws IOException {
-        Arma arma = new Arma(nombre, modDanio, modDefensa, modDefensa);
+        Arma arma = new Arma(nombre, modDanio, modDefensa, modDefensa);//como ha dejado pasar dos strings si son enteros
         if (tipoArma.equals("1mano")) {
             arma.setTipodeArma(Arma.tipoArma.de1mano);
         } else if (tipoArma.equals("2manos")) {
@@ -107,11 +107,11 @@ public class OperadorSistema extends Usuario {
 
         System.out.println("Desea crear un arma de 0 o elegirla del sistema: ");
         System.out.println("1- Crearla ");
-        System.out.println("2- Elegirla de las que hay en el sistema"); // habra que añadirlos a entidades activas
+        System.out.println("2- Elegirla de las que hay en el sistema");
         Scanner lecturaArma = new Scanner(System.in);
         int opcionArma = lecturaArma.nextInt();
         lecturaArma.close();
-        Arma[] armasPersonaje = new Arma[super.getEntidades().getArmas().size()];
+        Arma[] armasPersonaje = new Arma[super.getEntidades().getArmas().size()];//habria que hacer el array de armas actual a arraylist, lo añades y vuelves a array normal
         /*
          * Si hay que añadirle un arma a su mochila primero se deberia considerar su
          * tamaño, de primeras he pensado
