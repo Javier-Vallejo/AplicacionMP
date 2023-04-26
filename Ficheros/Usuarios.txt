@@ -1,1 +1,1 @@
-operador;juan;juanito;juan;
+operador;Aurora;Ara;1234;

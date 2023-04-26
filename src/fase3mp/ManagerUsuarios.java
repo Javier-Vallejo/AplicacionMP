@@ -4,9 +4,12 @@
  */
 package fase3mp;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  *
@@ -114,6 +117,29 @@ public class ManagerUsuarios {
                     credencialesUsuarios.remove(i);
                 }
             }
+        }
+    }
+
+    public void LeerUsuarios() throws FileNotFoundException{
+        File file = new File("Ficheros/Usuarios.txt");
+        Scanner scanner = new Scanner(file);
+        while(scanner.hasNextLine()){
+            String linea = scanner.nextLine();
+
+            String[] partes = linea.split(";");
+            String tipo = partes[0];
+            String nombre = partes[1];
+
+            if(tipo.equals("operador")){
+                Map<String, String> credenciales = new HashMap<>();
+                TipoUsuario rol = TipoUsuario.OperadorSistema;
+                State estadoObservador = State.noBaneado;
+                Usuario usuarioOperador = new Usuario(nombre, partes[2], partes[3], rol, estadoObservador);
+                credenciales.put(partes[2], partes[3]);
+                usuariosRegistrados.add(usuarioOperador);
+                credencialesUsuarios.add(credenciales);
+            } 
+            
         }
     }
 }
