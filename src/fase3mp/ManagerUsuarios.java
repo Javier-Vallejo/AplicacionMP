@@ -4,116 +4,172 @@
  */
 package fase3mp;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  *
  * @author david
  */
 public class ManagerUsuarios {
-    private ArrayList<Map> credencialesUsuarios;
+    private ArrayList<Map<String, String>> credencialesUsuarios;
     private ArrayList<Usuario> usuariosRegistrados;
 
     public ManagerUsuarios() {
-        credencialesUsuarios = new ArrayList<Map>();
+        credencialesUsuarios = new ArrayList<Map<String, String>>();
         usuariosRegistrados = new ArrayList<Usuario>();
     }
 
-    public ArrayList<Map> getCredencialesUsuarios() {
+    public ArrayList<Map<String, String>> getCredencialesUsuarios() {
         return credencialesUsuarios;
     }
 
     public ArrayList<Usuario> getUsuariosRegistrados() {
         return usuariosRegistrados;
     }
-    
-    public Jugador CrearJugador(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador){
-        //deberia comprobar aqui si existe ya en el sistema el jugador
-        if(usuariosRegistrados.isEmpty()){
-            Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador, estadoObservador);
+
+    public Jugador CrearJugador(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador,
+            int oro) {
+        // deberia comprobar aqui si existe ya en el sistema el jugador
+        if (usuariosRegistrados.isEmpty()) {
+            Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador, oro);// habria
+                                                                                            // que
+                                                                                            // pasarle
+                                                                                            // el oro
+                                                                                            // del que
+                                                                                            // dispone
+                                                                                            // y su
+                                                                                            // personaje
+                                                                                            // activo
             guardarUsuario(jugador);
             guardarCredenciales(jugador);
             return jugador;
-        }
-        else{
-            if (existeUsuario(nick,password) == false){
-                Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador, estadoObservador);
+        } else {
+            if (existeUsuario(nick, password) == false) {
+                Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador);
                 guardarUsuario(jugador);
                 guardarCredenciales(jugador);
                 return jugador;
-            }
-            else{
+            } else {
                 System.out.println("Ya estas registrado con estos datos, no puedes volver a hacerlo");
                 return null;
             }
         }
     }
-    
-    public OperadorSistema CrearOperador(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador){
-        if(usuariosRegistrados.isEmpty()){
-            OperadorSistema operador = new OperadorSistema(nombre, nick, password, rol, estadoObservador);
+
+    public OperadorSistema CrearOperador(String nombre, String nick, String password, TipoUsuario rol,
+            State estadoObservador) {
+        if (usuariosRegistrados.isEmpty()) {
+            OperadorSistema operador = new OperadorSistema(nombre, nick, password, rol);
             guardarUsuario(operador);
             guardarCredenciales(operador);
             return operador;
-        }
-        else{
-            if (existeUsuario(nick,password) == false){
-                OperadorSistema operador = new OperadorSistema(nombre, nick, password, rol, estadoObservador);
+        } else {
+            if (existeUsuario(nick, password) == false) {
+                OperadorSistema operador = new OperadorSistema(nombre, nick, password, rol);
                 guardarUsuario(operador);
                 guardarCredenciales(operador);
                 return operador;
-            }
-            else{
+            } else {
                 System.out.println("Ya estas registrado con estos datos, no puedes volver a hacerlo");
                 return null;
             }
         }
     }
-     
-    private void guardarUsuario(Usuario usuario){
+
+    private void guardarUsuario(Usuario usuario) {
         usuariosRegistrados.add(usuario);
     }
-    
-    private void guardarCredenciales(Usuario usuario){
+
+    private void guardarCredenciales(Usuario usuario) {
         Map<String, String> credenciales = new HashMap<>();
         credenciales.put(usuario.getNick(), usuario.getPassword());
         credencialesUsuarios.add(credenciales);
     }
-    
-    public Boolean existeUsuario(String nick, String password){
+
+    public Boolean existeUsuario(String nick, String password) {
         for (int j = 0; j < credencialesUsuarios.size(); j++) {
-            if ((credencialesUsuarios.get(j).containsKey(nick)) && (credencialesUsuarios.get(j).containsValue(password))){
+            if ((credencialesUsuarios.get(j).containsKey(nick))
+                    && (credencialesUsuarios.get(j).containsValue(password))) {
                 return true;
-            }   
+            }
         }
-        return false; 
+        return false;
     }
-    public Usuario obtenerUsuario(String nick, String password){
-        if (existeUsuario(nick,password)){
+
+    public Usuario obtenerUsuario(String nick, String password) {
+        if (existeUsuario(nick, password)) {
             for (int i = 0; i < credencialesUsuarios.size(); i++) {
-                if(usuariosRegistrados.get(i).getNick().equals(nick)){
+                if (usuariosRegistrados.get(i).getNick().equals(nick)) {
                     return usuariosRegistrados.get(i);
                 }
-            }            
+            }
         }
         return null;
     }
-    
-    
-    public void eliminarUsuario(String nick, String password){
-        if (existeUsuario(nick , password)){
-            for (int i = 0; i == usuariosRegistrados.size(); i++){
-                if(usuariosRegistrados.get(i).getNick()== nick){
+
+    public void eliminarUsuario(String nick, String password) {
+        if (existeUsuario(nick, password)) {
+            for (int i = 0; i == usuariosRegistrados.size(); i++) {
+                if (usuariosRegistrados.get(i).getNick() == nick) {
                     usuariosRegistrados.remove(i);
                 }
             }
-            for (int i = 0; i == credencialesUsuarios.size(); i++){
-                if (credencialesUsuarios.get(i).containsKey(nick)){
+            for (int i = 0; i == credencialesUsuarios.size(); i++) {
+                if (credencialesUsuarios.get(i).containsKey(nick)) {
                     credencialesUsuarios.remove(i);
                 }
             }
+        }
+    }
+
+    public void LeerUsuarios(EntidadesActivas entidades) throws FileNotFoundException {
+        File file = new File("Ficheros/Usuarios.txt");
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()) {
+            String linea = scanner.nextLine();
+            
+
+            String[] partes = linea.split(";");
+            String tipo = partes[0];
+            String nombre = partes[1];
+
+            if (tipo.equals("operador")) {
+                Map<String, String> credencialesOperador = new HashMap<>();
+                TipoUsuario rol = TipoUsuario.OperadorSistema;
+                Usuario usuarioOperador = new OperadorSistema(nombre, partes[2], partes[3], rol);
+                credencialesOperador.put(partes[2], partes[3]);
+                usuariosRegistrados.add(usuarioOperador);
+                credencialesUsuarios.add(credencialesOperador);
+            } else if (tipo.equals("jugador")) {
+                Map<String, String> credencialesJugador = new HashMap<>();
+                TipoUsuario rol = TipoUsuario.Jugador;
+                State estadoObservador = State.noBaneado;
+                int oro = Integer.parseInt(partes[5]);
+                Usuario usuarioJugador = new Jugador(nombre, partes[2], partes[3], rol, oro);
+                Jugador jugador = (Jugador) usuarioJugador;
+                if(partes[5].equals("false")){
+                    Boolean estaBaneado = false; 
+                    jugador.setEstaBaneado(estaBaneado);
+                }
+                else if(partes[5].equals("true")){
+                    Boolean estaBaneado = true;
+                    jugador.setEstaBaneado(estaBaneado);
+                }
+                String[] partesPersonaje = partes[7].split("-");
+                String tipoPers = partesPersonaje[0];
+                String nombrePers = partesPersonaje[1];
+                Personaje personaje = entidades.obtenerPersonaje(nombrePers, tipoPers);
+                jugador.setPersonajeActivo(personaje);
+                usuariosRegistrados.add(usuarioJugador);
+                credencialesJugador.put(partes[2], partes[3]);
+                credencialesUsuarios.add(credencialesJugador);
+            }
+
         }
     }
 }

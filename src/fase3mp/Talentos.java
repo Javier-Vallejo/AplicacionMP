@@ -8,6 +8,10 @@ package fase3mp;
  *
  * @author d.rubio.2019
  */
-public class Talentos  {
+public class Talentos extends Habilidad  {
+
+    public Talentos(String nombre, int valorAtaque, int valorDefensa, int limitante) {
+        super(nombre, valorAtaque, valorDefensa, limitante);
+    }
     
 }

@@ -22,7 +22,7 @@ public class Usuario implements UsuariosANotificar{
     private Desafio desafioPendiente;
     private Combate combateRealizado;
     
-    public Usuario(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador){//habria que pasarle un objeto ranking
+    public Usuario(String nombre, String nick, String password, TipoUsuario rol){//habria que pasarle un objeto ranking
         setNombre(nombre);
         setNick(nick);
         setPassword(password);

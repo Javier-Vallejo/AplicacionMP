@@ -11,7 +11,7 @@ import java.io.IOException;
  * @author david
  */
 public class main {
-    public static void main(String[] args) throws IOException {
+    public static void main (String[] args) throws IOException {
         SistemaPrincipalGame sistemaPrincipal = new SistemaPrincipalGame();
         sistemaPrincipal.run();
         System.exit(0);

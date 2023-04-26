@@ -4,7 +4,6 @@
  */
 package fase3mp;
 
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -16,18 +15,30 @@ public class RegistroJugador extends Registro {
     public RegistroJugador(ManagerUsuarios manager) {
         super(manager);
     }
-    
+
     @Override
-    public Usuario registrarse(TipoUsuario rol){
+    public Usuario registrarse(TipoUsuario rol) {
+        ManagerUsuarios usuariosSistema = new ManagerUsuarios();
+        String nick = null;
+        String password = null;
+        String nombre = null;
+        Jugador jugador = null;
+
         Scanner escanerJugador = new Scanner(System.in);
         System.out.print("Introduzca su nombre: \n");
-        String nombre = escanerJugador.nextLine();
+        nombre = escanerJugador.nextLine();
         System.out.print("Introduzca su nick: \n");
-        String nick = escanerJugador.nextLine();
+        nick = escanerJugador.nextLine();
         System.out.print("Introduzca su password: \n");
-        String password = escanerJugador.nextLine();
-        Jugador jugador = super.getManager().CrearJugador(nombre, nick, password, rol, State.noBaneado);
+        password = escanerJugador.nextLine();
+
+        if (!usuariosSistema.existeUsuario(nick, password)) {
+            jugador = super.getManager().CrearJugador(nombre, nick, password, rol, State.noBaneado, 100);
+        } else {
+            System.out.print("Ya estás registrado en el sistema \n");
+        }
+
         return jugador;
     }
-    
+
 }

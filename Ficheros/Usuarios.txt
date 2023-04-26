@@ -1,0 +1,7 @@
+operador;Aurora;Ara;1234;
+jugador;Javi;Javs;1234;U81SN;0;false;vampiro-alberto-GolpeDeRabia/2/1/7-tpm/3/1/de2manos,-tpm/3/1/de2manos,-CorazonDeDragon/4/3,-CorazonDeDragon/4/3-javi/3/-2-2-luzSolar/3|-luzSolar/3|-0-0
+operador;Juan;Juanito;Juan;
+operador;juan;megaboy;123;
+operador;aaa;1789;1789;
+jugador;aaa;soyYo;1789;A55MF;0;false;vampiro-alberto-GolpeDeRabia/2/1/7-tpm/3/1/de2manos,-tpm/3/1/de2manos,-CorazonDeDragon/4/3,-CorazonDeDragon/4/3-javi/3/-2-2-luzSolar/3|-luzSolar/3|-0-0
+operador;judas;judas33;15;

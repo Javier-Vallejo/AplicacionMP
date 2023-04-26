@@ -4,14 +4,13 @@
  */
 package fase3mp;
 
-import java.lang.reflect.Array;
 import java.util.Scanner;
 
 /**
  *
  * @author d.rubio.2019
  */
-public class Vampiro extends Personaje implements InterfazPersonaje{
+public class Vampiro extends Personaje{
     
     private int sangre;
     private int edad;
@@ -25,17 +24,27 @@ public class Vampiro extends Personaje implements InterfazPersonaje{
         this.edad = edad;
     }
 
-    private void setSangre(int sangre) {
+    public int getEdad() {
+        return edad;
+    }
+
+    public int getSangre() {
+        return sangre;
+    }
+
+    void setSangre(int sangre) {
         this.sangre = sangre;
     }
+    
 
     @Override
     public void rellenarPropiedadesEspecificas() {
-        Scanner escanerVamp = new Scanner(System.in);
-        System.out.println("Que cantidad de sangre quieres que tenga: ");
-        sangre = escanerVamp.nextInt();
-        System.out.println("Que edad quieres que tenga: ");
-        edad = escanerVamp.nextInt();                    
+        try (Scanner escanerVamp = new Scanner(System.in)) {
+            System.out.println("Que cantidad de sangre quieres que tenga: ");
+            sangre = escanerVamp.nextInt();
+            System.out.println("Que edad quieres que tenga: ");
+            edad = escanerVamp.nextInt();
+        }                    
     }
     
     

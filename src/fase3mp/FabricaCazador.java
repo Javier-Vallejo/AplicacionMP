@@ -4,11 +4,6 @@
  */
 package fase3mp;
 
-import java.lang.reflect.Array;
-
-import fase3mp.Arma.tipoArma;
-import fase3mp.Humano.nivelLealtad;
-
 /**
  *
  * @author d.rubio.2019
