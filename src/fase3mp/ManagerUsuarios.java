@@ -134,7 +134,7 @@ public class ManagerUsuarios {
                 Map<String, String> credenciales = new HashMap<>();
                 TipoUsuario rol = TipoUsuario.OperadorSistema;
                 State estadoObservador = State.noBaneado;
-                Usuario usuarioOperador = new Usuario(nombre, partes[2], partes[3], rol, estadoObservador);
+                Usuario usuarioOperador = new OperadorSistema(nombre, partes[2], partes[3], rol, estadoObservador);
                 credenciales.put(partes[2], partes[3]);
                 usuariosRegistrados.add(usuarioOperador);
                 credencialesUsuarios.add(credenciales);
