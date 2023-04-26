@@ -37,10 +37,10 @@ public class SistemaPrincipalGame {
         EntidadesActivas entidadesActivas = new EntidadesActivas();
         entidadesActivas.LeerEntidades();
         entidadesSistema = entidadesActivas;
-        manager.LeerUsuarios(entidadesSistema);
         usuariosSistema = manager;
         //leerUsuarios("usuarios.txt");
         leerPersonajes("Ficheros/Personajes.txt");//habra que hacer un leer Usuarios tambien
+        manager.LeerUsuarios(entidadesSistema);
         // leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
         inicializarHabilidades(entidadesActivas);
         Scanner escanerMain = new Scanner(System.in);
