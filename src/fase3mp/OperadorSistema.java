@@ -5,9 +5,11 @@
 package fase3mp;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 //import java.util.Locale;
 import java.util.Scanner;
 
@@ -23,6 +25,7 @@ public class OperadorSistema extends Usuario {
 
     public OperadorSistema(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador) {
         super(nombre, nick, password, rol, estadoObservador);
+        entidades = super.getEntidades();
     }
 
     public Publisher getNotificador() {
@@ -493,6 +496,8 @@ public class OperadorSistema extends Usuario {
                 DarseDeBaja(this);
             case 2 -> {
                 // Editar Personaje
+                System.out.println("Personajes disponibles:");
+                entidades = super.getEntidades();
                 ArrayList<Integer> personajeEle = super.getEntidades().MostraryElegir("PERSONAJES");// se podria hacer
                                                                                                     // que entidades de
                                                                                                     // usuario fuera
@@ -510,6 +515,7 @@ public class OperadorSistema extends Usuario {
                         }
                     }
                 }
+                guardarPersonajeEditado(personaje);
             }
             case 3 -> // Aniadir Personaje
                 aniadirPersonaje();
@@ -557,6 +563,45 @@ public class OperadorSistema extends Usuario {
                 System.out.println("Cerrando sesion y saliendo");
                 System.exit(0);
             }
+        }
+    }
+
+    public void guardarPersonajeEditado(Personaje personaje){
+        File archivo = new File("Ficheros/Personajes.txt");
+        ArrayList<Personaje> listaPersonajes = entidades.getPersonajes();
+        int indicePersonajeAntiguo = listaPersonajes.indexOf(personaje);
+        List<String> lineas = new ArrayList<>();
+        StringBuilder sbNuevo = new StringBuilder();
+        rellenarStringBuilder(sbNuevo, personaje);
+        String lineaNueva = sbNuevo.toString();
+
+        try {
+            Scanner lector = new Scanner(archivo);
+
+            // cargar todas las líneas del archivo en una lista
+            while (lector.hasNextLine()) {
+                lineas.add(lector.nextLine());
+            }
+            lector.close();
+
+            // reemplazar la línea en la lista con la nueva línea
+            lineas.set(indicePersonajeAntiguo, lineaNueva);
+
+            // escribir la lista actualizada de nuevo en el archivo
+            FileWriter escritor = new FileWriter(archivo);
+            for (String linea : lineas) {
+                escritor.write(linea + "\n");
+            }
+            escritor.close();
+
+            System.out.println("La línea ha sido reemplazada con éxito.");
+
+        } catch (FileNotFoundException e) {
+            System.out.println("No se encontró el archivo.");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Error al leer o escribir el archivo.");
+            e.printStackTrace();
         }
     }
 

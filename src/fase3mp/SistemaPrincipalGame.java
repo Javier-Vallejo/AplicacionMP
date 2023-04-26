@@ -37,6 +37,7 @@ public class SistemaPrincipalGame {
         EntidadesActivas entidadesActivas = new EntidadesActivas();
         entidadesActivas.LeerEntidades();
         entidadesSistema = entidadesActivas;
+        manager.LeerUsuarios();
         usuariosSistema = manager;
         //leerUsuarios("usuarios.txt");
         leerPersonajes("Ficheros/Personajes.txt");//habra que hacer un leer Usuarios tambien

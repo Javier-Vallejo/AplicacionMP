@@ -1,1 +1,2 @@
+operador;Aurora;Ara;1234;
 operador;juan;megaboy;123;
