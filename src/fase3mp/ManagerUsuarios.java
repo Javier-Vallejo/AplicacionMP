@@ -6,8 +6,11 @@ package fase3mp;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -123,6 +126,39 @@ public class ManagerUsuarios {
                 if (credencialesUsuarios.get(i).containsKey(nick)) {
                     credencialesUsuarios.remove(i);
                 }
+            }
+
+            File archivo = new File("Ficheros/Usuarios.txt");
+            int indiceUsuario = usuariosRegistrados.indexOf(obtenerUsuario(nick, password));
+            List<String> lineas = new ArrayList<>();
+
+            try {
+                Scanner lector = new Scanner(archivo);
+
+                // cargar todas las líneas del archivo en una lista
+                while (lector.hasNextLine()) {
+                    lineas.add(lector.nextLine());
+                }
+                lector.close();
+
+                // reemplazar la línea en la lista con la nueva línea
+                lineas.remove(indiceUsuario);
+
+                // escribir la lista actualizada de nuevo en el archivo
+                FileWriter escritor = new FileWriter(archivo);
+                for (String linea : lineas) {
+                    escritor.write(linea + "\n");
+                }
+                escritor.close();
+
+                System.out.println("Baja exitosa.");
+
+            } catch (FileNotFoundException e) {
+                System.out.println("No se encontró el archivo.");
+                e.printStackTrace();
+            } catch (IOException e) {
+                System.out.println("Error al leer o escribir el archivo.");
+                e.printStackTrace();
             }
         }
     }
