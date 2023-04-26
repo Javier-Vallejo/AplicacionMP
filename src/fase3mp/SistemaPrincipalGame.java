@@ -93,6 +93,12 @@ public class SistemaPrincipalGame {
             if (usuario.getRol() == TipoUsuario.Jugador) {
                 Jugador jugador = (Jugador) usuario;
                 while (eleccionMenu != 8) {// hacer restriccion para que solo meta enteros
+                    if (jugador.getCombateRealizado()!= null){
+                        jugador.resultadosCombate(jugador.getCombateRealizado());
+                    }
+                    if (jugador.getDesafioPendiente()!= null){
+                      jugador.AceptaroRechazarDesafio(jugador.getDesafioPendiente());  
+                    }
                     Menu menu = new MenuJugador();// deberia ponerlo fuera
                     menu.mostrarOpciones();
                     eleccionMenu = escIniSes.nextInt();

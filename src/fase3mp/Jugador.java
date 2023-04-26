@@ -167,8 +167,9 @@ public class Jugador extends Usuario {
         System.out.println("Su peticion de desafio ha sido almacenada, le deseo mucha suerte en su batalla.");
         desafioNuevo.setOroApostado(oro);       
     }
-
-    private void AceptaroRechazarDesafio(Desafio desafio){
+    
+    //COMPROBAR SI DEBERIA SER PUBLICA O ESTA MAL - NECESARIA PUBLICA PARA ANTES DEL MENU
+    public void AceptaroRechazarDesafio(Desafio desafio){
         System.out.println(">>>>>Desea aceptar o rechazar el siguiente desafio? Escriba la opcion numerica<<<<<");
         System.out.println("Desafiante: " + desafio.getJugadorDesafiante().getNick() + " Oro apostado: " + desafio.getOroApostado());
         System.out.println("1. Aceptar desafio // 2. Rechazar desafio");
@@ -230,7 +231,8 @@ public class Jugador extends Usuario {
        //TODO 
     }
     
-    private void resultadosCombate(Combate combate){
+    //COMPROBAR SI DEBERIA SER PUBLICA O ESTA MAL - NECESARIA PUBLICA PARA ANTES DEL MENU
+    public void resultadosCombate(Combate combate){
         //TODO
         Ronda rondaX;
         System.out.println(">=====RESULTADOS DEL COMBATE=====<");
@@ -271,14 +273,14 @@ public class Jugador extends Usuario {
     public void realizarFuncionMenuJugador(int opcion){
         //un if para saber si el usuario tiene algun desafio pendiente que aceptar
         //si lo tiene, ¿hacemos notificar? para que se escriba la informacion del desafio
-        if (this.getCombateRealizado() != null){
+        /**if (this.getCombateRealizado() != null){
            this.resultadosCombate(this.getCombateRealizado());
            this.setCombateRealizado(null);
            notificador.desSuscribirUsuario(this);
         }
         if (this.getDesafioPendiente()!= null){
             this.AceptaroRechazarDesafio(this.getDesafioPendiente());
-        }
+        }*/
         switch (opcion){
             case 1://Darse de baja
                 DarseDeBaja(this);
