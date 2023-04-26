@@ -23,8 +23,8 @@ public class OperadorSistema extends Usuario {
     private ManagerUsuarios manager;
     private EntidadesActivas entidades;
 
-    public OperadorSistema(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador) {
-        super(nombre, nick, password, rol, estadoObservador);
+    public OperadorSistema(String nombre, String nick, String password, TipoUsuario rol) {
+        super(nombre, nick, password, rol);
         entidades = super.getEntidades();
     }
 

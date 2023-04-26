@@ -20,19 +20,14 @@ public class Jugador extends Usuario {
     private Personaje personajeActivo;
     private String NumeroRegistro;
 
-    public Jugador(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador) {
-        super(nombre, nick, password, rol, estadoObservador);
-        if (estadoObservador == State.noBaneado) {// cambiar
-            this.setEstaBaneado(false);
-        } else {
-            this.setEstaBaneado(true);
-        }
+    public Jugador(String nombre, String nick, String password, TipoUsuario rol) {
+        super(nombre, nick, password, rol);
 
         GenerarNumRegistro();
     }
 
-    public Jugador(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador, int oro) {
-        super(nombre, nick, password, rol, estadoObservador);
+    public Jugador(String nombre, String nick, String password, TipoUsuario rol, int oro) {
+        super(nombre, nick, password, rol);
         this.oro = oro;
     }
     
