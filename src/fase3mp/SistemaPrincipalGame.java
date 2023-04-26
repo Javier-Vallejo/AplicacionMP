@@ -266,7 +266,7 @@ public class SistemaPrincipalGame {
             }
         }
         File file = new File("Ficheros/Usuarios.txt");
-        FileWriter escritor = new FileWriter(file);
+        FileWriter escritor = new FileWriter(file, true);
         escritor.write(sb.toString());
         escritor.flush();
     }
