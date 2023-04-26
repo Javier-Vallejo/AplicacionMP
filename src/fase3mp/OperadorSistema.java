@@ -50,6 +50,11 @@ public class OperadorSistema extends Usuario {
         System.out.println("Escriba el nombre del personaje:");
         String nombreCarac = lectura.nextLine();
         // armas
+
+        System.out.println("Desea crear un arma de 0 o elegirla del sistema: ");
+        System.out.println("1- Crearla ");
+        System.out.println("2- Elegirla de las que hay en el sistema"); // habra que añadirlos a entidades activas
+        
         System.out.println("Escriba los numeros de las armas que quiere que tenga su personaje: ");
         ArrayList<Integer> armasEleg = super.getEntidades().MostraryElegir("ARMAS");
         Arma[] armasPersonaje = new Arma[armasEleg.size()];
