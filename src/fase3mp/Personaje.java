@@ -215,7 +215,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
         return;
     }
 
-    public void MostrarFortalezas(Personaje personajeEle){
+    public void MostrarFortalezas(Personaje personajeEle) {
         int indice = 0;
         Fortaleza[] fortalezasPersonaje = personajeEle.getFortalezas();
         if (fortalezasPersonaje.length == 0) {
@@ -231,7 +231,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
         return;
     }
 
-    public void editarPersonaje(Personaje personajeEle, EntidadesActivas entidades) {
+    public void editarPersonajeOperador(Personaje personajeEle, EntidadesActivas entidades) {
         int opcion = 0;
         while (true) {
             Scanner escanerLectura = new Scanner(System.in);
@@ -357,7 +357,8 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                                 personajeEle.setDebilidades(arrayDebilidades);
                             } else {
                                 System.out
-                                        .println("Debilidad no incluida, por favor selecciona un debilidad de la lista");
+                                        .println(
+                                                "Debilidad no incluida, por favor selecciona un debilidad de la lista");
                             }
                         }
 
@@ -385,7 +386,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                         int fortalezasAeliminar = 0;
                         System.out.println("Selecciona las fortalezas que desea eliminar: ");
                         while (fortalezasAeliminar != arrayListFortalezas.size()) {// habria que limitar para que no
-                                                                                 // acepte enteros
+                                                                                   // acepte enteros
                             // mayores que el size
                             System.out.println("Fortalezas actuales: ");
                             MostrarFortalezas(personajeEle);
@@ -395,7 +396,8 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                                 Fortaleza[] arrayFortalezas = arrayListFortalezas.toArray(new Fortaleza[0]);
                                 personajeEle.setFortalezas(arrayFortalezas);
                             } else {
-                                System.out.println("Fortaleza no incluida, por favor selecciona un fortaleza de la lista");
+                                System.out.println(
+                                        "Fortaleza no incluida, por favor selecciona un fortaleza de la lista");
                             }
                         }
 
@@ -455,6 +457,87 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
         }
     }
 
+    public void editarPersonajeJugador(Personaje personajeEle, EntidadesActivas entidades) {
+        int opcion = 0;
+        while (true) {
+            Scanner escanerLectura = new Scanner(System.in);
+            System.out.println("Que desea gestionar del personaje:");
+            System.out.println("- 1.Elegir Armas Activas");
+            System.out.println("- 2.Elegir Armaduras Activas");
+            System.out.println("- 3.Salir");
+            opcion = escanerLectura.nextInt();
+            switch (opcion) {
+                case 1 -> {
+                    List<Arma> listaArmasActivas = Arrays.asList(personajeEle.getArmasActivas());
+                    ArrayList<Arma> arrayListArmas = new ArrayList<>(listaArmasActivas);
+                    Arma[] armasPersonaje = personajeEle.getArmas();
+                    System.out.println("Estas son sus armas Activas");
+                    //imprimir armas activas
+                    System.out.println("Escoja el arma o las armas que desea cambiar:");
+                    int eleccion = escanerLectura.nextInt();
+                    arrayListArmas.remove(eleccion);
+                    System.out.println("Seleccione que arma desea activar (Ten en cuenta que va a ser una de dos manos o dos de una mano):");
+                    System.out.println("Estas son sus armas actuales:");
+                    MostrarArmas(personajeEle);
+                    int numArmaActiva = 0;
+                    while (numArmaActiva != armasPersonaje.length) {
+                        numArmaActiva = eleccion;
+                        if (!(numArmaActiva == armasPersonaje.length)) {
+                            if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de2manos
+                                    && arrayListArmas.isEmpty()) {
+                                        arrayListArmas.add(armasPersonaje[numArmaActiva]);
+                            } else if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de1mano
+                                    && arrayListArmas.isEmpty()) {
+                                arrayListArmas.add(armasPersonaje[numArmaActiva]);
+                            } else if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de1mano
+                                    && arrayListArmas.size() == 1) {
+                                arrayListArmas.add(armasPersonaje[numArmaActiva]);
+                            } else {
+                                System.out.println("El arma que intentas establecer como activa no cabe");
+                            }
+                        }
+                    }
+                    Arma[] armasActivasPersonaje = arrayListArmas.toArray(new Arma[0]);
+                    personajeEle.setArmasActivas(armasActivasPersonaje);
+
+                }
+                case 2 -> {
+                    Armadura armadura = personajeEle.getArmaduraActiva();
+                    Armadura[] listaArmaduras = personajeEle.getArmaduras();
+                    System.out.println("Seleccione que armadura desea activar");
+                    System.out.println("Estas son sus armaduras actuales:");
+                    MostrarArmaduras(personajeEle);
+                    int armadurasAactivar = escanerLectura.nextInt();
+                    if( armadurasAactivar<listaArmaduras.length){
+                        armadura = listaArmaduras[armadurasAactivar];
+                        personajeEle.setArmaduraActiva(armadura);
+                    }
+                    
+                }
+                case 3 -> {
+                    System.out.println("Volviendo a la pantalla del menu del operador");
+                    System.out.println();
+                    return;
+                }
+            }
+            int eleccion = 0;
+            while (!(eleccion == 1 ^ eleccion == 2)) {
+                System.out.println("Desea realizar algun cambio mas:");
+                System.out.println("1.Si");
+                System.out.println("2.No");
+                System.out.println("Por favor seleccione el numero");
+                eleccion = escanerLectura.nextInt();
+                if (eleccion == 2) {
+                    System.out.println("Volviendo a la pantalla del menu del operador");
+                    System.out.println();
+                    return;
+                } else if (eleccion != 1 && eleccion != 2) {
+                    System.out.println("Por favor seleccione 1 o dos");
+                }
+            }
+
+        }
+    }
 
     public void rellenarPropiedadesEspecificas() {
 

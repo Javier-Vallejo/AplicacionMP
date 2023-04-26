@@ -30,7 +30,6 @@ public class Jugador extends Usuario {
         super(nombre, nick, password, rol);
         this.oro = oro;
     }
-    
 
     public int getOro() {
         return oro;
@@ -239,7 +238,8 @@ public class Jugador extends Usuario {
         String numRegistro = sb.toString();
         setNumeroRegistro(numRegistro);
     }
-    public void realizarFuncionMenuJugador(int opcion){
+
+        public void realizarFuncionMenuJugador(int opcion){
         //un if para saber si el usuario tiene algun desafio pendiente que aceptar
         //si lo tiene, ¿hacemos notificar? para que se escriba la informacion del desafio
         if (this.getCombateRealizado() != null){
@@ -251,42 +251,9 @@ public class Jugador extends Usuario {
         switch (opcion){
             case 1://Darse de baja
                 DarseDeBaja(this);
-                break;
-            case 2://Registrar Personaje -- Elegir el personaje
-                //no se bien que es
-                break;
-            case 3:// Gestionar Personaje
-                if (getPersonajeActivo() == null) {
-                    System.out.println("No tienes ningun personaje activo");
-                } else {
-                    Personaje personaje = getPersonajeActivo();// debo poner un if por si no hay personaje guardado
-                    personaje.editarPersonaje(personaje, super.getEntidades());// nuevo metodo
-                }
-                break;
-            case 4:// Dar de baja Personaje
-                setPersonajeActivo(null);
-                break;
-            case 5:// Elegir Armas y Armadura
-                elegirArmasActivas();
-                elegirArmaduraActiva();
-                // se podria preguntar si quiere cambiar arma, armadura o las dos
-                break;
-            case 6:// Desafiar
-                Desafio desafio = new Desafio();
-                super.getDesafiosAct().guardarDesafio(desafio);
-                break;
-            case 7:// Consultar Oro
-                System.out.println("Su oro actual es: " + getOro());
-                break;
-            case 8:// Consultar Ranking
-                   // Esto va a cambiar, porque pondremos que el jugador tenga una propiedad
-                   // ranking,-
-                   // - entonces solo tendremos que actualizar el ranking de vez en cuando, no
-                   // crear uno nuevo siempre.
-                Ranking ranking = new Ranking();
-                ranking.consultarRanking();
-                break;
-            case 9:// Elegir Personaje
+                System.out.println("Saliendo del sistema.");
+                System.exit(0);
+            case 2://Registrar Personaje
                 if (getPersonajeActivo() != null) {
                     System.out.println("El personaje que elijas sustituira al tuyo.");
                     System.out.println("¿Deseas continuar? Si o No");
@@ -312,8 +279,37 @@ public class Jugador extends Usuario {
                     ArrayList<Integer> personaje = super.getEntidades().MostraryElegir("PERSONAJES");
                     setPersonajeActivo(super.getEntidades().elegirPersonaje(personaje.get(0)));
                 }
+                super.getManagerUsuarios().editarUsuarioEnFichero(this.getNick(), this.getPassword());
                 break;
-            case 10:// Salir
+            case 3:// Gestionar Personaje
+                if (getPersonajeActivo() == null) {
+                    System.out.println("No tienes ningun personaje activo");
+                } else {
+                    Personaje personaje = getPersonajeActivo();// debo poner un if por si no hay personaje guardado
+                    personaje.editarPersonajeJugador(personaje, super.getEntidades());// nuevo metodo
+                }
+                super.getManagerUsuarios().editarUsuarioEnFichero(this.getNick(), this.getPassword());
+                break;
+            case 4:// Dar de baja Personaje
+                setPersonajeActivo(null);
+                super.getManagerUsuarios().editarUsuarioEnFichero(this.getNick(), this.getPassword());
+                break;
+            case 5:// Desafiar
+                Desafio desafio = new Desafio();
+                super.getDesafiosAct().guardarDesafio(desafio);
+                break;
+            case 6:// Consultar Oro
+                System.out.println("Su oro actual es: " + getOro());
+                break;
+            case 7:// Consultar Ranking
+                   // Esto va a cambiar, porque pondremos que el jugador tenga una propiedad
+                   // ranking,-
+                   // - entonces solo tendremos que actualizar el ranking de vez en cuando, no
+                   // crear uno nuevo siempre.
+                Ranking ranking = new Ranking();
+                ranking.consultarRanking();
+                break;
+            case 8:// Salir
                 System.out.println("Cerrando sesion y saliendo");
                 System.exit(0);
                 break;

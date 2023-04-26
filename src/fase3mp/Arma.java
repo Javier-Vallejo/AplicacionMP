@@ -24,10 +24,10 @@ public class Arma extends Equipo implements IEquipo{
         super.setNombre(nombre);
         int potDanio = Integer.parseInt(potenciadorDanio);
         int potDef = Integer.parseInt(potenciadorDefensa);
-        if(tipoDeArma.equals("1mano")){
+        if(tipoDeArma.equals("de1mano")){
             tipodeArma = tipoArma.de1mano;
         }
-        else if(tipoDeArma.equals("2manos")){
+        else if(tipoDeArma.equals("de2manos")){
             tipodeArma = tipoArma.de2manos;
         }
         super.setModDanio(potDanio);

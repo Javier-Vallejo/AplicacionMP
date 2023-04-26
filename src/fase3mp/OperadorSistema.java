@@ -65,7 +65,7 @@ public class OperadorSistema extends Usuario {
         System.out.println("Elige el numero del arma o armas que va a tener como activas: ");
         System.out.println("(Ten en cuenta que va a ser una de dos manos o dos de una mano)");
         for (int i = 0; i < armasPersonaje.length; i++) {
-            System.out.println(i + "_" + armasPersonaje[i].getNombre() + armasPersonaje[i].getTipodeArma().toString());      
+            System.out.println(i + "_" + armasPersonaje[i].getNombre() + armasPersonaje[i].getTipodeArma().toString());
         }
         System.out.println(armasPersonaje.length + " Salir");
         int numArmaActiva = 0;
@@ -170,7 +170,7 @@ public class OperadorSistema extends Usuario {
                     while (!tipoEsbirro.equals("salir")) {
                         System.out.println("Va a crear un nuevo esbirro");
                         System.out.println("Escriba el tipo de esbirro que desea introducirle: ");
-                        System.out.println("Las opciones son Humano, Ghoul y Demonio. Escriba salir para terminar.");          
+                        System.out.println("Las opciones son Humano, Ghoul y Demonio. Escriba salir para terminar.");
                         lectura.nextLine();
                         tipoEsbirro = lectura.nextLine();
                         tipoEsbirro = tipoEsbirro.toLowerCase().trim();
@@ -184,7 +184,7 @@ public class OperadorSistema extends Usuario {
                                                    // algunos del sistema
                                 case "humano" -> {
                                     fabricaEsbirros = new FabricaHumano();
-                                    Humano humano = (Humano) fabricaEsbirros.crearEsbirro(nombreEsbirro,saludEsbirro);                                            
+                                    Humano humano = (Humano) fabricaEsbirros.crearEsbirro(nombreEsbirro, saludEsbirro);
                                     humano.rellenarPropiedadesEspec();
                                     super.getEntidades().aniadir(humano);
                                     esbirrosPers.add(humano);
@@ -198,7 +198,8 @@ public class OperadorSistema extends Usuario {
                                 }
                                 case "demonio" -> {
                                     fabricaEsbirros = new FabricaDemonio();
-                                    Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsbirro,saludEsbirro);                                            
+                                    Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsbirro,
+                                            saludEsbirro);
                                     demonio.setFabricaEsbirros(super.getFabricaEsbirros());
                                     demonio.setEntidades(super.getEntidades());
                                     demonio.rellenarPropiedadesEspec();
@@ -497,8 +498,11 @@ public class OperadorSistema extends Usuario {
         ArrayList<Usuario> usuarioEle = manager.getUsuariosRegistrados();
         // insertar variables duplicadas en las opciones de banear y desbanear?
         switch (opcion) {
-            case 1 -> // Darse de baja
-                DarseDeBaja(this);
+            case 1 -> {// Darse de baja
+                DarseDeBaja(null);
+                System.out.println("Saliendo del sistema.");
+                System.exit(0);
+            }
             case 2 -> {
                 // Editar Personaje
                 System.out.println("Personajes disponibles:");
@@ -510,10 +514,11 @@ public class OperadorSistema extends Usuario {
                 Personaje personaje = super.getEntidades().elegirPersonaje(personajeEle.get(0));// para que lo hereden
                                                                                                 // los hijos sin tener
                                                                                                 // que hacer get
-                
-                personaje.editarPersonaje(personaje, entidades);
+
+                personaje.editarPersonajeOperador(personaje, entidades);
                 for (int i = 0; i < manager.getUsuariosRegistrados().size(); i++) { // esto
-                    if (manager.getUsuariosRegistrados().get(i) instanceof Jugador jugador) {//comprobar otros parametros a lo mejor
+                    if (manager.getUsuariosRegistrados().get(i) instanceof Jugador jugador) {// comprobar otros
+                                                                                             // parametros a lo mejor
                         if (jugador.getPersonajeActivo().getNombre().equals(personaje.getNombre())) {
                             jugador.setPersonajeActivo(personaje.clonar()); // por polimorfismo se ejecutara el clonar
                                                                             // del personaje especifico
@@ -531,7 +536,7 @@ public class OperadorSistema extends Usuario {
             }
             case 5 -> {
                 // Banear Usuario
-                imprimirListaUsuariosDesbaneados(usuarioEle);
+                imprimirListaUsuariosDesbaneadosBaneados(usuarioEle, opcion);
                 Scanner escanerUsuario = new Scanner(System.in);// se podrian mostrar los nicks de todos los jugadores
                 System.out.println("Introduzca el numero del usuario que desea banear: ");
                 Integer numero = escanerUsuario.nextInt();
@@ -551,7 +556,7 @@ public class OperadorSistema extends Usuario {
             }
             case 6 -> {
                 // Desbanear Usuario
-                imprimirListaUsuariosBaneados(usuarioEle);// a lo mejor estaria mejor ponerlo en operador del sistema
+                imprimirListaUsuariosDesbaneadosBaneados(usuarioEle, opcion);// a lo mejor estaria mejor ponerlo en operador del sistema
                 Scanner escanerUsu = new Scanner(System.in);
                 System.out.println("Introduzca el numero del usuario que desea banear: ");
                 Integer num = escanerUsu.nextInt();
@@ -571,7 +576,7 @@ public class OperadorSistema extends Usuario {
         }
     }
 
-    public void guardarPersonajeEditado(Personaje personaje){
+    public void guardarPersonajeEditado(Personaje personaje) {
         File archivo = new File("Ficheros/Personajes.txt");
         ArrayList<Personaje> listaPersonajes = entidades.getPersonajes();
         int indicePersonajeAntiguo = listaPersonajes.indexOf(personaje);
@@ -610,23 +615,20 @@ public class OperadorSistema extends Usuario {
         }
     }
 
-    public void imprimirListaUsuariosDesbaneados(ArrayList<Usuario> usuarioEle) {// no tiene sentido crearse otro array
+    public void imprimirListaUsuariosDesbaneadosBaneados(ArrayList<Usuario> usuarioEle, int opcion) {// no tiene sentido crearse otro array
                                                                                  // list nuevo
         for (int i = 0; i < usuarioEle.size(); i++) {
             Usuario usuario = usuarioEle.get(i);
-            State estadoUsuario = usuario.getEstadoObservador();
-            if (estadoUsuario.equals(State.noBaneado)) {
-                System.out.println(i + "-" + usuario.getNick());
-            }
-        }
-    }
-
-    public void imprimirListaUsuariosBaneados(ArrayList<Usuario> usuarioEle) {
-        for (int i = 0; i < usuarioEle.size(); i++) {
-            Usuario usuario = usuarioEle.get(i);
-            State estadoUsuario = usuario.getEstadoObservador();
-            if (estadoUsuario.equals(State.baneado)) {
-                System.out.println(i + "-" + usuario.getNick());
+            TipoUsuario rol = usuario.getRol();
+            if (rol.equals(TipoUsuario.Jugador)) {
+                Jugador usuarioJugador = (Jugador) usuario;
+                Boolean estado = usuarioJugador.getEstaBaneado();
+                if(!estado && opcion==5){
+                    System.out.println(i + "-" + usuario.getNick());
+                }else if (estado && opcion==6){
+                    System.out.println(i + "-" + usuario.getNick());
+                }
+                
             }
         }
     }
