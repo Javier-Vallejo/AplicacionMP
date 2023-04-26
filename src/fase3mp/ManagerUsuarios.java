@@ -127,7 +127,7 @@ public class ManagerUsuarios {
         }
     }
 
-    public void LeerUsuarios() throws FileNotFoundException {
+    public void LeerUsuarios(EntidadesActivas entidades) throws FileNotFoundException {
         File file = new File("Ficheros/Usuarios.txt");
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
@@ -147,7 +147,22 @@ public class ManagerUsuarios {
             } else if (tipo.equals("jugador")) {
                 TipoUsuario rol = TipoUsuario.Jugador;
                 State estadoObservador = State.noBaneado;
-                Usuario usuarioJugador = new Jugador(nombre, tipo, nombre, rol, 0);
+                int oro = Integer.parseInt(partes[4]);
+                Usuario usuarioJugador = new Jugador(nombre, partes[2], partes[3], rol, oro);
+                Jugador jugador = (Jugador) usuarioJugador;
+                if(partes[5].equals("false")){
+                    Boolean estaBaneado = false; 
+                    jugador.setEstaBaneado(estaBaneado);
+                }
+                else if(partes[5].equals("true")){
+                    Boolean estaBaneado = true;
+                    jugador.setEstaBaneado(estaBaneado);
+                }
+                String[] partesPersonaje = partes[6].split("-");
+                String tipoPers = partesPersonaje[0];
+                String nombrePers = partesPersonaje[1];
+                Personaje personaje = entidades.obtenerPersonaje(nombrePers, tipoPers);
+                jugador.setPersonajeActivo(personaje);
             }
 
         }
