@@ -37,8 +37,8 @@ public class Ronda {
 
 
         
-        danio1 = comprobarFortalezas( tiempoCombate,  per1,   danio1,  per2);
-        danio2 = comprobarFortalezas( tiempoCombate,  per2,   danio2,  per2);
+        // danio1 = comprobarFortalezas( tiempoCombate,  per1,   danio1,  per2);
+        // danio2 = comprobarFortalezas( tiempoCombate,  per2,   danio2,  per2);
 
         int potencial1 = danio1-defensa2;
         int potencial2 = danio2-defensa1;
