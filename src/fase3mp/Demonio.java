@@ -107,14 +107,15 @@ public class Demonio extends Esbirro implements IEsbirros {
                                         fabricaEsbirros = new FabricaGhoul();
                                         Ghoul ghoul = (Ghoul) fabricaEsbirros.crearEsbirro(nombreEsbirro, saludGhoul);
                                         ghoul.rellenarPropiedadesEspec();
+                                        entidades.aniadir(ghoul);
                                         esbirrosDeEsbirro.add(ghoul);
                                     }
                                     case "demonio" -> { // se le rellenaran sus esbirros de forma recursiva
                                         int saludDemonioEsbi = escanerDemon.nextInt();
                                         fabricaEsbirros = new FabricaDemonio();
-                                        Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsbirro,
-                                                saludDemonioEsbi);
+                                        Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsbirro,saludDemonioEsbi);        
                                         demonio.rellenarPropiedadesEspec();
+                                        entidades.aniadir(demonio);
                                         esbirrosDeEsbirro.add(demonio);
                                     }
                                     default -> {

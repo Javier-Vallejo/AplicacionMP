@@ -60,8 +60,7 @@ public class OperadorSistema extends Usuario {
         System.out.println("Elige el numero del arma o armas que va a tener como activas: ");
         System.out.println("(Ten en cuenta que va a ser una de dos manos o dos de una mano)");
         for (int i = 0; i < armasPersonaje.length; i++) {
-            System.out.println(
-                    i + "_" + armasPersonaje[i].getNombre() + armasPersonaje[i].getTipodeArma().toString());
+            System.out.println(i + "_" + armasPersonaje[i].getNombre() + armasPersonaje[i].getTipodeArma().toString());      
         }
         System.out.println(armasPersonaje.length + " Salir");
         int numArmaActiva = 0;
@@ -166,8 +165,7 @@ public class OperadorSistema extends Usuario {
                     while (!tipoEsbirro.equals("salir")) {
                         System.out.println("Va a crear un nuevo esbirro");
                         System.out.println("Escriba el tipo de esbirro que desea introducirle: ");
-                        System.out
-                                .println("Las opciones son Humano, Ghoul y Demonio. Escriba salir para terminar.");
+                        System.out.println("Las opciones son Humano, Ghoul y Demonio. Escriba salir para terminar.");          
                         lectura.nextLine();
                         tipoEsbirro = lectura.nextLine();
                         tipoEsbirro = tipoEsbirro.toLowerCase().trim();
@@ -181,24 +179,25 @@ public class OperadorSistema extends Usuario {
                                                    // algunos del sistema
                                 case "humano" -> {
                                     fabricaEsbirros = new FabricaHumano();
-                                    Humano humano = (Humano) fabricaEsbirros.crearEsbirro(nombreEsbirro,
-                                            saludEsbirro);
+                                    Humano humano = (Humano) fabricaEsbirros.crearEsbirro(nombreEsbirro,saludEsbirro);                                            
                                     humano.rellenarPropiedadesEspec();
+                                    super.getEntidades().aniadir(humano);
                                     esbirrosPers.add(humano);
                                 }
                                 case "ghoul" -> {
                                     fabricaEsbirros = new FabricaGhoul();
                                     Ghoul ghoul = (Ghoul) fabricaEsbirros.crearEsbirro(nombreEsbirro, saludEsbirro);
                                     ghoul.rellenarPropiedadesEspec();
+                                    super.getEntidades().aniadir(ghoul);
                                     esbirrosPers.add(ghoul);
                                 }
                                 case "demonio" -> {
                                     fabricaEsbirros = new FabricaDemonio();
-                                    Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsbirro,
-                                            saludEsbirro);
+                                    Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsbirro,saludEsbirro);                                            
                                     demonio.setFabricaEsbirros(super.getFabricaEsbirros());
                                     demonio.setEntidades(super.getEntidades());
                                     demonio.rellenarPropiedadesEspec();
+                                    super.getEntidades().aniadir(demonio);
                                     esbirrosPers.add(demonio);
                                 }
                                 default -> {
@@ -509,7 +508,7 @@ public class OperadorSistema extends Usuario {
                 
                 personaje.editarPersonaje(personaje, entidades);
                 for (int i = 0; i < manager.getUsuariosRegistrados().size(); i++) { // esto
-                    if (manager.getUsuariosRegistrados().get(i) instanceof Jugador jugador) {
+                    if (manager.getUsuariosRegistrados().get(i) instanceof Jugador jugador) {//comprobar otros parametros a lo mejor
                         if (jugador.getPersonajeActivo().getNombre().equals(personaje.getNombre())) {
                             jugador.setPersonajeActivo(personaje.clonar()); // por polimorfismo se ejecutara el clonar
                                                                             // del personaje especifico

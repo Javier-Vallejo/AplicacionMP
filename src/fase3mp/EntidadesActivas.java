@@ -71,13 +71,13 @@ public class EntidadesActivas {
    
     
     public void aniadir(Object objeto){
-        //comprobar de que clase es objeto y meterlo en su respectiva lista
+        //comprueba de que clase es objeto y meterlo en su respectiva lista
         if(objeto instanceof Personaje){
             Personaje personaje = (Personaje) objeto;
             personajes.add(personaje);
         }
         else if(objeto instanceof Arma){
-            Arma arma = (Arma) objeto;
+            Arma arma = (Arma) objeto;//comprobar si ya estan en el sistema
             armas.add(arma);
         }
         else if(objeto instanceof Armadura){
@@ -88,8 +88,46 @@ public class EntidadesActivas {
             Habilidad habilidad = (Habilidad) objeto;
             habilidades.add(habilidad);
         }
+        else if(objeto instanceof Humano){
+            Humano humano = (Humano) objeto;
+            if(!existeEsbirro(humano)){
+                esbirros.add(humano);
+            }
+            else{
+                System.out.println("No se ha agregado porque ya existe en el sistema");
+            }
+        }
+        else if(objeto instanceof Ghoul){
+            Ghoul ghoul = (Ghoul) objeto;
+            if(!existeEsbirro(ghoul)){
+                esbirros.add(ghoul);
+            }
+            else{
+                System.out.println("No se ha agregado porque ya existe en el sistema");
+            }   
+        }
+        else if(objeto instanceof Demonio){
+            Demonio demonio = (Demonio) objeto;
+            if(!existeEsbirro(demonio)){
+                esbirros.add(demonio);
+            }
+            else{
+                System.out.println("No se ha agregado porque ya existe en el sistema");
+            }   
+        }
 
     }
+    
+    public boolean existeEsbirro(Esbirro esbirro){//comparacion esbirros para si se guarda en sistema
+        if(esbirros.contains(esbirro)){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
+    }
+    
     public Personaje elegirPersonaje(int eleccion){
         return personajes.get(eleccion);
     }
