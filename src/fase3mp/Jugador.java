@@ -19,6 +19,8 @@ public class Jugador extends Usuario {
     private boolean estaBaneado;
     private Personaje personajeActivo;
     private String NumeroRegistro;
+    private ManagerUsuarios manager;
+    private Ranking rankingGlobal;
 
     public Jugador(String nombre, String nick, String password, TipoUsuario rol) {
         super(nombre, nick, password, rol);
@@ -71,6 +73,22 @@ public class Jugador extends Usuario {
         this.NumeroRegistro = NumeroRegistro;
     }
 
+    public ManagerUsuarios getManager() {
+        return manager;
+    }
+
+    public void setManager(ManagerUsuarios manager) {
+        this.manager = manager;
+    }
+
+    public Ranking getRankingGlobal() {
+        return rankingGlobal;
+    }
+
+    public void setRankingGlobal(Ranking rankingGlobal) {
+        this.rankingGlobal = rankingGlobal;
+    }
+
     private void RegistrarPersonaje(Personaje personaje) {
 
     }
@@ -96,8 +114,8 @@ public class Jugador extends Usuario {
             System.out.println(armasPersonaje.length + 1 + " Salir");
             int numArmaActiva = 0;
             ArrayList<Arma> armasActivas = new ArrayList<>();// habria que hacer tambien un proceso para que pueda
-                                                             // quitarse
-                                                             // alguna que tenga activa
+            // quitarse
+            // alguna que tenga activa
             while (numArmaActiva != armasPersonaje.length + 1) {
                 numArmaActiva = escanerArmas.nextInt();
                 if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de2manos && armasActivas.isEmpty()) {
@@ -121,7 +139,6 @@ public class Jugador extends Usuario {
         Armadura[] armadurasPersonaje = personajeActivo.getArmaduras();
         System.out.println("Elige el numero de la armadura que va tener activa: ");
 
-        
         try (Scanner escanerArmaduras = new Scanner(System.in)) {
 
             for (int i = 0; i < armadurasPersonaje.length; i++) {
@@ -135,13 +152,14 @@ public class Jugador extends Usuario {
             personajeActivo.setArmaduraActiva(armadurasPersonaje[numArmaduraActiva]);
         }
     }
-    private void Desafiar(Desafio desafioNuevo){
+
+    private void Desafiar(Desafio desafioNuevo) {
         desafioNuevo.setJugadorDesafiante(this);
         ArrayList users = super.getManagerUsuarios().getUsuariosRegistrados();
         Scanner lectura = new Scanner(System.in);
         String eleccionSN = "";
         int elegido = -1;
-        while (eleccionSN.equals("si")){
+        while (eleccionSN.equals("si")) {
             System.out.println(">>>A qué jugador desea enfrentarse? (Ingrese el numero del jugador por favor)<<<");
             for (int i = 0; i < users.size(); i++) {
                 Usuario usuarioX = (Usuario) users.get(i);
@@ -155,89 +173,89 @@ public class Jugador extends Usuario {
         }
         Jugador jugElegido = (Jugador) users.get(elegido);
         desafioNuevo.setJugadorDesafiado(jugElegido);
-        
+
         System.out.println("Cuanto oro desea apostar? (Recuerde que puede apostar 0)");
         System.out.println("La cantidad de oro que posee es: " + this.getOro());
         int oro = lectura.nextInt();
-        if (oro > this.getOro() || oro<0) {
+        if (oro > this.getOro() || oro < 0) {
             System.out.println("Error, debe ingresar una cantidad de oro que se encuentre en su posesión.");
             System.out.println("Cuanto oro desea apostar? (Recuerde que puede apostar 0)");
             System.out.println("La cantidad de oro que posee es: " + this.getOro());
             oro = lectura.nextInt();
         }
         System.out.println("Su peticion de desafio ha sido almacenada, le deseo mucha suerte en su batalla.");
-        desafioNuevo.setOroApostado(oro);       
+        desafioNuevo.setOroApostado(oro);
     }
-    
+
     //COMPROBAR SI DEBERIA SER PUBLICA O ESTA MAL - NECESARIA PUBLICA PARA ANTES DEL MENU
-    public void AceptaroRechazarDesafio(Desafio desafio){
+    public void AceptaroRechazarDesafio(Desafio desafio) {
         System.out.println(">>>>>Desea aceptar o rechazar el siguiente desafio? Escriba la opcion numerica<<<<<");
         System.out.println("Desafiante: " + desafio.getJugadorDesafiante().getNick() + " Oro apostado: " + desafio.getOroApostado());
         System.out.println("1. Aceptar desafio // 2. Rechazar desafio");
         Scanner lectura = new Scanner(System.in);
-        
+
         int opcion = lectura.nextInt();
-        
-        if (opcion == 1){ //1 es aceptar el desafio
-            
+
+        if (opcion == 1) { //1 es aceptar el desafio
+
             this.setDesafioPendiente(null);
             //En algun momento hay que suscribir al usuario desafiado y desafiante
             Combate combate = new Combate(desafio.getJugadorDesafiante(), this, desafio.getOroApostado());
             ArrayList<Ronda> rondas = new ArrayList();
-            while((combate.getVida2() > 0) && (combate.getVida1() > 0)){
+            while ((combate.getVida2() > 0) && (combate.getVida1() > 0)) {
                 Ronda rondaX = combate.EmpezarRonda(combate.getPersonaje1(), combate.getPersonaje2(), combate.getVida1(), combate.getVida2());
                 rondas.add(rondaX);
             }
             //Setear el jugador vencedor
-            if (combate.getVida1() == 0 && combate.getVida2() > 0){
+            if (combate.getVida1() == 0 && combate.getVida2() > 0) {
                 combate.setVencedor(combate.getDesafiado());
-            } else if (combate.getVida2() == 0 && combate.getVida1() > 0){
+            } else if (combate.getVida2() == 0 && combate.getVida1() > 0) {
                 combate.setVencedor(combate.getDesafiante());
-            } 
-            
+            }
+
             //TODO - FALTA CONTEMPLAR EL CASO DE EMPATE!!!!
-            
             //Sumar y restar el dinero apostado
             combate.getVencedor().setOro(combate.getVencedor().getOro() + combate.getOroGanado() + 10);
             //TODO - Restar y sumar el oro a perdedor y ganador
-            if (combate.getVencedor() == combate.getDesafiante()){
-                combate.getDesafiado().setOro(combate.getDesafiado().getOro() - combate.getOroGanado()); 
-                if (combate.getDesafiado().getOro() < 0){
+            if (combate.getVencedor() == combate.getDesafiante()) {
+                combate.getDesafiado().setOro(combate.getDesafiado().getOro() - combate.getOroGanado());
+                if (combate.getDesafiado().getOro() < 0) {
                     combate.getDesafiado().setOro(0);
                 }
-            } else{
+            } else {
                 combate.getDesafiante().setOro(combate.getDesafiante().getOro() - combate.getOroGanado());
-                if (combate.getDesafiante().getOro() < 0){
+                if (combate.getDesafiante().getOro() < 0) {
                     combate.getDesafiante().setOro(0);
                 }
             }
-            
+
             Ronda[] misRondas = new Ronda[rondas.size()];
             misRondas = rondas.toArray(misRondas);
             combate.setRondas(misRondas);
             notificador.suscribirUsuario(combate.getDesafiado());
             notificador.notificarUsuario(combate);
-            
+
             //Falta ver en que lista/estructura añadimos la ronda//combate
-            
-        } else if (opcion == 2){ //Rechaza el desafio
+        } else if (opcion == 2) { //Rechaza el desafio
             this.setOro((int) (this.getOro() - (this.getOro() * 0.1)));
             this.setDesafioPendiente(null);
         }
     }
-    private void ConsultarOro(){
+
+    private void ConsultarOro() {
         //TODO
     }
 
     private void ConsultarRanking(Ranking ranking) {
 //TODO
     }
-    private void ElegirPersonaje(EntidadesActivas entidades){
-       //TODO 
+
+    private void ElegirPersonaje(EntidadesActivas entidades) {
+        //TODO 
     }
-    
+
     //COMPROBAR SI DEBERIA SER PUBLICA O ESTA MAL - NECESARIA PUBLICA PARA ANTES DEL MENU
-    public void resultadosCombate(Combate combate){
+    public void resultadosCombate(Combate combate) {
         //TODO
         Ronda rondaX;
         System.out.println(">=====RESULTADOS DEL COMBATE=====<");
@@ -245,13 +263,13 @@ public class Jugador extends Usuario {
         System.out.println(">Jugador desafiado: " + combate.getDesafiado().getNick());
         System.out.println(">Ganador del combate: " + combate.getVencedor());
         System.out.println(">Oro apostado: " + combate.getOroGanado());
-        for(int i = 0; i < combate.getRondas().length; i++){
+        for (int i = 0; i < combate.getRondas().length; i++) {
             rondaX = combate.getRondas()[i];
-            System.out.println("-----Ronda " +(i+1)+ ": -----");
+            System.out.println("-----Ronda " + (i + 1) + ": -----");
             System.out.println("Potencial del jugador Desafiante " + rondaX.getPotencialPer1());
-            System.out.println("Potencial del jugador Desafiado "+rondaX.getPotencialPer2());
+            System.out.println("Potencial del jugador Desafiado " + rondaX.getPotencialPer2());
             System.out.println("Vida Desafiante: " + rondaX.getVidaDesafiante());
-            System.out.println("Vida Desafiado: "+ rondaX.getVidaDesafiado());
+            System.out.println("Vida Desafiado: " + rondaX.getVidaDesafiado());
         }
     }
 
@@ -276,18 +294,20 @@ public class Jugador extends Usuario {
         setNumeroRegistro(numRegistro);
     }
 
-        public void realizarFuncionMenuJugador(int opcion){
-        //un if para saber si el usuario tiene algun desafio pendiente que aceptar
-        //si lo tiene, ¿hacemos notificar? para que se escriba la informacion del desafio
-        /**if (this.getCombateRealizado() != null){
-           this.resultadosCombate(this.getCombateRealizado());
-           this.setCombateRealizado(null);
-           notificador.desSuscribirUsuario(this);
+    public void realizarFuncionMenuJugador(int opcion) {
+        manager = super.getManagerUsuarios(); //un if para saber si el usuario tiene algun desafio pendiente que aceptar
+        rankingGlobal = super.getRanking();
+                //si lo tiene, ¿hacemos notificar? para que se escriba la informacion del desafio
+                /**
+                 * if (this.getCombateRealizado() != null){
+                 * this.resultadosCombate(this.getCombateRealizado());
+                 * this.setCombateRealizado(null);
+                 * notificador.desSuscribirUsuario(this); } if
+                 * (this.getDesafioPendiente()!= null){
+                 * this.AceptaroRechazarDesafio(this.getDesafioPendiente());
         }
-        if (this.getDesafioPendiente()!= null){
-            this.AceptaroRechazarDesafio(this.getDesafioPendiente());
-        }*/
-        switch (opcion){
+                 */
+        switch (opcion) {
             case 1://Darse de baja
                 DarseDeBaja(this);
                 System.out.println("Saliendo del sistema.");
@@ -308,9 +328,9 @@ public class Jugador extends Usuario {
                     if (opcionSioNO.equals("SI")) {
                         ArrayList<Integer> personaje = super.getEntidades().MostraryElegir("PERSONAJES");
                         setPersonajeActivo(super.getEntidades().elegirPersonaje(personaje.get(0)));// habra que hacer
-                                                                                                   // que elegir
-                                                                                                   // personaje llame a
-                                                                                                   // clone
+                        // que elegir
+                        // personaje llame a
+                        // clone
                     } else if (opcionSioNO.equals("NO")) {
                         System.out.println("Su personaje no se cambiara");
                     }
@@ -342,8 +362,9 @@ public class Jugador extends Usuario {
                 System.out.println("Su oro actual es: " + getOro());
                 break;
             case 7: //Consultar Ranking
-                Ranking ranking = new Ranking();
-                ranking.consultarRanking();
+                //Ranking ranking = new Ranking();
+                //ranking.consultarRanking();
+                rankingGlobal.consultarRanking();
                 break;
             case 8:// Salir
                 System.out.println("Cerrando sesion y saliendo");

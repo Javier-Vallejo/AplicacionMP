@@ -35,6 +35,24 @@ class Ranking {
             }
         }
     }
+
+    public ManagerUsuarios getManager() {
+        return manager;
+    }
+
+    public void setManager(ManagerUsuarios manager) {
+        this.manager = manager;
+    }
+
+    public ArrayList<Map<Integer, String>> getOrdenados() {
+        return ordenados;
+    }
+
+    public void setOrdenados(ArrayList<Map<Integer, String>> ordenados) {
+        this.ordenados = ordenados;
+    }
+    
+    
 }
 /*Asi? */
 /*

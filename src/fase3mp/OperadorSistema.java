@@ -621,7 +621,7 @@ public class OperadorSistema extends Usuario {
         // insertar variables duplicadas en las opciones de banear y desbanear?
         switch (opcion) {
             case 1 -> {// Darse de baja
-                DarseDeBaja(null);
+                DarseDeBaja(this); //DarseDeBaja(null)
                 System.out.println("Saliendo del sistema.");
                 System.exit(0);
             }
