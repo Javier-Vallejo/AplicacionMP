@@ -21,6 +21,7 @@ public class Usuario implements UsuariosANotificar{
     private FabricaEsbirros fabricaEsbirros;
     private Desafio desafioPendiente;
     private Combate combateRealizado;
+    private Ranking ranking;
     
     public Usuario(String nombre, String nick, String password, TipoUsuario rol){//habria que pasarle un objeto ranking
         setNombre(nombre);
@@ -118,6 +119,14 @@ public class Usuario implements UsuariosANotificar{
     public void setManagerUsuarios(ManagerUsuarios managerUsuarios) {
         this.managerUsuarios = managerUsuarios;
     }
+
+    public Ranking getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(Ranking ranking) {
+        this.ranking = ranking;
+    }
     
     
     @Override
@@ -133,7 +142,12 @@ public class Usuario implements UsuariosANotificar{
     }
     
     public void DarseDeBaja(Usuario usuario){
+        //if (usuario instanceof OperadorSistema){
         managerUsuarios.eliminarUsuario(usuario.getNick(), usuario.getPassword());    
+        //} else if (usuario instanceof Jugador){
+            //SmanagerUsuarios.eliminarUsuario(nick, password);
+        //}
+            
     }
 
     

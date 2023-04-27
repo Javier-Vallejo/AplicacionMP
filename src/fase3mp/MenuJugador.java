@@ -10,8 +10,9 @@ package fase3mp;
  */
 public class MenuJugador extends Menu {
 
-    @Override
+    //@Override
     public void mostrarOpciones(){
+        System.out.println("Que deseas hacer: ");
         System.out.println("1.Darse de baja");
         System.out.println("2.Registrar Personaje");
         System.out.println("3.Gestionar Personaje");

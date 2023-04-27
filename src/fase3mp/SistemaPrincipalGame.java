@@ -20,6 +20,7 @@ public class SistemaPrincipalGame {
     private SistemaPrincipalGame sistema;
     private ManagerUsuarios usuariosSistema;
     private EntidadesActivas entidadesSistema;
+    private Ranking rankingSistema;
 
     /**
      * public Registro registro;
@@ -42,7 +43,9 @@ public class SistemaPrincipalGame {
         EntidadesActivas entidadesActivas = new EntidadesActivas();
         entidadesActivas.LeerEntidades();
         entidadesSistema = entidadesActivas;
-        usuariosSistema = manager;
+        Ranking ranking = new Ranking();
+        rankingSistema = ranking;
+        rankingSistema.setManager(usuariosSistema);
         //leerUsuarios("usuarios.txt");
         leerPersonajes("Ficheros/Personajes.txt");//habra que hacer un leer Usuarios tambien
         manager.LeerUsuarios(entidadesSistema);
@@ -92,10 +95,12 @@ public class SistemaPrincipalGame {
         } else {
             Usuario usuario = usuariosSistema.obtenerUsuario(nick, password);
             System.out.println("Bienvenido " + usuario.getNick());
-            System.out.println("Que deseas hacer: ");
+            //System.out.println("Que deseas hacer: ");
             int eleccionMenu = 0;
             if (usuario.getRol() == TipoUsuario.Jugador) {
                 Jugador jugador = (Jugador) usuario;
+                jugador.setRankingGlobal(rankingSistema);
+                jugador.setManager(usuariosSistema);
                 while (eleccionMenu != 8) {// hacer restriccion para que solo meta enteros
                     if (jugador.getCombateRealizado()!= null){
                         jugador.resultadosCombate(jugador.getCombateRealizado());
@@ -426,5 +431,6 @@ public class SistemaPrincipalGame {
         entidadesActivas.aniadir(habilidadLicantropo);
         entidadesActivas.aniadir(habilidadCazador);
     }
+    
 
 }
