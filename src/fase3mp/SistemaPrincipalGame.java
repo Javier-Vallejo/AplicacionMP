@@ -17,7 +17,7 @@ import java.io.IOException;
  */
 public class SistemaPrincipalGame {
 
-    private SistemaPrincipalGame sistema;
+    private static SistemaPrincipalGame sistema;
     private ManagerUsuarios usuariosSistema;
     private EntidadesActivas entidadesSistema;
     private Ranking rankingSistema;
@@ -25,11 +25,17 @@ public class SistemaPrincipalGame {
     /**
      * public Registro registro;
      */
-    public SistemaPrincipalGame() {// constructor hay que ver como aplicar singleton
-
+    private SistemaPrincipalGame() {// constructor hay que ver como aplicar singleton
+    }
+    
+    public static SistemaPrincipalGame obtenerInstancia(){//singleton
+        if(sistema==null){
+            sistema = new SistemaPrincipalGame();
+        }
+        return sistema;
     }
 
-    public SistemaPrincipalGame getSistema() {
+    public SistemaPrincipalGame getSistema() {//no se para que esta
         return null;
     }
 
