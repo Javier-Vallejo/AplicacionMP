@@ -135,7 +135,7 @@ public class Combate {
         ArrayList<Integer> potenciales = rondaX.Calculo_Potencial(per1, per2);
         rondaX.CalcularVidaRestante(potenciales, vida1, vida2);
 
-        recalcularPropiedadPersonaje(per1); // TODO falta mirar si hay un mejor nombre
+        recalcularPropiedadPersonaje(per1); 
         recalcularPropiedadPersonaje(per2);        
         return rondaX;
     }

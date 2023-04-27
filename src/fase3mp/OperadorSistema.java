@@ -412,12 +412,13 @@ public class OperadorSistema extends Usuario {
         sb.append(";");
         sb.append(personaje.getHabilidadPersonaje().getNombre());
         sb.append("/");
-        sb.append(personaje.getHabilidadPersonaje().getLimitante());
-        sb.append("/");
         sb.append(personaje.getHabilidadPersonaje().getValorAtaque());
         sb.append("/");
         sb.append(personaje.getHabilidadPersonaje().getValorDefensa());
+        sb.append("/");
+        sb.append(personaje.getHabilidadPersonaje().getLimitante());
         sb.append(";");
+        
         // armas
         Arma[] armas = personaje.getArmas();
         for (int i = 0; i < armas.length; i++) {
@@ -478,7 +479,7 @@ public class OperadorSistema extends Usuario {
             sb.append(debilidades[i].getNombre());
             sb.append("/");
             sb.append(debilidades[i].getValor());
-            sb.append("|");
+            //sb.append("|");
         }
         sb.append(";");
         // fortalezas
@@ -487,7 +488,7 @@ public class OperadorSistema extends Usuario {
             sb.append(fortalezas[i].getNombre());
             sb.append("/");
             sb.append(fortalezas[i].getValor());
-            sb.append("|");
+            //sb.append("|");
         }
         sb.append(";");
         if (personaje instanceof Vampiro vamp) {
@@ -621,7 +622,7 @@ public class OperadorSistema extends Usuario {
         // insertar variables duplicadas en las opciones de banear y desbanear?
         switch (opcion) {
             case 1 -> {// Darse de baja
-                DarseDeBaja(null);
+                DarseDeBaja(this);
                 System.out.println("Saliendo del sistema.");
                 System.exit(0);
             }
