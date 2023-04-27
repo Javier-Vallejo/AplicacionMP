@@ -31,6 +31,7 @@ public class Jugador extends Usuario {
     public Jugador(String nombre, String nick, String password, TipoUsuario rol, int oro) {
         super(nombre, nick, password, rol);
         this.oro = oro;
+        GenerarNumRegistro();
     }
 
     public int getOro() {

@@ -187,10 +187,10 @@ public class ManagerUsuarios {
                 int oro = Integer.parseInt(partes[5]);
                 Usuario usuarioJugador = new Jugador(nombre, partes[2], partes[3], rol, oro);
                 Jugador jugador = (Jugador) usuarioJugador;
-                if (partes[5].equals("false")) {
+                if (partes[6].equals("false")) {
                     Boolean estaBaneado = false;
                     jugador.setEstaBaneado(estaBaneado);
-                } else if (partes[5].equals("true")) {
+                } else if (partes[6].equals("true")) {
                     Boolean estaBaneado = true;
                     jugador.setEstaBaneado(estaBaneado);
                 }
