@@ -6,6 +6,8 @@ package fase3mp;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,6 +16,7 @@ import java.util.Scanner;
  * @author david
  */
 public class EntidadesActivas {
+
     private ArrayList<Personaje> personajes;
     private ArrayList<Arma> armas;
     private ArrayList<Armadura> armaduras;
@@ -70,12 +73,12 @@ public class EntidadesActivas {
     }
 
     public void aniadir(Object objeto) {
-        // comprueba de que clase es objeto y meterlo en su respectiva lista
+        //comprueba de que clase es objeto y meterlo en su respectiva lista
         if (objeto instanceof Personaje) {
             Personaje personaje = (Personaje) objeto;
             personajes.add(personaje);
         } else if (objeto instanceof Arma) {
-            Arma arma = (Arma) objeto;// comprobar si ya estan en el sistema
+            Arma arma = (Arma) objeto;//comprobar si ya estan en el sistema
             armas.add(arma);
         } else if (objeto instanceof Armadura) {
             Armadura armadura = (Armadura) objeto;
@@ -108,7 +111,7 @@ public class EntidadesActivas {
 
     }
 
-    public boolean existeEsbirro(Esbirro esbirro) {// comparacion esbirros para si se guarda en sistema
+    public boolean existeEsbirro(Esbirro esbirro) {//comparacion esbirros para si se guarda en sistema
         if (esbirros.contains(esbirro)) {
             return true;
         } else {
@@ -145,9 +148,8 @@ public class EntidadesActivas {
         return habilidades.get(eleccion);
     }
 
-    public ArrayList<Integer> MostraryElegir(String objetoMostrar) {// se podrian poner if para controlar que meta un
-                                                                    // numero
-        Scanner escaner = new Scanner(System.in);// en el rango correcto
+    public ArrayList<Integer> MostraryElegir(String objetoMostrar) {//se podrian poner if para controlar que meta un numero 
+        Scanner escaner = new Scanner(System.in);//en el rango correcto
         if (objetoMostrar.equals("PERSONAJES")) {
             for (int i = 0; i < personajes.size(); i++) {
                 System.out.println("Personaje " + i + ": " + personajes.get(i).getNombre());
@@ -162,7 +164,7 @@ public class EntidadesActivas {
             int armaEle = 0;
             for (int i = 0; i < armas.size(); i++) {
                 System.out.println(
-                        "Arma " + i + ": " + armas.get(i).getNombre() + " " + armas.get(i).getTipodeArma().toString());
+                        "Arma " + i + ": "  + armas.get(i).getNombre() + " " + armas.get(i).getTipodeArma().toString());
             }
             System.out.println((armas.size()) + " Salir");
             ArrayList<Integer> armasElegidas = new ArrayList<>();
@@ -218,8 +220,7 @@ public class EntidadesActivas {
         } else if (objetoMostrar.equals("ESBIRROS")) {
             int esbirroEle = 0;
             for (int i = 0; i < esbirros.size(); i++) {
-                System.out.println(
-                        "Esbirro " + i + esbirros.get(i).getNombre() + " " + esbirros.get(i).getClass().getName());
+                System.out.println("Esbirro " + i + esbirros.get(i).getNombre() + " " + esbirros.get(i).getClass().getName());
             }
             System.out.println((debilidades.size()) + " Salir");
             ArrayList<Integer> esbirrosElegidos = new ArrayList<>();
@@ -231,8 +232,7 @@ public class EntidadesActivas {
         } else if (objetoMostrar.equals("ESBIRRO")) {
             int esbirroEle = 0;
             for (int i = 0; i < esbirros.size(); i++) {
-                System.out.println(
-                        "Esbirro " + i + esbirros.get(i).getNombre() + " " + esbirros.get(i).getClass().getName());
+                System.out.println("Esbirro " + i + esbirros.get(i).getNombre() + " " + esbirros.get(i).getClass().getName());
             }
             System.out.println((esbirros.size()) + " Salir");
             ArrayList<Integer> esbirroElegido = new ArrayList<>();
@@ -241,9 +241,7 @@ public class EntidadesActivas {
             }
             esbirroElegido.add(esbirroEle);
             return esbirroElegido;
-        }
-
-        else {
+        } else {
             System.out.println("No existe el contenido " + objetoMostrar);
             return null;
         }
@@ -264,8 +262,8 @@ public class EntidadesActivas {
 
     public Personaje obtenerPersonaje(String nombre, String tipo) {
         for (int i = 0; i < personajes.size(); i++) {
-            if (personajes.get(i).getNombre().equals(nombre)) {
-                if (personajes.get(i) instanceof Vampiro && tipo.equals("vampiro")) {
+            if  (personajes.get(i).getNombre().equals(nombre))  {
+                if  (personajes.get(i) instanceof Vampiro && tipo.equals("vampiro"))  {
                     return personajes.get(i);
                 } else if (personajes.get(i) instanceof Licantropo && tipo.equals("licantropo")) {
                     return personajes.get(i);
@@ -302,6 +300,60 @@ public class EntidadesActivas {
             }
 
         }
+    }
+
+    public void GuardarEsbirroFichero(Esbirro esbirro) throws IOException {
+        if(!esbirros.contains(esbirro)){
+            File file = new File("Ficheros/Esbirros.txt");
+            StringBuilder sb = new StringBuilder();
+            rellenarStringBuilderEsbirro(esbirro,sb);
+            FileWriter escritor = new FileWriter(file, true);
+            escritor.write(sb.toString());
+            escritor.flush();
+        }
+        else{
+            System.out.println("El esbirro ya estaba guardado");
+        }
+    }
+
+    private void rellenarStringBuilderEsbirro(Esbirro esbirro, StringBuilder sb) {
+        // recursividad
+        sb.append(esbirro.getNombre());
+        sb.append("/");
+        sb.append(esbirro.getSalud());
+        sb.append("/");
+        if (esbirro instanceof Ghoul) {
+            sb.append("ghoul");
+            sb.append("/");
+            Ghoul ghoul = (Ghoul) esbirro;
+            sb.append(ghoul.getDependencia());
+            sb.append(",");
+        } else if (esbirro instanceof Humano) {
+            Humano humano = (Humano) esbirro;
+            sb.append(humano.getLealtad());
+            sb.append(",");
+        } else if (esbirro instanceof Demonio) {
+            Demonio demonio = (Demonio) esbirro;
+            if (demonio.getTienePacto()) {
+                sb.append("si");
+                sb.append("/");
+                sb.append(demonio.getPacto().getAmo().getNombre());
+                //sb.append("/");
+            } else {
+                sb.append("no");
+                sb.append("/");
+                sb.append("null");
+                //sb.append("/");
+            }
+            sb.append(",");
+            sb.append("*");
+            ArrayList<Esbirro> esbirrosDeEsbirro = demonio.getEsbirros();
+            for (int j = 0; j < esbirrosDeEsbirro.size(); j++) {
+                rellenarStringBuilderEsbirro(esbirro, sb); // recursividad
+            }
+            sb.append("*");
+        }
+
     }
 
 }

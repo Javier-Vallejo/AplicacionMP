@@ -6,8 +6,11 @@ package fase3mp;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -109,6 +112,11 @@ public class Demonio extends Esbirro implements IEsbirros {
                                         ghoul.rellenarPropiedadesEspec();
                                         entidades.aniadir(ghoul);
                                         esbirrosDeEsbirro.add(ghoul);
+                                    try {
+                                        entidades.GuardarEsbirroFichero(ghoul);
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(Demonio.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
                                     }
                                     case "demonio" -> { // se le rellenaran sus esbirros de forma recursiva
                                         int saludDemonioEsbi = escanerDemon.nextInt();
@@ -117,6 +125,11 @@ public class Demonio extends Esbirro implements IEsbirros {
                                         demonio.rellenarPropiedadesEspec();
                                         entidades.aniadir(demonio);
                                         esbirrosDeEsbirro.add(demonio);
+                                    try {
+                                        entidades.GuardarEsbirroFichero(demonio);
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(Demonio.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
                                     }
                                     default -> {
                                         System.out.println("Nombre de esbirro no correcto");

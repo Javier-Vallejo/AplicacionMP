@@ -22,15 +22,17 @@ public class Jugador extends Usuario {
     private ManagerUsuarios manager;
     private Ranking rankingGlobal;
 
-    public Jugador(String nombre, String nick, String password, TipoUsuario rol) {
-        super(nombre, nick, password, rol);
-
-        GenerarNumRegistro();
+    public Jugador(String nombre, String nick, String password, TipoUsuario rol, ManagerUsuarios managerJ) {
+        super(nombre, nick, password, rol, managerJ);
+        manager = managerJ;
+        generarNumRegistro();
     }
 
-    public Jugador(String nombre, String nick, String password, TipoUsuario rol, int oro) {
-        super(nombre, nick, password, rol);
+    public Jugador(String nombre, String nick, String password, TipoUsuario rol, int oro, ManagerUsuarios managerJ) {
+        super(nombre, nick, password, rol, managerJ);
         this.oro = oro;
+        manager=managerJ;
+        generarNumRegistro();
     }
 
     public int getOro() {
@@ -273,7 +275,7 @@ public class Jugador extends Usuario {
         }
     }
 
-    private void GenerarNumRegistro() {// formato LNNLL
+    private void generarNumRegistro() {// formato LNNLL
         String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         Random rand = new Random();
         StringBuilder sb = new StringBuilder();
@@ -291,12 +293,18 @@ public class Jugador extends Usuario {
         sb.append(letra2);
         sb.append(letra3);
         String numRegistro = sb.toString();
-        setNumeroRegistro(numRegistro);
+        if (manager.existeNumRegistro(numRegistro)){
+           generarNumRegistro();
+        }
+        else{
+            setNumeroRegistro(numRegistro);
+        }
+        
     }
 
     public void realizarFuncionMenuJugador(int opcion) {
-        manager = super.getManagerUsuarios(); //un if para saber si el usuario tiene algun desafio pendiente que aceptar
-        rankingGlobal = super.getRanking();
+        //manager = super.getManagerUsuarios(); //un if para saber si el usuario tiene algun desafio pendiente que aceptar
+        //rankingGlobal = super.getRanking();
                 //si lo tiene, ¿hacemos notificar? para que se escriba la informacion del desafio
                 /**
                  * if (this.getCombateRealizado() != null){

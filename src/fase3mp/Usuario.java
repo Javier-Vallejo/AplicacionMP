@@ -23,13 +23,14 @@ public class Usuario implements UsuariosANotificar{
     private Combate combateRealizado;
     private Ranking ranking;
     
-    public Usuario(String nombre, String nick, String password, TipoUsuario rol){//habria que pasarle un objeto ranking
+    public Usuario(String nombre, String nick, String password, TipoUsuario rol, ManagerUsuarios manager){//habria que pasarle un objeto ranking
         setNombre(nombre);
         setNick(nick);
         setPassword(password);
         setRol(rol);
         setDesafioPendiente(null);
         setCombateRealizado(null);
+        setManagerUsuarios(manager);
     }
 
     public FabricaEsbirros getFabricaEsbirros() {

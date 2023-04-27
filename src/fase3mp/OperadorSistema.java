@@ -27,8 +27,9 @@ public class OperadorSistema extends Usuario {
     private ManagerUsuarios manager;
     private EntidadesActivas entidades;
 
-    public OperadorSistema(String nombre, String nick, String password, TipoUsuario rol) {
-        super(nombre, nick, password, rol);
+    public OperadorSistema(String nombre, String nick, String password, TipoUsuario rol, ManagerUsuarios manager) {
+        super(nombre, nick, password, rol, manager);
+        this.manager = manager;
         entidades = super.getEntidades();
     }
 
@@ -308,6 +309,7 @@ public class OperadorSistema extends Usuario {
                                     humano.rellenarPropiedadesEspec();
                                     super.getEntidades().aniadir(humano);
                                     esbirrosPers.add(humano);
+                                    super.getEntidades().GuardarEsbirroFichero(humano);
                                 }
                                 case "ghoul" -> {
                                     fabricaEsbirros = new FabricaGhoul();
@@ -315,6 +317,7 @@ public class OperadorSistema extends Usuario {
                                     ghoul.rellenarPropiedadesEspec();
                                     super.getEntidades().aniadir(ghoul);
                                     esbirrosPers.add(ghoul);
+                                    super.getEntidades().GuardarEsbirroFichero(ghoul);
                                 }
                                 case "demonio" -> {
                                     fabricaEsbirros = new FabricaDemonio();
@@ -325,6 +328,7 @@ public class OperadorSistema extends Usuario {
                                     demonio.rellenarPropiedadesEspec();
                                     super.getEntidades().aniadir(demonio);
                                     esbirrosPers.add(demonio);
+                                    super.getEntidades().GuardarEsbirroFichero(demonio);
                                 }
                                 default -> {
                                     System.out.println("Nombre de esbirro no correcto");
@@ -617,7 +621,7 @@ public class OperadorSistema extends Usuario {
     }
 
     public void realizarFuncionMenuOperador(int opcion) throws IOException {
-        manager = super.getManagerUsuarios();
+        //manager = super.getManagerUsuarios();
         ArrayList<Usuario> usuarioEle = manager.getUsuariosRegistrados();
         // insertar variables duplicadas en las opciones de banear y desbanear?
         switch (opcion) {

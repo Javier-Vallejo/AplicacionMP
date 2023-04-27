@@ -17,7 +17,7 @@ import java.io.IOException;
  */
 public class SistemaPrincipalGame {
 
-    private SistemaPrincipalGame sistema;
+    private static SistemaPrincipalGame sistema;
     private ManagerUsuarios usuariosSistema;
     private EntidadesActivas entidadesSistema;
     private Ranking rankingSistema;
@@ -25,11 +25,17 @@ public class SistemaPrincipalGame {
     /**
      * public Registro registro;
      */
-    public SistemaPrincipalGame() {// constructor hay que ver como aplicar singleton
-
+    private SistemaPrincipalGame() {// constructor hay que ver como aplicar singleton
+    }
+    
+    public static SistemaPrincipalGame obtenerInstancia(){//singleton
+        if(sistema==null){
+            sistema = new SistemaPrincipalGame();
+        }
+        return sistema;
     }
 
-    public SistemaPrincipalGame getSistema() {
+    public SistemaPrincipalGame getSistema() {//no se para que esta
         return null;
     }
 
@@ -97,10 +103,10 @@ public class SistemaPrincipalGame {
             System.out.println("Bienvenido " + usuario.getNick());
             //System.out.println("Que deseas hacer: ");
             int eleccionMenu = 0;
+            usuario.setManagerUsuarios(usuariosSistema);
             if (usuario.getRol() == TipoUsuario.Jugador) {
                 Jugador jugador = (Jugador) usuario;
                 jugador.setRankingGlobal(rankingSistema);
-                jugador.setManager(usuariosSistema);
                 while (eleccionMenu != 8) {// hacer restriccion para que solo meta enteros
                     if (jugador.getCombateRealizado()!= null){
                         jugador.resultadosCombate(jugador.getCombateRealizado());
@@ -115,7 +121,6 @@ public class SistemaPrincipalGame {
                 }
             } else {
                 OperadorSistema operador = (OperadorSistema) usuario;
-                operador.setManagerUsuarios(usuariosSistema);
                 usuario.setEntidades(entidadesSistema);
                 while (eleccionMenu != 7) {
                     Menu menu = new MenuOperador();
@@ -145,12 +150,13 @@ public class SistemaPrincipalGame {
                 Personaje personajeElegido = entidadesSistema.elegirPersonaje(personajes.get(0));
                 Jugador jugador = (Jugador) usuario;
                 jugador.setPersonajeActivo(personajeElegido);
-                System.out.println("Se te ha guardado el persoanje");
-                usuariosSistema.guardarUsuarios(usuario);
+                System.out.println("Se te ha guardado el personaje");
+                jugador.setOro(100);
+                usuariosSistema.guardarUsuariosFichero(usuario);
             } else if (rol.equals("operador")) {
                 Registro registro = new RegistroOperador(usuariosSistema);
                 Usuario usuario = registro.registrarse(TipoUsuario.OperadorSistema);
-                usuariosSistema.guardarUsuarios(usuario);
+                usuariosSistema.guardarUsuariosFichero(usuario);
             } else {
                 System.out.print("Por favor escoja una de las opciones proporcionadas \n");
             }
@@ -369,7 +375,7 @@ public class SistemaPrincipalGame {
             //guardo esbirros
             String[] esbirrosLeidos = camposPersonaje[7].split(",");
             ArrayList<Esbirro> esbirros = new ArrayList<>();
-            for (int i = 0; i < esbirrosLeidos.length; i++) {
+            for (int i = 0; i < esbirrosLeidos.length; i++) {//habria que cambiar la forma de leer los esbirros para hacerlo igual que se guardan
                 String[] caracteristicaEsbirro = esbirrosLeidos[i].split("/");
                 Esbirro esbirro = new Esbirro(caracteristicaEsbirro[0], Integer.parseInt(caracteristicaEsbirro[1]));
                 esbirros.add(esbirro);
