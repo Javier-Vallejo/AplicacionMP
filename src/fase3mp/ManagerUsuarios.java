@@ -199,7 +199,7 @@ public class ManagerUsuarios {
         }
     }
 
-    public void guardarUsuarios(Usuario usuario) throws IOException {
+    public void guardarUsuariosFichero(Usuario usuario) throws IOException {
         StringBuilder sb = new StringBuilder();
         rellenarStringBuilderUsuario(sb, usuario);
         File file = new File("Ficheros/Usuarios.txt");
@@ -361,11 +361,12 @@ public class ManagerUsuarios {
                     sb.append("null");
                     sb.append("/");
                 }
-                sb.append("|");
+                sb.append("*");
                 ArrayList<Esbirro> esbirrosDeEsbirro = demonio.getEsbirros();
                 for (int j = 0; j < esbirrosDeEsbirro.size(); j++) {
                     escribirEsbirrosdeEsbirro(esbirros, sb); // recursividad
                 }
+                sb.append("*");
             }
         }
     }

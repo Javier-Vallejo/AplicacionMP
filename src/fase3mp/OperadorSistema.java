@@ -309,6 +309,7 @@ public class OperadorSistema extends Usuario {
                                     humano.rellenarPropiedadesEspec();
                                     super.getEntidades().aniadir(humano);
                                     esbirrosPers.add(humano);
+                                    super.getEntidades().GuardarEsbirroFichero(humano);
                                 }
                                 case "ghoul" -> {
                                     fabricaEsbirros = new FabricaGhoul();
@@ -316,6 +317,7 @@ public class OperadorSistema extends Usuario {
                                     ghoul.rellenarPropiedadesEspec();
                                     super.getEntidades().aniadir(ghoul);
                                     esbirrosPers.add(ghoul);
+                                    super.getEntidades().GuardarEsbirroFichero(ghoul);
                                 }
                                 case "demonio" -> {
                                     fabricaEsbirros = new FabricaDemonio();
@@ -326,6 +328,7 @@ public class OperadorSistema extends Usuario {
                                     demonio.rellenarPropiedadesEspec();
                                     super.getEntidades().aniadir(demonio);
                                     esbirrosPers.add(demonio);
+                                    super.getEntidades().GuardarEsbirroFichero(demonio);
                                 }
                                 default -> {
                                     System.out.println("Nombre de esbirro no correcto");

@@ -152,11 +152,11 @@ public class SistemaPrincipalGame {
                 jugador.setPersonajeActivo(personajeElegido);
                 System.out.println("Se te ha guardado el personaje");
                 jugador.setOro(100);
-                usuariosSistema.guardarUsuarios(usuario);
+                usuariosSistema.guardarUsuariosFichero(usuario);
             } else if (rol.equals("operador")) {
                 Registro registro = new RegistroOperador(usuariosSistema);
                 Usuario usuario = registro.registrarse(TipoUsuario.OperadorSistema);
-                usuariosSistema.guardarUsuarios(usuario);
+                usuariosSistema.guardarUsuariosFichero(usuario);
             } else {
                 System.out.print("Por favor escoja una de las opciones proporcionadas \n");
             }
@@ -375,7 +375,7 @@ public class SistemaPrincipalGame {
             //guardo esbirros
             String[] esbirrosLeidos = camposPersonaje[7].split(",");
             ArrayList<Esbirro> esbirros = new ArrayList<>();
-            for (int i = 0; i < esbirrosLeidos.length; i++) {
+            for (int i = 0; i < esbirrosLeidos.length; i++) {//habria que cambiar la forma de leer los esbirros para hacerlo igual que se guardan
                 String[] caracteristicaEsbirro = esbirrosLeidos[i].split("/");
                 Esbirro esbirro = new Esbirro(caracteristicaEsbirro[0], Integer.parseInt(caracteristicaEsbirro[1]));
                 esbirros.add(esbirro);
