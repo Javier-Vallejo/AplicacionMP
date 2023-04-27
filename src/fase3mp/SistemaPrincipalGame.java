@@ -97,10 +97,10 @@ public class SistemaPrincipalGame {
             System.out.println("Bienvenido " + usuario.getNick());
             //System.out.println("Que deseas hacer: ");
             int eleccionMenu = 0;
+            usuario.setManagerUsuarios(usuariosSistema);
             if (usuario.getRol() == TipoUsuario.Jugador) {
                 Jugador jugador = (Jugador) usuario;
                 jugador.setRankingGlobal(rankingSistema);
-                jugador.setManager(usuariosSistema);
                 while (eleccionMenu != 8) {// hacer restriccion para que solo meta enteros
                     if (jugador.getCombateRealizado()!= null){
                         jugador.resultadosCombate(jugador.getCombateRealizado());
@@ -115,7 +115,6 @@ public class SistemaPrincipalGame {
                 }
             } else {
                 OperadorSistema operador = (OperadorSistema) usuario;
-                operador.setManagerUsuarios(usuariosSistema);
                 usuario.setEntidades(entidadesSistema);
                 while (eleccionMenu != 7) {
                     Menu menu = new MenuOperador();

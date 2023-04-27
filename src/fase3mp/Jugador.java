@@ -24,7 +24,7 @@ public class Jugador extends Usuario {
 
     public Jugador(String nombre, String nick, String password, TipoUsuario rol) {
         super(nombre, nick, password, rol);
-
+        
         GenerarNumRegistro();
     }
 
@@ -296,7 +296,7 @@ public class Jugador extends Usuario {
     }
 
     public void realizarFuncionMenuJugador(int opcion) {
-        //manager = super.getManagerUsuarios(); //un if para saber si el usuario tiene algun desafio pendiente que aceptar
+        manager = super.getManagerUsuarios(); //un if para saber si el usuario tiene algun desafio pendiente que aceptar
         //rankingGlobal = super.getRanking();
                 //si lo tiene, ¿hacemos notificar? para que se escriba la informacion del desafio
                 /**
