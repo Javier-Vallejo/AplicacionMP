@@ -27,8 +27,9 @@ public class OperadorSistema extends Usuario {
     private ManagerUsuarios manager;
     private EntidadesActivas entidades;
 
-    public OperadorSistema(String nombre, String nick, String password, TipoUsuario rol) {
-        super(nombre, nick, password, rol);
+    public OperadorSistema(String nombre, String nick, String password, TipoUsuario rol, ManagerUsuarios manager) {
+        super(nombre, nick, password, rol, manager);
+        this.manager = manager;
         entidades = super.getEntidades();
     }
 
@@ -616,7 +617,7 @@ public class OperadorSistema extends Usuario {
     }
 
     public void realizarFuncionMenuOperador(int opcion) throws IOException {
-        manager = super.getManagerUsuarios();
+        //manager = super.getManagerUsuarios();
         ArrayList<Usuario> usuarioEle = manager.getUsuariosRegistrados();
         // insertar variables duplicadas en las opciones de banear y desbanear?
         switch (opcion) {

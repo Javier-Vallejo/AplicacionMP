@@ -39,21 +39,13 @@ public class ManagerUsuarios {
             int oro) {
         // deberia comprobar aqui si existe ya en el sistema el jugador
         if (usuariosRegistrados.isEmpty()) {
-            Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador, oro);// habria
-                                                                                            // que
-                                                                                            // pasarle
-                                                                                            // el oro
-                                                                                            // del que
-                                                                                            // dispone
-                                                                                            // y su
-                                                                                            // personaje
-                                                                                            // activo
+            Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador, oro, this);                                                                                          
             guardarUsuario(jugador);
             guardarCredenciales(jugador);
             return jugador;
         } else {
             if (existeUsuario(nick, password) == false) {
-                Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador);
+                Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador, this);//no habria que pasarle el oro?
                 guardarUsuario(jugador);
                 guardarCredenciales(jugador);
                 return jugador;
@@ -67,13 +59,13 @@ public class ManagerUsuarios {
     public OperadorSistema CrearOperador(String nombre, String nick, String password, TipoUsuario rol,
             State estadoObservador) {
         if (usuariosRegistrados.isEmpty()) {
-            OperadorSistema operador = new OperadorSistema(nombre, nick, password, rol);
+            OperadorSistema operador = new OperadorSistema(nombre, nick, password, rol, this);
             guardarUsuario(operador);
             guardarCredenciales(operador);
             return operador;
         } else {
             if (existeUsuario(nick, password) == false) {
-                OperadorSistema operador = new OperadorSistema(nombre, nick, password, rol);
+                OperadorSistema operador = new OperadorSistema(nombre, nick, password, rol, this);
                 guardarUsuario(operador);
                 guardarCredenciales(operador);
                 return operador;
@@ -176,7 +168,7 @@ public class ManagerUsuarios {
             if (tipo.equals("operador")) {
                 Map<String, String> credencialesOperador = new HashMap<>();
                 TipoUsuario rol = TipoUsuario.OperadorSistema;
-                Usuario usuarioOperador = new OperadorSistema(nombre, partes[2], partes[3], rol);
+                Usuario usuarioOperador = new OperadorSistema(nombre, partes[2], partes[3], rol, this);
                 credencialesOperador.put(partes[2], partes[3]);
                 usuariosRegistrados.add(usuarioOperador);
                 credencialesUsuarios.add(credencialesOperador);
@@ -185,7 +177,7 @@ public class ManagerUsuarios {
                 TipoUsuario rol = TipoUsuario.Jugador;
                 State estadoObservador = State.noBaneado;
                 int oro = Integer.parseInt(partes[5]);
-                Usuario usuarioJugador = new Jugador(nombre, partes[2], partes[3], rol, oro);
+                Usuario usuarioJugador = new Jugador(nombre, partes[2], partes[3], rol, oro, this);
                 Jugador jugador = (Jugador) usuarioJugador;
                 if (partes[6].equals("false")) {
                     Boolean estaBaneado = false;
@@ -414,5 +406,18 @@ public class ManagerUsuarios {
             System.out.println("Error al leer o escribir el archivo.");
             e.printStackTrace();
         }
+    }
+
+    public boolean existeNumRegistro(String numRegistro) {
+        for (int i = 0; i < usuariosRegistrados.size(); i++) {
+            if(usuariosRegistrados.get(i) instanceof Jugador){
+                Jugador jugador = (Jugador) usuariosRegistrados.get(i);
+                if(jugador.getNumeroRegistro().equals(numRegistro)){
+                    return true;
+                }
+            }
+            
+        }
+        return false;
     }
 }
