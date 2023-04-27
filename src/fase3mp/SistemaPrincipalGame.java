@@ -145,7 +145,8 @@ public class SistemaPrincipalGame {
                 Personaje personajeElegido = entidadesSistema.elegirPersonaje(personajes.get(0));
                 Jugador jugador = (Jugador) usuario;
                 jugador.setPersonajeActivo(personajeElegido);
-                System.out.println("Se te ha guardado el persoanje");
+                System.out.println("Se te ha guardado el personaje");
+                jugador.setOro(100);
                 usuariosSistema.guardarUsuarios(usuario);
             } else if (rol.equals("operador")) {
                 Registro registro = new RegistroOperador(usuariosSistema);

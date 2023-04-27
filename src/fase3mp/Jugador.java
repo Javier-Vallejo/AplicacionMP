@@ -295,8 +295,8 @@ public class Jugador extends Usuario {
     }
 
     public void realizarFuncionMenuJugador(int opcion) {
-        manager = super.getManagerUsuarios(); //un if para saber si el usuario tiene algun desafio pendiente que aceptar
-        rankingGlobal = super.getRanking();
+        //manager = super.getManagerUsuarios(); //un if para saber si el usuario tiene algun desafio pendiente que aceptar
+        //rankingGlobal = super.getRanking();
                 //si lo tiene, ¿hacemos notificar? para que se escriba la informacion del desafio
                 /**
                  * if (this.getCombateRealizado() != null){
