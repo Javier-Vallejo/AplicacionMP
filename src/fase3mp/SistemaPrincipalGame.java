@@ -58,13 +58,13 @@ public class SistemaPrincipalGame {
         // leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
         inicializarHabilidades(entidadesActivas);
         Scanner escanerMain = new Scanner(System.in);
-        String opcionElegida = "";
-        while (!(opcionElegida.equals("iniciarsesion") == false ^ opcionElegida.equals("registrarse") == false)) {
-            System.out.println("Desea iniciar sesion o registrarse");
-            opcionElegida = escanerMain.nextLine().replaceAll("\\s", "").toLowerCase();
-            if (opcionElegida.equals("iniciarsesion")) {
+        int opcionElegida = 0;
+        while (!(opcionElegida != 1 ^ opcionElegida != 2)) {
+            System.out.println("Pulse 1 si desea iniciar sesión y 2 si desea registrarse:");
+            opcionElegida = escanerMain.nextInt();
+            if (opcionElegida==1) {
                 iniciarSesion();
-            } else if (opcionElegida.equals("registrarse")) {
+            } else if (opcionElegida==2) {
                 registrarse();
                 String opcion = "";
                 while (!(opcion.equals("si") ^ opcion.equals("no"))) {
@@ -82,7 +82,7 @@ public class SistemaPrincipalGame {
                 }
 
             } else {
-                System.out.println("Por favor escoja una de las opciones proporcionadas");
+                System.out.println("Por favor escoja una de las opciones proporcionadas.");
             }
 
         }
@@ -91,17 +91,25 @@ public class SistemaPrincipalGame {
     private void iniciarSesion() throws IOException {
         Scanner escIniSes = new Scanner(System.in);
         System.out.println("-----Inicio de Sesion-----");
-        System.out.println("Introduzca su nick: ");
-        String nick = escIniSes.nextLine();
-        System.out.println("Introduzca su contrasenia: ");
-        String password = escIniSes.nextLine();
+        int intentos=0;
+        String nick = "";
+        String password="";
+        while (intentos <3 && usuariosSistema.existeUsuario(nick, password) == false){
+            System.out.println("Introduzca su nick: ");
+            nick = escIniSes.nextLine();
+            System.out.println("Introduzca su password: ");
+            password = escIniSes.nextLine();
+            if (usuariosSistema.existeUsuario(nick, password) == false && intentos!=2) {
+                System.out.println("Usuario no encontrado. Por favor, asegurese de insertar su usuario y contraseña correctamente.");
+            }
+            ++intentos;
+        }
         if (usuariosSistema.existeUsuario(nick, password) == false) {
-            System.out.println("No estas registrado en el sistema");
+            System.out.println("Usuario no encontrado, saliendo del sistema.");
             return;
         } else {
             Usuario usuario = usuariosSistema.obtenerUsuario(nick, password);
             System.out.println("Bienvenido " + usuario.getNick());
-            //System.out.println("Que deseas hacer: ");
             int eleccionMenu = 0;
             usuario.setManagerUsuarios(usuariosSistema);
             if (usuario.getRol() == TipoUsuario.Jugador) {

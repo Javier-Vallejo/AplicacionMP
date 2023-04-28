@@ -152,9 +152,9 @@ public class EntidadesActivas {
         Scanner escaner = new Scanner(System.in);//en el rango correcto
         if (objetoMostrar.equals("PERSONAJES")) {
             for (int i = 0; i < personajes.size(); i++) {
-                System.out.println("Personaje " + i + ": " + personajes.get(i).getNombre());
+                System.out.println("- "+ i + ".Personaje: " + personajes.get(i).getNombre());
             }
-            System.out.println((personajes.size() + 1) + " Salir");
+            System.out.println("- " + (personajes.size() + 1) + ".Salir");
             System.out.println("Escoja el numero por favor:");
             int personajeEle = escaner.nextInt();
             ArrayList<Integer> personajesElegidos = new ArrayList<>();
@@ -163,9 +163,9 @@ public class EntidadesActivas {
         } else if (objetoMostrar.equals("ARMAS")) {
             int armaEle = 0;
             for (int i = 0; i < armas.size(); i++) {
-                System.out.println("Arma " + i + ": " + armas.get(i).getNombre() + " " + armas.get(i).getTipodeArma().toString());
+                System.out.println("- "+ i + ".Arma: " + armas.get(i).getNombre() + " " + armas.get(i).getTipodeArma().toString());
             }
-            System.out.println((armas.size() + 1) + " Salir");
+            System.out.println("- " + (armas.size() + 1) + ".Salir");
             ArrayList<Integer> armasElegidas = new ArrayList<>();
             while (armaEle != armas.size() + 1) {//habria que limitar para que no acepte enteros mayores que el size
                 if (!(armaEle == armas.size() + 1)) {
@@ -177,9 +177,9 @@ public class EntidadesActivas {
         } else if (objetoMostrar.equals("ARMADURAS")) {
             int armaduraEle = 0;
             for (int i = 0; i < armaduras.size(); i++) {
-                System.out.println("Armadura " + i + armaduras.get(i).getNombre());
+                System.out.println("- "+ i + ".Armadura:" + armaduras.get(i).getNombre());
             }
-            System.out.println((armaduras.size() + 1) + " Salir");
+            System.out.println("- " + (armaduras.size() + 1) + ".Salir");
             ArrayList<Integer> armadurasElegidas = new ArrayList<>();
             while (armaduraEle != armaduras.size() + 1) {
                 if (!(armaduraEle == armaduras.size() + 1)) {
@@ -191,9 +191,9 @@ public class EntidadesActivas {
         } else if (objetoMostrar.equals("FORTALEZAS")) {
             int fortalezaEle = 0;
             for (int i = 0; i < fortalezas.size(); i++) {
-                System.out.println("Fortaleza " + i + fortalezas.get(i).getNombre());
+                System.out.println("- "+ i + ".Fortaleza:" + fortalezas.get(i).getNombre());
             }
-            System.out.println((fortalezas.size() + 1) + " Salir");
+            System.out.println("- " + (fortalezas.size() + 1) + ".Salir");
             ArrayList<Integer> fortalezasElegidas = new ArrayList<>();
             while (fortalezaEle != fortalezas.size() + 1) {
                 if (!(fortalezaEle == fortalezas.size() + 1)) {
@@ -205,9 +205,9 @@ public class EntidadesActivas {
         } else if (objetoMostrar.equals("DEBILIDADES")) {
             int debilidadEle = 0;
             for (int i = 0; i < debilidades.size(); i++) {
-                System.out.println("Debilidad " + i + debilidades.get(i).getNombre());
+                System.out.println("- "+ i + ".Debilidad:" + debilidades.get(i).getNombre());
             }
-            System.out.println((debilidades.size() + 1) + " Salir");
+            System.out.println("- " + (debilidades.size() + 1) + ".Salir");
             ArrayList<Integer> debilidadesElegidas = new ArrayList<>();
             while (debilidadEle != debilidades.size() + 1) {
                 if (!(debilidadEle == debilidades.size() + 1)) {
@@ -219,9 +219,9 @@ public class EntidadesActivas {
         } else if (objetoMostrar.equals("ESBIRROS")) {
             int esbirroEle = 0;
             for (int i = 0; i < esbirros.size(); i++) {
-                System.out.println("Esbirro " + i + esbirros.get(i).getNombre() + " " + esbirros.get(i).getClass().getName());
+                System.out.println("- "+ i + ".Esbirro:" + esbirros.get(i).getNombre() + " " + esbirros.get(i).getClass().getName());
             }
-            System.out.println((debilidades.size() + 1) + " Salir");
+            System.out.println("- " + (debilidades.size() + 1) + ".Salir");
             ArrayList<Integer> esbirrosElegidos = new ArrayList<>();
             while (esbirroEle != debilidades.size() + 1) {
                 esbirroEle = escaner.nextInt();
@@ -231,9 +231,9 @@ public class EntidadesActivas {
         } else if (objetoMostrar.equals("ESBIRRO")) {
             int esbirroEle = 0;
             for (int i = 0; i < esbirros.size(); i++) {
-                System.out.println("Esbirro " + i + esbirros.get(i).getNombre() + " " + esbirros.get(i).getClass().getName());
+                System.out.println("- "+ i + ".Esbirro " + esbirros.get(i).getNombre() + " " + esbirros.get(i).getClass().getName());
             }
-            System.out.println((esbirros.size() + 1) + " Salir");
+            System.out.println("- " + (esbirros.size() + 1) + ".Salir");
             ArrayList<Integer> esbirroElegido = new ArrayList<>();
             while (esbirroEle != esbirros.size() + 1) {
                 esbirroEle = escaner.nextInt();
