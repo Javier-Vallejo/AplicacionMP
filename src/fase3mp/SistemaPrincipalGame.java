@@ -110,8 +110,10 @@ public class SistemaPrincipalGame {
         } else {
             Usuario usuario = usuariosSistema.obtenerUsuario(nick, password);
             System.out.println("Bienvenido " + usuario.getNick());
+
             int eleccionMenu = 0;
             usuario.setManagerUsuarios(usuariosSistema);
+            usuario.setEntidades(entidadesSistema);
             if (usuario.getRol() == TipoUsuario.Jugador) {
                 Jugador jugador = (Jugador) usuario;
                 jugador.setRankingGlobal(rankingSistema);

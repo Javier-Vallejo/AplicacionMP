@@ -235,6 +235,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
         int opcion = 0;
         while (true) {
             Scanner escanerLectura = new Scanner(System.in);
+            System.out.println();
             System.out.println("Que desea editar del personaje:");
             System.out.println("- 1.Nombre");
             System.out.println("- 2.Armas");
@@ -277,11 +278,14 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                             System.out.println("Armas actuales: ");
                             MostrarArmas(personajeEle);
                             armaAeliminar = escanerLectura.nextInt();
-                            if (!(armaAeliminar >= arrayListArmas.size())) {
+                            if (armaAeliminar < arrayListArmas.size() && armaAeliminar>0) {
                                 arrayListArmas.remove(armaAeliminar);
                                 Arma[] arrayArmas = arrayListArmas.toArray(new Arma[0]);
                                 personajeEle.setArmas(arrayArmas);
-                            } else {
+                                System.out.println("Arma Eliminada: ");
+                            } else if (armaAeliminar==arrayListArmas.size()){
+                                System.out.println("Volviendo al menu principal.");
+                            }else{
                                 System.out.println("Arma no incluida, por favor selecciona un arma de la lista");
                             }
                         }
