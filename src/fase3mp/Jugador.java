@@ -208,24 +208,30 @@ public class Jugador extends Usuario {
                 Ronda rondaX = combate.EmpezarRonda(combate.getPersonaje1(), combate.getPersonaje2(), combate.getVida1(), combate.getVida2());
                 rondas.add(rondaX);
             }
+            //EMPATE
+            if (combate.getVida1() == 0 && combate.getVida2() == 0){
+                combate.setVencedor("EMPATE - NO HUBO NINGÚN GANADOR");
+            }
             //Setear el jugador vencedor
             if (combate.getVida1() == 0 && combate.getVida2() > 0) {
-                combate.setVencedor(combate.getDesafiado());
+                combate.setVencedor(combate.getDesafiado().getNick());
             } else if (combate.getVida2() == 0 && combate.getVida1() > 0) {
-                combate.setVencedor(combate.getDesafiante());
+                combate.setVencedor(combate.getDesafiante().getNick());
             }
 
             //TODO - FALTA CONTEMPLAR EL CASO DE EMPATE!!!!
             //Sumar y restar el dinero apostado
-            combate.getVencedor().setOro(combate.getVencedor().getOro() + combate.getOroGanado() + 10);
+            //combate.getVencedor().setOro(combate.getVencedor().getOro() + combate.getOroGanado() + 10);
             //TODO - Restar y sumar el oro a perdedor y ganador
-            if (combate.getVencedor() == combate.getDesafiante()) {
+            if (combate.getVencedor().equals(combate.getDesafiante().getNick())) {
                 combate.getDesafiado().setOro(combate.getDesafiado().getOro() - combate.getOroGanado());
+                combate.getDesafiante().setOro(combate.getDesafiante().getOro() + combate.getOroGanado());
                 if (combate.getDesafiado().getOro() < 0) {
                     combate.getDesafiado().setOro(0);
                 }
             } else {
                 combate.getDesafiante().setOro(combate.getDesafiante().getOro() - combate.getOroGanado());
+                combate.getDesafiado().setOro(combate.getDesafiado().getOro() + combate.getOroGanado());
                 if (combate.getDesafiante().getOro() < 0) {
                     combate.getDesafiante().setOro(0);
                 }
@@ -242,14 +248,6 @@ public class Jugador extends Usuario {
             this.setOro((int) (this.getOro() - (this.getOro() * 0.1)));
             this.setDesafioPendiente(null);
         }
-    }
-
-    private void ConsultarOro() {
-        //TODO
-    }
-
-    private void ConsultarRanking(Ranking ranking) {
-//TODO
     }
 
     private void ElegirPersonaje(EntidadesActivas entidades) {

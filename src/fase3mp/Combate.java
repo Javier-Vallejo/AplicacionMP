@@ -16,7 +16,7 @@ public class Combate {
     private Jugador desafiante;
     private Jugador desafiado;
     private String fecha;
-    private Jugador Vencedor;
+    private String Vencedor;
     private ArrayList<Personaje> jugadoresConEsbirros;
     private int oroGanado;
     private Personaje personaje1;
@@ -55,7 +55,7 @@ public class Combate {
         return fecha;
     }
 
-    public Jugador getVencedor() {
+    public String getVencedor() {
         return Vencedor;
     }
 
@@ -95,7 +95,7 @@ public class Combate {
         this.fecha = fecha;
     }
 
-    public void setVencedor(Jugador Vencedor) {
+    public void setVencedor(String Vencedor) {
         this.Vencedor = Vencedor;
     }
 
