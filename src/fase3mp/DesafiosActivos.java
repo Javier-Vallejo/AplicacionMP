@@ -21,10 +21,15 @@ public class DesafiosActivos {
     public void guardarDesafio(Desafio desafio){
         desafios.add(desafio);
     }
-    public Desafio obtenerDesafio(){ //devolvera el desafio mas antiguo
-        Desafio desafioDev = desafios.get(0); 
-        desafios.remove(0);
-        return desafioDev;    
+    public Desafio obtenerDesafio(){ 
+        if(!desafios.isEmpty()) { //devolvera el desafio mas antiguo
+            Desafio desafioDev = desafios.get(0); 
+            desafios.remove(0);
+            return desafioDev; 
+    
+        }
+        return null;                            
+          
     }
     
 }
