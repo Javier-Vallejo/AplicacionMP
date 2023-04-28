@@ -125,9 +125,10 @@ public class OperadorSistema extends Usuario {
                     String defensa = lectura.nextLine();
                     System.out.println("Escriba si es de 1 o 2 manos");
                     String tipo = lectura.nextLine();
-                    if (tipo.equals("1")) {
+                    if(tipo.equals("1")){
                         tipo = "de1mano";
-                    } else if (tipo.equals("2")) {
+                    }
+                    else if(tipo.equals("2")){
                         tipo = "de2manos";
                     }
                     Arma arma = CrearArma(nombre, danio, defensa, tipo);
@@ -148,13 +149,14 @@ public class OperadorSistema extends Usuario {
 
             }
         }
-        Arma[] armasPersonaje = mochilaArmasPersonaje.toArray(new Arma[0]);// armas activas
+        Arma[] armasPersonaje = mochilaArmasPersonaje.toArray(new Arma[0]);
+
+        // armas activas
         System.out.println("Elige el numero del arma o armas que va a tener como activas: ");
         System.out.println("(Ten en cuenta que va a ser una de dos manos o dos de una mano)");
 
         for (int i = 0; i < armasPersonaje.length; i++) {
-            System.out.println(
-                    i + "_ " + armasPersonaje[i].getNombre() + " " + armasPersonaje[i].getTipodeArma().toString());
+            System.out.println(i + "_ " + armasPersonaje[i].getNombre() + " " + armasPersonaje[i].getTipodeArma().toString());
         }
         System.out.println(armasPersonaje.length + " Salir");
 
@@ -204,7 +206,7 @@ public class OperadorSistema extends Usuario {
         // armaduras
         ArrayList<Armadura> mochilaArmadurasPersonaje = new ArrayList<>();
         System.out.println("Vas a introducir armaduras hasta que pulses salir");
-        while (opcionArma != 3) {
+        while(opcionArma != 3){
             System.out.println("Desea crear una armadura de 0 o elegirla del sistema: ");
             System.out.println("1- Crear la armadura ");
             System.out.println("2- Elegir armaduras del sistema");
@@ -527,8 +529,8 @@ public class OperadorSistema extends Usuario {
             sb.append(cazador.getVoluntad());
         }
     }
-
-    private void escribirEsbirrosPers(Esbirro[] esbirros, StringBuilder sb) { // guardar cada esbirro del personaje
+    
+    private void escribirEsbirrosPers(Esbirro[] esbirros, StringBuilder sb) { // guardar cada esbirro del personaje                                                                                  
         for (int i = 0; i < esbirros.length; i++) {
             sb.append(esbirros[i].getNombre());
             sb.append("/");
