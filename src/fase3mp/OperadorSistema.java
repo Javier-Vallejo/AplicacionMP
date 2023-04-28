@@ -404,7 +404,7 @@ public class OperadorSistema extends Usuario {
 
     }
 
-    private void rellenarStringBuilder(StringBuilder sb, Personaje personaje) {
+    private void rellenarStringBuilder(StringBuilder sb, Personaje personaje) {//hay que cambiar la forma de guardar los esbirros
         if (personaje instanceof Vampiro) {
             sb.append("vampiro;");
         } else if (personaje instanceof Licantropo) {

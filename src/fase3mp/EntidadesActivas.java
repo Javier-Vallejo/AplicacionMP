@@ -24,6 +24,7 @@ public class EntidadesActivas {
     private ArrayList<Debilidad> debilidades;
     private ArrayList<Habilidad> habilidades;
     private ArrayList<Esbirro> esbirros;
+    private FabricaEsbirros fabricaEsbirros;//habra que pasarselo como parametro
 
     public EntidadesActivas() {
         personajes = new ArrayList<>();
@@ -302,15 +303,14 @@ public class EntidadesActivas {
     }
 
     public void GuardarEsbirroFichero(Esbirro esbirro) throws IOException {
-        if(!esbirros.contains(esbirro)){
+        if (!esbirros.contains(esbirro)) {
             File file = new File("Ficheros/Esbirros.txt");
             StringBuilder sb = new StringBuilder();
-            rellenarStringBuilderEsbirro(esbirro,sb);
+            rellenarStringBuilderEsbirro(esbirro, sb);
             FileWriter escritor = new FileWriter(file, true);
             escritor.write(sb.toString());
             escritor.flush();
-        }
-        else{
+        } else {
             System.out.println("El esbirro ya estaba guardado");
         }
     }
@@ -328,31 +328,207 @@ public class EntidadesActivas {
             sb.append(ghoul.getDependencia());
             sb.append(",");
         } else if (esbirro instanceof Humano) {
+            sb.append("humano");
+            sb.append("/");
             Humano humano = (Humano) esbirro;
             sb.append(humano.getLealtad());
             sb.append(",");
         } else if (esbirro instanceof Demonio) {
+            sb.append("demonio");
+            sb.append("/");
             Demonio demonio = (Demonio) esbirro;
             if (demonio.getTienePacto()) {
                 sb.append("si");
                 sb.append("/");
                 sb.append(demonio.getPacto().getAmo().getNombre());
-                //sb.append("/");
+                sb.append("/");
             } else {
                 sb.append("no");
                 sb.append("/");
                 sb.append("null");
-                //sb.append("/");
+                sb.append("/");
             }
-            sb.append(",");
+
             sb.append("*");
             ArrayList<Esbirro> esbirrosDeEsbirro = demonio.getEsbirros();
             for (int j = 0; j < esbirrosDeEsbirro.size(); j++) {
-                rellenarStringBuilderEsbirro(esbirro, sb); // recursividad
+                rellenarStringBuilderSubEsbirros(esbirro, sb); // debo hacer otra funcion para rellenar esbirros hijos
             }
             sb.append("*");
+            sb.append(",");
         }
 
+    }
+
+    private void rellenarStringBuilderSubEsbirros(Esbirro esbirro, StringBuilder sb) {
+        // recursividad
+        sb.append(esbirro.getNombre());
+        sb.append(".");
+        sb.append(esbirro.getSalud());
+        sb.append(".");
+        if (esbirro instanceof Ghoul) {
+            sb.append("ghoul");
+            sb.append(".");
+            Ghoul ghoul = (Ghoul) esbirro;
+            sb.append(ghoul.getDependencia());
+            sb.append(",");
+        } else if (esbirro instanceof Humano) {
+            sb.append("humano");
+            sb.append(".");
+            Humano humano = (Humano) esbirro;
+            sb.append(humano.getLealtad());
+            sb.append(",");
+        } else if (esbirro instanceof Demonio) {
+            sb.append("demonio");
+            sb.append(".");
+            Demonio demonio = (Demonio) esbirro;
+            if (demonio.getTienePacto()) {
+                sb.append("si");
+                sb.append(".");
+                sb.append(demonio.getPacto().getAmo().getNombre());
+                sb.append(".");
+            } else {
+                sb.append("no");
+                sb.append(".");
+                sb.append("null");
+                sb.append(".");
+            }
+
+            sb.append("*");
+            ArrayList<Esbirro> esbirrosDeEsbirro = demonio.getEsbirros();
+            for (int j = 0; j < esbirrosDeEsbirro.size(); j++) {
+                rellenarStringBuilderSubEsbirros(esbirro, sb); // debo hacer otra funcion para rellenar esbirros hijos
+            }
+            sb.append("*");
+            sb.append(",");
+        }
+
+    }
+
+    public void leerEsbirros() throws FileNotFoundException {
+        File file = new File("Ficheros/Esbirros.txt");
+        Scanner scannerEsbi = new Scanner(file);
+        while (scannerEsbi.hasNextLine()) {
+            String lineaEsbi = scannerEsbi.nextLine();
+            String[] partesEsbirro = lineaEsbi.split("/");
+            String nombreEsbi = partesEsbirro[0];
+            String[] partesEsbirroDeEsbirro = partesEsbirro[4].split("#");
+            int salud = Integer.parseInt(partesEsbirro[1]);
+            if (partesEsbirro[2].equals("humano")) {//me falta crearlos y guardarlos en sistema
+                int lealtad = Integer.parseInt(partesEsbirro[3]);
+            } else if (partesEsbirro[2].equals("ghoul")) {
+                int dependencia = Integer.parseInt(partesEsbirro[3]);
+            } else if (partesEsbirro[2].equals("demonio")) {
+                if (partesEsbirro[3].equals("si")) {
+                    Boolean tienePacto = true;
+                    String nombreAmo = partesEsbirroDeEsbirro[0];
+                    Pacto pacto = new Pacto();
+                } else if (partesEsbirro[3].equals("no")) {
+                    Boolean tienePacto = false;
+                    String nombreAmo = null;
+                    Pacto pacto = null;
+                }
+                ArrayList<Esbirro> esbirrosPrinc = new ArrayList<>();
+                leerEsbirrosPertenecientesAEsbirro(partesEsbirroDeEsbirro, esbirrosPrinc, 0);
+                //aqui me creare el primer demonio ahora que tengo sus subesbirros
+            }
+        }
+    }
+
+    private void leerEsbirrosPertenecientesAEsbirro(String[] partesEsbirroDeEsbirro, ArrayList<Esbirro> esbirrosPert, int i) {
+        if (partesEsbirroDeEsbirro[i + 1] != null) {
+            String[] Esbirr = partesEsbirroDeEsbirro[i + 1].split(",");
+            for (int x = 0; x < Esbirr.length; x++) {
+                String[] partesEsb = Esbirr[x].split(".");
+                if(partesEsb[2].equals("ghoul")){
+                    String nombreEsb = partesEsb[0];
+                    int saludEsb = Integer.parseInt(partesEsb[1]);
+                    int dependencia = Integer.parseInt(partesEsb[3]);
+                    fabricaEsbirros = new FabricaGhoul();
+                    Ghoul ghoul = (Ghoul) fabricaEsbirros.crearEsbirro(nombreEsb, saludEsb);
+                    ghoul.setDependencia(dependencia);
+                    esbirrosPert.add(ghoul);
+                    if(!esbirros.contains(ghoul)){
+                       esbirros.add(ghoul);
+                    }
+                }
+                else if(partesEsb[2].equals("demonio")){
+                    i += 1;
+                    ArrayList<Esbirro> esbirrosDeEsb = new ArrayList<>();
+                    leerEsbirrosPertenecientesAEsbirro(partesEsbirroDeEsbirro, esbirrosDeEsb, i+1);
+                    String nombreEsb = partesEsb[0];
+                    int saludEsb = Integer.parseInt(partesEsb[1]);
+                    Boolean tienePacto = null;
+                    Pacto pacto = null;
+                    if (partesEsb[3].equals("si")) {
+                        tienePacto = true;
+                        String nombreAmo = partesEsbirroDeEsbirro[4];//habra que pasarselo como parametro a pacto
+                        pacto = new Pacto();
+                    } else if (partesEsb[3].equals("no")) {
+                        tienePacto = false;
+                        String nombreAmo = null;
+                    }
+                    fabricaEsbirros = new FabricaDemonio();
+                    Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsb, saludEsb);
+                    demonio.setPacto(pacto);
+                    demonio.setBooleanPacto(tienePacto);
+                    demonio.setFabricaEsbirros(fabricaEsbirros);
+                    demonio.setEntidades(this);
+                    esbirrosPert.add(demonio);
+                    if(!esbirros.contains(demonio)){
+                        esbirros.add(demonio);
+                    }
+                }
+            }
+
+        } else {
+            String[] Esbirr = partesEsbirroDeEsbirro[i + 1].split(",");
+            for (int j = 0; j < Esbirr.length; j++) {
+                String[] partesEsb = Esbirr[j].split(".");
+                String nombreEsb = partesEsb[0];
+                int saludEsb = Integer.parseInt(partesEsb[1]);
+                if (partesEsb[2].equals("humano")) {
+                    int lealtad = Integer.parseInt(partesEsb[3]);//habra que comprobar el string y establecer valor del enum
+                    fabricaEsbirros = new FabricaHumano();
+                    Humano humano = (Humano) fabricaEsbirros.crearEsbirro(nombreEsb, saludEsb);
+                    humano.setLealtad(Humano.nivelLealtad.ALTA);
+                    esbirrosPert.add(humano);//lo añado a su demonio
+                    if(!esbirros.contains(humano)){
+                        esbirros.add(humano);//lo añado al sistema tambien
+                    }
+                } else if (partesEsb[2].equals("ghoul")) {
+                    int dependencia = Integer.parseInt(partesEsb[3]);
+                    fabricaEsbirros = new FabricaGhoul();
+                    Ghoul ghoul = (Ghoul) fabricaEsbirros.crearEsbirro(nombreEsb, saludEsb);
+                    ghoul.setDependencia(dependencia);
+                    esbirrosPert.add(ghoul);
+                    if(!esbirros.contains(ghoul)){
+                        esbirros.add(ghoul);
+                    }
+                } else if (partesEsb[2].equals("demonio")) {//habra que setearse como array vacio de esbirros
+                    Boolean tienePacto = null;
+                    Pacto pacto = null;
+                    if (partesEsb[3].equals("si")) {
+                        tienePacto = true;
+                        String nombreAmo = partesEsbirroDeEsbirro[4];
+                        pacto = new Pacto();
+                    } else if (partesEsb[3].equals("no")) {
+                        tienePacto = false;
+                        String nombreAmo = null;
+                    }
+                    fabricaEsbirros = new FabricaDemonio();
+                    Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsb, saludEsb);
+                    demonio.setPacto(pacto);
+                    demonio.setBooleanPacto(tienePacto);
+                    demonio.setFabricaEsbirros(fabricaEsbirros);
+                    demonio.setEntidades(this);
+                    esbirrosPert.add(demonio);
+                    if(!esbirros.contains(demonio)){
+                        esbirros.add(demonio);
+                    }
+                }
+            }
+        }
     }
 
 }
