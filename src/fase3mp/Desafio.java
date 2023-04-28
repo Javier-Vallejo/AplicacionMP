@@ -15,6 +15,8 @@ public class Desafio {
     public enum State{Validado, NoValidado}
     private State estado;
 
+
+
     public Jugador getJugadorDesafiante() {
         return jugadorDesafiante;
     }

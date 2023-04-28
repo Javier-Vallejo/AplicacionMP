@@ -11,6 +11,11 @@ import java.util.ArrayList;
  * @author david
  */
 public class DesafiosActivos {
+
+    
+    public DesafiosActivos() {
+        desafios = new ArrayList<Desafio>();
+    }
     private ArrayList<Desafio> desafios;
     
     public void guardarDesafio(Desafio desafio){

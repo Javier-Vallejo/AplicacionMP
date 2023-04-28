@@ -34,7 +34,7 @@ public class EntidadesActivas {
         debilidades = new ArrayList<>();
         habilidades = new ArrayList<>();
         esbirros = new ArrayList<>();
-        //leer de los ficheros correspondientes y rellenar
+        // leer de los ficheros correspondientes y rellenar
     }
 
     public ArrayList<Fortaleza> getFortalezas() {
@@ -155,7 +155,7 @@ public class EntidadesActivas {
             for (int i = 0; i < personajes.size(); i++) {
                 System.out.println("Personaje " + i + ": " + personajes.get(i).getNombre());
             }
-            System.out.println((personajes.size() + 1) + " Salir");
+            System.out.println((personajes.size()) + " Salir");
             System.out.println("Escoja el numero por favor:");
             int personajeEle = escaner.nextInt();
             ArrayList<Integer> personajesElegidos = new ArrayList<>();
@@ -164,13 +164,14 @@ public class EntidadesActivas {
         } else if (objetoMostrar.equals("ARMAS")) {
             int armaEle = 0;
             for (int i = 0; i < armas.size(); i++) {
-                System.out.println("Arma " + i + ": " + armas.get(i).getNombre() + " " + armas.get(i).getTipodeArma().toString());
+                System.out.println(
+                        "Arma " + i + ": "  + armas.get(i).getNombre() + " " + armas.get(i).getTipodeArma().toString());
             }
-            System.out.println((armas.size() + 1) + " Salir");
+            System.out.println((armas.size()) + " Salir");
             ArrayList<Integer> armasElegidas = new ArrayList<>();
-            while (armaEle != armas.size() + 1) {//habria que limitar para que no acepte enteros mayores que el size
-                if (!(armaEle == armas.size() + 1)) {
-                    armaEle = escaner.nextInt();
+            while (armaEle != armas.size()) {// habria que limitar para que no acepte enteros mayores que el size
+                armaEle = escaner.nextInt();
+                if (!(armaEle == armas.size())) {
                     armasElegidas.add(armaEle);
                 }
                 return armasElegidas;
@@ -180,10 +181,10 @@ public class EntidadesActivas {
             for (int i = 0; i < armaduras.size(); i++) {
                 System.out.println("Armadura " + i + armaduras.get(i).getNombre());
             }
-            System.out.println((armaduras.size() + 1) + " Salir");
+            System.out.println((armaduras.size()) + " Salir");
             ArrayList<Integer> armadurasElegidas = new ArrayList<>();
-            while (armaduraEle != armaduras.size() + 1) {
-                if (!(armaduraEle == armaduras.size() + 1)) {
+            while (armaduraEle != armaduras.size()) {
+                if (!(armaduraEle == armaduras.size())) {
                     armaduraEle = escaner.nextInt();
                     armadurasElegidas.add(armaduraEle);
                 }
@@ -194,10 +195,10 @@ public class EntidadesActivas {
             for (int i = 0; i < fortalezas.size(); i++) {
                 System.out.println("Fortaleza " + i + fortalezas.get(i).getNombre());
             }
-            System.out.println((fortalezas.size() + 1) + " Salir");
+            System.out.println((fortalezas.size()) + " Salir");
             ArrayList<Integer> fortalezasElegidas = new ArrayList<>();
-            while (fortalezaEle != fortalezas.size() + 1) {
-                if (!(fortalezaEle == fortalezas.size() + 1)) {
+            while (fortalezaEle != fortalezas.size()) {
+                if (!(fortalezaEle == fortalezas.size())) {
                     fortalezaEle = escaner.nextInt();
                     fortalezasElegidas.add(fortalezaEle);
                 }
@@ -208,10 +209,10 @@ public class EntidadesActivas {
             for (int i = 0; i < debilidades.size(); i++) {
                 System.out.println("Debilidad " + i + debilidades.get(i).getNombre());
             }
-            System.out.println((debilidades.size() + 1) + " Salir");
+            System.out.println(debilidades.size() + " Salir");
             ArrayList<Integer> debilidadesElegidas = new ArrayList<>();
-            while (debilidadEle != debilidades.size() + 1) {
-                if (!(debilidadEle == debilidades.size() + 1)) {
+            while (debilidadEle != debilidades.size()) {
+                if (!(debilidadEle == debilidades.size())) {
                     debilidadEle = escaner.nextInt();
                     debilidadesElegidas.add(debilidadEle);
                 }
@@ -222,9 +223,9 @@ public class EntidadesActivas {
             for (int i = 0; i < esbirros.size(); i++) {
                 System.out.println("Esbirro " + i + esbirros.get(i).getNombre() + " " + esbirros.get(i).getClass().getName());
             }
-            System.out.println((debilidades.size() + 1) + " Salir");
+            System.out.println((debilidades.size()) + " Salir");
             ArrayList<Integer> esbirrosElegidos = new ArrayList<>();
-            while (esbirroEle != debilidades.size() + 1) {
+            while (esbirroEle != debilidades.size()) {
                 esbirroEle = escaner.nextInt();
                 esbirrosElegidos.add(esbirroEle);
                 return esbirrosElegidos;
@@ -234,9 +235,9 @@ public class EntidadesActivas {
             for (int i = 0; i < esbirros.size(); i++) {
                 System.out.println("Esbirro " + i + esbirros.get(i).getNombre() + " " + esbirros.get(i).getClass().getName());
             }
-            System.out.println((esbirros.size() + 1) + " Salir");
+            System.out.println((esbirros.size()) + " Salir");
             ArrayList<Integer> esbirroElegido = new ArrayList<>();
-            while (esbirroEle != esbirros.size() + 1) {
+            while (esbirroEle != esbirros.size()) {
                 esbirroEle = escaner.nextInt();
             }
             esbirroElegido.add(esbirroEle);
@@ -262,8 +263,8 @@ public class EntidadesActivas {
 
     public Personaje obtenerPersonaje(String nombre, String tipo) {
         for (int i = 0; i < personajes.size(); i++) {
-            if (personajes.get(i).getNombre().equals(nombre)) {
-                if (personajes.get(i) instanceof Vampiro && tipo.equals("vampiro")) {
+            if  (personajes.get(i).getNombre().equals(nombre))  {
+                if  (personajes.get(i) instanceof Vampiro && tipo.equals("vampiro"))  {
                     return personajes.get(i);
                 } else if (personajes.get(i) instanceof Licantropo && tipo.equals("licantropo")) {
                     return personajes.get(i);
