@@ -52,9 +52,8 @@ public class SistemaPrincipalGame {
         Ranking ranking = new Ranking();
         rankingSistema = ranking;
         rankingSistema.setManager(usuariosSistema);
-        //leerUsuarios("usuarios.txt");
-        entidadesSistema.leerEsbirros();
-        leerPersonajes("Ficheros/Personajes.txt");//habra que hacer un leer Usuarios tambien
+        //entidadesSistema.leerEsbirros();
+        //leerPersonajes("Ficheros/Personajes.txt");//habra que hacer un leer Usuarios tambien
         manager.LeerUsuarios(entidadesSistema);
         // leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
         inicializarHabilidades(entidadesActivas);
@@ -223,9 +222,9 @@ public class SistemaPrincipalGame {
                 String[] caracteristicaEsbirro = esbirrosLeidos[i].split("/");
                 String nombreEsb = caracteristicaEsbirro[0];
                 int saludEsb = Integer.parseInt(caracteristicaEsbirro[1]);
-                String tipoEsb = caracteristicaEsbirro[3];
-                //Esbirro esbirro = entidadesSistema.devolverEsbirro(nombreEsb,saludEsb,tipoEsb);
-                //esbirros.add(esbirro);
+                String tipoEsb = caracteristicaEsbirro[2];
+                Esbirro esbirro = entidadesSistema.devolverEsbirro(nombreEsb,saludEsb,tipoEsb);
+                esbirros.add(esbirro);
             }
             Esbirro[] arrayEsbirros = esbirros.toArray(new Esbirro[0]);
             //guardo salud

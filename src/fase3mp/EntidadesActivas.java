@@ -73,7 +73,7 @@ public class EntidadesActivas {
         return habilidades;
     }
 
-    public Esbirro devolverEsbirro(int salud, String nombre, String tipo) {
+    public Esbirro devolverEsbirro(String nombre, int salud, String tipo) {
         Esbirro esbirro = null;
         for (int i = 0; i < esbirros.size(); i++) {
             esbirro = esbirros.get(i);
@@ -285,9 +285,9 @@ public class EntidadesActivas {
         return habilidadElegida;
     }
 
-    public Personaje obtenerPersonaje(String nombre, String tipo) {
+    public Personaje obtenerPersonaje(String nombre, String tipo, int salud) {
         for (int i = 0; i < personajes.size(); i++) {
-            if (personajes.get(i).getNombre().equals(nombre)) {
+            if (personajes.get(i).getNombre().equals(nombre) && personajes.get(i).getSalud() == salud) {
                 if (personajes.get(i) instanceof Vampiro && tipo.equals("vampiro")) {
                     return personajes.get(i);
                 } else if (personajes.get(i) instanceof Licantropo && tipo.equals("licantropo")) {
