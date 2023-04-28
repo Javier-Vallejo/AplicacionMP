@@ -65,11 +65,9 @@ public class SistemaPrincipalGame {
         //while ((opcionElegida != 1 ^ opcionElegida != 2 ^ opcionElegida!= 3)) {
         while (!(opcionElegida == 3)) {
             System.out.println("=====Bienvenido al servicio de MP Wars=====");
-            System.out.println("Pulse 1 si desea iniciar sesion, 2 si desea registrarse y 3 si desea salir del sistema:");
 
             do {
                 try {
-                    System.out.println("=====Bienvenido al servicio de MP Wars=====");
                     System.out.println("Pulse 1 si desea iniciar sesion, 2 si desea registrarse y 3 si desea salir del sistema:");
                     option = escanerMain.nextInt();
                     //Hacer con el numero lo que quiera
@@ -79,11 +77,12 @@ public class SistemaPrincipalGame {
 
                 } catch (InputMismatchException ime) {
                     System.out.println("Disculpe, ingrese un numero");
+                    escanerMain.nextLine();
                     esNumero = false;
                 }
             } while (!esNumero);
 
-            opcionElegida = escanerMain.nextInt();
+            //opcionElegida = escanerMain.nextInt();
             if (opcionElegida == 1) {
                 iniciarSesion();
             } else if (opcionElegida == 2) {
