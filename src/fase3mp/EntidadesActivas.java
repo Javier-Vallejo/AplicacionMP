@@ -188,8 +188,8 @@ public class EntidadesActivas {
             System.out.println("- " + armas.size() + ".Salir");
             ArrayList<Integer> armasElegidas = new ArrayList<>();
             while (armaEle != armas.size()) {// habria que limitar para que no acepte enteros mayores que el size
+                armaEle = escaner.nextInt();
                 if (!(armaEle == armas.size())) {
-                    armaEle = escaner.nextInt();
                     armasElegidas.add(armaEle);
                 } else if (armaEle < 1 || armaEle > armas.size()) {
                     System.out.println("Arma erronea. Por favor, introduzca un arma de la lista.");
@@ -233,8 +233,8 @@ public class EntidadesActivas {
             }
             System.out.println("- " + (debilidades.size() + 1) + ".Salir");
             ArrayList<Integer> debilidadesElegidas = new ArrayList<>();
-            while (debilidadEle != debilidades.size() + 1) {
-                if (!(debilidadEle == debilidades.size() + 1)) {
+            while (debilidadEle != debilidades.size()) {
+                if (!(debilidadEle == debilidades.size())) {
                     debilidadEle = escaner.nextInt();
                     debilidadesElegidas.add(debilidadEle);
                 }
@@ -248,7 +248,7 @@ public class EntidadesActivas {
             }
             System.out.println("- " + (debilidades.size() + 1) + ".Salir");
             ArrayList<Integer> esbirrosElegidos = new ArrayList<>();
-            while (esbirroEle != debilidades.size() + 1) {
+            while (esbirroEle != debilidades.size()) {
                 esbirroEle = escaner.nextInt();
                 esbirrosElegidos.add(esbirroEle);
                 return esbirrosElegidos;
@@ -261,7 +261,7 @@ public class EntidadesActivas {
             }
             System.out.println("- " + (esbirros.size() + 1) + ".Salir");
             ArrayList<Integer> esbirroElegido = new ArrayList<>();
-            while (esbirroEle != esbirros.size() + 1) {
+            while (esbirroEle != esbirros.size()) {
                 esbirroEle = escaner.nextInt();
             }
             esbirroElegido.add(esbirroEle);
