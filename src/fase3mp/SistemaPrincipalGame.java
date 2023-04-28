@@ -10,6 +10,7 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.InputMismatchException;
 
 /**
  *
@@ -59,9 +60,29 @@ public class SistemaPrincipalGame {
         inicializarHabilidades(entidadesActivas);
         Scanner escanerMain = new Scanner(System.in);
         int opcionElegida = 0;
-        while (!(opcionElegida != 1 ^ opcionElegida != 2)) {
+        int option = 0;
+        boolean esNumero;
+        //while ((opcionElegida != 1 ^ opcionElegida != 2 ^ opcionElegida!= 3)) {
+        while (!(opcionElegida == 3)) {
             System.out.println("=====Bienvenido al servicio de MP Wars=====");
-            System.out.println("Pulse 1 si desea iniciar sesion y 2 si desea registrarse:");
+            System.out.println("Pulse 1 si desea iniciar sesion, 2 si desea registrarse y 3 si desea salir del sistema:");
+
+            do {
+                try {
+                    System.out.println("=====Bienvenido al servicio de MP Wars=====");
+                    System.out.println("Pulse 1 si desea iniciar sesion, 2 si desea registrarse y 3 si desea salir del sistema:");
+                    option = escanerMain.nextInt();
+                    //Hacer con el numero lo que quiera
+                    opcionElegida = option;
+                    System.out.println("He visto que sabes introducir numeros canelo");
+                    esNumero = true;
+
+                } catch (InputMismatchException ime) {
+                    System.out.println("Disculpe, ingrese un numero");
+                    esNumero = false;
+                }
+            } while (!esNumero);
+
             opcionElegida = escanerMain.nextInt();
             if (opcionElegida == 1) {
                 iniciarSesion();
@@ -82,8 +103,13 @@ public class SistemaPrincipalGame {
                     System.out.println("Saliendo del programa ¡Hasta Luego!");
                 }
 
+            } else if (opcionElegida == 3) {
+                System.out.println(">> Hasta la vista!! GG EZ");
+                return;
             } else {
-                System.out.println("Por favor escoja una de las opciones proporcionadas.");
+                System.out.println("");
+                System.out.println(">> Por favor escoja una de las opciones proporcionadas.");
+                System.out.println("");
             }
 
         }
@@ -227,7 +253,7 @@ public class SistemaPrincipalGame {
                 String nombreEsb = caracteristicaEsbirro[0];
                 int saludEsb = Integer.parseInt(caracteristicaEsbirro[1]);
                 String tipoEsb = caracteristicaEsbirro[2];
-                Esbirro esbirro = entidadesSistema.devolverEsbirro(nombreEsb,saludEsb,tipoEsb);
+                Esbirro esbirro = entidadesSistema.devolverEsbirro(nombreEsb, saludEsb, tipoEsb);
                 esbirros.add(esbirro);
             }
             Esbirro[] arrayEsbirros = esbirros.toArray(new Esbirro[0]);
