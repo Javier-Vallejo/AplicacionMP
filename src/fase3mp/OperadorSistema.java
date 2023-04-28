@@ -149,7 +149,9 @@ public class OperadorSistema extends Usuario {
 
             }
         }
-        Arma[] armasPersonaje = mochilaArmasPersonaje.toArray(new Arma[0]);// armas activas
+        Arma[] armasPersonaje = mochilaArmasPersonaje.toArray(new Arma[0]);
+
+        // armas activas
         System.out.println("Elige el numero del arma o armas que va a tener como activas: ");
         System.out.println("(Ten en cuenta que va a ser una de dos manos o dos de una mano)");
 
