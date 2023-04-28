@@ -1,6 +1,6 @@
 operador;juan;megaboy;123;
 operador;aaa;1789;1789;
-jugador;aaa;soyYo;1789;A55MF;55;false;vampiro-alberto-GolpeDeRabia/2/1/7-tpm/3/1/de2manos,-tpm/3/1/de2manos,-CorazonDeDragon/4/3,-CorazonDeDragon/4/3-javi/3/-2-2-luzSolar/3|-luzSolar/3|-0-0
 operador;judas;judas33;15;
 jugador;juan;juan;juan;E58MY;110;false;vampiro-david-GolpeDeRabia/1/7/2-tpm/3/1/de2manos,-tpm/3/1/de2manos,-CorazonDeDragon/4/3,-CorazonDeDragon/4/3-javi/3/-2-2-luzSolar/3|-luzSolar/3|-0-0
 operador;j;j;j;jugador;johnny;john;joestar;L09EE;100;false;vampiro-david-GolpeDeRabia/1/7/2-tpm/3/1/de2manos,-tpm/3/1/de2manos,-CorazonDeDragon/4/3,-CorazonDeDragon/4/3-javi/3/-2-2-luzSolar/3|-luzSolar/3|-0-0
+jugador;Aurora;Ara;1234;U32FN;100;false;vampiro-david-GolpeDeRabia/1/7/2-tpm/3/1/de2manos,-tpm/3/1/de2manos,-CorazonDeDragon/4/3,-CorazonDeDragon/4/3-javi/3/-2-2-luzSolar/3|-luzSolar/3|-0-0
