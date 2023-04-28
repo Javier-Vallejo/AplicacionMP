@@ -468,7 +468,7 @@ public class OperadorSistema extends Usuario {
         sb.append(";");
         // esbirros
         Esbirro[] esbirros = personaje.getEsbirros();
-        escribirEsbirrosdeEsbirro(esbirros, sb);
+        escribirEsbirrosPers(esbirros, sb);
         sb.append(";");
         // salud
         sb.append(personaje.getSalud());
@@ -504,41 +504,22 @@ public class OperadorSistema extends Usuario {
             sb.append(cazador.getVoluntad());
         }
     }
-
-    private void escribirEsbirrosdeEsbirro(Esbirro[] esbirros, StringBuilder sb) { // guardar cada sub esbirro con
-                                                                                   // recursividad
+    
+    private void escribirEsbirrosPers(Esbirro[] esbirros, StringBuilder sb) { // guardar cada esbirro del personaje                                                                                  
         for (int i = 0; i < esbirros.length; i++) {
             sb.append(esbirros[i].getNombre());
             sb.append("/");
             sb.append(esbirros[i].getSalud());
             sb.append("/");
             if (esbirros[i] instanceof Ghoul) {
-                Ghoul ghoul = (Ghoul) esbirros[i];
-                sb.append(ghoul.getDependencia());
-                sb.append("|");// separara cada esbirro con |
+                sb.append("ghoul");
             } else if (esbirros[i] instanceof Humano) {
                 Humano humano = (Humano) esbirros[i];
-                sb.append(humano.getLealtad());
-                sb.append("|");
+                sb.append("humano");
             } else if (esbirros[i] instanceof Demonio) {
-                Demonio demonio = (Demonio) esbirros[i];
-                if (demonio.getTienePacto()) {
-                    sb.append("si");
-                    sb.append("/");
-                    sb.append(demonio.getPacto().getAmo().getNombre());
-                    sb.append("/");
-                } else {
-                    sb.append("no");
-                    sb.append("/");
-                    sb.append("null");
-                    sb.append("/");
-                }
-                sb.append("|");
-                ArrayList<Esbirro> esbirrosDeEsbirro = demonio.getEsbirros();
-                for (int j = 0; j < esbirrosDeEsbirro.size(); j++) {
-                    escribirEsbirrosdeEsbirro(esbirros, sb); // recursividad
-                }
+                sb.append("demonio");
             }
+            sb.append(",");
         }
     }
 
