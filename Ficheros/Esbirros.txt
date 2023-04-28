@@ -1,9 +1,4 @@
 javi/3/humano/NORMAL
 david/1/ghoul/4
 juan/3/ghoul/3
-cabronhdp/3/demonio/no/null/#junisimogracias-3-ghoul-3,#
-tuputisimamadrecabron/3/demonio/no/null/#cabronhdp-3-demonio-no-null-#junisimogracias-3-ghoul-3,#,#
-candace/3/ghoul/2
-holaDavid/3/ghoul/3
-juanjavidavid/2/demonio/no/null/#holaDavid-3-ghoul-3,#
-funcionaporfavor/3/demonio/no/null/#candace-3-ghoul-2,juanjavidavid-2-demonio-no-null-#holaDavid-3-ghoul-3,#,#
+
