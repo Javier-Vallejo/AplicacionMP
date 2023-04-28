@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 //import java.util.Locale;
 import java.util.Scanner;
@@ -50,7 +51,8 @@ public class OperadorSistema extends Usuario {
     }
 
     public Arma CrearArma(String nombre, String modDanio, String modDefensa, String tipoArma) throws IOException {
-        Arma arma = new Arma(nombre, modDanio, modDefensa, modDefensa);//como ha dejado pasar dos strings si son enteros
+        Arma arma = new Arma(nombre, modDanio, modDefensa, modDefensa);// como ha dejado pasar dos strings si son
+                                                                       // enteros
         if (tipoArma.equals("1mano")) {
             arma.setTipodeArma(Arma.tipoArma.de1mano);
         } else if (tipoArma.equals("2manos")) {
@@ -112,19 +114,23 @@ public class OperadorSistema extends Usuario {
         Scanner lecturaArma = new Scanner(System.in);
         int opcionArma = lecturaArma.nextInt();
         lecturaArma.close();
-        Arma[] armasPersonaje = new Arma[super.getEntidades().getArmas().size()];//habria que hacer el array de armas actual a arraylist, lo añades y vuelves a array normal
+        ArrayList<Arma> mochilaArmasPersonaje = new ArrayList<>();// habria que hacer el array de armas actual a
+                                                                  // arraylist, lo añades y vuelves a array normal
         /*
          * Si hay que añadirle un arma a su mochila primero se deberia considerar su
          * tamaño, de primeras he pensado
          * que tenga el tamaño de la lista de armas que haya en entidas activas
-         * Luego si le das a escoger de las que ya hay, ese tamaño se recalculará con el:
+         * Luego si le das a escoger de las que ya hay, ese tamaño se recalculará con
+         * el:
          * armasPersonaje = new Arma[armasEleg.size()]; O al menos debería.
          * De momento esa es mi interpretación. Y ya dentro de eso el meterle un arma ya
-         * creada se la asignnara en la posicion 0. Si no os chola ya lo rediseñais como veais.
+         * creada se la asignnara en la posicion 0. Si no os chola ya lo rediseñais como
+         * veais.
          * Con armaaduras es el mismo caso.
          * En ambas se debería insertar bien tanto en fichero como en entidades.
-         * EN el fichero me he fijado que su formato es con espacios así que así deberia andar buenardo.
-         * Quizás rentaria que fuera un arrayList 
+         * EN el fichero me he fijado que su formato es con espacios así que así deberia
+         * andar buenardo.
+         * Quizás rentaria que fuera un arrayList
          * Y así es mas como "añadir el arma"
          */
         switch (opcionArma) {
@@ -140,19 +146,23 @@ public class OperadorSistema extends Usuario {
                 String tipo = lecturaValoresArma.nextLine();
                 Arma arma = CrearArma(nombre, danio, defensa, tipo);
                 lecturaValoresArma.close();
-                armasPersonaje[0] = arma;
+                mochilaArmasPersonaje.add(arma);
             }
 
             case 2 -> {
                 System.out.println("Escriba los numeros de las armas que quiere que tenga su personaje: ");
                 ArrayList<Integer> armasEleg = super.getEntidades().MostraryElegir("ARMAS");
-                armasPersonaje = new Arma[armasEleg.size()];
+                // Arma[] armasPersonajeArray = mochilaArmasPersonaje.toArray(new
+                // Arma[armasEleg.size()]);
+
                 for (int i = 0; i < armasEleg.size(); i++) {
-                    armasPersonaje[i] = super.getEntidades().elegirArma(armasEleg.get(i));
+                    // armasPersonajeArray[i] = super.getEntidades().elegirArma(armasEleg.get(i));
+                    mochilaArmasPersonaje.add(super.getEntidades().elegirArma(armasEleg.get(i)));
                 }
             }
-        }
 
+        }
+        Arma[] armasPersonaje = mochilaArmasPersonaje.toArray(new Arma[0]);
         // armas activas
         System.out.println("Elige el numero del arma o armas que va a tener como activas: ");
         System.out.println("(Ten en cuenta que va a ser una de dos manos o dos de una mano)");
@@ -187,7 +197,7 @@ public class OperadorSistema extends Usuario {
         System.out.println("Desea crear una armadura de 0 o elegirla del sistema: ");
         System.out.println("1- Crear la armadura ");
         System.out.println("2- Elegir armaduras del sistema");
-        Armadura[] armadurasPersonaje = new Armadura[super.getEntidades().getArmas().size()];
+        ArrayList<Armadura> mochilaArmadurasPersonaje = new ArrayList<>();
         Scanner lecturaArmadura = new Scanner(System.in);
         int opcionArmadura = lecturaArmadura.nextInt();
         lecturaArmadura.close();
@@ -203,7 +213,7 @@ public class OperadorSistema extends Usuario {
                 System.out.println("Escriba su defensa");
                 String defensa = lecturaValoresArmadura.nextLine();
                 Armadura armadura = CrearArmadura(nombre, danio, defensa);
-                armadurasPersonaje[0] = armadura;
+                mochilaArmadurasPersonaje.add(armadura);
                 lecturaValoresArmadura.close();
 
             }
@@ -211,12 +221,17 @@ public class OperadorSistema extends Usuario {
             case 2 -> {
                 System.out.println("Escriba el numero de la armadura que quiere que tenga su personaje: ");
                 ArrayList<Integer> armadurasEleg = super.getEntidades().MostraryElegir("ARMADURAS");
-                armadurasPersonaje = new Armadura[armadurasEleg.size()];
+                // Armadura[] armadurasArrayPersonaje = new Armadura[armadurasEleg.size()];
                 for (int i = 0; i < armadurasEleg.size(); i++) {
-                    armadurasPersonaje[i] = super.getEntidades().elegirArmadura(armadurasEleg.get(i));
+                    // armadurasArrayPersonaje[i] =
+                    // super.getEntidades().elegirArmadura(armadurasEleg.get(i));
+                    mochilaArmadurasPersonaje.add(super.getEntidades().elegirArmadura(armadurasEleg.get(i)));
                 }
             }
+
         }
+        Armadura[] armadurasPersonaje = mochilaArmadurasPersonaje.toArray(new Armadura[0]);
+
         // armadura activa
         System.out.println("Elige el numero de la armadura que va tener activa: ");
         for (int i = 0; i < armadurasPersonaje.length; i++) {
@@ -422,7 +437,7 @@ public class OperadorSistema extends Usuario {
         sb.append("/");
         sb.append(personaje.getHabilidadPersonaje().getLimitante());
         sb.append(";");
-        
+
         // armas
         Arma[] armas = personaje.getArmas();
         for (int i = 0; i < armas.length; i++) {
@@ -483,7 +498,7 @@ public class OperadorSistema extends Usuario {
             sb.append(debilidades[i].getNombre());
             sb.append("/");
             sb.append(debilidades[i].getValor());
-            //sb.append("|");
+            // sb.append("|");
         }
         sb.append(";");
         // fortalezas
@@ -492,7 +507,7 @@ public class OperadorSistema extends Usuario {
             sb.append(fortalezas[i].getNombre());
             sb.append("/");
             sb.append(fortalezas[i].getValor());
-            //sb.append("|");
+            // sb.append("|");
         }
         sb.append(";");
         if (personaje instanceof Vampiro vamp) {
@@ -621,12 +636,12 @@ public class OperadorSistema extends Usuario {
     }
 
     public void realizarFuncionMenuOperador(int opcion) throws IOException {
-        //manager = super.getManagerUsuarios();
+        // manager = super.getManagerUsuarios();
         ArrayList<Usuario> usuarioEle = manager.getUsuariosRegistrados();
         // insertar variables duplicadas en las opciones de banear y desbanear?
         switch (opcion) {
             case 1 -> {// Darse de baja
-                DarseDeBaja(this); //DarseDeBaja(null)
+                DarseDeBaja(this); // DarseDeBaja(null)
                 System.out.println("Saliendo del sistema.");
                 System.exit(0);
             }
@@ -657,7 +672,8 @@ public class OperadorSistema extends Usuario {
             case 3 -> // Aniadir Personaje
                 aniadirPersonaje();
             case 4 -> {// Validar Desafio
-                //NECESITO ACCEDER A LA LISTA DE DESAFIOS
+                // NECESITO ACCEDER A LA LISTA DE DESAFIOS
+                leerDesafios();
                 Desafio desafio = super.getDesafiosAct().obtenerDesafio();
                 validarDesafio(desafio, notificador);// y notificarlo con el observer
             }
@@ -702,6 +718,53 @@ public class OperadorSistema extends Usuario {
                 System.exit(0);
             }
         }
+    }
+
+    private void leerDesafios() throws FileNotFoundException {
+
+        File file = new File("Ficheros/Desafios.txt");
+        Scanner scanner = new Scanner(file);
+        String linea = scanner.nextLine();
+
+        String[] partes = linea.split(" ");
+        String desafiante = partes[1];
+        String desafiado = partes[2];
+        String oroApostado = partes[3];
+
+        Integer oroApuesta = Integer.parseInt(oroApostado);
+        String nickIterado = "";
+        int indice = 0;
+        Jugador jugadorDesafiante = null;
+        while(!(desafiante.equals(nickIterado))) {
+            Usuario usuario = manager.getUsuariosRegistrados().get(indice);
+            if (usuario instanceof Jugador) {
+                jugadorDesafiante = (Jugador) usuario;
+                nickIterado = jugadorDesafiante.getNick();
+            }
+            
+            ++indice;
+        }
+
+        nickIterado = "";
+        Jugador jugadorDesafiado = null;
+        indice = 0;
+        while(!(desafiado.equals(nickIterado))) {
+            Usuario usuario = manager.getUsuariosRegistrados().get(indice);
+            if (usuario instanceof Jugador) {
+                jugadorDesafiado = (Jugador) usuario;
+                nickIterado = jugadorDesafiado.getNick();
+            }
+            
+            ++indice;
+        }
+
+        Desafio desafio = new Desafio();
+        desafio.setJugadorDesafiante(jugadorDesafiante);
+        desafio.setJugadorDesafiado(jugadorDesafiado);
+        desafio.setOroApostado(oroApuesta);
+
+        super.getDesafiosAct().guardarDesafio(desafio);;
+
     }
 
     public void guardarPersonajeEditado(Personaje personaje) {
