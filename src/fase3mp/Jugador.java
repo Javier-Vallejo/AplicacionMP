@@ -392,15 +392,13 @@ public class Jugador extends Usuario {
             case 5:// Desafiar
                 Desafio desafio = new Desafio();
                 this.Desafiar(desafio);
-                super.getDesafiosAct().guardarDesafio(desafio);
+                //super.getDesafiosAct().guardarDesafio(desafio); Esta linea en teoria sobra porque como operador siempre leemos todos los desafios del fichero
                 persistenciaDesafio(desafio);
                 break;
             case 6:// Consultar Oro
                 System.out.println("Su oro actual es: " + getOro());
                 break;
             case 7: // Consultar Ranking
-                // Ranking ranking = new Ranking();
-                // ranking.consultarRanking();
                 rankingGlobal.consultarRanking();
                 break;
             case 8:// Salir
