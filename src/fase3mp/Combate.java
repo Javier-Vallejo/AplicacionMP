@@ -122,21 +122,39 @@ public class Combate {
     public void setVida2(int vida2) {
         this.vida2 = vida2;
     }
-    
-    
-    
-    
-    
-    
 
-    
-    public Ronda EmpezarRonda(Personaje per1, Personaje per2, int vida1, int vida2){
+    public Ronda EmpezarRonda(Personaje per1, Personaje per2, int vida1, int vida2,
+            ArrayList<Fortaleza> fortalezasElegidaDesafiante,
+            ArrayList<Debilidad> debilidadesElegidaDesafiante,
+            ArrayList<Fortaleza> fortalezasElegidaDesafiado,
+            ArrayList<Debilidad> debilidadesElegidaDesafiado) {
         Ronda rondaX = new Ronda();
-        ArrayList<Integer> potenciales = rondaX.Calculo_Potencial(per1, per2);
-        rondaX.CalcularVidaRestante(potenciales, vida1, vida2);
+        ArrayList<Integer> potenciales = rondaX.Calculo_Potencial(per1, per2,fortalezasElegidaDesafiante,
+         debilidadesElegidaDesafiante,
+        fortalezasElegidaDesafiado,
+        debilidadesElegidaDesafiado);
+        int[] vidasActualizadas = rondaX.CalcularVidaRestante(potenciales, vida1, vida2);
+        vida1 = vidasActualizadas[0];
+        vida2 = vidasActualizadas[1];
 
-        recalcularPropiedadPersonaje(per1); 
-        recalcularPropiedadPersonaje(per2);        
+        recalcularPropiedadPersonaje(per1);
+        recalcularPropiedadPersonaje(per2);
+
+        rondaX.setPotencialPer1(potenciales.get(0));
+        rondaX.setPotencialPer2(potenciales.get(1));
+        if (vida1 < 0) {
+            vida1 = 0;
+        }
+
+        if (vida2 < 0) {
+            vida2 = 0;
+        }
+
+        setVida1(vida1);
+        setVida2(vida2);
+        rondaX.setVidaDesafiante(vida1);
+        rondaX.setVidaDesafiado(vida2);
+
         return rondaX;
     }
 
@@ -144,32 +162,33 @@ public class Combate {
 
         if (personaje instanceof Vampiro) {
             Vampiro vamp = (Vampiro) personaje;
-            int sangrePersonaje =  vamp.getSangre();
-            sangrePersonaje = sangrePersonaje +1;
+            int sangrePersonaje = vamp.getSangre();
+            if (sangrePersonaje < 5) {
+                sangrePersonaje = sangrePersonaje + 1;
+            }
+           
             vamp.setSangre(sangrePersonaje);
-            personaje = vamp;            
-        }
-        else if (personaje instanceof Licantropo) {
+            personaje = vamp;
+        } else if (personaje instanceof Licantropo) {
             Licantropo licantropo = (Licantropo) personaje;
-            int rabia =  licantropo.getRabia();
-            rabia = rabia +1;
+            int rabia = licantropo.getRabia();
+            if (rabia < 5) {
+                rabia = rabia + 1;
+            } 
             licantropo.setRabia(rabia);
-            personaje = licantropo; //no entiendo este ultimo paso 
+            personaje = licantropo; // no entiendo este ultimo paso
         }
 
-        else if(personaje instanceof Cazador) {
+        else if (personaje instanceof Cazador) {
             Cazador Cazador = (Cazador) personaje;
-            int voluntad =  Cazador.getVoluntad();
-            voluntad = voluntad -1;
+            int voluntad = Cazador.getVoluntad();
+            if (voluntad > 0) {
+                voluntad = voluntad - 1;
+            }
             Cazador.setVoluntad(voluntad);
             personaje = Cazador;
         }
 
-
-
     }
-    
-    
-    
-    
+
 }

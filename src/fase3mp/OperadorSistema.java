@@ -579,10 +579,11 @@ public class OperadorSistema extends Usuario {
         ArrayList<Debilidad> DElegDesafiado = new ArrayList<>();
 
         // mostramos debilidades por pantalla del desafiantes
+        
+        System.out.println("Escoja los números de las debilidades del Jugador desafiante deseas: ");
         listarDebilidades(debilidadesDesafiante);
         System.out.println(debilidadesDesafiante.length + ":Salir");
 
-        System.out.println("Escoja los números de las debilidades del Jugador desafiante deseas: ");
         // el operador elige debilidades y las guarda
         while (eleccion != debilidadesDesafiante.length) { // habra que comprobar que no elija una debilidad o
             // fortaleza 2 veces
@@ -597,10 +598,12 @@ public class OperadorSistema extends Usuario {
             }
 
         }
+        desafio.setDElegDesafiante(DElegDesafiante);
         // mostramos fortalezas por pantalla del desafiantes
+        
+        System.out.println("Escoja los números de las fortalezas del Jugador desafiante que desea: ");
         listarFortalezas(fortalezasDesafiante);
         System.out.println(fortalezasDesafiante.length + ":Salir");
-        System.out.println("Escoja los números de las fortalezas del Jugador desafiante que desea: ");
 
         eleccion = 0;
         // el operador elige fortalezas y las guarda
@@ -616,11 +619,13 @@ public class OperadorSistema extends Usuario {
 
             }
         }
+        desafio.setFElegDesafiante(FElegDesafiante);
 
         // mostramos debilidades por pantalla del desafiado
+       
+        System.out.println("Escoja los números de las debilidades del Jugador desafiado que desea: ");
         listarDebilidades(debilidadesDesafiado);
         System.out.println(debilidadesDesafiado.length + ":Salir");
-        System.out.println("Escoja los números de las debilidades del Jugador desafiado que desea: ");
         eleccion = 0;
         while (eleccion != debilidadesDesafiante.length) { // habra que comprobar que no elija una debilidad o
             // fortaleza 2 veces
@@ -635,10 +640,11 @@ public class OperadorSistema extends Usuario {
             }
 
         }
-        // mostramos fortalezas por pantalla del desafiado
+        desafio.setDElegDesafiado(DElegDesafiado);
+        
+        System.out.println("Escoja los números de las fortalezas del Jugador desafiado que desea: ");
         listarFortalezas(fortalezasDesafiado);
         System.out.println(fortalezasDesafiado.length + ":Salir");
-        System.out.println("Escoja los números de las fortalezas del Jugador desafiado que desea: ");
         eleccion = 0;
         // el operador elige fortalezas y las guarda
         while (eleccion != fortalezasDesafiado.length) { // habra que comprobar que no elija una debilidad o
@@ -653,6 +659,8 @@ public class OperadorSistema extends Usuario {
 
             }
         }
+
+        desafio.setFElegDesafiante(FElegDesafiante);
 
         // comprobar oro desafiado
         int oro = desafio.getOroApostado();
@@ -763,8 +771,8 @@ public class OperadorSistema extends Usuario {
             }
             case 7 -> {
                 // Salir
-                System.out.println("Cerrando sesion y saliendo");
-                System.exit(0);
+                System.out.println("Cerrando sesion");
+                //System.exit(0);
             }
         }
     }
@@ -804,15 +812,15 @@ public class OperadorSistema extends Usuario {
 
             // reemplazar la línea en la lista con la nueva línea
             if (!lineas.isEmpty()) {
-                // lineas.remove(0);
+                lineas.remove(0);
             }
 
             // escribir la lista actualizada de nuevo en el archivo
-            // FileWriter escritor = new FileWriter(archivo);
+            FileWriter escritor = new FileWriter(archivo);
             for (String linea : lineas) {
-                // escritor.write(linea + "\n");
+                escritor.write(linea+ "\n");
             }
-            // escritor.close();
+            escritor.close();
 
         } catch (FileNotFoundException e) {
             System.out.println("No se encontró el archivo.");

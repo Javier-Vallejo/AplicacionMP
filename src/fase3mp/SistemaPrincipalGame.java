@@ -59,7 +59,7 @@ public class SistemaPrincipalGame {
         inicializarHabilidades(entidadesActivas);
         Scanner escanerMain = new Scanner(System.in);
         int opcionElegida = 0;
-        while (!(opcionElegida != 1 ^ opcionElegida != 2)) {
+        while ( opcionElegida != 3 ) {
             System.out.println("Pulse 1 si desea iniciar sesion y 2 si desea registrarse:");
             opcionElegida = escanerMain.nextInt();
             if (opcionElegida == 1) {
@@ -81,7 +81,12 @@ public class SistemaPrincipalGame {
                     System.out.println("Saliendo del programa ¡Hasta Luego!");
                 }
 
-            } else {
+            }
+            else if (opcionElegida == 3) {
+                System.exit(0);
+                System.out.println("Saliendo del programa ¡Hasta Luego!");
+            }
+            else {
                 System.out.println("Por favor escoja una de las opciones proporcionadas.");
             }
 
@@ -118,13 +123,15 @@ public class SistemaPrincipalGame {
                 Jugador jugador = (Jugador) usuario;
                 jugador.setRankingGlobal(rankingSistema);
                 while (eleccionMenu != 8) {// hacer restriccion para que solo meta enteros
-                    if (jugador.getCombateRealizado() != null) {
-                        jugador.resultadosCombate(jugador.getCombateRealizado());
-                    }
+                    
+                    Menu menu = new MenuJugador();// deberia ponerlo fuera
+                    
                     if (jugador.getDesafioPendiente() != null) {
                         jugador.AceptaroRechazarDesafio(jugador.getDesafioPendiente());
                     }
-                    Menu menu = new MenuJugador();// deberia ponerlo fuera
+                    if (jugador.getCombateRealizado() != null) {
+                        jugador.resultadosCombate(jugador.getCombateRealizado());
+                    }
                     menu.mostrarOpciones();
                     eleccionMenu = escIniSes.nextInt();
                     jugador.realizarFuncionMenuJugador(eleccionMenu);

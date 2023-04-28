@@ -4,6 +4,11 @@
  */
 package fase3mp;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +33,8 @@ public class Jugador extends Usuario {
         super(nombre, nick, password, rol, managerJ);
         manager = managerJ;
         generarNumRegistro();
+        notificador = new Publisher();
+
     }
 
     public Jugador(String nombre, String nick, String password, TipoUsuario rol, int oro, ManagerUsuarios managerJ) {
@@ -35,6 +42,7 @@ public class Jugador extends Usuario {
         this.oro = oro;
         manager = managerJ;
         generarNumRegistro();
+        notificador = new Publisher();
     }
 
     public int getOro() {
@@ -207,6 +215,10 @@ public class Jugador extends Usuario {
         int opcion = lectura.nextInt();
 
         if (opcion == 1) { // 1 es aceptar el desafio
+            ArrayList<Fortaleza> fortalezasElegidaDesafiante = this.getDesafioPendiente().getFElegDesafiante();
+            ArrayList<Debilidad> debilidadesElegidaDesafiante = this.getDesafioPendiente().getDElegDesafiante();
+            ArrayList<Fortaleza> fortalezasElegidaDesafiado = this.getDesafioPendiente().getFElegDesafiado();
+            ArrayList<Debilidad> debilidadesElegidaDesafiado = this.getDesafioPendiente().getDElegDesafiado();
 
             this.setDesafioPendiente(null);
             // En algun momento hay que suscribir al usuario desafiado y desafiante
@@ -214,33 +226,36 @@ public class Jugador extends Usuario {
             ArrayList<Ronda> rondas = new ArrayList();
             while ((combate.getVida2() > 0) && (combate.getVida1() > 0)) {
                 Ronda rondaX = combate.EmpezarRonda(combate.getPersonaje1(), combate.getPersonaje2(),
-                        combate.getVida1(), combate.getVida2());
+                        combate.getVida1(), combate.getVida2(), fortalezasElegidaDesafiante,
+                         debilidadesElegidaDesafiante,
+                         fortalezasElegidaDesafiado,
+                        debilidadesElegidaDesafiado);
                 rondas.add(rondaX);
             }
-            //EMPATE
-            if (combate.getVida1() == 0 && combate.getVida2() == 0){
+            // EMPATE
+            if (combate.getVida1() == 0 && combate.getVida2() == 0) {
                 combate.setVencedor("EMPATE - NO HUBO NINGÚN GANADOR");
             }
-            //Setear el jugador vencedor
+            // Setear el jugador vencedor
             if (combate.getVida1() == 0 && combate.getVida2() > 0) {
                 combate.setVencedor(combate.getDesafiado().getNick());
             } else if (combate.getVida2() == 0 && combate.getVida1() > 0) {
                 combate.setVencedor(combate.getDesafiante().getNick());
             }
 
-            //TODO - FALTA CONTEMPLAR EL CASO DE EMPATE!!!!
-            //Sumar y restar el dinero apostado
-            //combate.getVencedor().setOro(combate.getVencedor().getOro() + combate.getOroGanado() + 10);
-            //TODO - Restar y sumar el oro a perdedor y ganador
+            // Sumar y restar el dinero apostado
+            // combate.getVencedor().setOro(combate.getVencedor().getOro() +
+            // combate.getOroGanado() + 10);
+            // TODO - Restar y sumar el oro a perdedor y ganador
             if (combate.getVencedor().equals(combate.getDesafiante().getNick())) {
                 combate.getDesafiado().setOro(combate.getDesafiado().getOro() - combate.getOroGanado());
-                combate.getDesafiante().setOro(combate.getDesafiante().getOro() + combate.getOroGanado());
+                combate.getDesafiante().setOro(combate.getDesafiante().getOro() + combate.getOroGanado() + 10);
                 if (combate.getDesafiado().getOro() < 0) {
                     combate.getDesafiado().setOro(0);
                 }
             } else {
                 combate.getDesafiante().setOro(combate.getDesafiante().getOro() - combate.getOroGanado());
-                combate.getDesafiado().setOro(combate.getDesafiado().getOro() + combate.getOroGanado());
+                combate.getDesafiado().setOro(combate.getDesafiado().getOro() + combate.getOroGanado() + 10);
                 if (combate.getDesafiante().getOro() < 0) {
                     combate.getDesafiante().setOro(0);
                 }
@@ -250,7 +265,11 @@ public class Jugador extends Usuario {
             misRondas = rondas.toArray(misRondas);
             combate.setRondas(misRondas);
             notificador.suscribirUsuario(combate.getDesafiado());
+            notificador.suscribirUsuario(combate.getDesafiante());
             notificador.notificarUsuario(combate);
+
+            notificador.desSuscribirUsuario(combate.getDesafiado());
+            notificador.desSuscribirUsuario(combate.getDesafiante());
 
             // Falta ver en que lista/estructura añadimos la ronda//combate
         } else if (opcion == 2) { // Rechaza el desafio
@@ -266,7 +285,6 @@ public class Jugador extends Usuario {
     // COMPROBAR SI DEBERIA SER PUBLICA O ESTA MAL - NECESARIA PUBLICA PARA ANTES
     // DEL MENU
     public void resultadosCombate(Combate combate) {
-        // TODO
         Ronda rondaX;
         System.out.println(">=====RESULTADOS DEL COMBATE=====<");
         System.out.println(">Jugador desafiante: " + combate.getDesafiante().getNick());
@@ -281,6 +299,7 @@ public class Jugador extends Usuario {
             System.out.println("Vida Desafiante: " + rondaX.getVidaDesafiante());
             System.out.println("Vida Desafiado: " + rondaX.getVidaDesafiado());
         }
+        setCombateRealizado(null);
     }
 
     private void generarNumRegistro() {// formato LNNLL
@@ -312,9 +331,21 @@ public class Jugador extends Usuario {
     public void persistenciaDesafio(Desafio desafio) throws IOException {
         StringBuilder sb = new StringBuilder();
         rellenarStringBuilderDesafio(sb, desafio);
-        FileWriter escritorFich = new FileWriter("Ficheros/Desafios.txt");
+        File file = new File("Ficheros/Desafios.txt");
+        FileWriter escritorFich = new FileWriter("Ficheros/Desafios.txt",true);
+        //
+        /* BufferedWriter bw = new BufferedWriter(escritorFich);
+        bw.newLine(); */
+
+        BufferedReader br = new BufferedReader(new FileReader(file));
+            if (br.readLine() != null) {
+                escritorFich.write("\n");
+            }
+        br.close();
         escritorFich.write(sb.toString());
-        escritorFich.close();
+       
+        
+        escritorFich.flush();
     }
 
     private void rellenarStringBuilderDesafio(StringBuilder sb, Desafio desafio) {
@@ -326,6 +357,7 @@ public class Jugador extends Usuario {
         sb.append(desafio.getJugadorDesafiado().getNick());
         sb.append(" ");
         sb.append(desafio.getOroApostado());
+        
     }
 
     public void realizarFuncionMenuJugador(int opcion) throws IOException {
@@ -344,27 +376,27 @@ public class Jugador extends Usuario {
          * }
          */
         switch (opcion) {
-            case 1://Darse de baja
+            case 1:// Darse de baja
                 System.out.println("¿Seguro que desea darse de baja?");
                 System.out.println("- 1.Si");
                 System.out.println("- 2.No");
                 int opcionDarseDeBaja = 0;
                 Scanner escanerDarseBaja = new Scanner(System.in);
-                    while (!(opcionDarseDeBaja!=1 ^ opcionDarseDeBaja!=2)) {
-                        System.out.println("Por favor, introduzca el numero de la opcion que desea.");
-                        opcionDarseDeBaja = escanerDarseBaja.nextInt();
-                    }
-                
-                if (opcionDarseDeBaja==1) {
+                while (!(opcionDarseDeBaja != 1 ^ opcionDarseDeBaja != 2)) {
+                    System.out.println("Por favor, introduzca el numero de la opcion que desea.");
+                    opcionDarseDeBaja = escanerDarseBaja.nextInt();
+                }
+
+                if (opcionDarseDeBaja == 1) {
                     DarseDeBaja(this);
                     System.out.println("Saliendo del sistema.");
                     System.exit(0);
-                }else if(opcionDarseDeBaja==2){
+                } else if (opcionDarseDeBaja == 2) {
                     System.out.println("Volviendo al menu principal.");
                     break;
                 }
-                
-            case 2://Registrar Personaje
+
+            case 2:// Registrar Personaje
                 if (getPersonajeActivo() != null) {
                     System.out.println("El personaje que elijas sustituira al tuyo.");
                     System.out.println("¿Deseas continuar?");
@@ -372,20 +404,20 @@ public class Jugador extends Usuario {
                     System.out.println("- 2.No");
                     int opcionSioNO = 0;
                     Scanner escanerSioNo = new Scanner(System.in);
-                        while (!(opcionSioNO != 1 ^ opcionSioNO != 2)) {
-                            System.out.println("Por favor, introduzca el numero de la opcion que desea.");
-                            opcionSioNO = escanerSioNo.nextInt();
-                
+                    while (!(opcionSioNO != 1 ^ opcionSioNO != 2)) {
+                        System.out.println("Por favor, introduzca el numero de la opcion que desea.");
+                        opcionSioNO = escanerSioNo.nextInt();
+
                     }
 
-                    if (opcionSioNO==1) {
+                    if (opcionSioNO == 1) {
                         ArrayList<Integer> personaje = super.getEntidades().MostraryElegir("PERSONAJES");
                         setPersonajeActivo(super.getEntidades().elegirPersonaje(personaje.get(0)));// habra que hacer
                         // que elegir
                         // personaje llame a
                         // clone
                         super.getManagerUsuarios().editarUsuarioEnFichero(this.getNick(), this.getPassword());
-                    } else if (opcionSioNO==2) {
+                    } else if (opcionSioNO == 2) {
                         System.out.println("Su personaje no se cambiara.");
                     }
                 } else {
@@ -393,7 +425,7 @@ public class Jugador extends Usuario {
                     setPersonajeActivo(super.getEntidades().elegirPersonaje(personaje.get(0)));
                     super.getManagerUsuarios().editarUsuarioEnFichero(this.getNick(), this.getPassword());
                 }
-                
+
                 break;
             case 3:// Gestionar Personaje
                 if (getPersonajeActivo() == null) {
@@ -411,7 +443,8 @@ public class Jugador extends Usuario {
             case 5:// Desafiar
                 Desafio desafio = new Desafio();
                 this.Desafiar(desafio);
-                //super.getDesafiosAct().guardarDesafio(desafio); Esta linea en teoria sobra porque como operador siempre leemos todos los desafios del fichero
+                // super.getDesafiosAct().guardarDesafio(desafio); Esta linea en teoria sobra
+                // porque como operador siempre leemos todos los desafios del fichero
                 persistenciaDesafio(desafio);
                 break;
             case 6:// Consultar Oro
@@ -421,8 +454,7 @@ public class Jugador extends Usuario {
                 rankingGlobal.consultarRanking();
                 break;
             case 8:// Salir
-                System.out.println("Cerrando sesion y saliendo");
-                System.exit(0);
+                System.out.println("Cerrando sesion");
                 break;
         }
     }

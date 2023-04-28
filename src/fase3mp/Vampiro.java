@@ -71,11 +71,17 @@ public class Vampiro extends Personaje{
     @Override
     public int calculoDanio() {
         Habilidad habilidad = super.devolverHabilidad();
-        return super.devolverPoder() + super.devolverDañoArma() + super.devolverDañoHabilidad(habilidad)+ dañoDeSangre(sangre) + activarDisciplina(sangre,"Ataque");
+        return super.devolverPoder() + super.devolverDañoArma() + super.devolverDañoHabilidad(habilidad) + dañoDeSangre(sangre) + activarDisciplina(sangre,"Ataque");
     }
 
     private int activarDisciplina(int sangre, String opcion) {
-        Disciplinas disciplina  =  (Disciplinas) super.devolverHabilidad();
+        Habilidad habilidad = super.devolverHabilidad();
+        String nombre = habilidad.getNombre();
+        int ataque = habilidad.getValorAtaque();
+        int defensa = habilidad.getValorDefensa();
+       int limitante = habilidad.getLimitante();
+        Disciplinas disciplina = new Disciplinas(nombre, ataque, defensa, limitante);
+        //Disciplinas disciplina  =  (Disciplinas) super.devolverHabilidad();
 
         if (sangre >= disciplina.getLimitante() && opcion.equals("Ataque")) {
                 return disciplina.activar(opcion);
@@ -93,8 +99,8 @@ public class Vampiro extends Personaje{
 
     @Override
     public int calculoDefensa() {
-        Disciplinas disciplina  =  (Disciplinas) super.devolverHabilidad();
-        return  super.devolverDefensaArma() + disciplina.getValorDefensa() + activarDisciplina(sangre,"Defensa");
+        Habilidad habilidad = super.devolverHabilidad();
+        return  super.devolverDefensaArma() + habilidad.getValorDefensa() + activarDisciplina(sangre,"Defensa");
     }
     
 }

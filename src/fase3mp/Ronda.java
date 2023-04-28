@@ -21,7 +21,10 @@ public class Ronda {
     
     
     
-    public ArrayList<Integer> Calculo_Potencial(Personaje per1, Personaje per2){
+    public ArrayList<Integer> Calculo_Potencial(Personaje per1, Personaje per2, ArrayList<Fortaleza> fortalezasElegidasDesafiante,
+    ArrayList<Debilidad> debilidadesElegidasDesafiante,
+    ArrayList<Fortaleza> fortalezasElegidasDesafiado,
+    ArrayList<Debilidad> debilidadesElegidasDesafiado){
         ArrayList<Integer> potenciales = new ArrayList<>();
         int danio1 = this.CalcularDanio(per1);
         int defensa1 = this.CalcularDefensa(per1);
@@ -29,17 +32,33 @@ public class Ronda {
         int defensa2 = this.CalcularDefensa(per2);
         
         String[] climas = {"soleado","luna llena"};
-        Random randomClima = new Random();
         int numeroClima = (int) (Math.floor(Math.random()*(0-1+1)+1));  // Valor entre M y N, ambos incluidos.
         String tiempoCombate = climas[numeroClima];
-        danio1 = comprobarDebilidades(tiempoCombate,per1,danio1,per2);
-        danio2 = comprobarDebilidades(tiempoCombate,per2,danio2,per1);
+
+        // danio1 = comprobarDebilidades(tiempoCombate,per1,danio1,per2);
+        // danio2 = comprobarDebilidades(tiempoCombate,per2,danio2,per1);
 
 
         
         // danio1 = comprobarFortalezas( tiempoCombate,  per1,   danio1,  per2);
         // danio2 = comprobarFortalezas( tiempoCombate,  per2,   danio2,  per2);
 
+        for (Debilidad debilidad : debilidadesElegidasDesafiante) {
+                danio1 = danio1 - debilidad.debilitar();
+        }
+
+
+        for (Debilidad debilidad : debilidadesElegidasDesafiado) {
+            danio2 = danio2 - debilidad.debilitar();
+        }
+
+        for (Fortaleza fortaleza : fortalezasElegidasDesafiante) {
+            danio1 = danio1 + fortaleza.Fortalecer();
+        }
+
+        for (Fortaleza fortaleza : fortalezasElegidasDesafiado) {
+            danio2 = danio2 + fortaleza.Fortalecer();
+        }
         int potencial1 = danio1-defensa2;
         int potencial2 = danio2-defensa1;
 
@@ -57,7 +76,7 @@ public class Ronda {
         return perX.calculoDefensa();
         
     }
-    public void CalcularVidaRestante(ArrayList<Integer> potenciales, int vida1, int vida2){
+    public int[] CalcularVidaRestante(ArrayList<Integer> potenciales, int vida1, int vida2){
         int pot1 = potenciales.get(0);
         int pot2 = potenciales.get(1);
         int daño1 = 0;
@@ -72,7 +91,7 @@ public class Ronda {
                daño1 = daño1 + 1;
            }
         }
-        for (int i = 0; i < pot1; i++) {
+        for (int i = 0; i < pot2; i++) {
            //int numero = rand.nextInt(10);
            int dado = (int) (Math.floor(Math.random()*(6-0+1)+0));
            if (dado > 5){
@@ -83,7 +102,12 @@ public class Ronda {
         vidaDesafiante = vida1;
         vida2 = vida2 - daño1;
         vidaDesafiado = vida2;
+
+        int[] vidasActualizadas = new int[2];
+        vidasActualizadas[0] = vidaDesafiante;
+        vidasActualizadas[1] = vidaDesafiado;
         
+        return vidasActualizadas;
     }
 
     public int comprobarDebilidades(String tiempo, Personaje personaje1,  int danio, Personaje personaje2) {
