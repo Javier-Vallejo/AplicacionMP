@@ -852,14 +852,7 @@ public class OperadorSistema extends Usuario {
             ++indice;
         }
 
-        Desafio desafio = new Desafio();
-        desafio.setJugadorDesafiante(jugadorDesafiante);
-        desafio.setJugadorDesafiado(jugadorDesafiado);
-        desafio.setOroApostado(oroApuesta);
-
-        super.getDesafiosAct().guardarDesafio(desafio);
-        ;
-
+        return jugadorDesafiado;
     }
 
     public void guardarPersonajeEditado(Personaje personaje) {
