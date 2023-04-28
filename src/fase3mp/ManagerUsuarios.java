@@ -189,7 +189,8 @@ public class ManagerUsuarios {
                 String[] partesPersonaje = partes[7].split("-");
                 String tipoPers = partesPersonaje[0];
                 String nombrePers = partesPersonaje[1];
-                Personaje personaje = entidades.obtenerPersonaje(nombrePers, tipoPers);
+                int saludPers = Integer.parseInt(partesPersonaje[2]);
+                Personaje personaje = entidades.obtenerPersonaje(nombrePers, tipoPers, saludPers);
                 jugador.setPersonajeActivo(personaje);
                 usuariosRegistrados.add(usuarioJugador);
                 credencialesJugador.put(partes[2], partes[3]);
@@ -241,136 +242,11 @@ public class ManagerUsuarios {
             }
             sb.append(personaje.getNombre());
             sb.append("-");
-            sb.append(personaje.getHabilidadPersonaje().getNombre());
-            sb.append("/");
-            sb.append(personaje.getHabilidadPersonaje().getLimitante());
-            sb.append("/");
-            sb.append(personaje.getHabilidadPersonaje().getValorAtaque());
-            sb.append("/");
-            sb.append(personaje.getHabilidadPersonaje().getValorDefensa());
-            sb.append("-");
-            // armas
-            Arma[] armas = personaje.getArmas();
-            for (int i = 0; i < armas.length; i++) {
-                sb.append(armas[i].getNombre());
-                sb.append("/");
-                sb.append(armas[i].getModDanio());
-                sb.append("/");
-                sb.append(armas[i].getModDefensa());
-                sb.append("/");
-                sb.append(armas[i].getTipodeArma().toString());
-                sb.append(",");
-            }
-            // armas activas
-            sb.append("-");
-            armas = personaje.getArmasActivas();
-            for (int i = 0; i < armas.length; i++) {
-                sb.append(armas[i].getNombre());
-                sb.append("/");
-                sb.append(armas[i].getModDanio());
-                sb.append("/");
-                sb.append(armas[i].getModDefensa());
-                sb.append("/");
-                sb.append(armas[i].getTipodeArma().toString());
-                sb.append(",");
-            } // se me guarda una barrita de mas
-            sb.append("-");
-            // armaduras
-            Armadura[] armaduras = personaje.getArmaduras();
-            for (int i = 0; i < armaduras.length; i++) {
-                sb.append(armaduras[i].getNombre());
-                sb.append("/");
-                sb.append(armaduras[i].getModDanio());
-                sb.append("/");
-                sb.append(armaduras[i].getModDefensa());
-                sb.append(",");
-            }
-            sb.append("-");
-            // armadura activa
-            sb.append(personaje.getArmaduraActiva().getNombre());
-            sb.append("/");
-            sb.append(personaje.getArmaduraActiva().getModDanio());
-            sb.append("/");
-            sb.append(personaje.getArmaduraActiva().getModDefensa());
-            sb.append("-");
-            // esbirros
-            Esbirro[] esbirros = personaje.getEsbirros();
-            escribirEsbirrosdeEsbirro(esbirros, sb);
-            sb.append("-");
-            // salud
-            sb.append(personaje.getSalud());
-            sb.append("-");
-            // poder
-            sb.append(personaje.getPoder());
-            sb.append("-");
-            // debilidades
-            Debilidad[] debilidades = personaje.getDebilidades();
-            for (int i = 0; i < debilidades.length; i++) {
-                sb.append(debilidades[i].getNombre());
-                sb.append("/");
-                sb.append(debilidades[i].getValor());
-                sb.append("|");
-            }
-            sb.append("-");
-            // fortalezas
-            Fortaleza[] fortalezas = personaje.getFortalezas();
-            for (int i = 0; i < fortalezas.length; i++) {
-                sb.append(fortalezas[i].getNombre());
-                sb.append("/");
-                sb.append(fortalezas[i].getValor());
-                sb.append("|");
-            }
-            sb.append("-");
-            if (personaje instanceof Vampiro vamp) {
-                sb.append(vamp.getSangre());
-                sb.append("-");
-                sb.append(vamp.getEdad());
-            } else if (personaje instanceof Licantropo lican) {
-                sb.append(lican.getRabia());
-            } else if (personaje instanceof Cazador cazador) {
-                sb.append(cazador.getVoluntad());
-            }
+            Integer salud = personaje.getSalud();
+            sb.append(salud.toString());
         }
     }
-
-    private void escribirEsbirrosdeEsbirro(Esbirro[] esbirros, StringBuilder sb) {
-        // recursividad
-        for (int i = 0; i < esbirros.length; i++) {
-            sb.append(esbirros[i].getNombre());
-            sb.append("/");
-            sb.append(esbirros[i].getSalud());
-            sb.append("/");
-            if (esbirros[i] instanceof Ghoul) {
-                Ghoul ghoul = (Ghoul) esbirros[i];
-                sb.append(ghoul.getDependencia());
-                sb.append("|");// separara cada esbirro con |
-            } else if (esbirros[i] instanceof Humano) {
-                Humano humano = (Humano) esbirros[i];
-                sb.append(humano.getLealtad());
-                sb.append("|");
-            } else if (esbirros[i] instanceof Demonio) {
-                Demonio demonio = (Demonio) esbirros[i];
-                if (demonio.getTienePacto()) {
-                    sb.append("si");
-                    sb.append("/");
-                    sb.append(demonio.getPacto().getAmo().getNombre());
-                    sb.append("/");
-                } else {
-                    sb.append("no");
-                    sb.append("/");
-                    sb.append("null");
-                    sb.append("/");
-                }
-                sb.append("*");
-                ArrayList<Esbirro> esbirrosDeEsbirro = demonio.getEsbirros();
-                for (int j = 0; j < esbirrosDeEsbirro.size(); j++) {
-                    escribirEsbirrosdeEsbirro(esbirros, sb); // recursividad
-                }
-                sb.append("*");
-            }
-        }
-    }
-
+    
     public void editarUsuarioEnFichero(String nick, String password) {
         File archivo = new File("Ficheros/Usuarios.txt");
         int indiceUsuario = usuariosRegistrados.indexOf(obtenerUsuario(nick, password));

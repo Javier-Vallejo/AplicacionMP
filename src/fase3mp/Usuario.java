@@ -31,6 +31,9 @@ public class Usuario implements UsuariosANotificar{
         setDesafioPendiente(null);
         setCombateRealizado(null);
         setManagerUsuarios(manager);
+       // Desafio desafio = new Desafio();
+        desafiosAct = new DesafiosActivos();
+        setDesafiosAct(desafiosAct);
     }
 
     public FabricaEsbirros getFabricaEsbirros() {

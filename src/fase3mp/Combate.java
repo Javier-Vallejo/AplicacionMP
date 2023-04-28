@@ -16,7 +16,7 @@ public class Combate {
     private Jugador desafiante;
     private Jugador desafiado;
     private String fecha;
-    private Jugador Vencedor;
+    private String Vencedor;
     private ArrayList<Personaje> jugadoresConEsbirros;
     private int oroGanado;
     private Personaje personaje1;
@@ -55,7 +55,7 @@ public class Combate {
         return fecha;
     }
 
-    public Jugador getVencedor() {
+    public String getVencedor() {
         return Vencedor;
     }
 
@@ -95,7 +95,7 @@ public class Combate {
         this.fecha = fecha;
     }
 
-    public void setVencedor(Jugador Vencedor) {
+    public void setVencedor(String Vencedor) {
         this.Vencedor = Vencedor;
     }
 
@@ -135,7 +135,7 @@ public class Combate {
         ArrayList<Integer> potenciales = rondaX.Calculo_Potencial(per1, per2);
         rondaX.CalcularVidaRestante(potenciales, vida1, vida2);
 
-        recalcularPropiedadPersonaje(per1); // TODO falta mirar si hay un mejor nombre
+        recalcularPropiedadPersonaje(per1); 
         recalcularPropiedadPersonaje(per2);        
         return rondaX;
     }
