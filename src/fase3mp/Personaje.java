@@ -189,7 +189,6 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
         if (armasActivasLista.length==0){
             System.out.println("Este personaje no tiene armas activas");
         }else{
-            System.out.println("Estas son sus armas Activas");
             for (Arma arma : armasActivasLista) {
                 System.out.println(
                         "- " + indice + ".Arma: " + arma.getNombre() + ", "
@@ -200,6 +199,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
             
         }
     }
+
     public void MostrarArmaduras(Personaje personajeEle) {
         int indice = 0;
         Armadura[] armadurasPersonaje = personajeEle.getArmaduras();
@@ -520,10 +520,6 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                     List<Arma> listaArmasActivas = Arrays.asList(personajeEle.getArmasActivas());
                     ArrayList<Arma> arrayListArmas = new ArrayList<>(listaArmasActivas);
                     Arma[] armasPersonaje = personajeEle.getArmas();
-                    
-                    int eleccion = escanerLectura.nextInt();
-                    arrayListArmas.remove(eleccion);
-                    
                     System.out.println(
                             "Seleccione que arma desea activar (Ten en cuenta que va a ser una de dos manos o dos de una mano):");
                     System.out.println("Estas son sus armas actuales:");
@@ -547,6 +543,20 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                                 System.out.println("Arma ya activa");
                             } else {
                                 System.out.println("El arma que intentas establecer como activa no cabe");
+                                System.out.println("¿Desea eliminar un arma que ya tenga?");
+                                System.out.println("- 1.Si");
+                                System.out.println("- 2.No");
+                                int eleccion = escanerLectura.nextInt();
+                                if(eleccion==1){
+                                    System.out.println("Estas son sus armas Activas");
+                                    MostrarArmasActivas(personajeEle);
+                                    eleccion = escanerLectura.nextInt();
+                                    arrayListArmas.remove(eleccion);
+                                }else if(eleccion ==2){
+                                    System.out.println("El arma que intentas establecer como activa no se activara por falta de hueco.");
+                                }else{
+                                    System.out.println("Por favor, introduzca 1 o 2.");
+                                }
                             }
                         }
                     }
