@@ -12,7 +12,7 @@ public class MenuJugador extends Menu {
 
     //@Override
     public void mostrarOpciones(){
-        System.out.println();
+        System.out.println("===== MENU JUGADOR =====");
         System.out.println("Que deseas hacer: ");
         System.out.println("- 1.Darse de baja");
         System.out.println("- 2.Registrar Personaje");
@@ -23,6 +23,7 @@ public class MenuJugador extends Menu {
         System.out.println("- 7.Consultar Ranking");
         System.out.println("- 8.Salir");
         System.out.println("Elija el numero por favor");
+        System.out.println("=====================");
     }
     
 }

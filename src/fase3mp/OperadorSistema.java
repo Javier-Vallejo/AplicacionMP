@@ -28,8 +28,8 @@ public class OperadorSistema extends Usuario {
     private ManagerUsuarios manager;
     private EntidadesActivas entidades;
 
-    public OperadorSistema(String nombre, String nick, String password, TipoUsuario rol, ManagerUsuarios manager) {
-        super(nombre, nick, password, rol, manager);
+    public OperadorSistema(String nombre, String nick, String password, TipoUsuario rol, ManagerUsuarios manager, Comprobante comprobante) {
+        super(nombre, nick, password, rol, manager, comprobante);
         this.manager = manager;
         entidades = super.getEntidades();
     }
@@ -112,7 +112,8 @@ public class OperadorSistema extends Usuario {
             System.out.println("1- Crearla ");
             System.out.println("2- Elegirla de las que hay en el sistema");
             System.out.println("3- Salir");
-            opcionArma = lectura.nextInt();
+            //opcionArma = lectura.nextInt();
+            opcionArma = super.getComprobanteGlobal().confirmarNumero(opcionArma);
 
             switch (opcionArma) {
                 case 1 -> {
@@ -300,6 +301,7 @@ public class OperadorSistema extends Usuario {
             System.out.println("3-Aniadir un esbirro del sistema");
             System.out.println("4-Salir");
             eleccionEsbirro = lectura.nextInt();
+            
             switch (eleccionEsbirro) {
                 case 1 -> {
                     ArrayList<Integer> esbirros = super.getEntidades().MostraryElegir("ESBIRROS");
@@ -633,8 +635,7 @@ public class OperadorSistema extends Usuario {
                 System.out.println("Saliendo del sistema.");
                 System.exit(0);
             }
-            case 2 -> {
-                // Editar Personaje
+            case 2 -> {// Editar Personaje
                 System.out.println("Personajes disponibles:");
                 entidades = super.getEntidades();
                 ArrayList<Integer> personajeEle = super.getEntidades().MostraryElegir("PERSONAJES");// se podria hacer
@@ -660,21 +661,23 @@ public class OperadorSistema extends Usuario {
             case 3 -> // Aniadir Personaje
                 aniadirPersonaje();
             case 4 -> {// Validar Desafio
-                // NECESITO ACCEDER A LA LISTA DE DESAFIOS
                 leerDesafios();
                 Desafio desafio = super.getDesafiosAct().obtenerDesafio();
                 validarDesafio(desafio, notificador);// y notificarlo con el observer
             }
-            case 5 -> {
-                // Banear Usuario
+            case 5 -> {// Banear Usuario
                 imprimirListaUsuariosDesbaneadosBaneados(usuarioEle, opcion);
                 Scanner escanerUsuario = new Scanner(System.in);// se podrian mostrar los nicks de todos los jugadores
                 System.out.println("Introduzca el numero del usuario que desea banear: ");
-                Integer numero = escanerUsuario.nextInt();
+                //Integer numero = escanerUsuario.nextInt();
+                int numero = 0;
+                int opc = 0;
+                numero  = super.getComprobanteGlobal().confirmarNumero(numero);
                 Usuario usuario = usuarioEle.get(numero);
                 System.out.println("¿Esta seguro de que quiere desbanear al usuario " + usuario.getNick() + "?");
-                System.out.println("Pulse 1 si asi es, en caso contrario pulse culaquier otro numero");
-                Integer opc = escanerUsuario.nextInt();
+                System.out.println("Pulse 1 si asi es, en caso contrario pulse cualquier otro numero");
+                //Integer opc = escanerUsuario.nextInt();
+                opc = super.getComprobanteGlobal().confirmarNumero(opc);
                 if (opc == 1) {
                     usuario.setEstadoObservador(State.baneado);
                 }
@@ -685,8 +688,7 @@ public class OperadorSistema extends Usuario {
                  * Usuario usuario = super.getManagerUsuarios().obtenerUsuario(nick, password);
                  */
             }
-            case 6 -> {
-                // Desbanear Usuario
+            case 6 -> {// Desbanear Usuario
                 imprimirListaUsuariosDesbaneadosBaneados(usuarioEle, opcion);// a lo mejor estaria mejor ponerlo en
                                                                              // operador del sistema
                 Scanner escanerUsu = new Scanner(System.in);
@@ -694,16 +696,16 @@ public class OperadorSistema extends Usuario {
                 Integer num = escanerUsu.nextInt();
                 Usuario usu = usuarioEle.get(num);// habria que ver como elegir al usuario a banear
                 System.out.println("¿Esta seguro de que quier desbanear al usuario " + usu.getNick() + "?");
-                System.out.println("Pulse 1 si asi es, en caso contrario pulse culaquier otro numero");
+                System.out.println("Pulse 1 si asi es, en caso contrario pulse cualquier otro numero");
                 Integer op = escanerUsu.nextInt();
                 if (op == 1) {
                     usu.setEstadoObservador(State.noBaneado);
                 }
             }
-            case 7 -> {
-                // Salir
+            case 7 -> {// Salir
                 System.out.println("Cerrando sesion y saliendo");
-                System.exit(0);
+                //System.exit(0);
+                return;
             }
         }
     }
@@ -810,7 +812,6 @@ public class OperadorSistema extends Usuario {
                 } else if (estado && opcion == 6) {
                     System.out.println(i + "-" + usuario.getNick());
                 }
-
             }
         }
     }

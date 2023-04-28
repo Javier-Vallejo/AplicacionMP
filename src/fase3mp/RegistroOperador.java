@@ -11,15 +11,18 @@ import java.util.Scanner;
  * @author d.rubio.2019
  */
 public class RegistroOperador extends Registro {
+    private Comprobante comprobanteGlobal;
     
-    public RegistroOperador(ManagerUsuarios manager) {
+    public RegistroOperador(ManagerUsuarios manager, Comprobante comprobante) {
         super(manager);
+        comprobanteGlobal = comprobante;
+        
     }
 
     @Override
     public Usuario registrarse(TipoUsuario rol) {
 
-        ManagerUsuarios usuariosSistema = new ManagerUsuarios();
+        ManagerUsuarios usuariosSistema = new ManagerUsuarios(comprobanteGlobal);
         String nick = null;
         String password = null;
         String nombre = null;

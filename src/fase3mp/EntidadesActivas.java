@@ -25,8 +25,9 @@ public class EntidadesActivas {
     private ArrayList<Habilidad> habilidades;
     private ArrayList<Esbirro> esbirros;
     private FabricaEsbirros fabricaEsbirros;// habra que pasarselo como parametro
+    private Comprobante comprobanteGlobal;
 
-    public EntidadesActivas() {
+    public EntidadesActivas(Comprobante comprobante) {
         personajes = new ArrayList<>();
         armas = new ArrayList<>();
         armaduras = new ArrayList<>();
@@ -34,6 +35,7 @@ public class EntidadesActivas {
         debilidades = new ArrayList<>();
         habilidades = new ArrayList<>();
         esbirros = new ArrayList<>();
+        comprobanteGlobal = comprobante;
         // leer de los ficheros correspondientes y rellenar
     }
 
@@ -71,6 +73,14 @@ public class EntidadesActivas {
 
     public ArrayList<Habilidad> getHabilidades() {
         return habilidades;
+    }
+
+    public Comprobante getComprobanteGlobal() {
+        return comprobanteGlobal;
+    }
+
+    public void setComprobanteGlobal(Comprobante comprobanteGlobal) {
+        this.comprobanteGlobal = comprobanteGlobal;
     }
 
     public Esbirro devolverEsbirro(String nombre, int salud, String tipo) {

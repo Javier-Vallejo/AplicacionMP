@@ -26,7 +26,6 @@ public class Publisher {
             sus.update(objetoX);
         }
     }
-
     public ArrayList<Usuario> getSuscriptores() {
         return suscriptores;
     }

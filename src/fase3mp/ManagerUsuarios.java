@@ -21,10 +21,12 @@ import java.util.Scanner;
 public class ManagerUsuarios {
     private ArrayList<Map<String, String>> credencialesUsuarios;
     private ArrayList<Usuario> usuariosRegistrados;
+    private Comprobante comprobanteGlobal;
 
-    public ManagerUsuarios() {
+    public ManagerUsuarios(Comprobante comprobante) {
         credencialesUsuarios = new ArrayList<Map<String, String>>();
         usuariosRegistrados = new ArrayList<Usuario>();
+        comprobanteGlobal = comprobante;
     }
 
     public ArrayList<Map<String, String>> getCredencialesUsuarios() {
@@ -39,13 +41,13 @@ public class ManagerUsuarios {
             int oro) {
         // deberia comprobar aqui si existe ya en el sistema el jugador
         if (usuariosRegistrados.isEmpty()) {
-            Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador, oro, this);                                                                                          
+            Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador, oro, this, comprobanteGlobal);                                                                                          
             guardarUsuario(jugador);
             guardarCredenciales(jugador);
             return jugador;
         } else {
             if (existeUsuario(nick, password) == false) {
-                Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador, this);//no habria que pasarle el oro?
+                Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador, this, comprobanteGlobal);//no habria que pasarle el oro?
                 guardarUsuario(jugador);
                 guardarCredenciales(jugador);
                 return jugador;
@@ -59,13 +61,13 @@ public class ManagerUsuarios {
     public OperadorSistema CrearOperador(String nombre, String nick, String password, TipoUsuario rol,
             State estadoObservador) {
         if (usuariosRegistrados.isEmpty()) {
-            OperadorSistema operador = new OperadorSistema(nombre, nick, password, rol, this);
+            OperadorSistema operador = new OperadorSistema(nombre, nick, password, rol, this, comprobanteGlobal);
             guardarUsuario(operador);
             guardarCredenciales(operador);
             return operador;
         } else {
             if (existeUsuario(nick, password) == false) {
-                OperadorSistema operador = new OperadorSistema(nombre, nick, password, rol, this);
+                OperadorSistema operador = new OperadorSistema(nombre, nick, password, rol, this, comprobanteGlobal);
                 guardarUsuario(operador);
                 guardarCredenciales(operador);
                 return operador;
@@ -168,7 +170,7 @@ public class ManagerUsuarios {
             if (tipo.equals("operador")) {
                 Map<String, String> credencialesOperador = new HashMap<>();
                 TipoUsuario rol = TipoUsuario.OperadorSistema;
-                Usuario usuarioOperador = new OperadorSistema(nombre, partes[2], partes[3], rol, this);
+                Usuario usuarioOperador = new OperadorSistema(nombre, partes[2], partes[3], rol, this, comprobanteGlobal);
                 credencialesOperador.put(partes[2], partes[3]);
                 usuariosRegistrados.add(usuarioOperador);
                 credencialesUsuarios.add(credencialesOperador);
@@ -177,7 +179,7 @@ public class ManagerUsuarios {
                 TipoUsuario rol = TipoUsuario.Jugador;
                 State estadoObservador = State.noBaneado;
                 int oro = Integer.parseInt(partes[5]);
-                Usuario usuarioJugador = new Jugador(nombre, partes[2], partes[3], rol, oro, this);
+                Usuario usuarioJugador = new Jugador(nombre, partes[2], partes[3], rol, oro, this, comprobanteGlobal);
                 Jugador jugador = (Jugador) usuarioJugador;
                 if (partes[6].equals("false")) {
                     Boolean estaBaneado = false;

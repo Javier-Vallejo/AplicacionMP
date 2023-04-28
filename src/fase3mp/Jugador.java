@@ -23,15 +23,16 @@ public class Jugador extends Usuario {
     private String NumeroRegistro;
     private ManagerUsuarios manager;
     private Ranking rankingGlobal;
+    private Comprobante comprobanteGlobal;
 
-    public Jugador(String nombre, String nick, String password, TipoUsuario rol, ManagerUsuarios managerJ) {
-        super(nombre, nick, password, rol, managerJ);
+    public Jugador(String nombre, String nick, String password, TipoUsuario rol, ManagerUsuarios managerJ, Comprobante comprobante) {
+        super(nombre, nick, password, rol, managerJ, comprobante);
         manager = managerJ;
         generarNumRegistro();
     }
 
-    public Jugador(String nombre, String nick, String password, TipoUsuario rol, int oro, ManagerUsuarios managerJ) {
-        super(nombre, nick, password, rol, managerJ);
+    public Jugador(String nombre, String nick, String password, TipoUsuario rol, int oro, ManagerUsuarios managerJ, Comprobante comprobante) {
+        super(nombre, nick, password, rol, managerJ, comprobante);
         this.oro = oro;
         manager = managerJ;
         generarNumRegistro();
@@ -334,15 +335,6 @@ public class Jugador extends Usuario {
         // rankingGlobal = super.getRanking();
         // si lo tiene, ¿hacemos notificar? para que se escriba la informacion del
         // desafio
-        /**
-         * if (this.getCombateRealizado() != null){
-         * this.resultadosCombate(this.getCombateRealizado());
-         * this.setCombateRealizado(null);
-         * notificador.desSuscribirUsuario(this); } if
-         * (this.getDesafioPendiente()!= null){
-         * this.AceptaroRechazarDesafio(this.getDesafioPendiente());
-         * }
-         */
         switch (opcion) {
             case 1://Darse de baja
                 System.out.println("¿Seguro que desea darse de baja?");
@@ -422,8 +414,8 @@ public class Jugador extends Usuario {
                 break;
             case 8:// Salir
                 System.out.println("Cerrando sesion y saliendo");
-                System.exit(0);
-                break;
+                //System.exit(0);
+                return;
         }
     }
 

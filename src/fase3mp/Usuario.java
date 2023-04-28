@@ -22,8 +22,9 @@ public class Usuario implements UsuariosANotificar{
     private Desafio desafioPendiente;
     private Combate combateRealizado;
     private Ranking ranking;
+    private Comprobante comprobanteGlobal;
     
-    public Usuario(String nombre, String nick, String password, TipoUsuario rol, ManagerUsuarios manager){//habria que pasarle un objeto ranking
+    public Usuario(String nombre, String nick, String password, TipoUsuario rol, ManagerUsuarios manager, Comprobante comprobante){//habria que pasarle un objeto ranking
         setNombre(nombre);
         setNick(nick);
         setPassword(password);
@@ -131,6 +132,16 @@ public class Usuario implements UsuariosANotificar{
     public void setRanking(Ranking ranking) {
         this.ranking = ranking;
     }
+
+    public Comprobante getComprobanteGlobal() {
+        return comprobanteGlobal;
+    }
+
+    public void setComprobanteGlobal(Comprobante comprobanteGlobal) {
+        this.comprobanteGlobal = comprobanteGlobal;
+    }
+    
+    
     
     
     @Override

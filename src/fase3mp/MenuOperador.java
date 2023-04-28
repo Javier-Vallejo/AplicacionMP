@@ -12,6 +12,7 @@ public class MenuOperador extends Menu {
 
     @Override
     public void mostrarOpciones(){
+        System.out.println("===== MENU OPERADOR =====");
         System.out.println("1.Darse de baja");
         System.out.println("2.Editar Personaje");
         System.out.println("3.Aniadir Personaje");
@@ -20,6 +21,7 @@ public class MenuOperador extends Menu {
         System.out.println("6.Desbanear Usuario");
         System.out.println("7.Salir");
         System.out.println("Elija el numero por favor");
+        System.out.println("=====================");
     }
     
 }

@@ -22,10 +22,8 @@ public class SistemaPrincipalGame {
     private ManagerUsuarios usuariosSistema;
     private EntidadesActivas entidadesSistema;
     private Ranking rankingSistema;
+    private Comprobante comprobanteSistema;
 
-    /**
-     * public Registro registro;
-     */
     private SistemaPrincipalGame() {// constructor hay que ver como aplicar singleton
     }
 
@@ -36,18 +34,20 @@ public class SistemaPrincipalGame {
         return sistema;
     }
 
-    public SistemaPrincipalGame getSistema() {//no se para que esta
+    public SistemaPrincipalGame getSistema() {
         return null;
     }
 
     public void run() throws IOException {
-        ManagerUsuarios manager = new ManagerUsuarios();
+        Comprobante comprobante = new Comprobante();
+        comprobanteSistema = comprobante;
+        ManagerUsuarios manager = new ManagerUsuarios(comprobanteSistema);
         usuariosSistema = manager;
         Publisher publisher = new Publisher();
         //leerUsuarios("usuarios.txt");
         //leerPersonajes("personajes.txt");//habra que hacer un leer Usuarios tambien
         //leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
-        EntidadesActivas entidadesActivas = new EntidadesActivas();
+        EntidadesActivas entidadesActivas = new EntidadesActivas(comprobanteSistema);
         entidadesActivas.LeerEntidades();
         entidadesSistema = entidadesActivas;
         Ranking ranking = new Ranking();
@@ -65,24 +65,23 @@ public class SistemaPrincipalGame {
         //while ((opcionElegida != 1 ^ opcionElegida != 2 ^ opcionElegida!= 3)) {
         while (!(opcionElegida == 3)) {
             System.out.println("=====Bienvenido al servicio de MP Wars=====");
+            System.out.println("1. Iniciar Sesion");
+            System.out.println("2. Registrarse");
+            System.out.println("3. Salir del sistema");
+            System.out.println("=====Elija la opcion por su numero=====");
 
-            do {
-                try {
-                    System.out.println("Pulse 1 si desea iniciar sesion, 2 si desea registrarse y 3 si desea salir del sistema:");
-                    option = escanerMain.nextInt();
-                    //Hacer con el numero lo que quiera
-                    opcionElegida = option;
-                    System.out.println("He visto que sabes introducir numeros canelo");
-                    esNumero = true;
-
-                } catch (InputMismatchException ime) {
-                    System.out.println("Disculpe, ingrese un numero");
-                    escanerMain.nextLine();
-                    esNumero = false;
-                }
-            } while (!esNumero);
-
+            /**
+             * do { try { System.out.println("Pulse 1 si desea iniciar sesion, 2
+             * si desea registrarse y 3 si desea salir del sistema:"); option =
+             * escanerMain.nextInt(); opcionElegida = option; esNumero = true;
+             *
+             * } catch (InputMismatchException ime) {
+             * System.out.println("Disculpe, ingrese un numero");
+             * escanerMain.nextLine(); esNumero = false; } } while (!esNumero);
+             */
             //opcionElegida = escanerMain.nextInt();
+            opcionElegida = comprobanteSistema.confirmarNumero(opcionElegida);
+            //opcionElegida = super.confirmarNumero(opcionElegida);
             if (opcionElegida == 1) {
                 iniciarSesion();
             } else if (opcionElegida == 2) {
@@ -90,20 +89,22 @@ public class SistemaPrincipalGame {
                 String opcion = "";
                 while (!(opcion.equals("si") ^ opcion.equals("no"))) {
                     // escanerMain.hasNextLine();
-                    System.out.println("Deseas iniciar sesion? si o no");
+                    System.out.println(">> Deseas iniciar sesion? si o no");
                     opcion = escanerMain.nextLine().toLowerCase().trim();
                     if (!(opcion.equals("si") || opcion.equals("no"))) {
-                        System.out.println("Por favor indique si o no");
+                        System.out.println(">> Por favor indique si o no");
                     }
                 }
                 if (opcion.equals("si")) {
                     iniciarSesion();
                 } else if (opcion.equals("no")) {
-                    System.out.println("Saliendo del programa ¡Hasta Luego!");
+                    System.out.println("");
+                    System.out.println(">> Saliendo del programa Hasta Luego!");
+                    System.out.println("");
                 }
 
             } else if (opcionElegida == 3) {
-                System.out.println(">> Hasta la vista!! GG EZ");
+                System.out.println(">> Hasta la vista!!");
                 return;
             } else {
                 System.out.println("");
@@ -116,7 +117,7 @@ public class SistemaPrincipalGame {
 
     private void iniciarSesion() throws IOException {
         Scanner escIniSes = new Scanner(System.in);
-        System.out.println("-----Inicio de Sesion-----");
+        System.out.println("===== Inicio de Sesion =====");
         int intentos = 0;
         String nick = "";
         String password = "";
@@ -135,15 +136,17 @@ public class SistemaPrincipalGame {
             return;
         } else {
             Usuario usuario = usuariosSistema.obtenerUsuario(nick, password);
-            System.out.println("Bienvenido " + usuario.getNick());
+            System.out.println(">Bienvenido " + usuario.getNick()+"<");
 
             int eleccionMenu = 0;
             usuario.setManagerUsuarios(usuariosSistema);
             usuario.setEntidades(entidadesSistema);
+            usuario.setComprobanteGlobal(comprobanteSistema);
             if (usuario.getRol() == TipoUsuario.Jugador) {
                 Jugador jugador = (Jugador) usuario;
                 jugador.setRankingGlobal(rankingSistema);
                 while (eleccionMenu != 8) {// hacer restriccion para que solo meta enteros
+                    
                     if (jugador.getCombateRealizado() != null) {
                         jugador.resultadosCombate(jugador.getCombateRealizado());
                     }
@@ -152,7 +155,8 @@ public class SistemaPrincipalGame {
                     }
                     Menu menu = new MenuJugador();// deberia ponerlo fuera
                     menu.mostrarOpciones();
-                    eleccionMenu = escIniSes.nextInt();
+                    //eleccionMenu = escIniSes.nextInt();
+                    eleccionMenu = comprobanteSistema.confirmarNumero(eleccionMenu);
                     jugador.realizarFuncionMenuJugador(eleccionMenu);
                 }
             } else {
@@ -161,7 +165,8 @@ public class SistemaPrincipalGame {
                 while (eleccionMenu != 7) {
                     Menu menu = new MenuOperador();
                     menu.mostrarOpciones();
-                    eleccionMenu = escIniSes.nextInt();
+                    //eleccionMenu = escIniSes.nextInt();
+                    eleccionMenu = comprobanteSistema.confirmarNumero(eleccionMenu);
                     operador.realizarFuncionMenuOperador(eleccionMenu);
                 }
             }
@@ -170,7 +175,7 @@ public class SistemaPrincipalGame {
     }
 
     private void registrarse() throws IOException {//// habria que hacer que devolviera usuario para despues mostrar menu
-        System.out.println("-----Registro-----");
+        System.out.println("===== Registro =====");
         Scanner escanerRegistro = new Scanner(System.in);
         String rol = "";
         // escanerRegistro.close();
@@ -179,7 +184,7 @@ public class SistemaPrincipalGame {
             rol = escanerRegistro.nextLine();// habria que poner un while por si introduce otra cosa
             rol = rol.toLowerCase();
             if (rol.equals("jugador")) {
-                Registro registro = new RegistroJugador(usuariosSistema); // nuevas clases
+                Registro registro = new RegistroJugador(usuariosSistema, comprobanteSistema); // nuevas clases
                 Usuario usuario = registro.registrarse(TipoUsuario.Jugador);
                 System.out.println("Ya casi has terminado de registrarte, ahora elige un personaje que luche a tu lado");
                 ArrayList<Integer> personajes = entidadesSistema.MostraryElegir("PERSONAJES");
@@ -194,7 +199,7 @@ public class SistemaPrincipalGame {
                 jugador.setOro(100);
                 usuariosSistema.guardarUsuariosFichero(usuario);
             } else if (rol.equals("operador")) {
-                Registro registro = new RegistroOperador(usuariosSistema);
+                Registro registro = new RegistroOperador(usuariosSistema, comprobanteSistema);
                 Usuario usuario = registro.registrarse(TipoUsuario.OperadorSistema);
                 usuariosSistema.guardarUsuariosFichero(usuario);
             } else {
@@ -312,5 +317,39 @@ public class SistemaPrincipalGame {
         entidadesActivas.aniadir(habilidadLicantropo);
         entidadesActivas.aniadir(habilidadCazador);
     }
+
+    public ManagerUsuarios getUsuariosSistema() {
+        return usuariosSistema;
+    }
+
+    public void setUsuariosSistema(ManagerUsuarios usuariosSistema) {
+        this.usuariosSistema = usuariosSistema;
+    }
+
+    public EntidadesActivas getEntidadesSistema() {
+        return entidadesSistema;
+    }
+
+    public void setEntidadesSistema(EntidadesActivas entidadesSistema) {
+        this.entidadesSistema = entidadesSistema;
+    }
+
+    public Ranking getRankingSistema() {
+        return rankingSistema;
+    }
+
+    public void setRankingSistema(Ranking rankingSistema) {
+        this.rankingSistema = rankingSistema;
+    }
+
+    public Comprobante getComprobanteSistema() {
+        return comprobanteSistema;
+    }
+
+    public void setComprobanteSistema(Comprobante comprobanteSistema) {
+        this.comprobanteSistema = comprobanteSistema;
+    }
+    
+    
 
 }
