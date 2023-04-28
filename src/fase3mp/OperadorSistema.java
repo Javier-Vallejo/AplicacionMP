@@ -142,8 +142,9 @@ public class OperadorSistema extends Usuario {
                     // Arma[armasEleg.size()]);
 
                     for (int i = 0; i < armasEleg.size(); i++) {
-                        // armasPersonajeArray[i] = super.getEntidades().elegirArma(armasEleg.get(i));
-                        mochilaArmasPersonaje.add(super.getEntidades().elegirArma(armasEleg.get(i)));
+                        if (!(mochilaArmasPersonaje.contains(super.getEntidades().elegirArma(armasEleg.get(i))))){
+                            mochilaArmasPersonaje.add(super.getEntidades().elegirArma(armasEleg.get(i)));
+                        }
                     }
                 }
 
@@ -152,30 +153,37 @@ public class OperadorSistema extends Usuario {
         Arma[] armasPersonaje = mochilaArmasPersonaje.toArray(new Arma[0]);
 
         // armas activas
-        System.out.println("Elige el numero del arma o armas que va a tener como activas: ");
-        System.out.println("(Ten en cuenta que va a ser una de dos manos o dos de una mano)");
-
-        for (int i = 0; i < armasPersonaje.length; i++) {
-            System.out.println(i + "_ " + armasPersonaje[i].getNombre() + " " + armasPersonaje[i].getTipodeArma().toString());
-        }
-        System.out.println(armasPersonaje.length + " Salir");
+       
 
         int numArmaActiva = 0;
+        int longitudListaArmas = 0;
         ArrayList<Arma> armasActivas = new ArrayList<>();
         while (numArmaActiva != armasPersonaje.length) {
+            System.out.println("Elige el numero del arma o armas que quiera activar: ");
+            System.out.println("(Ten en cuenta que puede escoger o una de dos manos o dos de una mano)");
+    
+            for (int i = 0; i < armasPersonaje.length; i++) {
+                System.out.println(i + "_ " + armasPersonaje[i].getNombre() + " " + armasPersonaje[i].getTipodeArma().toString());
+            }
+            System.out.println(armasPersonaje.length + " Salir");
             numArmaActiva = lectura.nextInt();
             if (!(numArmaActiva == armasPersonaje.length)) {
                 if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de2manos
-                        && armasActivas.isEmpty()) {
+                        && longitudListaArmas==0) {
                     armasActivas.add(armasPersonaje[numArmaActiva]);
+                    longitudListaArmas = 2;
                     System.out.println("Arma " + numArmaActiva + " activada con exito.");
                 } else if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de1mano
-                        && armasActivas.isEmpty()) {
+                        && longitudListaArmas==0) {
                     armasActivas.add(armasPersonaje[numArmaActiva]);
+                    longitudListaArmas=1;
+                    System.out.println("Arma " + numArmaActiva + " activada con exito.");
                 } else if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de1mano
-                        && armasActivas.size() == 1
+                        && longitudListaArmas==1
                         && armasActivas.contains(armasPersonaje[numArmaActiva]) == false) {
                     armasActivas.add(armasPersonaje[numArmaActiva]);
+                    longitudListaArmas=2;
+                    System.out.println("Arma " + numArmaActiva + " activada con exito.");
                 } else if (armasActivas.contains(armasPersonaje[numArmaActiva])) {
                     System.out.println("Arma ya activa");
                 } else {
@@ -191,7 +199,13 @@ public class OperadorSistema extends Usuario {
                                     i + "_ " + armasActivas.get(i).getNombre() + " " + armasPersonaje[i].getTipodeArma().toString());
                         }
                         eleccion = lectura.nextInt();
+                        if (armasActivas.get(eleccion).getTipodeArma() == Arma.tipoArma.de1mano){
+                            longitudListaArmas=1;
+                        }else{
+                            longitudListaArmas=0;
+                        }
                         armasActivas.remove(eleccion);
+                        
                     } else if (eleccion == 2) {
                         System.out.println(
                                 "El arma que intentas establecer como activa no se activara por falta de hueco.");
@@ -204,14 +218,15 @@ public class OperadorSistema extends Usuario {
         Arma[] armasActivasPersonaje = armasActivas.toArray(new Arma[0]);
 
         // armaduras
+        int opcionArmadura = 0;
         ArrayList<Armadura> mochilaArmadurasPersonaje = new ArrayList<>();
         System.out.println("Vas a introducir armaduras hasta que pulses salir");
-        while(opcionArma != 3){
+        while(opcionArmadura != 3){
             System.out.println("Desea crear una armadura de 0 o elegirla del sistema: ");
             System.out.println("1- Crear la armadura ");
             System.out.println("2- Elegir armaduras del sistema");
             System.out.println("3- Salir");
-            int opcionArmadura = lectura.nextInt();
+            opcionArmadura = lectura.nextInt();
 
             switch (opcionArmadura) {
                 case 1 -> {
@@ -229,11 +244,12 @@ public class OperadorSistema extends Usuario {
                 case 2 -> {
                     System.out.println("Escriba el numero de la armadura que quiere que tenga su personaje: ");
                     ArrayList<Integer> armadurasEleg = super.getEntidades().MostraryElegir("ARMADURAS");
+                    
                     // Armadura[] armadurasArrayPersonaje = new Armadura[armadurasEleg.size()];
                     for (int i = 0; i < armadurasEleg.size(); i++) {
-                        // armadurasArrayPersonaje[i] =
-                        // super.getEntidades().elegirArmadura(armadurasEleg.get(i));
-                        mochilaArmadurasPersonaje.add(super.getEntidades().elegirArmadura(armadurasEleg.get(i)));
+                        if (!(mochilaArmadurasPersonaje.contains(super.getEntidades().elegirArmadura(armadurasEleg.get(i))))){
+                            mochilaArmadurasPersonaje.add(super.getEntidades().elegirArmadura(armadurasEleg.get(i)));
+                        }
                     }
                 }
             }
@@ -308,6 +324,7 @@ public class OperadorSistema extends Usuario {
                     for (int i = 0; i < esbirros.size(); i++) {
                         esbirrosPers.add(super.getEntidades().obtenerEsbirro(esbirros.get(i)));
                     }
+
                 }
                 case 2 -> {
                     String tipoEsbirro = "";
@@ -330,17 +347,17 @@ public class OperadorSistema extends Usuario {
                                     fabricaEsbirros = new FabricaHumano();
                                     Humano humano = (Humano) fabricaEsbirros.crearEsbirro(nombreEsbirro, saludEsbirro);
                                     humano.rellenarPropiedadesEspec();
+                                    super.getEntidades().GuardarEsbirroFichero(humano);
                                     super.getEntidades().aniadir(humano);
                                     esbirrosPers.add(humano);
-                                    super.getEntidades().GuardarEsbirroFichero(humano);
                                 }
                                 case "ghoul" -> {
                                     fabricaEsbirros = new FabricaGhoul();
                                     Ghoul ghoul = (Ghoul) fabricaEsbirros.crearEsbirro(nombreEsbirro, saludEsbirro);
                                     ghoul.rellenarPropiedadesEspec();
+                                    super.getEntidades().GuardarEsbirroFichero(ghoul);
                                     super.getEntidades().aniadir(ghoul);
                                     esbirrosPers.add(ghoul);
-                                    super.getEntidades().GuardarEsbirroFichero(ghoul);
                                 }
                                 case "demonio" -> {
                                     fabricaEsbirros = new FabricaDemonio();
@@ -349,9 +366,9 @@ public class OperadorSistema extends Usuario {
                                     demonio.setFabricaEsbirros(super.getFabricaEsbirros());
                                     demonio.setEntidades(super.getEntidades());
                                     demonio.rellenarPropiedadesEspec();
+                                    super.getEntidades().GuardarEsbirroFichero(demonio);
                                     super.getEntidades().aniadir(demonio);
                                     esbirrosPers.add(demonio);
-                                    super.getEntidades().GuardarEsbirroFichero(demonio);
                                 }
                                 default -> {
                                     System.out.println("Nombre de esbirro no correcto");
@@ -384,7 +401,6 @@ public class OperadorSistema extends Usuario {
         switch (leido) {
             case 1 -> {
                 // creamos un licantropo
-                sb.setLength(0);
                 fabricaPersonajes = new FabricaLicantropo();
                 Licantropo licanNuevo = (Licantropo) fabricaPersonajes.crearPersonaje(nombreCarac,
                         habilidadPersonaje,
@@ -394,11 +410,11 @@ public class OperadorSistema extends Usuario {
                 licanNuevo.rellenarPropiedadesEspecificas();
                 super.getEntidades().aniadir(licanNuevo);
                 rellenarStringBuilder(sb, licanNuevo);
-                escritorFich.write(sb.toString()); // habra que convertir las propiedades que no sean string
+                escritorFich.write(sb.toString());
+                escritorFich.flush(); 
             }
             case 2 -> {
                 // creamos un vampiro
-                sb.setLength(0);
                 fabricaPersonajes = new FabricaVampiro();
                 Vampiro vampNuevo = (Vampiro) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje,
                         armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje,
@@ -408,10 +424,10 @@ public class OperadorSistema extends Usuario {
                 super.getEntidades().aniadir(vampNuevo);
                 rellenarStringBuilder(sb, vampNuevo);
                 escritorFich.write(sb.toString());
+                escritorFich.flush(); 
             }
             case 3 -> {
                 // creamos un cazador
-                sb.setLength(0);
                 fabricaPersonajes = new FabricaCazador();
                 Cazador cazNuevo = (Cazador) fabricaPersonajes.crearPersonaje(nombreCarac, habilidadPersonaje,
                         armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje,
@@ -420,6 +436,7 @@ public class OperadorSistema extends Usuario {
                 super.getEntidades().aniadir(cazNuevo);
                 rellenarStringBuilder(sb, cazNuevo);
                 escritorFich.write(sb.toString());
+                escritorFich.flush(); 
             }
         }
 

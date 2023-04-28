@@ -4,6 +4,8 @@
  */
 package fase3mp;
 
+import java.io.IOException;
+
 /**
  *
  * @author d.rubio.2019
@@ -34,7 +36,7 @@ public class Esbirro  {
         this.salud = salud;
     }
     
-    public void rellenarPropiedadesEspec(){
+    public void rellenarPropiedadesEspec() throws IOException{
         
     }
     

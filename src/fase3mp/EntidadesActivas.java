@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import fase3mp.Humano.nivelLealtad;
+
 /**
  *
  * @author david
@@ -166,7 +168,8 @@ public class EntidadesActivas {
         return habilidades.get(eleccion);
     }
 
-    public ArrayList<Integer> MostraryElegir(String objetoMostrar) {// se podrian poner if para controlar que meta un numero
+    public ArrayList<Integer> MostraryElegir(String objetoMostrar) {// se podrian poner if para controlar que meta un
+                                                                    // numero
         Scanner escaner = new Scanner(System.in);// en el rango correcto
         if (objetoMostrar.equals("PERSONAJES")) {
             for (int i = 0; i < personajes.size(); i++) {
@@ -175,14 +178,14 @@ public class EntidadesActivas {
             System.out.println("- " + (personajes.size()) + ".Salir");
             System.out.println("Escoja el numero por favor:");
 
-            int personajeEle = escaner.nextInt(); //Si nos mete una letra peta
+            int personajeEle = escaner.nextInt(); // Si nos mete una letra peta
 
             ArrayList<Integer> personajesElegidos = new ArrayList<>();
             while (personajeEle > personajesElegidos.size() || personajeEle < 0) {
                 System.out.println("Por favor ingrese un numero de la lista indicada anteriormente.");
                 personajeEle = escaner.nextInt();
             }
-            if (personajeEle == personajesElegidos.size()) {
+            if (personajeEle == personajes.size()) {
                 return null;
             } else {
                 personajesElegidos.add(personajeEle);
@@ -195,6 +198,9 @@ public class EntidadesActivas {
                         + armas.get(i).getTipodeArma().toString());
             }
             System.out.println("- " + armas.size() + ".Salir");
+            if (armas.size() == 0) {
+                System.out.println("No hay armas en el sistema.");
+            }
             ArrayList<Integer> armasElegidas = new ArrayList<>();
             while (armaEle != armas.size()) {
                 armaEle = escaner.nextInt();
@@ -202,12 +208,11 @@ public class EntidadesActivas {
                     if (armasElegidas.contains(armaEle)) {
                         System.out.println("Ya posee esta arma, elija otra de la lista.");
                     } else {
-                        armaEle = escaner.nextInt();
                         armasElegidas.add(armaEle);
                     }
-                } else {
+                } else if (armaEle != armas.size()) {
                     System.out.println("Arma erronea. Por favor, introduzca un arma de la lista.");
-                    //armaEle = escaner.nextInt();
+                    // armaEle = escaner.nextInt();
                 }
             }
             return armasElegidas;
@@ -219,16 +224,18 @@ public class EntidadesActivas {
             }
             System.out.println("- " + armaduras.size() + ".Salir");
             ArrayList<Integer> armadurasElegidas = new ArrayList<>();
+            if (armaduras.size() == 0) {
+                System.out.println("No hay armaduras en el sistema.");
+            }
             while (armaduraEle != armaduras.size()) {
                 armaduraEle = escaner.nextInt();
                 if (!(armaduraEle >= armaduras.size()) && !(armaduraEle < 0)) {
                     if (armadurasElegidas.contains(armaduraEle)) {
                         System.out.println("Ya posee esta armadura, elija otra de la lista");
                     } else {
-                        armaduraEle = escaner.nextInt();
                         armadurasElegidas.add(armaduraEle);
                     }
-                } else {
+                } else if (armaduraEle != armaduras.size()) {
                     System.out.println("Armadura erronea. Por favor, introduzca un armadura de la lista.");
                 }
             }
@@ -240,6 +247,9 @@ public class EntidadesActivas {
                 System.out.println("- " + i + ".Fortaleza:" + fortalezas.get(i).getNombre());
             }
             System.out.println("- " + (fortalezas.size()) + ".Salir");
+            if (fortalezas.size() == 0) {
+                System.out.println("No hay fortalezas en el sistema.");
+            }
             ArrayList<Integer> fortalezasElegidas = new ArrayList<>();
             while (fortalezaEle != fortalezas.size()) {
                 fortalezaEle = escaner.nextInt();
@@ -248,7 +258,6 @@ public class EntidadesActivas {
                     if (fortalezasElegidas.contains(fortalezaEle)) {
                         System.out.println("Ya posee esta fortaleza, elija otra de la lista");
                     } else {
-                        fortalezaEle = escaner.nextInt();
                         fortalezasElegidas.add(fortalezaEle);
                     }
                 } else {
@@ -262,7 +271,10 @@ public class EntidadesActivas {
             for (int i = 0; i < debilidades.size(); i++) {
                 System.out.println("- " + i + ".Debilidad:" + debilidades.get(i).getNombre());
             }
-            System.out.println("- " + (debilidades.size() + 1) + ".Salir");
+            System.out.println("- " + (debilidades.size()) + ".Salir");
+            if (debilidades.size() == 0) {
+                System.out.println("No hay debilidades en el sistema.");
+            }
             ArrayList<Integer> debilidadesElegidas = new ArrayList<>();
             while (debilidadEle != debilidades.size()) {
                 debilidadEle = escaner.nextInt();
@@ -270,7 +282,6 @@ public class EntidadesActivas {
                     if (debilidadesElegidas.contains(debilidadEle)) {
                         System.out.println("Ya posee esta debilidad, por favor elija otra de la lista.");
                     } else {
-                        debilidadEle = escaner.nextInt();
                         debilidadesElegidas.add(debilidadEle);
                     }
                 } else {
@@ -286,13 +297,20 @@ public class EntidadesActivas {
                 System.out.println("- " + i + ".Esbirro:" + esbirros.get(i).getNombre() + " "
                         + esbirros.get(i).getClass().getName());
             }
-            System.out.println("- " + (debilidades.size() + 1) + ".Salir");
+            System.out.println("- " + (esbirros.size()) + ".Salir");
             ArrayList<Integer> esbirrosElegidos = new ArrayList<>();
-            while (esbirroEle != debilidades.size()) {
+            int esbirro = 0;
+            while (esbirroEle != esbirros.size()) {
                 esbirroEle = escaner.nextInt();
-                esbirrosElegidos.add(esbirroEle);
-                return esbirrosElegidos;
+                if (esbirroEle < 0 || esbirroEle > esbirros.size()) {
+                    System.out.println(
+                            "Esbirro inexistente. Por favor introduzca el numero de uno de los esbirros disponibles.");
+                }else if(esbirroEle != esbirros.size()){
+                    esbirro = esbirroEle;
+                }
+                esbirrosElegidos.add(esbirro);
             }
+            return esbirrosElegidos;
         } else if (objetoMostrar.equals(
                 "ESBIRRO")) {
             int esbirroEle = 0;
@@ -300,19 +318,25 @@ public class EntidadesActivas {
                 System.out.println("- " + i + ".Esbirro " + esbirros.get(i).getNombre() + " "
                         + esbirros.get(i).getClass().getName());
             }
-            System.out.println("- " + (esbirros.size() + 1) + ".Salir");
+            System.out.println("- " + (esbirros.size()) + ".Salir");
             ArrayList<Integer> esbirroElegido = new ArrayList<>();
+            int esbirro = 0;
             while (esbirroEle != esbirros.size()) {
                 esbirroEle = escaner.nextInt();
+                if (esbirroEle < 0 || esbirroEle > esbirros.size()) {
+                    System.out.println(
+                            "Esbirro inexistente. Por favor introduzca el numero de uno de los esbirros disponibles.");
+                }else if(esbirroEle != esbirros.size()){
+                    esbirro = esbirroEle;
+                }
             }
-            esbirroElegido.add(esbirroEle);
+            esbirroElegido.add(esbirro);
             return esbirroElegido;
         } else {
             System.out.println("No existe el contenido " + objetoMostrar);
             return null;
         }
 
-        return null;
     }
 
     public int MostraryElegirHabilidad() {
@@ -320,14 +344,14 @@ public class EntidadesActivas {
         Scanner escaner = new Scanner(System.in);
 
         for (int i = 0; i < habilidades.size(); i++) {
-            System.out.println("Habilidad " + i + habilidades.get(i).getNombre());
+            System.out.println("Habilidad " + i + " " + habilidades.get(i).getNombre());
         }
-        System.out.println((habilidades.size() + 1) + " Salir");
+        System.out.println((habilidades.size()) + " Salir");
         while (habilidadElegida != habilidades.size()) {
             habilidadElegida = escaner.nextInt();
-            if (!(habilidadElegida >= habilidades.size()) && !(habilidadElegida <0)){
+            if (!(habilidadElegida >= habilidades.size()) && !(habilidadElegida < 0)) {
                 return habilidadElegida;
-            } else{
+            } else {
                 System.out.println("Habilidad erronea, por favor introduzca una habilidad de la lista.");
             }
         }
@@ -383,6 +407,7 @@ public class EntidadesActivas {
             rellenarStringBuilderEsbirro(esbirro, sb);
             FileWriter escritor = new FileWriter(file, true);
             escritor.write(sb.toString());
+            escritor.write("\n");
             escritor.flush();
         } else {
             System.out.println("El esbirro ya estaba guardado");
@@ -400,13 +425,13 @@ public class EntidadesActivas {
             sb.append("/");
             Ghoul ghoul = (Ghoul) esbirro;
             sb.append(ghoul.getDependencia());
-            sb.append(",");
+            //sb.append(",");
         } else if (esbirro instanceof Humano) {
             sb.append("humano");
             sb.append("/");
             Humano humano = (Humano) esbirro;
             sb.append(humano.getLealtad());
-            sb.append(",");
+            //sb.append(",");
         } else if (esbirro instanceof Demonio) {
             sb.append("demonio");
             sb.append("/");
@@ -423,13 +448,13 @@ public class EntidadesActivas {
                 sb.append("/");
             }
 
-            sb.append("*");
+            sb.append("#");
             ArrayList<Esbirro> esbirrosDeEsbirro = demonio.getEsbirros();
             for (int j = 0; j < esbirrosDeEsbirro.size(); j++) {
-                rellenarStringBuilderSubEsbirros(esbirro, sb); // debo hacer otra funcion para rellenar esbirros hijos
+                rellenarStringBuilderSubEsbirros(esbirrosDeEsbirro.get(j), sb); // debo hacer otra funcion para rellenar esbirros hijos
             }
-            sb.append("*");
-            sb.append(",");
+            sb.append("#");
+            //sb.append(",");
         }
 
     }
@@ -437,43 +462,43 @@ public class EntidadesActivas {
     private void rellenarStringBuilderSubEsbirros(Esbirro esbirro, StringBuilder sb) {
         // recursividad
         sb.append(esbirro.getNombre());
-        sb.append(".");
+        sb.append("-");
         sb.append(esbirro.getSalud());
-        sb.append(".");
+        sb.append("-");
         if (esbirro instanceof Ghoul) {
             sb.append("ghoul");
-            sb.append(".");
+            sb.append("-");
             Ghoul ghoul = (Ghoul) esbirro;
             sb.append(ghoul.getDependencia());
             sb.append(",");
         } else if (esbirro instanceof Humano) {
             sb.append("humano");
-            sb.append(".");
+            sb.append("-");
             Humano humano = (Humano) esbirro;
             sb.append(humano.getLealtad());
             sb.append(",");
         } else if (esbirro instanceof Demonio) {
             sb.append("demonio");
-            sb.append(".");
+            sb.append("-");
             Demonio demonio = (Demonio) esbirro;
             if (demonio.getTienePacto()) {
                 sb.append("si");
-                sb.append(".");
+                sb.append("-");
                 sb.append(demonio.getPacto().getAmo().getNombre());
-                sb.append(".");
+                sb.append("-");
             } else {
                 sb.append("no");
-                sb.append(".");
+                sb.append("-");
                 sb.append("null");
-                sb.append(".");
+                sb.append("-");
             }
 
-            sb.append("*");
+            sb.append("#");
             ArrayList<Esbirro> esbirrosDeEsbirro = demonio.getEsbirros();
             for (int j = 0; j < esbirrosDeEsbirro.size(); j++) {
-                rellenarStringBuilderSubEsbirros(esbirro, sb); // debo hacer otra funcion para rellenar esbirros hijos
+                rellenarStringBuilderSubEsbirros(esbirrosDeEsbirro.get(j), sb); // debo hacer otra funcion para rellenar esbirros hijos
             }
-            sb.append("*");
+            sb.append("#");
             sb.append(",");
         }
 
@@ -483,38 +508,79 @@ public class EntidadesActivas {
         File file = new File("Ficheros/Esbirros.txt");
         Scanner scannerEsbi = new Scanner(file);
         while (scannerEsbi.hasNextLine()) {
+            boolean esta = false;
             String lineaEsbi = scannerEsbi.nextLine();
+            //String[] partesComas = lineaEsbi.split(",");
             String[] partesEsbirro = lineaEsbi.split("/");
             String nombreEsbi = partesEsbirro[0];
-            String[] partesEsbirroDeEsbirro = partesEsbirro[4].split("#");
             int salud = Integer.parseInt(partesEsbirro[1]);
             if (partesEsbirro[2].equals("humano")) {// me falta crearlos y guardarlos en sistema
-                int lealtad = Integer.parseInt(partesEsbirro[3]);
+                String lealtad = partesEsbirro[3];
+                fabricaEsbirros = new FabricaHumano();
+                Humano humano = (Humano) fabricaEsbirros.crearEsbirro(nombreEsbi, salud);
+                if (lealtad.equals("BAJA")) {
+                    humano.setLealtad(nivelLealtad.BAJA);
+                } else if (lealtad.equals("NORMAL")) {
+                    humano.setLealtad(nivelLealtad.NORMAL);
+                } else if (lealtad.equals("ALTA")) {
+                    humano.setLealtad(nivelLealtad.ALTA);
+                }
+                esbirros.add(humano);
             } else if (partesEsbirro[2].equals("ghoul")) {
                 int dependencia = Integer.parseInt(partesEsbirro[3]);
+                fabricaEsbirros = new FabricaGhoul();
+                Ghoul ghoul = (Ghoul) fabricaEsbirros.crearEsbirro(nombreEsbi, salud);
+                ghoul.setDependencia(dependencia);
+                for(int j = 0; j < esbirros.size(); j++){
+                    if(esbirros.get(j).getNombre().equals(ghoul.getNombre()) && esbirros.get(j) instanceof Ghoul){
+                        esta=true;
+                    }
+                }
+                if (!esta){
+                    esbirros.add(ghoul);
+                }
+
             } else if (partesEsbirro[2].equals("demonio")) {
+                String[] partesEsbirroDeEsbirro = partesEsbirro[5].split("#");
+                Pacto pacto = null;
+                Boolean tienePacto = false;
                 if (partesEsbirro[3].equals("si")) {
-                    Boolean tienePacto = true;
+                    tienePacto = true;
                     String nombreAmo = partesEsbirroDeEsbirro[0];
-                    Pacto pacto = new Pacto();
+                    pacto = new Pacto();
                 } else if (partesEsbirro[3].equals("no")) {
-                    Boolean tienePacto = false;
                     String nombreAmo = null;
-                    Pacto pacto = null;
+                    pacto = null;
                 }
                 ArrayList<Esbirro> esbirrosPrinc = new ArrayList<>();
                 leerEsbirrosPertenecientesAEsbirro(partesEsbirroDeEsbirro, esbirrosPrinc, 0);
                 // aqui me creare el primer demonio ahora que tengo sus subesbirros
+                fabricaEsbirros = new FabricaDemonio();
+                Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsbi, salud);
+                demonio.setPacto(pacto);
+                demonio.setBooleanPacto(tienePacto);
+                demonio.setFabricaEsbirros(fabricaEsbirros);
+                demonio.setEntidades(this);
+                demonio.setEsbirros(esbirrosPrinc);
+                for(int j = 0; j < esbirros.size(); j++){
+                    if(esbirros.get(j).getNombre().equals(demonio.getNombre()) && esbirros.get(j) instanceof Demonio){
+                        esta=true;
+                    }
+                }
+                if (!esta){
+                    esbirros.add(demonio);
+                }
             }
         }
     }
 
     private void leerEsbirrosPertenecientesAEsbirro(String[] partesEsbirroDeEsbirro, ArrayList<Esbirro> esbirrosPert,
             int i) {
-        if (partesEsbirroDeEsbirro[i + 1] != null) {
+        if (i + 1 != partesEsbirroDeEsbirro.length) {
             String[] Esbirr = partesEsbirroDeEsbirro[i + 1].split(",");
+            boolean estaSecundario = false;
             for (int x = 0; x < Esbirr.length; x++) {
-                String[] partesEsb = Esbirr[x].split(".");
+                String[] partesEsb = Esbirr[x].split("-");
                 if (partesEsb[2].equals("ghoul")) {
                     String nombreEsb = partesEsb[0];
                     int saludEsb = Integer.parseInt(partesEsb[1]);
@@ -523,11 +589,15 @@ public class EntidadesActivas {
                     Ghoul ghoul = (Ghoul) fabricaEsbirros.crearEsbirro(nombreEsb, saludEsb);
                     ghoul.setDependencia(dependencia);
                     esbirrosPert.add(ghoul);
-                    if (!esbirros.contains(ghoul)) {
+                    for(int j = 0; j < esbirros.size(); j++){
+                        if(esbirros.get(j).getNombre().equals(ghoul.getNombre()) && esbirros.get(j) instanceof Ghoul){
+                            estaSecundario=true;
+                        }
+                    }
+                    if (!estaSecundario){
                         esbirros.add(ghoul);
                     }
                 } else if (partesEsb[2].equals("demonio")) {
-                    i += 1;
                     ArrayList<Esbirro> esbirrosDeEsb = new ArrayList<>();
                     leerEsbirrosPertenecientesAEsbirro(partesEsbirroDeEsbirro, esbirrosDeEsb, i + 1);
                     String nombreEsb = partesEsb[0];
@@ -549,16 +619,22 @@ public class EntidadesActivas {
                     demonio.setFabricaEsbirros(fabricaEsbirros);
                     demonio.setEntidades(this);
                     esbirrosPert.add(demonio);
-                    if (!esbirros.contains(demonio)) {
-                        esbirros.add(demonio);
+                    demonio.setEsbirros(esbirrosDeEsb);
+                    for(int j = 0; j < esbirros.size(); j++){
+                        if(esbirros.get(j).getNombre().equals(demonio.getNombre()) && esbirros.get(j) instanceof Demonio){
+                            estaSecundario=true;
                     }
+                }
+                if (!estaSecundario){
+                    esbirros.add(demonio);
+                }
                 }
             }
 
         } else {
-            String[] Esbirr = partesEsbirroDeEsbirro[i + 1].split(",");
+            String[] Esbirr = partesEsbirroDeEsbirro[i].split(",");
             for (int j = 0; j < Esbirr.length; j++) {
-                String[] partesEsb = Esbirr[j].split(".");
+                String[] partesEsb = Esbirr[j].split("-");
                 String nombreEsb = partesEsb[0];
                 int saludEsb = Integer.parseInt(partesEsb[1]);
                 if (partesEsb[2].equals("humano")) {
@@ -598,6 +674,7 @@ public class EntidadesActivas {
                     demonio.setFabricaEsbirros(fabricaEsbirros);
                     demonio.setEntidades(this);
                     esbirrosPert.add(demonio);
+                    demonio.setEsbirros(null);
                     if (!esbirros.contains(demonio)) {
                         esbirros.add(demonio);
                     }

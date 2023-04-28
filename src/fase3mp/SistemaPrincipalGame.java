@@ -44,8 +44,6 @@ public class SistemaPrincipalGame {
         ManagerUsuarios manager = new ManagerUsuarios();
         usuariosSistema = manager;
         Publisher publisher = new Publisher();
-        //leerUsuarios("usuarios.txt");
-        //leerPersonajes("personajes.txt");//habra que hacer un leer Usuarios tambien
         //leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
         EntidadesActivas entidadesActivas = new EntidadesActivas();
         entidadesActivas.LeerEntidades();
@@ -53,10 +51,10 @@ public class SistemaPrincipalGame {
         Ranking ranking = new Ranking();
         rankingSistema = ranking;
         rankingSistema.setManager(usuariosSistema);
-        //entidadesSistema.leerEsbirros();
-        //leerPersonajes("Ficheros/Personajes.txt");//habra que hacer un leer Usuarios tambien
+        entidadesSistema.leerEsbirros();
+        leerPersonajes("Ficheros/Personajes.txt");//habra que hacer un leer Usuarios tambien
         manager.LeerUsuarios(entidadesSistema);
-        // leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
+        //leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
         inicializarHabilidades(entidadesActivas);
         Scanner escanerMain = new Scanner(System.in);
         int opcionElegida = 0;
@@ -225,7 +223,7 @@ public class SistemaPrincipalGame {
             //guardo armas activas
             String[] armasActivasLeidas = camposPersonaje[4].split(",");
             ArrayList<Arma> armasActivas = new ArrayList<>();
-            for (int i = 0; i < armasLeidas.length; i++) {
+            for (int i = 0; i < armasActivasLeidas.length; i++) {
                 String[] caracteristicaArmaActiva = armasActivasLeidas[i].split("/");
                 Arma arma = new Arma(caracteristicaArmaActiva[0], caracteristicaArmaActiva[1], caracteristicaArmaActiva[2], caracteristicaArmaActiva[3]);
                 armasActivas.add(arma);

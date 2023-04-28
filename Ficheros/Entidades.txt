@@ -2,3 +2,9 @@ arma Cefiro 1 2 de1mano
 arma FiloInfinito 3 1 de2manos
 arma Palo 1 1 de1mano
 arma Navaja 2 1 de1mano
+armadura pechoMachoPechoPeludo 3 5
+armadura juanitoperez 1 1
+debilidad luz 3
+debilidad sol 2
+fortaleza luna 3
+fortaleza mierda 2

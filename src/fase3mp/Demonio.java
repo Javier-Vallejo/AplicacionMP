@@ -26,6 +26,11 @@ public class Demonio extends Esbirro implements IEsbirros {
 
     public Demonio(String nombre, int salud) {
         super(nombre, salud);
+        esbirros = new ArrayList<>();
+    }
+
+    public void setEsbirros(ArrayList<Esbirro> esbirros) {
+        this.esbirros = esbirros;
     }
 
     public void setBooleanPacto(boolean tienePacto) {
@@ -57,7 +62,7 @@ public class Demonio extends Esbirro implements IEsbirros {
     }
 
     @Override
-    public void rellenarPropiedadesEspec() {
+    public void rellenarPropiedadesEspec() throws IOException {
         Scanner escanerDemon = new Scanner(System.in);
 
         System.out.println("Tiene pacto su demonio? Si o no");
@@ -110,26 +115,29 @@ public class Demonio extends Esbirro implements IEsbirros {
                                         fabricaEsbirros = new FabricaGhoul();
                                         Ghoul ghoul = (Ghoul) fabricaEsbirros.crearEsbirro(nombreEsbirro, saludGhoul);
                                         ghoul.rellenarPropiedadesEspec();
-                                        entidades.aniadir(ghoul);
                                         esbirrosDeEsbirro.add(ghoul);
-                                    try {
-                                        entidades.GuardarEsbirroFichero(ghoul);
-                                    } catch (IOException ex) {
-                                        Logger.getLogger(Demonio.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
+                                        try {
+                                            entidades.GuardarEsbirroFichero(ghoul);
+                                        } catch (IOException ex) {
+                                            Logger.getLogger(Demonio.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                        entidades.aniadir(ghoul);
                                     }
                                     case "demonio" -> { // se le rellenaran sus esbirros de forma recursiva
                                         int saludDemonioEsbi = escanerDemon.nextInt();
                                         fabricaEsbirros = new FabricaDemonio();
-                                        Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsbirro,saludDemonioEsbi);        
+                                        Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsbirro,
+                                                saludDemonioEsbi);
+                                        demonio.setFabricaEsbirros(fabricaEsbirros);
+                                        demonio.setEntidades(entidades);
                                         demonio.rellenarPropiedadesEspec();
-                                        entidades.aniadir(demonio);
                                         esbirrosDeEsbirro.add(demonio);
-                                    try {
-                                        entidades.GuardarEsbirroFichero(demonio);
-                                    } catch (IOException ex) {
-                                        Logger.getLogger(Demonio.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
+                                        try {
+                                            entidades.GuardarEsbirroFichero(demonio);
+                                        } catch (IOException ex) {
+                                            Logger.getLogger(Demonio.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                        entidades.aniadir(demonio);
                                     }
                                     default -> {
                                         System.out.println("Nombre de esbirro no correcto");

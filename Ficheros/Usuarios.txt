@@ -1,3 +1,4 @@
 operador;juan;megaboy;123;
 operador;aaa;1789;1789;
 operador;judas;judas33;15;
+jugador;a;ar;12;J41OD;100;false;vampiro-al-3
