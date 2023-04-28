@@ -344,44 +344,63 @@ public class Jugador extends Usuario {
          * }
          */
         switch (opcion) {
-            case 1:// Darse de baja
-                DarseDeBaja(this);
-                System.out.println("Saliendo del sistema.");
-                System.exit(0);
-            case 2:// Registrar Personaje
+            case 1://Darse de baja
+                System.out.println("¿Seguro que desea darse de baja?");
+                System.out.println("- 1.Si");
+                System.out.println("- 2.No");
+                int opcionDarseDeBaja = 0;
+                Scanner escanerDarseBaja = new Scanner(System.in);
+                    while (!(opcionDarseDeBaja!=1 ^ opcionDarseDeBaja!=2)) {
+                        System.out.println("Por favor, introduzca el numero de la opcion que desea.");
+                        opcionDarseDeBaja = escanerDarseBaja.nextInt();
+                    }
+                
+                if (opcionDarseDeBaja==1) {
+                    DarseDeBaja(this);
+                    System.out.println("Saliendo del sistema.");
+                    System.exit(0);
+                }else if(opcionDarseDeBaja==2){
+                    System.out.println("Volviendo al menu principal.");
+                    break;
+                }
+                
+            case 2://Registrar Personaje
                 if (getPersonajeActivo() != null) {
                     System.out.println("El personaje que elijas sustituira al tuyo.");
-                    System.out.println("¿Deseas continuar? Si o No");
-                    String opcionSioNO = "";
-                    try (Scanner escanerSioNo = new Scanner(System.in)) {
-                        while (!(opcionSioNO.equals("SI") == false ^ opcionSioNO.equals("NO") == false)) {
-                            System.out.println("¿Deseas continuar? Si o No");
-                            opcionSioNO = escanerSioNo.nextLine();
-                            opcionSioNO = opcionSioNO.toUpperCase();
-                        }
+                    System.out.println("¿Deseas continuar?");
+                    System.out.println("- 1.Si");
+                    System.out.println("- 2.No");
+                    int opcionSioNO = 0;
+                    Scanner escanerSioNo = new Scanner(System.in);
+                        while (!(opcionSioNO != 1 ^ opcionSioNO != 2)) {
+                            System.out.println("Por favor, introduzca el numero de la opcion que desea.");
+                            opcionSioNO = escanerSioNo.nextInt();
+                
                     }
 
-                    if (opcionSioNO.equals("SI")) {
+                    if (opcionSioNO==1) {
                         ArrayList<Integer> personaje = super.getEntidades().MostraryElegir("PERSONAJES");
                         setPersonajeActivo(super.getEntidades().elegirPersonaje(personaje.get(0)));// habra que hacer
                         // que elegir
                         // personaje llame a
                         // clone
-                    } else if (opcionSioNO.equals("NO")) {
-                        System.out.println("Su personaje no se cambiara");
+                        super.getManagerUsuarios().editarUsuarioEnFichero(this.getNick(), this.getPassword());
+                    } else if (opcionSioNO==2) {
+                        System.out.println("Su personaje no se cambiara.");
                     }
                 } else {
                     ArrayList<Integer> personaje = super.getEntidades().MostraryElegir("PERSONAJES");
                     setPersonajeActivo(super.getEntidades().elegirPersonaje(personaje.get(0)));
+                    super.getManagerUsuarios().editarUsuarioEnFichero(this.getNick(), this.getPassword());
                 }
-                super.getManagerUsuarios().editarUsuarioEnFichero(this.getNick(), this.getPassword());
+                
                 break;
             case 3:// Gestionar Personaje
                 if (getPersonajeActivo() == null) {
                     System.out.println("No tienes ningun personaje activo");
                 } else {
-                    Personaje personaje = getPersonajeActivo();// debo poner un if por si no hay personaje guardado
-                    personaje.editarPersonajeJugador(personaje, super.getEntidades());// nuevo metodo
+                    Personaje personaje = getPersonajeActivo();
+                    personaje.editarPersonajeJugador(personaje, super.getEntidades());
                 }
                 super.getManagerUsuarios().editarUsuarioEnFichero(this.getNick(), this.getPassword());
                 break;
@@ -392,15 +411,13 @@ public class Jugador extends Usuario {
             case 5:// Desafiar
                 Desafio desafio = new Desafio();
                 this.Desafiar(desafio);
-                super.getDesafiosAct().guardarDesafio(desafio);
+                //super.getDesafiosAct().guardarDesafio(desafio); Esta linea en teoria sobra porque como operador siempre leemos todos los desafios del fichero
                 persistenciaDesafio(desafio);
                 break;
             case 6:// Consultar Oro
                 System.out.println("Su oro actual es: " + getOro());
                 break;
             case 7: // Consultar Ranking
-                // Ranking ranking = new Ranking();
-                // ranking.consultarRanking();
                 rankingGlobal.consultarRanking();
                 break;
             case 8:// Salir
