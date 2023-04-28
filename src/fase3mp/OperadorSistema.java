@@ -51,20 +51,15 @@ public class OperadorSistema extends Usuario {
     }
 
     public Arma CrearArma(String nombre, String modDanio, String modDefensa, String tipoArma) throws IOException {
-        Arma arma = new Arma(nombre, modDanio, modDefensa, modDefensa);// como ha dejado pasar dos strings si son
-                                                                       // enteros
-        if (tipoArma.equals("1mano")) {
-            arma.setTipodeArma(Arma.tipoArma.de1mano);
-        } else if (tipoArma.equals("2manos")) {
-            arma.setTipodeArma(Arma.tipoArma.de2manos);
-        } else {
-            arma.setTipodeArma(null);
-        }
+        File file = new File("Ficheros/Entidades.txt");
+        Arma arma = new Arma(nombre, modDanio, modDefensa, tipoArma);
         super.getEntidades().aniadir(arma);
         StringBuilder sb = new StringBuilder();
         rellenarStringBuilderArma(sb, arma);
-        FileWriter escritorFich = new FileWriter("Ficheros/Entidades.txt");
+        FileWriter escritorFich = new FileWriter(file, true);
         escritorFich.write(sb.toString());
+        escritorFich.write("\n");
+        escritorFich.flush();
         return arma;
     }
 
@@ -81,12 +76,15 @@ public class OperadorSistema extends Usuario {
     }
 
     public Armadura CrearArmadura(String nombre, String modDanio, String modDefensa) throws IOException {
+        File file = new File("Ficheros/Entidades.txt");
         Armadura armadura = new Armadura(nombre, modDanio, modDefensa);
         super.getEntidades().aniadir(armadura);
         StringBuilder sb = new StringBuilder();
         rellenarStringBuilderArmadura(sb, armadura);
-        FileWriter escritorFich = new FileWriter("Ficheros/Entidades.txt");
+        FileWriter escritorFich = new FileWriter(file, true);
         escritorFich.write(sb.toString());
+        escritorFich.write("\n");
+        escritorFich.flush();
         return armadura;
     }
 
@@ -98,7 +96,6 @@ public class OperadorSistema extends Usuario {
         sb.append(armadura.getModDanio());
         sb.append(" ");
         sb.append(armadura.getModDefensa());
-        sb.append(" ");
     }
 
     private void aniadirPersonaje() throws IOException {
@@ -107,60 +104,50 @@ public class OperadorSistema extends Usuario {
         System.out.println("Escriba el nombre del personaje:");
         String nombreCarac = lectura.nextLine();
         // armas
+        int opcionArma = 0;
+        ArrayList<Arma> mochilaArmasPersonaje = new ArrayList<>();
+        System.out.println("Vas a introducir armas hasta que pulses salir");
+        while(opcionArma != 3){
+            System.out.println("Desea crear un arma de 0 o elegirla del sistema: ");
+            System.out.println("1- Crearla ");
+            System.out.println("2- Elegirla de las que hay en el sistema");
+            System.out.println("3- Salir");
+            opcionArma = lectura.nextInt();
 
-        System.out.println("Desea crear un arma de 0 o elegirla del sistema: ");
-        System.out.println("1- Crearla ");
-        System.out.println("2- Elegirla de las que hay en el sistema");
-        Scanner lecturaArma = new Scanner(System.in);
-        int opcionArma = lecturaArma.nextInt();
-        lecturaArma.close();
-        ArrayList<Arma> mochilaArmasPersonaje = new ArrayList<>();// habria que hacer el array de armas actual a
-                                                                  // arraylist, lo añades y vuelves a array normal
-        /*
-         * Si hay que añadirle un arma a su mochila primero se deberia considerar su
-         * tamaño, de primeras he pensado
-         * que tenga el tamaño de la lista de armas que haya en entidas activas
-         * Luego si le das a escoger de las que ya hay, ese tamaño se recalculará con
-         * el:
-         * armasPersonaje = new Arma[armasEleg.size()]; O al menos debería.
-         * De momento esa es mi interpretación. Y ya dentro de eso el meterle un arma ya
-         * creada se la asignnara en la posicion 0. Si no os chola ya lo rediseñais como
-         * veais.
-         * Con armaaduras es el mismo caso.
-         * En ambas se debería insertar bien tanto en fichero como en entidades.
-         * EN el fichero me he fijado que su formato es con espacios así que así deberia
-         * andar buenardo.
-         * Quizás rentaria que fuera un arrayList
-         * Y así es mas como "añadir el arma"
-         */
-        switch (opcionArma) {
-            case 1 -> {
-                Scanner lecturaValoresArma = new Scanner(System.in);
-                System.out.println("Escriba el nombre del arma");
-                String nombre = lecturaValoresArma.nextLine();
-                System.out.println("Escriba su ataque");
-                String danio = lecturaValoresArma.nextLine();
-                System.out.println("Escriba su defensa");
-                String defensa = lecturaValoresArma.nextLine();
-                System.out.println("Escriba si es de 1 o 2 manos");
-                String tipo = lecturaValoresArma.nextLine();
-                Arma arma = CrearArma(nombre, danio, defensa, tipo);
-                lecturaValoresArma.close();
-                mochilaArmasPersonaje.add(arma);
-            }
-
-            case 2 -> {
-                System.out.println("Escriba los numeros de las armas que quiere que tenga su personaje: ");
-                ArrayList<Integer> armasEleg = super.getEntidades().MostraryElegir("ARMAS");
-                // Arma[] armasPersonajeArray = mochilaArmasPersonaje.toArray(new
-                // Arma[armasEleg.size()]);
-
-                for (int i = 0; i < armasEleg.size(); i++) {
-                    // armasPersonajeArray[i] = super.getEntidades().elegirArma(armasEleg.get(i));
-                    mochilaArmasPersonaje.add(super.getEntidades().elegirArma(armasEleg.get(i)));
+            switch (opcionArma) {
+                case 1 -> {
+                    lectura.nextLine();
+                    System.out.println("Escriba el nombre del arma");
+                    String nombre = lectura.nextLine();
+                    System.out.println("Escriba su ataque");
+                    String danio = lectura.nextLine();
+                    System.out.println("Escriba su defensa");
+                    String defensa = lectura.nextLine();
+                    System.out.println("Escriba si es de 1 o 2 manos");
+                    String tipo = lectura.nextLine();
+                    if(tipo.equals("1")){
+                        tipo = "de1mano";
+                    }
+                    else if(tipo.equals("2")){
+                        tipo = "de2manos";
+                    }
+                    Arma arma = CrearArma(nombre, danio, defensa, tipo);
+                    mochilaArmasPersonaje.add(arma);
                 }
-            }
 
+                case 2 -> {
+                    System.out.println("Escriba los numeros de las armas que quiere que tenga su personaje: ");
+                    ArrayList<Integer> armasEleg = super.getEntidades().MostraryElegir("ARMAS");
+                    // Arma[] armasPersonajeArray = mochilaArmasPersonaje.toArray(new
+                    // Arma[armasEleg.size()]);
+
+                    for (int i = 0; i < armasEleg.size(); i++) {
+                        // armasPersonajeArray[i] = super.getEntidades().elegirArma(armasEleg.get(i));
+                        mochilaArmasPersonaje.add(super.getEntidades().elegirArma(armasEleg.get(i)));
+                    }
+                }
+
+            }
         }
         Arma[] armasPersonaje = mochilaArmasPersonaje.toArray(new Arma[0]);
         // armas activas
@@ -168,7 +155,7 @@ public class OperadorSistema extends Usuario {
         System.out.println("(Ten en cuenta que va a ser una de dos manos o dos de una mano)");
 
         for (int i = 0; i < armasPersonaje.length; i++) {
-            System.out.println(i + "_" + armasPersonaje[i].getNombre() + armasPersonaje[i].getTipodeArma().toString());
+            System.out.println(i + "_ " + armasPersonaje[i].getNombre() + " " + armasPersonaje[i].getTipodeArma().toString());
         }
         System.out.println(armasPersonaje.length + " Salir");
         int numArmaActiva = 0;
@@ -193,42 +180,39 @@ public class OperadorSistema extends Usuario {
         Arma[] armasActivasPersonaje = armasActivas.toArray(new Arma[0]);
 
         // armaduras
-
-        System.out.println("Desea crear una armadura de 0 o elegirla del sistema: ");
-        System.out.println("1- Crear la armadura ");
-        System.out.println("2- Elegir armaduras del sistema");
         ArrayList<Armadura> mochilaArmadurasPersonaje = new ArrayList<>();
-        Scanner lecturaArmadura = new Scanner(System.in);
-        int opcionArmadura = lecturaArmadura.nextInt();
-        lecturaArmadura.close();
+        System.out.println("Vas a introducir armaduras hasta que pulses salir");
+        while(opcionArma != 3){
+            System.out.println("Desea crear una armadura de 0 o elegirla del sistema: ");
+            System.out.println("1- Crear la armadura ");
+            System.out.println("2- Elegir armaduras del sistema");
+            System.out.println("3- Salir");
+            int opcionArmadura = lectura.nextInt();
+            
+            switch (opcionArmadura) {
+                case 1 -> {
+                    lectura.nextLine();
+                    System.out.println("Escriba el nombre de la armadura");
+                    String nombre = lectura.nextLine();
+                    System.out.println("Escriba su ataque");
+                    String danio = lectura.nextLine();
+                    System.out.println("Escriba su defensa");
+                    String defensa = lectura.nextLine();
+                    Armadura armadura = CrearArmadura(nombre, danio, defensa);
+                    mochilaArmadurasPersonaje.add(armadura);
+                }
 
-        switch (opcionArmadura) {
-            case 1 -> {
-
-                Scanner lecturaValoresArmadura = new Scanner(System.in);
-                System.out.println("Escriba el nombre de la armadura");
-                String nombre = lecturaValoresArmadura.nextLine();
-                System.out.println("Escriba su ataque");
-                String danio = lecturaValoresArmadura.nextLine();
-                System.out.println("Escriba su defensa");
-                String defensa = lecturaValoresArmadura.nextLine();
-                Armadura armadura = CrearArmadura(nombre, danio, defensa);
-                mochilaArmadurasPersonaje.add(armadura);
-                lecturaValoresArmadura.close();
-
-            }
-
-            case 2 -> {
-                System.out.println("Escriba el numero de la armadura que quiere que tenga su personaje: ");
-                ArrayList<Integer> armadurasEleg = super.getEntidades().MostraryElegir("ARMADURAS");
-                // Armadura[] armadurasArrayPersonaje = new Armadura[armadurasEleg.size()];
-                for (int i = 0; i < armadurasEleg.size(); i++) {
-                    // armadurasArrayPersonaje[i] =
-                    // super.getEntidades().elegirArmadura(armadurasEleg.get(i));
-                    mochilaArmadurasPersonaje.add(super.getEntidades().elegirArmadura(armadurasEleg.get(i)));
+                case 2 -> {
+                    System.out.println("Escriba el numero de la armadura que quiere que tenga su personaje: ");
+                    ArrayList<Integer> armadurasEleg = super.getEntidades().MostraryElegir("ARMADURAS");
+                    // Armadura[] armadurasArrayPersonaje = new Armadura[armadurasEleg.size()];
+                    for (int i = 0; i < armadurasEleg.size(); i++) {
+                        // armadurasArrayPersonaje[i] =
+                        // super.getEntidades().elegirArmadura(armadurasEleg.get(i));
+                        mochilaArmadurasPersonaje.add(super.getEntidades().elegirArmadura(armadurasEleg.get(i)));
+                    }
                 }
             }
-
         }
         Armadura[] armadurasPersonaje = mochilaArmadurasPersonaje.toArray(new Armadura[0]);
 
