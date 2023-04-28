@@ -27,9 +27,9 @@ public class SistemaPrincipalGame {
      */
     private SistemaPrincipalGame() {// constructor hay que ver como aplicar singleton
     }
-    
-    public static SistemaPrincipalGame obtenerInstancia(){//singleton
-        if(sistema==null){
+
+    public static SistemaPrincipalGame obtenerInstancia() {//singleton
+        if (sistema == null) {
             sistema = new SistemaPrincipalGame();
         }
         return sistema;
@@ -60,11 +60,12 @@ public class SistemaPrincipalGame {
         Scanner escanerMain = new Scanner(System.in);
         int opcionElegida = 0;
         while (!(opcionElegida != 1 ^ opcionElegida != 2)) {
-            System.out.println("Pulse 1 si desea iniciar sesión y 2 si desea registrarse:");
+            System.out.println("=====Bienvenido al servicio de MP Wars=====");
+            System.out.println("Pulse 1 si desea iniciar sesion y 2 si desea registrarse:");
             opcionElegida = escanerMain.nextInt();
-            if (opcionElegida==1) {
+            if (opcionElegida == 1) {
                 iniciarSesion();
-            } else if (opcionElegida==2) {
+            } else if (opcionElegida == 2) {
                 registrarse();
                 String opcion = "";
                 while (!(opcion.equals("si") ^ opcion.equals("no"))) {
@@ -91,15 +92,15 @@ public class SistemaPrincipalGame {
     private void iniciarSesion() throws IOException {
         Scanner escIniSes = new Scanner(System.in);
         System.out.println("-----Inicio de Sesion-----");
-        int intentos=0;
+        int intentos = 0;
         String nick = "";
-        String password="";
-        while (intentos <3 && usuariosSistema.existeUsuario(nick, password) == false){
+        String password = "";
+        while (intentos < 3 && usuariosSistema.existeUsuario(nick, password) == false) {
             System.out.println("Introduzca su nick: ");
             nick = escIniSes.nextLine();
             System.out.println("Introduzca su password: ");
             password = escIniSes.nextLine();
-            if (usuariosSistema.existeUsuario(nick, password) == false && intentos!=2) {
+            if (usuariosSistema.existeUsuario(nick, password) == false && intentos != 2) {
                 System.out.println("Usuario no encontrado. Por favor, asegurese de insertar su usuario y contraseña correctamente.");
             }
             ++intentos;
@@ -118,11 +119,11 @@ public class SistemaPrincipalGame {
                 Jugador jugador = (Jugador) usuario;
                 jugador.setRankingGlobal(rankingSistema);
                 while (eleccionMenu != 8) {// hacer restriccion para que solo meta enteros
-                    if (jugador.getCombateRealizado()!= null){
+                    if (jugador.getCombateRealizado() != null) {
                         jugador.resultadosCombate(jugador.getCombateRealizado());
                     }
-                    if (jugador.getDesafioPendiente()!= null){
-                      jugador.AceptaroRechazarDesafio(jugador.getDesafioPendiente());  
+                    if (jugador.getDesafioPendiente() != null) {
+                        jugador.AceptaroRechazarDesafio(jugador.getDesafioPendiente());
                     }
                     Menu menu = new MenuJugador();// deberia ponerlo fuera
                     menu.mostrarOpciones();
@@ -156,9 +157,13 @@ public class SistemaPrincipalGame {
                 Registro registro = new RegistroJugador(usuariosSistema); // nuevas clases
                 Usuario usuario = registro.registrarse(TipoUsuario.Jugador);
                 System.out.println("Ya casi has terminado de registrarte, ahora elige un personaje que luche a tu lado");
-                ArrayList<Integer> personajes = entidadesSistema.MostraryElegir("PERSONAJES");               
+                ArrayList<Integer> personajes = entidadesSistema.MostraryElegir("PERSONAJES");
+
                 Personaje personajeElegido = entidadesSistema.elegirPersonaje(personajes.get(0));
                 Jugador jugador = (Jugador) usuario;
+                if (personajeElegido == null) {
+                    return;
+                }
                 jugador.setPersonajeActivo(personajeElegido);
                 System.out.println("Se te ha guardado el personaje");
                 jugador.setOro(100);
@@ -172,7 +177,6 @@ public class SistemaPrincipalGame {
             }
         }
     }
-
 
     private void leerPersonajes(String fichero) throws FileNotFoundException { // habria que hacer uno para cada tipo de
         // entidad
@@ -283,6 +287,5 @@ public class SistemaPrincipalGame {
         entidadesActivas.aniadir(habilidadLicantropo);
         entidadesActivas.aniadir(habilidadCazador);
     }
-    
 
 }

@@ -149,8 +149,7 @@ public class OperadorSistema extends Usuario {
 
             }
         }
-        Arma[] armasPersonaje = mochilaArmasPersonaje.toArray(new Arma[0]);
-        // armas activas
+        Arma[] armasPersonaje = mochilaArmasPersonaje.toArray(new Arma[0]);// armas activas
         System.out.println("Elige el numero del arma o armas que va a tener como activas: ");
         System.out.println("(Ten en cuenta que va a ser una de dos manos o dos de una mano)");
 
@@ -158,6 +157,7 @@ public class OperadorSistema extends Usuario {
             System.out.println(i + "_ " + armasPersonaje[i].getNombre() + " " + armasPersonaje[i].getTipodeArma().toString());
         }
         System.out.println(armasPersonaje.length + " Salir");
+
         int numArmaActiva = 0;
         ArrayList<Arma> armasActivas = new ArrayList<>();
         while (numArmaActiva != armasPersonaje.length) {
@@ -166,14 +166,36 @@ public class OperadorSistema extends Usuario {
                 if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de2manos
                         && armasActivas.isEmpty()) {
                     armasActivas.add(armasPersonaje[numArmaActiva]);
+                    System.out.println("Arma " + numArmaActiva + " activada con exito.");
                 } else if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de1mano
                         && armasActivas.isEmpty()) {
                     armasActivas.add(armasPersonaje[numArmaActiva]);
                 } else if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de1mano
-                        && armasActivas.size() == 1) {
+                        && armasActivas.size() == 1
+                        && armasActivas.contains(armasPersonaje[numArmaActiva]) == false) {
                     armasActivas.add(armasPersonaje[numArmaActiva]);
+                } else if (armasActivas.contains(armasPersonaje[numArmaActiva])) {
+                    System.out.println("Arma ya activa");
                 } else {
                     System.out.println("El arma que intentas establecer como activa no cabe");
+                    System.out.println("¿Desea eliminar un arma que ya tenga?");
+                    System.out.println("- 1.Si");
+                    System.out.println("- 2.No");
+                    int eleccion = lectura.nextInt();
+                    if (eleccion == 1) {
+                        System.out.println("Estas son sus armas Activas");
+                        for (int i = 0; i < armasActivas.size(); i++) {
+                            System.out.println(
+                                    i + "_ " + armasActivas.get(i).getNombre() + " " + armasPersonaje[i].getTipodeArma().toString());
+                        }
+                        eleccion = lectura.nextInt();
+                        armasActivas.remove(eleccion);
+                    } else if (eleccion == 2) {
+                        System.out.println(
+                                "El arma que intentas establecer como activa no se activara por falta de hueco.");
+                    } else {
+                        System.out.println("Por favor, introduzca 1 o 2.");
+                    }
                 }
             }
         }
@@ -403,7 +425,8 @@ public class OperadorSistema extends Usuario {
 
     }
 
-    private void rellenarStringBuilder(StringBuilder sb, Personaje personaje) {//hay que cambiar la forma de guardar los esbirros
+    private void rellenarStringBuilder(StringBuilder sb, Personaje personaje) {// hay que cambiar la forma de guardar
+                                                                               // los esbirros
         if (personaje instanceof Vampiro) {
             sb.append("vampiro;");
         } else if (personaje instanceof Licantropo) {
@@ -700,26 +723,26 @@ public class OperadorSistema extends Usuario {
         String nickIterado = "";
         int indice = 0;
         Jugador jugadorDesafiante = null;
-        while(!(desafiante.equals(nickIterado))) {
+        while (!(desafiante.equals(nickIterado))) {
             Usuario usuario = manager.getUsuariosRegistrados().get(indice);
             if (usuario instanceof Jugador) {
                 jugadorDesafiante = (Jugador) usuario;
                 nickIterado = jugadorDesafiante.getNick();
             }
-            
+
             ++indice;
         }
 
         nickIterado = "";
         Jugador jugadorDesafiado = null;
         indice = 0;
-        while(!(desafiado.equals(nickIterado))) {
+        while (!(desafiado.equals(nickIterado))) {
             Usuario usuario = manager.getUsuariosRegistrados().get(indice);
             if (usuario instanceof Jugador) {
                 jugadorDesafiado = (Jugador) usuario;
                 nickIterado = jugadorDesafiado.getNick();
             }
-            
+
             ++indice;
         }
 
@@ -728,7 +751,8 @@ public class OperadorSistema extends Usuario {
         desafio.setJugadorDesafiado(jugadorDesafiado);
         desafio.setOroApostado(oroApuesta);
 
-        super.getDesafiosAct().guardarDesafio(desafio);;
+        super.getDesafiosAct().guardarDesafio(desafio);
+        ;
 
     }
 

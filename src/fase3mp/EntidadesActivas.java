@@ -166,8 +166,7 @@ public class EntidadesActivas {
         return habilidades.get(eleccion);
     }
 
-    public ArrayList<Integer> MostraryElegir(String objetoMostrar) {// se podrian poner if para controlar que meta un
-                                                                    // numero
+    public ArrayList<Integer> MostraryElegir(String objetoMostrar) {// se podrian poner if para controlar que meta un numero
         Scanner escaner = new Scanner(System.in);// en el rango correcto
         if (objetoMostrar.equals("PERSONAJES")) {
             for (int i = 0; i < personajes.size(); i++) {
@@ -175,10 +174,20 @@ public class EntidadesActivas {
             }
             System.out.println("- " + (personajes.size() + 1) + ".Salir");
             System.out.println("Escoja el numero por favor:");
-            int personajeEle = escaner.nextInt();
+
+            int personajeEle = escaner.nextInt(); //Si nos mete una letra peta
+
             ArrayList<Integer> personajesElegidos = new ArrayList<>();
-            personajesElegidos.add(personajeEle);
-            return personajesElegidos;
+            while (personajeEle > personajesElegidos.size() || personajeEle < 0) {
+                System.out.println("Por favor ingrese un numero de la lista indicada anteriormente.");
+                personajeEle = escaner.nextInt();
+            }
+            if (personajeEle == personajesElegidos.size()) {
+                return null;
+            } else {
+                personajesElegidos.add(personajeEle);
+                return personajesElegidos;
+            }
         } else if (objetoMostrar.equals("ARMAS")) {
             int armaEle = 0;
             for (int i = 0; i < armas.size(); i++) {
@@ -189,13 +198,20 @@ public class EntidadesActivas {
             ArrayList<Integer> armasElegidas = new ArrayList<>();
             while (armaEle != armas.size()) {// habria que limitar para que no acepte enteros mayores que el size
                 armaEle = escaner.nextInt();
-                if (!(armaEle == armas.size())) {
-                    armasElegidas.add(armaEle);
-                } else if (armaEle < 1 || armaEle > armas.size()) {
+                if (!(armaEle < 0) && !(armaEle >= armas.size())) {
+                    if (armasElegidas.contains(armaEle)) {
+                        System.out.println("Ya posee esta arma, elija otra de la lista.");
+                    } else {
+                        armaEle = escaner.nextInt();
+                        armasElegidas.add(armaEle);
+                    }
+                } else {
                     System.out.println("Arma erronea. Por favor, introduzca un arma de la lista.");
+                    //armaEle = escaner.nextInt();
                 }
-                return armasElegidas;
             }
+            return armasElegidas;
+
         } else if (objetoMostrar.equals("ARMADURAS")) {
             int armaduraEle = 0;
             for (int i = 0; i < armaduras.size(); i++) {
@@ -204,14 +220,20 @@ public class EntidadesActivas {
             System.out.println("- " + armaduras.size() + ".Salir");
             ArrayList<Integer> armadurasElegidas = new ArrayList<>();
             while (armaduraEle != armaduras.size()) {
-                if (!(armaduraEle == armaduras.size())) {
-                    armaduraEle = escaner.nextInt();
-                    armadurasElegidas.add(armaduraEle);
-                } else if (armaduraEle < 1 || armaduraEle > armas.size()) {
+                armaduraEle = escaner.nextInt();
+                if (!(armaduraEle >= armaduras.size()) && !(armaduraEle < 0)) {
+                    if (armadurasElegidas.contains(armaduraEle)) {
+                        System.out.println("Ya posee esta armadura, elija otra de la lista");
+                    } else {
+                        armaduraEle = escaner.nextInt();
+                        armadurasElegidas.add(armaduraEle);
+                    }
+                } else {
                     System.out.println("Armadura erronea. Por favor, introduzca un armadura de la lista.");
                 }
-                return armadurasElegidas;
             }
+            return armadurasElegidas;
+
         } else if (objetoMostrar.equals("FORTALEZAS")) {
             int fortalezaEle = 0;
             for (int i = 0; i < fortalezas.size(); i++) {
@@ -220,12 +242,21 @@ public class EntidadesActivas {
             System.out.println("- " + (fortalezas.size()) + ".Salir");
             ArrayList<Integer> fortalezasElegidas = new ArrayList<>();
             while (fortalezaEle != fortalezas.size()) {
-                if (!(fortalezaEle == fortalezas.size())) {
-                    fortalezaEle = escaner.nextInt();
-                    fortalezasElegidas.add(fortalezaEle);
+                fortalezaEle = escaner.nextInt();
+
+                if (!(fortalezaEle >= fortalezas.size()) && !(fortalezaEle < 0)) {
+                    if (fortalezasElegidas.contains(fortalezaEle)) {
+                        System.out.println("Ya posee esta fortaleza, elija otra de la lista");
+                    } else {
+                        fortalezaEle = escaner.nextInt();
+                        fortalezasElegidas.add(fortalezaEle);
+                    }
+                } else {
+                    System.out.println("Fortaleza erronea. Por favor, introduzca una fortaleza de la lista");
                 }
-                return fortalezasElegidas;
             }
+            return fortalezasElegidas;
+
         } else if (objetoMostrar.equals("DEBILIDADES")) {
             int debilidadEle = 0;
             for (int i = 0; i < debilidades.size(); i++) {
@@ -234,13 +265,22 @@ public class EntidadesActivas {
             System.out.println("- " + (debilidades.size() + 1) + ".Salir");
             ArrayList<Integer> debilidadesElegidas = new ArrayList<>();
             while (debilidadEle != debilidades.size()) {
-                if (!(debilidadEle == debilidades.size())) {
-                    debilidadEle = escaner.nextInt();
-                    debilidadesElegidas.add(debilidadEle);
+                debilidadEle = escaner.nextInt();
+                if (!(debilidadEle >= debilidades.size()) && !(debilidadEle < 0)) {
+                    if (debilidadesElegidas.contains(debilidadEle)) {
+                        System.out.println("Ya posee esta debilidad, por favor elija otra de la lista.");
+                    } else {
+                        debilidadEle = escaner.nextInt();
+                        debilidadesElegidas.add(debilidadEle);
+                    }
+                } else {
+                    System.out.println("Debilidad erronea. Por favor, introduzca una debilidad de la lista.");
                 }
-                return debilidadesElegidas;
             }
-        } else if (objetoMostrar.equals("ESBIRROS")) {
+            return debilidadesElegidas;
+
+        } else if (objetoMostrar.equals(
+                "ESBIRROS")) {
             int esbirroEle = 0;
             for (int i = 0; i < esbirros.size(); i++) {
                 System.out.println("- " + i + ".Esbirro:" + esbirros.get(i).getNombre() + " "
@@ -253,7 +293,8 @@ public class EntidadesActivas {
                 esbirrosElegidos.add(esbirroEle);
                 return esbirrosElegidos;
             }
-        } else if (objetoMostrar.equals("ESBIRRO")) {
+        } else if (objetoMostrar.equals(
+                "ESBIRRO")) {
             int esbirroEle = 0;
             for (int i = 0; i < esbirros.size(); i++) {
                 System.out.println("- " + i + ".Esbirro " + esbirros.get(i).getNombre() + " "
@@ -270,6 +311,7 @@ public class EntidadesActivas {
             System.out.println("No existe el contenido " + objetoMostrar);
             return null;
         }
+
         return null;
     }
 
@@ -281,7 +323,14 @@ public class EntidadesActivas {
             System.out.println("Habilidad " + i + habilidades.get(i).getNombre());
         }
         System.out.println((habilidades.size() + 1) + " Salir");
-        habilidadElegida = escaner.nextInt();
+        while (habilidadElegida != habilidades.size()) {
+            habilidadElegida = escaner.nextInt();
+            if (!(habilidadElegida >= habilidades.size()) && !(habilidadElegida <0)){
+                return habilidadElegida;
+            } else{
+                System.out.println("Habilidad erronea, por favor introduzca una habilidad de la lista.");
+            }
+        }
         return habilidadElegida;
     }
 
@@ -514,7 +563,7 @@ public class EntidadesActivas {
                 int saludEsb = Integer.parseInt(partesEsb[1]);
                 if (partesEsb[2].equals("humano")) {
                     int lealtad = Integer.parseInt(partesEsb[3]);// habra que comprobar el string y establecer valor del
-                                                                 // enum
+                    // enum
                     fabricaEsbirros = new FabricaHumano();
                     Humano humano = (Humano) fabricaEsbirros.crearEsbirro(nombreEsb, saludEsb);
                     humano.setLealtad(Humano.nivelLealtad.ALTA);
