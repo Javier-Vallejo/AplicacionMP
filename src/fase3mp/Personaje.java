@@ -183,6 +183,23 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
         System.out.println("- " + armasPersonaje.length + ".Salir");
     }
 
+    public void MostrarArmasActivas(Personaje personajeEle){
+        int indice = 0;
+        Arma[] armasActivasLista = personajeEle.getArmasActivas();
+        if (armasActivasLista.length==0){
+            System.out.println("Este personaje no tiene armas activas");
+        }else{
+            for (Arma arma : armasActivasLista) {
+                System.out.println(
+                        "- " + indice + ".Arma: " + arma.getNombre() + ", "
+                                + arma.devolverModificadores());
+                ++indice;
+            }
+            System.out.println("Escoja el arma o las armas que desea cambiar:");
+            
+        }
+    }
+
     public void MostrarArmaduras(Personaje personajeEle) {
         int indice = 0;
         Armadura[] armadurasPersonaje = personajeEle.getArmaduras();
@@ -278,14 +295,14 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                             System.out.println("Armas actuales: ");
                             MostrarArmas(personajeEle);
                             armaAeliminar = escanerLectura.nextInt();
-                            if (armaAeliminar < arrayListArmas.size() && armaAeliminar>0) {
+                            if (armaAeliminar < arrayListArmas.size() && armaAeliminar > 0) {
                                 arrayListArmas.remove(armaAeliminar);
                                 Arma[] arrayArmas = arrayListArmas.toArray(new Arma[0]);
                                 personajeEle.setArmas(arrayArmas);
                                 System.out.println("Arma Eliminada: ");
-                            } else if (armaAeliminar==arrayListArmas.size()){
+                            } else if (armaAeliminar == arrayListArmas.size()) {
                                 System.out.println("Volviendo al menu principal.");
-                            }else{
+                            } else {
                                 System.out.println("Arma no incluida, por favor selecciona un arma de la lista");
                             }
                         }
@@ -379,7 +396,8 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                                 Debilidad[] arrayDebilidades = arrayListDebilidades.toArray(new Debilidad[0]);
                                 personajeEle.setDebilidades(arrayDebilidades);
                             } else {
-                                System.out.println( "Debilidad no incluida, por favor selecciona un debilidad de la lista");
+                                System.out.println(
+                                        "Debilidad no incluida, por favor selecciona un debilidad de la lista");
                             }
                         }
 
@@ -408,7 +426,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                         eleccion = escanerLectura.nextInt();
                     }
 
-                    if (eleccion==1) {
+                    if (eleccion == 1) {
                         int fortalezasAeliminar = 0;
                         System.out.println("Selecciona las fortalezas que desea eliminar: ");
                         while (fortalezasAeliminar != arrayListFortalezas.size()) {// habria que limitar para que no
@@ -427,7 +445,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                             }
                         }
 
-                    } else if (eleccion==2) {
+                    } else if (eleccion == 2) {
                         System.out.println("Elige las fortalezas que desea insertar:");
                         ArrayList<Integer> fortalezasElegidas = entidades.MostraryElegir("FORTALEZAS");
                         for (int i = 0; i < fortalezasElegidas.size(); ++i) {
@@ -498,33 +516,47 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
             }
             switch (opcion) {
                 case 1 -> {
+                    
                     List<Arma> listaArmasActivas = Arrays.asList(personajeEle.getArmasActivas());
                     ArrayList<Arma> arrayListArmas = new ArrayList<>(listaArmasActivas);
                     Arma[] armasPersonaje = personajeEle.getArmas();
-                    System.out.println("Estas son sus armas Activas");
-                    // imprimir armas activas
-                    System.out.println("Escoja el arma o las armas que desea cambiar:");
-                    int eleccion = escanerLectura.nextInt();
-                    arrayListArmas.remove(eleccion);
                     System.out.println(
                             "Seleccione que arma desea activar (Ten en cuenta que va a ser una de dos manos o dos de una mano):");
                     System.out.println("Estas son sus armas actuales:");
                     MostrarArmas(personajeEle);
                     int numArmaActiva = 0;
                     while (numArmaActiva != armasPersonaje.length) {
-                        numArmaActiva = eleccion;
+                        numArmaActiva = escanerLectura.nextInt();
                         if (!(numArmaActiva == armasPersonaje.length)) {
                             if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de2manos
                                     && arrayListArmas.isEmpty()) {
                                 arrayListArmas.add(armasPersonaje[numArmaActiva]);
+                                System.out.println("Arma " + numArmaActiva +" activada con exito.");
                             } else if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de1mano
                                     && arrayListArmas.isEmpty()) {
                                 arrayListArmas.add(armasPersonaje[numArmaActiva]);
                             } else if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de1mano
-                                    && arrayListArmas.size() == 1) {
+                                    && arrayListArmas.size() == 1
+                                    && arrayListArmas.contains(armasPersonaje[numArmaActiva]) == false) {
                                 arrayListArmas.add(armasPersonaje[numArmaActiva]);
+                            } else if (arrayListArmas.contains(armasPersonaje[numArmaActiva])) {
+                                System.out.println("Arma ya activa");
                             } else {
                                 System.out.println("El arma que intentas establecer como activa no cabe");
+                                System.out.println("¿Desea eliminar un arma que ya tenga?");
+                                System.out.println("- 1.Si");
+                                System.out.println("- 2.No");
+                                int eleccion = escanerLectura.nextInt();
+                                if(eleccion==1){
+                                    System.out.println("Estas son sus armas Activas");
+                                    MostrarArmasActivas(personajeEle);
+                                    eleccion = escanerLectura.nextInt();
+                                    arrayListArmas.remove(eleccion);
+                                }else if(eleccion ==2){
+                                    System.out.println("El arma que intentas establecer como activa no se activara por falta de hueco.");
+                                }else{
+                                    System.out.println("Por favor, introduzca 1 o 2.");
+                                }
                             }
                         }
                     }
