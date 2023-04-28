@@ -32,6 +32,8 @@ public class OperadorSistema extends Usuario {
         super(nombre, nick, password, rol, manager);
         this.manager = manager;
         entidades = super.getEntidades();
+        notificador = new Publisher();
+        notificador.setOperador(this);
     }
 
     public Publisher getNotificador() {
@@ -583,40 +585,88 @@ public class OperadorSistema extends Usuario {
         ArrayList<Debilidad> DElegDesafiado = new ArrayList<>();
 
         // mostramos debilidades por pantalla del desafiantes
-        listarDebilidades(debilidadesDesafiante);
+        
         System.out.println("Escoja los números de las debilidades del Jugador desafiante deseas: ");
+        listarDebilidades(debilidadesDesafiante);
+        System.out.println(debilidadesDesafiante.length + ":Salir");
+
         // el operador elige debilidades y las guarda
-        while (eleccion != debilidadesDesafiante.length + 1) { // habra que comprobar que no elija una debilidad o
+        while (eleccion != debilidadesDesafiante.length) { // habra que comprobar que no elija una debilidad o
             // fortaleza 2 veces
             eleccion = scanner.nextInt();
-            DElegDesafiante.add(debilidadesDesafiante[eleccion]);
+            if (eleccion != debilidadesDesafiante.length && eleccion <= 0 && eleccion < debilidadesDesafiante.length) {
+                DElegDesafiante.add(debilidadesDesafiante[eleccion]);
+                System.out.println("Debilidad" + " " + debilidadesDesafiante[eleccion].getNombre() + " escogida");
+
+            } else if (eleccion <= 0 || eleccion < debilidadesDesafiante.length) {
+                System.out.println("Por favor selecciona una de las opciones que se muestra por pantalla");
+
+            }
+
         }
+        desafio.setDElegDesafiante(DElegDesafiante);
         // mostramos fortalezas por pantalla del desafiantes
-        listarFortalezas(fortalezasDesafiante);
+        
         System.out.println("Escoja los números de las fortalezas del Jugador desafiante que desea: ");
+        listarFortalezas(fortalezasDesafiante);
+        System.out.println(fortalezasDesafiante.length + ":Salir");
+
+        eleccion = 0;
         // el operador elige fortalezas y las guarda
-        while (eleccion != fortalezasDesafiante.length + 1) { // habra que comprobar que no elija una debilidad o
+        while (eleccion != fortalezasDesafiante.length) { // habra que comprobar que no elija una debilidad o
             // fortaleza 2 veces
             eleccion = scanner.nextInt();
-            FElegDesafiante.add(fortalezasDesafiante[eleccion]);
+            if (eleccion != fortalezasDesafiante.length && eleccion <= 0 && eleccion < fortalezasDesafiante.length) {
+                FElegDesafiante.add(fortalezasDesafiante[eleccion]);
+                System.out.println("Fortaleza" + " " + fortalezasDesafiante[eleccion].getNombre() + " escogida");
+
+            } else if (eleccion <= 0 || eleccion < debilidadesDesafiante.length) {
+                System.out.println("Por favor selecciona una de las opciones que se muestra por pantalla");
+
+            }
         }
+        desafio.setFElegDesafiante(FElegDesafiante);
+
         // mostramos debilidades por pantalla del desafiado
-        listarDebilidades(debilidadesDesafiado);
+       
         System.out.println("Escoja los números de las debilidades del Jugador desafiado que desea: ");
-        while (eleccion != debilidadesDesafiante.length + 1) { // habra que comprobar que no elija una debilidad o
+        listarDebilidades(debilidadesDesafiado);
+        System.out.println(debilidadesDesafiado.length + ":Salir");
+        eleccion = 0;
+        while (eleccion != debilidadesDesafiante.length) { // habra que comprobar que no elija una debilidad o
             // fortaleza 2 veces
             eleccion = scanner.nextInt();
-            DElegDesafiado.add(debilidadesDesafiado[eleccion]);
+            if (eleccion != debilidadesDesafiado.length && eleccion <= 0 && eleccion < debilidadesDesafiado.length) {
+                DElegDesafiado.add(debilidadesDesafiado[eleccion]);
+                System.out.println("Debilidad" + " " + debilidadesDesafiado[eleccion].getNombre() + " escogida");
+
+            } else if (eleccion <= 0 || eleccion < debilidadesDesafiante.length) {
+                System.out.println("Por favor selecciona una de las opciones que se muestra por pantalla");
+
+            }
+
         }
-        // mostramos fortalezas por pantalla del desafiado
-        listarFortalezas(fortalezasDesafiado);
+        desafio.setDElegDesafiado(DElegDesafiado);
+        
         System.out.println("Escoja los números de las fortalezas del Jugador desafiado que desea: ");
+        listarFortalezas(fortalezasDesafiado);
+        System.out.println(fortalezasDesafiado.length + ":Salir");
+        eleccion = 0;
         // el operador elige fortalezas y las guarda
-        while (eleccion != fortalezasDesafiado.length + 1) { // habra que comprobar que no elija una debilidad o
+        while (eleccion != fortalezasDesafiado.length) { // habra que comprobar que no elija una debilidad o
             // fortaleza 2 veces
             eleccion = scanner.nextInt();
-            FElegDesafiado.add(fortalezasDesafiado[eleccion]);
+            if (eleccion != fortalezasDesafiado.length && eleccion <= 0 && eleccion < fortalezasDesafiado.length) {
+                FElegDesafiado.add(fortalezasDesafiado[eleccion]);
+                System.out.println("Fortaleza" + " " + fortalezasDesafiado[eleccion].getNombre() + " escogida");
+
+            } else if (eleccion <= 0 || eleccion < debilidadesDesafiante.length) {
+                System.out.println("Por favor selecciona una de las opciones que se muestra por pantalla");
+
+            }
         }
+
+        desafio.setFElegDesafiante(FElegDesafiante);
 
         // comprobar oro desafiado
         int oro = desafio.getOroApostado();
@@ -625,9 +675,10 @@ public class OperadorSistema extends Usuario {
         System.out.println("Oro apostado: " + oro);
 
         // ahora el operador decide si validar o no el desafio:
-        String validacion = null;
+        String validacion = "";
         System.out.println("Deseas validar o no validar el desafio: SI/NO");
-        while (!validacion.equals("SI") || !validacion.equals("NO")) {
+        while (!validacion.equals("SI") && !validacion.equals("NO")) {
+            scanner = new Scanner(System.in);
             validacion = scanner.nextLine();
             if (validacion.equals("SI")) { // habria que hacer que se cambie a mayus lo que escriba para que da
                                            // igual que pona si, Si, o SI
@@ -636,7 +687,7 @@ public class OperadorSistema extends Usuario {
                 notificador.notificarUsuario(desafio);
             } else if (!validacion.equals("SI") || !validacion.equals("NO")) {
                 System.out.println(
-                        "Por favor, intraduzca 'Si' si quiere validar el desafio o 'No' si quiere rechazarlo");
+                        "Por favor, intraduzca 'SI' si quiere validar el desafio o 'NO' si quiere rechazarlo");
             }
         }
 
@@ -682,7 +733,12 @@ public class OperadorSistema extends Usuario {
                 // NECESITO ACCEDER A LA LISTA DE DESAFIOS
                 leerDesafios();
                 Desafio desafio = super.getDesafiosAct().obtenerDesafio();
-                validarDesafio(desafio, notificador);// y notificarlo con el observer
+                if (desafio != null) {
+                    validarDesafio(desafio, notificador);// y notificarlo con el observer
+                } else {
+                    System.out.println("No hay desafios pendientes");
+                }
+
             }
             case 5 -> {
                 // Banear Usuario
@@ -721,8 +777,8 @@ public class OperadorSistema extends Usuario {
             }
             case 7 -> {
                 // Salir
-                System.out.println("Cerrando sesion y saliendo");
-                System.exit(0);
+                System.out.println("Cerrando sesion");
+                //System.exit(0);
             }
         }
     }
@@ -731,31 +787,62 @@ public class OperadorSistema extends Usuario {
 
         File file = new File("Ficheros/Desafios.txt");
         Scanner scanner = new Scanner(file);
-        String linea = scanner.nextLine();
+        if (scanner.hasNextLine()) {
+            String lineaDesafio = scanner.nextLine();
+            String[] partes = lineaDesafio.split(" ");
+            String desafiante = partes[1];
+            String desafiado = partes[2];
+            String oroApostado = partes[3];
+            Integer oroApuesta = Integer.parseInt(oroApostado);
+            Jugador jugadorDesafiante = encontrarJugador(desafiante);
+            Jugador jugadorDesafiado = encontrarJugador(desafiado);
+            Desafio desafio = new Desafio();
+            desafio.setJugadorDesafiante(jugadorDesafiante);
+            desafio.setJugadorDesafiado(jugadorDesafiado);
+            desafio.setOroApostado(oroApuesta);
+            super.getDesafiosAct().guardarDesafio(desafio);
 
-        String[] partes = linea.split(" ");
-        String desafiante = partes[1];
-        String desafiado = partes[2];
-        String oroApostado = partes[3];
-
-        Integer oroApuesta = Integer.parseInt(oroApostado);
-        String nickIterado = "";
-        int indice = 0;
-        Jugador jugadorDesafiante = null;
-        while (!(desafiante.equals(nickIterado))) {
-            Usuario usuario = manager.getUsuariosRegistrados().get(indice);
-            if (usuario instanceof Jugador) {
-                jugadorDesafiante = (Jugador) usuario;
-                nickIterado = jugadorDesafiante.getNick();
-            }
-
-            ++indice;
         }
 
-        nickIterado = "";
+        File archivo = new File("Ficheros/Desafios.txt");
+        List<String> lineas = new ArrayList<>();
+
+        try {
+            Scanner lector = new Scanner(archivo);
+
+            // cargar todas las líneas del archivo en una lista
+            while (lector.hasNextLine()) {
+                lineas.add(lector.nextLine());
+            }
+            lector.close();
+
+            // reemplazar la línea en la lista con la nueva línea
+            if (!lineas.isEmpty()) {
+                lineas.remove(0);
+            }
+
+            // escribir la lista actualizada de nuevo en el archivo
+            FileWriter escritor = new FileWriter(archivo);
+            for (String linea : lineas) {
+                escritor.write(linea+ "\n");
+            }
+            escritor.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("No se encontró el archivo.");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Error al leer o escribir el archivo.");
+            e.printStackTrace();
+        }
+    }
+
+    private Jugador encontrarJugador(String nick) {
+
+        String nickIterado = "";
         Jugador jugadorDesafiado = null;
-        indice = 0;
-        while (!(desafiado.equals(nickIterado))) {
+        int indice = 0;
+        while (!(nick.equals(nickIterado))) {
             Usuario usuario = manager.getUsuariosRegistrados().get(indice);
             if (usuario instanceof Jugador) {
                 jugadorDesafiado = (Jugador) usuario;

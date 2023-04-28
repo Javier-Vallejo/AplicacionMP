@@ -138,10 +138,10 @@ public class Usuario implements UsuariosANotificar{
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         if (objeto instanceof Desafio desafio){
             //System.out.println("Recibes un desafio: Quieres hacerlo?");
-            desafio.getJugadorDesafiado().setDesafioPendiente(desafio);
+            setDesafioPendiente(desafio);
         } else if(objeto instanceof Combate combate){
             //System.out.println("Recibes el combate, muestra cada ronda");
-            combate.getDesafiante().setCombateRealizado(combate);
+            setCombateRealizado(combate);
         }
     }
     

@@ -15,6 +15,9 @@ public class Publisher {
     private ArrayList<Usuario> suscriptores;
     private OperadorSistema operador;
     
+    public Publisher() {
+        suscriptores = new ArrayList<>();
+    }
     public void suscribirUsuario(Usuario usuario){
         suscriptores.add(usuario);
     }

@@ -58,29 +58,9 @@ public class SistemaPrincipalGame {
         inicializarHabilidades(entidadesActivas);
         Scanner escanerMain = new Scanner(System.in);
         int opcionElegida = 0;
-        int option = 0;
-        boolean esNumero;
-        //while ((opcionElegida != 1 ^ opcionElegida != 2 ^ opcionElegida!= 3)) {
-        while (!(opcionElegida == 3)) {
-            System.out.println("=====Bienvenido al servicio de MP Wars=====");
-
-            do {
-                try {
-                    System.out.println("Pulse 1 si desea iniciar sesion, 2 si desea registrarse y 3 si desea salir del sistema:");
-                    option = escanerMain.nextInt();
-                    //Hacer con el numero lo que quiera
-                    opcionElegida = option;
-                    System.out.println("He visto que sabes introducir numeros canelo");
-                    esNumero = true;
-
-                } catch (InputMismatchException ime) {
-                    System.out.println("Disculpe, ingrese un numero");
-                    escanerMain.nextLine();
-                    esNumero = false;
-                }
-            } while (!esNumero);
-
-            //opcionElegida = escanerMain.nextInt();
+        while ( opcionElegida != 3 ) {
+            System.out.println("Pulse 1 si desea iniciar sesion y 2 si desea registrarse:");
+            opcionElegida = escanerMain.nextInt();
             if (opcionElegida == 1) {
                 iniciarSesion();
             } else if (opcionElegida == 2) {
@@ -100,13 +80,13 @@ public class SistemaPrincipalGame {
                     System.out.println("Saliendo del programa ¡Hasta Luego!");
                 }
 
-            } else if (opcionElegida == 3) {
-                System.out.println(">> Hasta la vista!! GG EZ");
-                return;
-            } else {
-                System.out.println("");
-                System.out.println(">> Por favor escoja una de las opciones proporcionadas.");
-                System.out.println("");
+            }
+            else if (opcionElegida == 3) {
+                System.exit(0);
+                System.out.println("Saliendo del programa ¡Hasta Luego!");
+            }
+            else {
+                System.out.println("Por favor escoja una de las opciones proporcionadas.");
             }
 
         }
@@ -142,13 +122,15 @@ public class SistemaPrincipalGame {
                 Jugador jugador = (Jugador) usuario;
                 jugador.setRankingGlobal(rankingSistema);
                 while (eleccionMenu != 8) {// hacer restriccion para que solo meta enteros
-                    if (jugador.getCombateRealizado() != null) {
-                        jugador.resultadosCombate(jugador.getCombateRealizado());
-                    }
+                    
+                    Menu menu = new MenuJugador();// deberia ponerlo fuera
+                    
                     if (jugador.getDesafioPendiente() != null) {
                         jugador.AceptaroRechazarDesafio(jugador.getDesafioPendiente());
                     }
-                    Menu menu = new MenuJugador();// deberia ponerlo fuera
+                    if (jugador.getCombateRealizado() != null) {
+                        jugador.resultadosCombate(jugador.getCombateRealizado());
+                    }
                     menu.mostrarOpciones();
                     eleccionMenu = escIniSes.nextInt();
                     jugador.realizarFuncionMenuJugador(eleccionMenu);
