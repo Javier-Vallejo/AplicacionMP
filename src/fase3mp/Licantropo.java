@@ -58,20 +58,25 @@ public class Licantropo extends Personaje {
     }
 
     private int activarDon(int rabia, String opcion) {
-        Dones dones = (Dones) super.devolverHabilidad();
-        int danioBase = super.devolverDañoHabilidad(dones);
-        if (rabia >= dones.getLimitante() && opcion.equals("Ataque")) {
-            return dones.activar(danioBase, opcion);
-        } else if ((rabia >= dones.getLimitante() && opcion.equals("Defensa"))) {
-            return dones.activar(danioBase, opcion);
+        Habilidad habilidad = super.devolverHabilidad();
+        String nombre = habilidad.getNombre();
+        int ataque = habilidad.getValorAtaque();
+        int defensa = habilidad.getValorDefensa();
+       int limitante = habilidad.getLimitante();
+        Dones don = new Dones(nombre, ataque, defensa, limitante);
+        int danioBase = super.devolverDañoHabilidad(don);
+        if (rabia >= don.getLimitante() && opcion.equals("Ataque")) {
+            return don.activar(danioBase, opcion);
+        } else if ((rabia >= don.getLimitante() && opcion.equals("Defensa"))) {
+            return don.activar(danioBase, opcion);
         }
         return 0;
     }
 
     @Override
     public int calculoDefensa() {
-        Dones dones = (Dones) super.devolverHabilidad();
-        return super.devolverDefensaArma() + dones.getValorDefensa() + activarDon(rabia, "Defensa");
+        Habilidad habilidad = super.devolverHabilidad();
+        return super.devolverDefensaArma() + habilidad.getValorDefensa() + activarDon(rabia, "Defensa");
     }
 
     

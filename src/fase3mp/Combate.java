@@ -140,6 +140,9 @@ public class Combate {
         recalcularPropiedadPersonaje(per1);
         recalcularPropiedadPersonaje(per2);
 
+
+        ArrayList<Integer> potencialesaMostrar = new ArrayList<>();
+
         rondaX.setPotencialPer1(potenciales.get(0));
         rondaX.setPotencialPer2(potenciales.get(1));
         if (vida1 < 0) {

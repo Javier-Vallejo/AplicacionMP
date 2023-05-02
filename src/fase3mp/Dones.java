@@ -14,12 +14,12 @@ public Dones(String nombre, int valorAtaque, int valorDefensa, int limitante) {
                 super(nombre, valorAtaque, valorDefensa, limitante);
         }
 
-public int activar(int danio, String opcion) {
+public int activar(int valor, String opcion) {
         if ( opcion == "Ataque") {
-                return danio +10;
+                return valor +10;
         }
         else if (opcion == "Defensa") {
-                return 25;
+                return valor + 5;
         }
 
         return 0;

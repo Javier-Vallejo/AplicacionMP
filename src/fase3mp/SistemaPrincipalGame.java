@@ -60,6 +60,7 @@ public class SistemaPrincipalGame {
         int opcionElegida = 0;
         while ( opcionElegida != 3 ) {
             System.out.println("Pulse 1 si desea iniciar sesion y 2 si desea registrarse:");
+            System.out.println("Pulse 3 si desea salir");
             opcionElegida = escanerMain.nextInt();
             if (opcionElegida == 1) {
                 iniciarSesion();
@@ -266,13 +267,13 @@ public class SistemaPrincipalGame {
                         salud, poder, arrayDebilidades,
                         arrayFortalezas);
                 entidadesSistema.aniadir(vampiro);
-            } else if (camposPersonaje[0] == "Cazador") {
+            } else if (camposPersonaje[0].equals("cazador")) {
                 Cazador cazador = new Cazador(camposPersonaje[1], habilidad, arrayArmas,
                         arrayArmasActivas, arrayArmaduras, armaduraActiva, arrayEsbirros,
                         salud, poder, arrayDebilidades,
                         arrayFortalezas);
                 entidadesSistema.aniadir(cazador);
-            } else if (camposPersonaje[0] == "Licantropo") {
+            } else if (camposPersonaje[0].equals("licantropo")) {
                 Licantropo licantropo = new Licantropo(camposPersonaje[1], habilidad, arrayArmas,
                         arrayArmasActivas, arrayArmaduras, armaduraActiva, arrayEsbirros,
                         salud, poder, arrayDebilidades,

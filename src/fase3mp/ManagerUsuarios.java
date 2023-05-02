@@ -205,6 +205,7 @@ public class ManagerUsuarios {
         rellenarStringBuilderUsuario(sb, usuario);
         File file = new File("Ficheros/Usuarios.txt");
         FileWriter escritor = new FileWriter(file, true);
+        escritor.write("\n");
         escritor.write(sb.toString());
         escritor.flush();
     }

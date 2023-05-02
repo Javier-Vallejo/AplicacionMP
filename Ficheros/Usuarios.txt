@@ -1,3 +1,7 @@
 operador;juan;megaboy;123;
 operador;aaa;1789;1789;
 operador;judas;judas33;15;
+operador;a;a;a;
+jugador;c;c;c;V07JW;100;false;licantropo-a-3
+jugador;b;b;b;V07JW;100;false;licantropo-a-3
+jugador;d;d;d;T77DU;100;false;licantropo-a-3
