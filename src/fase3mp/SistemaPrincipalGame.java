@@ -26,7 +26,7 @@ public class SistemaPrincipalGame {
     /**
      * public Registro registro;
      */
-    private SistemaPrincipalGame() {// constructor hay que ver como aplicar singleton
+    private SistemaPrincipalGame() {
     }
 
     public static SistemaPrincipalGame obtenerInstancia() {//singleton
@@ -36,7 +36,7 @@ public class SistemaPrincipalGame {
         return sistema;
     }
 
-    public SistemaPrincipalGame getSistema() {//no se para que esta
+    public SistemaPrincipalGame getSistema() {
         return null;
     }
 
@@ -124,7 +124,7 @@ public class SistemaPrincipalGame {
                 jugador.setRankingGlobal(rankingSistema);
                 while (eleccionMenu != 8) {// hacer restriccion para que solo meta enteros
                     
-                    Menu menu = new MenuJugador();// deberia ponerlo fuera
+                    Menu menu = new MenuJugador();
                     
                     if (jugador.getDesafioPendiente() != null) {
                         jugador.AceptaroRechazarDesafio(jugador.getDesafioPendiente());
@@ -150,7 +150,7 @@ public class SistemaPrincipalGame {
 
     }
 
-    private void registrarse() throws IOException {//// habria que hacer que devolviera usuario para despues mostrar menu
+    private void registrarse() throws IOException {
         System.out.println("-----Registro-----");
         Scanner escanerRegistro = new Scanner(System.in);
         String rol = "";
@@ -160,7 +160,7 @@ public class SistemaPrincipalGame {
             rol = escanerRegistro.nextLine();// habria que poner un while por si introduce otra cosa
             rol = rol.toLowerCase();
             if (rol.equals("jugador")) {
-                Registro registro = new RegistroJugador(usuariosSistema); // nuevas clases
+                Registro registro = new RegistroJugador(usuariosSistema);
                 Usuario usuario = registro.registrarse(TipoUsuario.Jugador);
                 System.out.println("Ya casi has terminado de registrarte, ahora elige un personaje que luche a tu lado");
                 ArrayList<Integer> personajes = entidadesSistema.MostraryElegir("PERSONAJES");
@@ -184,8 +184,7 @@ public class SistemaPrincipalGame {
         }
     }
 
-    private void leerPersonajes(String fichero) throws FileNotFoundException { // habria que hacer uno para cada tipo de
-        // entidad
+    private void leerPersonajes(String fichero) throws FileNotFoundException { // habria que hacer uno para cada tipo de entidad
         File miFichero = new File(fichero);
         Scanner scanner = new Scanner(miFichero);
         while (scanner.hasNextLine()) {
