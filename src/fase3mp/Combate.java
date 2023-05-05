@@ -122,14 +122,7 @@ public class Combate {
     public void setVida2(int vida2) {
         this.vida2 = vida2;
     }
-    
-    
-    
-    
-    
-    
 
-    
     public Ronda EmpezarRonda(Personaje per1, Personaje per2, int vida1, int vida2){
         Ronda rondaX = new Ronda();
         ArrayList<Integer> potenciales = rondaX.Calculo_Potencial(per1, per2);

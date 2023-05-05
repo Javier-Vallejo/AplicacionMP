@@ -24,7 +24,7 @@ public class Comprobante {
                 esNumero = true;
 
             } catch (InputMismatchException ime) {
-                System.out.println(">> Disculpe, ingrese un numero de la lista mostrada");
+                System.out.println(">> Disculpe, ingrese un numero de la lista mostrada, no letras.");
                 escanerMain.nextLine();
                 esNumero = false;
             }
