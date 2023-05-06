@@ -730,7 +730,6 @@ public class OperadorSistema extends Usuario {
             case 3 -> // Aniadir Personaje
                 aniadirPersonaje();
             case 4 -> {// Validar Desafio
-                // NECESITO ACCEDER A LA LISTA DE DESAFIOS
                 leerDesafios();
                 Desafio desafio = super.getDesafiosAct().obtenerDesafio();
                 if (desafio != null) {
