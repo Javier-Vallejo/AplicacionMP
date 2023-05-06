@@ -42,12 +42,12 @@ public class ArmaduraTest {
     @Test
     public void testDevolverModificadores() {
         System.out.println("devolverModificadores");
-        Armadura instance = null;
-        int expResult = 0;
+        Armadura instance = new Armadura("armadura", "10", "5");
+        int expResult = 5;
         int result = instance.devolverModificadores();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //  TODO review the generated test code and remove the default call to fail.
+        // fail("The test case is a prototype.");
     }
 
     /**
@@ -56,7 +56,7 @@ public class ArmaduraTest {
     @Test
     public void testEditarArmadura() {
         System.out.println("editarArmadura");
-        Armadura instance = null;
+        Armadura instance = new Armadura("armadura", "10", "5");;
         instance.editarArmadura();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
