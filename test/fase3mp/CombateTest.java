@@ -40,14 +40,58 @@ public class CombateTest {
     /**
      * Test of setRondas method, of class Combate.
      */
+
+     public Cazador CrearCazadorBase () {
+
+        Habilidad habilidad = new Habilidad("habilidad", 10, 10, 0);
+        Arma arma = new Arma("arma", "10", "10", "de2manos");
+        Arma[] armas = new Arma[1];
+        armas[0] = arma;
+        Armadura armadura = new Armadura("armadura", "10", "5");
+        Armadura[] armaduras = new Armadura[1];
+        armaduras[0] = armadura;
+        Esbirro esbirro = new Esbirro("esbirro", 10);
+        Esbirro[] esbirros = new Esbirro[1];
+        esbirros[0] = esbirro;
+        Debilidad debilidad = new Debilidad("debilidad", 0);
+        Debilidad[] debilidades = new Debilidad[1];
+        debilidades[0] = debilidad;
+        Fortaleza fortaleza = new Fortaleza("fortaleza", 0);
+        Fortaleza[] fortalezas = new Fortaleza[1];
+        fortalezas[0] = fortaleza;
+        Cazador instance = new Cazador("nombre", habilidad, armas, armas, armaduras, armadura, esbirros, 0, 10, debilidades, fortalezas); 
+        instance.setVoluntad(10);
+
+        return instance;
+
+    }
+
+
+    public Combate crearCombate() {
+        ManagerUsuarios managerUsuarios = new ManagerUsuarios();
+        Jugador jugadorA = new Jugador("a", "b", "123",TipoUsuario.Jugador , 0, managerUsuarios);
+        Jugador jugadorB = new Jugador("B", "b", "123",TipoUsuario.Jugador , 0, managerUsuarios);
+        Cazador cazador = CrearCazadorBase();
+        Cazador cazador2 = CrearCazadorBase();
+        jugadorA.setPersonajeActivo(cazador);
+        jugadorB.setPersonajeActivo(cazador2);
+        Combate instance = new Combate(jugadorA, jugadorB, 0);
+        return instance;
+    }
+
     @Test
     public void testSetRondas() {
         System.out.println("setRondas");
-        Ronda[] rondas = null;
-        Combate instance = null;
+        Ronda[] rondas = new Ronda[1];
+        Ronda[] rondasVacias = new Ronda[1];
+        Ronda ronda = new Ronda();
+        ronda.setPotencialPer1(10);
+        ronda.setPotencialPer2(10);
+        rondas[0] = ronda;
+        Combate instance = crearCombate();
         instance.setRondas(rondas);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(instance.getRondas(),rondasVacias);
+        
     }
 
     /**
@@ -56,12 +100,18 @@ public class CombateTest {
     @Test
     public void testGetRondas() {
         System.out.println("getRondas");
-        Combate instance = null;
-        Ronda[] expResult = null;
+        Combate instance = crearCombate();
+        Ronda[] rondas = new Ronda[1];
+        Ronda[] rondasVacias = new Ronda[1];
+        Ronda ronda = new Ronda();
+        ronda.setPotencialPer1(10);
+        ronda.setPotencialPer2(10);
+        rondas[0] = ronda;
+        instance.setRondas(rondas);
         Ronda[] result = instance.getRondas();
+        Ronda[] expResult = rondas;
         assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**
@@ -70,12 +120,12 @@ public class CombateTest {
     @Test
     public void testGetDesafiante() {
         System.out.println("getDesafiante");
-        Combate instance = null;
-        Jugador expResult = null;
+        ManagerUsuarios managerUsuarios = new ManagerUsuarios();
+        Combate instance = crearCombate();
+        Jugador expResult = new Jugador("a", "b", "123",TipoUsuario.Jugador , 0, managerUsuarios);;
         Jugador result = instance.getDesafiante();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult.getNick(), result.getNick());
+       
     }
 
     /**
