@@ -34,9 +34,30 @@ public class Arma extends Equipo implements IEquipo{
         super.setModDefensa(potDef);
     }
 
-    void editarArma() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    void editarArma(int opcion, String nombre, int potenciador) {
+        System.out.println("Que desea editar de la armadura");
+        System.out.println("1. Nombre");
+        System.out.println("2. Ataque");
+        System.out.println("3. Defensa");
+
+        
+
+        switch (opcion) {
+            case 1 -> {
+    
+                super.setNombre(nombre);
+            }
+            case 2 -> {
+
+                super.setModDanio(potenciador);
+            }
+            case 3 -> {
+                super.setModDefensa(potenciador);
+            }
+
+        }
+
+    }    
     
     
     @Override

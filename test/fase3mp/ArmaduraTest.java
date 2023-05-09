@@ -54,10 +54,15 @@ public class ArmaduraTest {
     @Test
     public void testEditarArmadura() {
         System.out.println("editarArmadura");
-        Armadura instance = new Armadura("armadura", "10", "5");;
-        instance.editarArmadura();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Armadura instance = new Armadura("armadura", "10", "5");
+        int opcion = 1;
+        String nombre = "nuevoNombre";
+        instance.editarArmadura(opcion,nombre,0);
+        /*
+         * Se edita un valor y se comprobara que ya no es la misma
+         */
+        Armadura armaduraNoModificada = new Armadura("armadura", "10", "5");;
+        assertNotEquals(instance, armaduraNoModificada);
     }
     
 }

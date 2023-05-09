@@ -42,12 +42,11 @@ public class ArmaTest {
     @Test
     public void testGetTipodeArma() {
         System.out.println("getTipodeArma");
-        Arma instance = null;
-        Arma.tipoArma expResult = null;
+        Arma instance = new Arma("arma", "10", "10", "de2manos");
+        Arma.tipoArma expResult = Arma.tipoArma.de2manos;
         Arma.tipoArma result = instance.getTipodeArma();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -56,11 +55,10 @@ public class ArmaTest {
     @Test
     public void testSetTipodeArma() {
         System.out.println("setTipodeArma");
-        Arma.tipoArma tipodeArma = null;
-        Arma instance = null;
-        instance.setTipodeArma(tipodeArma);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Arma instance = new Arma("arma", "10", "10", "de1mano");
+        Arma expResult = new Arma("arma", "10", "10", "de1mano");
+        instance.setTipodeArma(Arma.tipoArma.de2manos);
+        assertNotEquals(expResult, instance);
     }
 
     /**
@@ -69,10 +67,11 @@ public class ArmaTest {
     @Test
     public void testEditarArma() {
         System.out.println("editarArma");
-        Arma instance = null;
-        instance.editarArma();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Arma instance = new Arma("a", "1", "1", "de2manos");
+        int potenciador = 20;
+        instance.editarArma(2,"",potenciador);
+        Arma armaNoModificada = new Arma("a", "1", "1", "de2manos");
+        assertNotEquals(instance, armaNoModificada);
     }
 
     /**
@@ -80,13 +79,11 @@ public class ArmaTest {
      */
     @Test
     public void testDevolverModificadores() {
-        System.out.println("devolverModificadores");
-        Arma instance = null;
-        int expResult = 0;
-        int result = instance.devolverModificadores();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("testDevolverModificadores");
+        Arma instance = new Arma("arma", "10", "10", "de2manos");
+        int ataque = instance.devolverModificadores();
+        int ataqueEsperado = instance.getModDanio();
+        assertEquals(ataque, ataqueEsperado);
     }
     
 }
