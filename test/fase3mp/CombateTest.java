@@ -10,6 +10,8 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+
 import static org.junit.Assert.*;
 
 /**
@@ -59,7 +61,7 @@ public class CombateTest {
         Fortaleza fortaleza = new Fortaleza("fortaleza", 0);
         Fortaleza[] fortalezas = new Fortaleza[1];
         fortalezas[0] = fortaleza;
-        Cazador instance = new Cazador("nombre", habilidad, armas, armas, armaduras, armadura, esbirros, 0, 10, debilidades, fortalezas); 
+        Cazador instance = new Cazador("nombre", habilidad, armas, armas, armaduras, armadura, esbirros, 3, 3, debilidades, fortalezas); 
         instance.setVoluntad(10);
 
         return instance;
@@ -69,13 +71,28 @@ public class CombateTest {
 
     public Combate crearCombate() {
         ManagerUsuarios managerUsuarios = new ManagerUsuarios();
-        Jugador jugadorA = new Jugador("a", "b", "123",TipoUsuario.Jugador , 0, managerUsuarios);
+        Jugador jugadorA = new Jugador("a", "A", "123",TipoUsuario.Jugador , 0, managerUsuarios);
         Jugador jugadorB = new Jugador("B", "b", "123",TipoUsuario.Jugador , 0, managerUsuarios);
         Cazador cazador = CrearCazadorBase();
+        cazador.setPoder(5);
         Cazador cazador2 = CrearCazadorBase();
         jugadorA.setPersonajeActivo(cazador);
         jugadorB.setPersonajeActivo(cazador2);
-        Combate instance = new Combate(jugadorA, jugadorB, 0);
+        ArrayList<Personaje> personajes = new ArrayList<>();
+        personajes.add(cazador);
+        personajes.add(cazador2);
+        Combate instance = new Combate(jugadorA, jugadorB, 100);
+        instance.setFecha("10/05/2023");
+        
+        /*
+         *  se asimila que en este test de combate al crear 2 cazadores iguales y leugo darle mas poder al desfiante
+         * el ganador es el jugador desafiante
+         */
+
+        instance.setJugadoresConEsbirros(personajes);
+        instance.setVencedor("A");
+        instance.setVida1(3);
+        instance.setVida2(1);
         return instance;
     }
 
@@ -102,7 +119,6 @@ public class CombateTest {
         System.out.println("getRondas");
         Combate instance = crearCombate();
         Ronda[] rondas = new Ronda[1];
-        Ronda[] rondasVacias = new Ronda[1];
         Ronda ronda = new Ronda();
         ronda.setPotencialPer1(10);
         ronda.setPotencialPer2(10);
@@ -122,7 +138,7 @@ public class CombateTest {
         System.out.println("getDesafiante");
         ManagerUsuarios managerUsuarios = new ManagerUsuarios();
         Combate instance = crearCombate();
-        Jugador expResult = new Jugador("a", "b", "123",TipoUsuario.Jugador , 0, managerUsuarios);;
+        Jugador expResult = new Jugador("a", "A", "123",TipoUsuario.Jugador , 0, managerUsuarios);;
         Jugador result = instance.getDesafiante();
         assertEquals(expResult.getNick(), result.getNick());
        
@@ -134,12 +150,11 @@ public class CombateTest {
     @Test
     public void testGetDesafiado() {
         System.out.println("getDesafiado");
-        Combate instance = null;
-        Jugador expResult = null;
+        ManagerUsuarios managerUsuarios = new ManagerUsuarios();
+        Combate instance = crearCombate();
+        Jugador expResult = new Jugador("B", "b", "123",TipoUsuario.Jugador , 0, managerUsuarios);;
         Jugador result = instance.getDesafiado();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult.getNick(), result.getNick());
     }
 
     /**
@@ -148,12 +163,10 @@ public class CombateTest {
     @Test
     public void testGetFecha() {
         System.out.println("getFecha");
-        Combate instance = null;
-        String expResult = "";
+        Combate instance = crearCombate();
+        String expResult = "10/05/2023";
         String result = instance.getFecha();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -162,13 +175,12 @@ public class CombateTest {
     @Test
     public void testGetVencedor() {
         System.out.println("getVencedor");
-        Combate instance = null;
-        String expResult = "";
+        Combate instance = crearCombate();
+        String expResult = "A";
         String result = instance.getVencedor();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
+        
 
     /**
      * Test of getJugadoresConEsbirros method, of class Combate.
@@ -176,12 +188,13 @@ public class CombateTest {
     @Test
     public void testGetJugadoresConEsbirros() {
         System.out.println("getJugadoresConEsbirros");
-        Combate instance = null;
+        Combate instance = crearCombate();
         ArrayList<Personaje> expResult = null;
         ArrayList<Personaje> result = instance.getJugadoresConEsbirros();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(expResult, result);
+        /*
+         * Se comprueba que se crea un combate simepre que haya personajes dentro
+         */
     }
 
     /**
@@ -190,12 +203,15 @@ public class CombateTest {
     @Test
     public void testGetOroGanado() {
         System.out.println("getOroGanado");
-        Combate instance = null;
-        int expResult = 0;
+        Combate instance = crearCombate();
+        int expResult = 200;
+        /*
+         * se esperan 200 porque la propiedad del combate "OroGanado"
+         *   es  apostado + 100 de beneficio extra
+         */
         int result = instance.getOroGanado();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -204,12 +220,10 @@ public class CombateTest {
     @Test
     public void testGetPersonaje1() {
         System.out.println("getPersonaje1");
-        Combate instance = null;
-        Personaje expResult = null;
-        Personaje result = instance.getPersonaje1();
+        Combate instance = crearCombate();
+        int expResult = 5;
+        int result = instance.getPersonaje1().getPoder();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -218,13 +232,20 @@ public class CombateTest {
     @Test
     public void testGetPersonaje2() {
         System.out.println("getPersonaje2");
-        Combate instance = null;
-        Personaje expResult = null;
-        Personaje result = instance.getPersonaje2();
+        Combate instance = crearCombate();
+        int expResult = 3;
+        int result = instance.getPersonaje2().getPoder();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
+
+    /*
+     *  Para comporbar que los gets funcionan bien
+     * LO  compruebo  en los valores en los que se diferencian al crear el combate de base
+     * Es decir el cazador 1 tiene 5 y por eso su get deberia dar 5
+     * Y el cazador 2 tiene 3
+     * Asi que get Personaje1 deberia comprobar que ese get me devuelve el ataque del personaje 1 (5)
+     * Y el 2 el del otro cazador (3)
+     */
 
     /**
      * Test of getVida1 method, of class Combate.
@@ -232,12 +253,10 @@ public class CombateTest {
     @Test
     public void testGetVida1() {
         System.out.println("getVida1");
-        Combate instance = null;
-        int expResult = 0;
+        Combate instance = crearCombate();
+        int expResult = 3;
         int result = instance.getVida1();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -246,12 +265,10 @@ public class CombateTest {
     @Test
     public void testGetVida2() {
         System.out.println("getVida2");
-        Combate instance = null;
-        int expResult = 0;
+        Combate instance = crearCombate();
+        int expResult = 1;
         int result = instance.getVida2();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -260,11 +277,14 @@ public class CombateTest {
     @Test
     public void testSetDesafiante() {
         System.out.println("setDesafiante");
-        Jugador desafiante = null;
-        Combate instance = null;
+        ManagerUsuarios managerUsuarios = new ManagerUsuarios();
+        Combate instance = crearCombate();
+        Jugador desafianteAntiguo = instance.getDesafiante();
+        Jugador desafiante = new Jugador("B", "b", "123",TipoUsuario.Jugador , 0, managerUsuarios);;
+        
         instance.setDesafiante(desafiante);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(desafianteAntiguo,desafiante);
+        
     }
 
     /**
@@ -273,11 +293,14 @@ public class CombateTest {
     @Test
     public void testSetDesafiado() {
         System.out.println("setDesafiado");
-        Jugador desafiado = null;
-        Combate instance = null;
+        Combate instance = crearCombate();
+        ManagerUsuarios managerUsuarios = new ManagerUsuarios();
+        Jugador desafiadoAntiguo = instance.getDesafiado();
+        Jugador desafiado = new Jugador("a", "A", "123",TipoUsuario.Jugador , 0, managerUsuarios);
+        
+        
         instance.setDesafiado(desafiado);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(desafiadoAntiguo,desafiado);
     }
 
     /**
@@ -286,11 +309,14 @@ public class CombateTest {
     @Test
     public void testSetFecha() {
         System.out.println("setFecha");
-        String fecha = "";
-        Combate instance = null;
+        Combate instance = crearCombate();
+        String fechaAntigua = instance.getFecha();
+        String fecha = "11/05/1999";
+       
         instance.setFecha(fecha);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        assertNotEquals(instance.getFecha(),fechaAntigua);
+        
     }
 
     /**
@@ -299,11 +325,12 @@ public class CombateTest {
     @Test
     public void testSetVencedor() {
         System.out.println("setVencedor");
-        String Vencedor = "";
-        Combate instance = null;
+        Combate instance = crearCombate();
+        String antiguoVencedor = instance.getVencedor();
+        String Vencedor = "B";
+        
         instance.setVencedor(Vencedor);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(instance.getVencedor(),antiguoVencedor);
     }
 
     /**
@@ -312,11 +339,12 @@ public class CombateTest {
     @Test
     public void testSetJugadoresConEsbirros() {
         System.out.println("setJugadoresConEsbirros");
-        ArrayList<Personaje> jugadoresConEsbirros = null;
-        Combate instance = null;
+        Combate instance = crearCombate();
+        ArrayList<Personaje> personajesAntiguos = instance.getJugadoresConEsbirros();
+        ArrayList<Personaje> jugadoresConEsbirros = new ArrayList<>();
+        
         instance.setJugadoresConEsbirros(jugadoresConEsbirros);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       assertNotEquals(personajesAntiguos,jugadoresConEsbirros);
     }
 
     /**
@@ -324,12 +352,13 @@ public class CombateTest {
      */
     @Test
     public void testSetOroGanado() {
+        Combate instance = crearCombate();
+        int antiguoOroGando = instance.getOroGanado();
         System.out.println("setOroGanado");
-        int oroGanado = 0;
-        Combate instance = null;
+        int oroGanado = 990;
+        
         instance.setOroGanado(oroGanado);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(instance.getOroGanado(),antiguoOroGando);
     }
 
     /**
@@ -338,11 +367,12 @@ public class CombateTest {
     @Test
     public void testSetPersonaje1() {
         System.out.println("setPersonaje1");
-        Personaje personaje1 = null;
-        Combate instance = null;
+        Personaje personaje1 = CrearCazadorBase();
+        personaje1.setPoder(4);
+        Combate instance = crearCombate();
+        Personaje personaje1Antiguo = instance.getPersonaje1();
         instance.setPersonaje1(personaje1);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(personaje1Antiguo,personaje1);
     }
 
     /**
@@ -351,11 +381,12 @@ public class CombateTest {
     @Test
     public void testSetPersonaje2() {
         System.out.println("setPersonaje2");
-        Personaje personaje2 = null;
-        Combate instance = null;
-        instance.setPersonaje2(personaje2);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Personaje personaje1 = CrearCazadorBase();
+        personaje1.setPoder(4);
+        Combate instance = crearCombate();
+        Personaje personaje2Antiguo = instance.getPersonaje2();
+        instance.setPersonaje2(personaje1);
+        assertNotEquals(personaje2Antiguo,personaje1);
     }
 
     /**
@@ -364,11 +395,11 @@ public class CombateTest {
     @Test
     public void testSetVida1() {
         System.out.println("setVida1");
-        int vida1 = 0;
-        Combate instance = null;
+        int vida1 = 4;
+        Combate instance = crearCombate();
+        int vidaAntigua = instance.getVida1();
         instance.setVida1(vida1);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(instance.getVida1(),vidaAntigua);
     }
 
     /**
@@ -377,11 +408,11 @@ public class CombateTest {
     @Test
     public void testSetVida2() {
         System.out.println("setVida2");
-        int vida2 = 0;
-        Combate instance = null;
+        int vida2 = 4;
+        Combate instance = crearCombate();
+        int vida2Antigua = instance.getVida2();
         instance.setVida2(vida2);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(instance.getVida2(),vida2Antigua);
     }
 
     /**
@@ -390,20 +421,50 @@ public class CombateTest {
     @Test
     public void testEmpezarRonda() {
         System.out.println("EmpezarRonda");
-        Personaje per1 = null;
-        Personaje per2 = null;
-        int vida1 = 0;
-        int vida2 = 0;
-        ArrayList<Fortaleza> fortalezasElegidaDesafiante = null;
-        ArrayList<Debilidad> debilidadesElegidaDesafiante = null;
-        ArrayList<Fortaleza> fortalezasElegidaDesafiado = null;
-        ArrayList<Debilidad> debilidadesElegidaDesafiado = null;
-        Combate instance = null;
-        Ronda expResult = null;
-        Ronda result = instance.EmpezarRonda(per1, per2, vida1, vida2, fortalezasElegidaDesafiante, debilidadesElegidaDesafiante, fortalezasElegidaDesafiado, debilidadesElegidaDesafiado);
+        Combate instance = crearCombate();
+        Personaje per1 = instance.getPersonaje1();
+        Personaje per2 = instance.getPersonaje2();;
+        int vida1 = instance.getVida1();
+        int vida2 = instance.getVida2();
+        ArrayList<Fortaleza> fortalezasElegidaDesafiante = new ArrayList<>();
+        ArrayList<Debilidad> debilidadesElegidaDesafiante = new ArrayList<>();
+        ArrayList<Fortaleza> fortalezasElegidaDesafiado = new ArrayList<>();
+        ArrayList<Debilidad> debilidadesElegidaDesafiado = new ArrayList<>();
+        int expResult = 0;
+        Ronda ronda = instance.EmpezarRonda(per1, per2, vida1, vida2, fortalezasElegidaDesafiante, debilidadesElegidaDesafiante, fortalezasElegidaDesafiado, debilidadesElegidaDesafiado);
+        int result = ronda.getVidaDesafiado();
+        /*
+         *  El empezar ronda una de las cosas que colmprueba al final es que si una vida es negativa la setea 0
+         * Para que luego no haya errores al terminar
+         * Entonces una de las comprobaciones que se debem hacer es:
+         * que si se da el caso de que una vida es negativa se ponga a 0
+         */
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
+
+    @Test
+    public void testEmpezarRondaPotencial() {
+        System.out.println("EmpezarRonda");
+        Combate instance = crearCombate();
+        Personaje per1 = instance.getPersonaje1();
+        Personaje per2 = instance.getPersonaje2();
+        int vida1 = instance.getVida1();
+        int vida2 = instance.getVida2();
+        ArrayList<Fortaleza> fortalezasElegidaDesafiante = new ArrayList<>();
+        ArrayList<Debilidad> debilidadesElegidaDesafiante = new ArrayList<>();
+        ArrayList<Fortaleza> fortalezasElegidaDesafiado = new ArrayList<>();
+        ArrayList<Debilidad> debilidadesElegidaDesafiado = new ArrayList<>();
+        int expResult = per1.calculoDanio() - per2.calculoDefensa();
+        Ronda ronda = instance.EmpezarRonda(per1, per2, vida1, vida2, fortalezasElegidaDesafiante, debilidadesElegidaDesafiante, fortalezasElegidaDesafiado, debilidadesElegidaDesafiado);
+        int result = ronda.getPotencialPer1();
+        /*
+         *  Otra cosa que se puede comprobar es que se calcule bien el potencial de los personajes 
+         *  Para esto en un lado lo calculas manuealmente como ataque de personaje 1 menos defensa de personaje 2
+         *  Esto de aquí es: int expResult = per1.calculoDanio() - per2.calculoDefensa();
+         * Y compruebas que este valor es el mismo que luego se establece en la ronda como el potencial del priemro
+         * Y esto es: int result = ronda.getPotencialPer1();
+         */
+        assertEquals(expResult, result);
+    }
 }

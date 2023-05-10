@@ -123,6 +123,7 @@ public class Combate {
         this.vida2 = vida2;
     }
 
+
     public Ronda EmpezarRonda(Personaje per1, Personaje per2, int vida1, int vida2,
             ArrayList<Fortaleza> fortalezasElegidaDesafiante,
             ArrayList<Debilidad> debilidadesElegidaDesafiante,

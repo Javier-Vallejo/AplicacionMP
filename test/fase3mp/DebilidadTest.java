@@ -42,12 +42,10 @@ public class DebilidadTest {
     @Test
     public void testDebilitar() {
         System.out.println("debilitar");
-        Debilidad instance = null;
-        int expResult = 0;
+        Debilidad instance = new Debilidad("debilidad1", 10);
+        int expResult = 10;
         int result = instance.debilitar();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

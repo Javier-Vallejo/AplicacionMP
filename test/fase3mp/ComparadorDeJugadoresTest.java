@@ -42,14 +42,17 @@ public class ComparadorDeJugadoresTest {
     @Test
     public void testCompare() {
         System.out.println("compare");
-        Jugador user1 = null;
-        Jugador user2 = null;
+        ManagerUsuarios managerUsuarios = new ManagerUsuarios();
+        Jugador user1 = new Jugador("a", "A", "123",TipoUsuario.Jugador , 10, managerUsuarios);
+        Jugador user2 = new Jugador("B", "b", "123",TipoUsuario.Jugador , 20, managerUsuarios);
         ComparadorDeJugadores instance = new ComparadorDeJugadores();
-        int expResult = 0;
+        int expResult = 1;
         int result = instance.compare(user1, user2);
+        /*
+         *  como user 2 tiene mas oro que user 1 el resultado esperado es 1
+         */
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
     
 }

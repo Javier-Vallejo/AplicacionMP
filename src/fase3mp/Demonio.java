@@ -41,6 +41,16 @@ public class Demonio extends Esbirro implements IEsbirros {
         this.pacto = pacto;
     }
 
+    
+
+    public FabricaEsbirros getFabricaEsbirros() {
+        return fabricaEsbirros;
+    }
+
+    public EntidadesActivas getEntidades() {
+        return entidades;
+    }
+
     public void setFabricaEsbirros(FabricaEsbirros fabricaEsbirros) {
         this.fabricaEsbirros = fabricaEsbirros;
     }
