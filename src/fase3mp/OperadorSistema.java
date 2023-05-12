@@ -13,11 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 //import java.util.Locale;
 import java.util.Scanner;
-
-import javax.swing.text.html.parser.Element;
-
-import fase3mp.Arma.tipoArma;
-
 /**
  *
  * @author d.rubio.2019

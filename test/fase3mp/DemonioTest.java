@@ -169,28 +169,6 @@ public class DemonioTest {
         assertNotEquals(entidadesAntiguas,entidades);
     }
 
-    /**
-     * Test of rellenarPropiedadesEspec method, of class Demonio.
-     */
-    /*
-     * esta funcion no se deberia probar porque tiene dentro mas de un scanner y sería enorme el proceso de
-     *  sacar todo fuera y ponerlo en parametros
-     */
-   
-    @Test
-    public void testRellenarPropiedadesEspec() throws Exception {
-        System.out.println("rellenarPropiedadesEspec");
-        Demonio instance = null;
-        instance.rellenarPropiedadesEspec();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of calcularVidaRestante method, of class Demonio.
-     */
-
-   
 
     /**
      * Test of devolverSalud method, of class Demonio.
