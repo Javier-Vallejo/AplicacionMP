@@ -42,10 +42,13 @@ public class DebilidadTest {
     @Test
     public void testDebilitar() {
         System.out.println("debilitar");
-        Debilidad instance = new Debilidad("debilidad1", 10);
+        Debilidad instance = new Debilidad("PielRota", 10);
         int expResult = 10;
         int result = instance.debilitar();
         assertEquals(expResult, result);
+        instance.setValor(2);
+        result = instance.debilitar();
+        assertNotEquals(expResult, result);
     }
     
 }
