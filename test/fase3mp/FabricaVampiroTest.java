@@ -92,7 +92,6 @@ public class FabricaVampiroTest {
     public void testCrearPersonaje() {
         System.out.println("crearPersonaje");
         FabricaVampiro instance = new FabricaVampiro();
-        Vampiro vampire = CrearVampiroBase();
         Personaje expResult = CrearVampiroBase();
         Personaje result = CrearVampiroInstancia(instance);
         //Personaje result = instance.crearPersonaje(nombre, habilidadPersonaje, armas, armasActivas, armaduras, armaduraActiva, esbirros, Salud, Poder, debilidades, fortalezas);

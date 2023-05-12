@@ -165,7 +165,6 @@ public class PublisherTest {
         System.out.println("notificarUsuario");
         Combate batalla = crearCombate();
         Desafio desafio = CrearDesafio();
-        Object objetoX = null;
         ManagerUsuarios manager = new ManagerUsuarios();
         Publisher instance = new Publisher();
         Usuario usuario = new Usuario("Juan", "ElBoss", "1234", Jugador, manager);

@@ -5,9 +5,6 @@
 package fase3mp;
 
 import static fase3mp.TipoUsuario.Jugador;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -41,17 +38,7 @@ public class RankingTest {
     }
 
     public enum TipoUsuario {Jugador, OperadorSistema}
-    /**
-     * Test of consultarRanking method, of class Ranking.
-     
-    @Test
-    public void testConsultarRanking() {
-        System.out.println("consultarRanking");
-        Ranking instance = new Ranking();
-        instance.consultarRanking();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
+    
 
     /**
      * Test of getManager method, of class Ranking.
@@ -88,30 +75,6 @@ public class RankingTest {
         
     }
 
-    /**
-     * Test of getOrdenados method, of class Ranking.
-     
-    @Test
-    public void testGetOrdenados() {
-        System.out.println("getOrdenados");
-        Ranking instance = new Ranking();
-        ArrayList<Map<Integer, String>> expResult = new ArrayList<>();
-        expResult.add(10, "Juan");
-        ArrayList<Map<Integer, String>> result = instance.getOrdenados();
-        
-        
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of setOrdenados method, of class Ranking.
-     
-    @Test
-    public void testSetOrdenados() {
-        System.out.println("setOrdenados");
-        ArrayList<Map<Integer, String>> ordenados = null;
-        Ranking instance = new Ranking();
-        instance.setOrdenados(ordenados);
-    }*/
+    
     
 }
