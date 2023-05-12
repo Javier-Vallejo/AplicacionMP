@@ -92,6 +92,9 @@ public class EsbirroTest {
     /**
      * Test of devolverSalud method, of class Esbirro.
      */
+    /*
+     *  devolver salud de esbirro es lo mismo que getSalud
+     */
     @Test
     public void testDevolverSalud() {
         System.out.println("devolverSalud");

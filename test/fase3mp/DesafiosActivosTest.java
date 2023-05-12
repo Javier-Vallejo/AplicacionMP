@@ -42,11 +42,13 @@ public class DesafiosActivosTest {
     @Test
     public void testGuardarDesafio() {
         System.out.println("guardarDesafio");
-        Desafio desafio = null;
+        Desafio desafio = new Desafio();
+        desafio.setOroApostado(100);
         DesafiosActivos instance = new DesafiosActivos();
         instance.guardarDesafio(desafio);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int oroesperado = 100;
+        int dinero = instance.obtenerDesafio().getOroApostado();
+        assertEquals(oroesperado,dinero);
     }
 
     /**
@@ -56,11 +58,11 @@ public class DesafiosActivosTest {
     public void testObtenerDesafio() {
         System.out.println("obtenerDesafio");
         DesafiosActivos instance = new DesafiosActivos();
-        Desafio expResult = null;
-        Desafio result = instance.obtenerDesafio();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Desafio desafio = new Desafio();
+        desafio.setOroApostado(100);
+        instance.guardarDesafio(desafio);
+        int expResult = 100;
+        assertEquals(expResult, instance.obtenerDesafio().getOroApostado());
     }
     
 }

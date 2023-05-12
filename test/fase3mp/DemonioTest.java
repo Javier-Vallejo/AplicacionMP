@@ -190,19 +190,7 @@ public class DemonioTest {
      * Test of calcularVidaRestante method, of class Demonio.
      */
 
-      /*
-     * esta funcion no esta implementada
-     */
-    @Test
-    public void testCalcularVidaRestante() {
-        System.out.println("calcularVidaRestante");
-        Demonio instance = crearDemonio();
-        int expResult = 0;
-        int result = instance.calcularVidaRestante();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+   
 
     /**
      * Test of devolverSalud method, of class Demonio.
