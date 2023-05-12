@@ -361,20 +361,6 @@ public class Jugador extends Usuario {
     }
 
     public void realizarFuncionMenuJugador(int opcion) throws IOException {
-        // manager = super.getManagerUsuarios(); //un if para saber si el usuario tiene
-        // algun desafio pendiente que aceptar
-        // rankingGlobal = super.getRanking();
-        // si lo tiene, ¿hacemos notificar? para que se escriba la informacion del
-        // desafio
-        /**
-         * if (this.getCombateRealizado() != null){
-         * this.resultadosCombate(this.getCombateRealizado());
-         * this.setCombateRealizado(null);
-         * notificador.desSuscribirUsuario(this); } if
-         * (this.getDesafioPendiente()!= null){
-         * this.AceptaroRechazarDesafio(this.getDesafioPendiente());
-         * }
-         */
         switch (opcion) {
             case 1:// Darse de baja
                 System.out.println("¿Seguro que desea darse de baja?");
@@ -412,17 +398,16 @@ public class Jugador extends Usuario {
 
                     if (opcionSioNO == 1) {
                         ArrayList<Integer> personaje = super.getEntidades().MostraryElegir("PERSONAJES");
-                        setPersonajeActivo(super.getEntidades().elegirPersonaje(personaje.get(0)));// habra que hacer
-                        // que elegir
-                        // personaje llame a
-                        // clone
+                        Personaje personajeAct =(super.getEntidades().elegirPersonaje(personaje.get(0)));
+                        setPersonajeActivo(personajeAct.clonar());
                         super.getManagerUsuarios().editarUsuarioEnFichero(this.getNick(), this.getPassword());
                     } else if (opcionSioNO == 2) {
                         System.out.println("Su personaje no se cambiara.");
                     }
                 } else {
                     ArrayList<Integer> personaje = super.getEntidades().MostraryElegir("PERSONAJES");
-                    setPersonajeActivo(super.getEntidades().elegirPersonaje(personaje.get(0)));
+                    Personaje personajeAct =(super.getEntidades().elegirPersonaje(personaje.get(0)));
+                    setPersonajeActivo(personajeAct.clonar());
                     super.getManagerUsuarios().editarUsuarioEnFichero(this.getNick(), this.getPassword());
                 }
 
