@@ -42,12 +42,10 @@ public class FortalezaTest {
     @Test
     public void testFortalecer() {
         System.out.println("Fortalecer");
-        Fortaleza instance = null;
-        int expResult = 0;
+        Fortaleza instance = new Fortaleza("EstarCachas", 2);
+        int expResult = 2;
         int result = instance.Fortalecer();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

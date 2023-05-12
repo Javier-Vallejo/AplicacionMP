@@ -22,7 +22,6 @@ public class Licantropo extends Personaje {
                 debilidades, fortalezas);
     }
 
-
     public int getRabia() {
         return rabia;
     }
@@ -34,11 +33,11 @@ public class Licantropo extends Personaje {
     @Override
     public void rellenarPropiedadesEspecificas() {
         System.out.println("Introduzca el valor de rabia: ");
-        try(Scanner escanerlican = new Scanner(System.in);){
+        try (Scanner escanerlican = new Scanner(System.in);) {
             int valorRabia = escanerlican.nextInt();
             rabia = valorRabia;
         }
-        
+
     }
 
     @Override
@@ -62,13 +61,13 @@ public class Licantropo extends Personaje {
         String nombre = habilidad.getNombre();
         int ataque = habilidad.getValorAtaque();
         int defensa = habilidad.getValorDefensa();
-       int limitante = habilidad.getLimitante();
+        int limitante = habilidad.getLimitante();
         Dones don = new Dones(nombre, ataque, defensa, limitante);
         int danioBase = super.devolverDañoHabilidad(don);
         if (rabia >= don.getLimitante() && opcion.equals("Ataque")) {
             return don.activar(danioBase, opcion);
         } else if ((rabia >= don.getLimitante() && opcion.equals("Defensa"))) {
-            return don.activar(danioBase, opcion);
+            return don.activar(defensa, opcion);
         }
         return 0;
     }
@@ -79,6 +78,4 @@ public class Licantropo extends Personaje {
         return super.devolverDefensaArma() + habilidad.getValorDefensa() + activarDon(rabia, "Defensa");
     }
 
-    
-    
 }

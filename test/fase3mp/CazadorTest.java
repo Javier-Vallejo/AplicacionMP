@@ -41,7 +41,6 @@ public class CazadorTest {
      * Test of clonar method, of class Cazador.
      */
     public Cazador CrearCazadorBase () {
-
         Habilidad habilidad = new Habilidad("habilidad", 10, 10, 0);
         Arma arma = new Arma("arma", "10", "10", "de2manos");
         Arma[] armas = new Arma[1];
@@ -83,7 +82,7 @@ public class CazadorTest {
         Cazador instance = CrearCazadorBase();
         int result = 10;
         /*
-         *  No debe dar solo 10 porque tiene 10 de base + 10 de arma + 10 de habiliad
+         *  No debe dar solo 10 porque tiene 10 de base + 10 de arma + 10 de habilidad
          * Asi que la comprobacion es de que de todo el ataque total en lugar de solo 10
          */
         int expResult = instance.calculoDanio();
