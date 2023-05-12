@@ -13,19 +13,6 @@ public class Equipo {
     private int modDanio;
     private int modDefensa;
 
-/* 
-    public Equipo (String nombre,
-     int modDanio,
-     int modDefensa) {
-        setNombre(nombre);
-        setModDanio(modDanio);
-        setModDefensa(modDefensa);
-
-
-        en la creacion de armas no se tiene mucho en cuenta el constructor del padre así que lo creo pero lo dejo comentado 
-        porque si no da error
-    } */
-
     public String getNombre() {
         return nombre;
     }
@@ -51,12 +38,12 @@ public class Equipo {
     }
     
     
-    
+    /**
     public int devolverAtaque () {
         return modDanio;
     }
 
     public int devolverDefensa () {
         return modDefensa;
-    }
+    }*/
 }

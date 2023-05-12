@@ -22,7 +22,8 @@ public class Armadura extends Equipo implements IEquipo {
 
     @Override
     public int devolverModificadores() {
-        return super.devolverDefensa();
+        //return super.devolverDefensa();
+        return super.getModDefensa();
     }
 
     void editarArmadura(int opcion, String nombre, int potenciador) {

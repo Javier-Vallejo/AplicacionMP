@@ -36,18 +36,24 @@ public class EquipoTest {
     public void tearDown() {
     }
 
+    public Equipo CrearEquipoBase(){
+        Equipo equipoX = new Equipo();
+        equipoX.setNombre("EquipacionAlfa");
+        equipoX.setModDanio(5);
+        equipoX.setModDefensa(3);
+        return equipoX;
+    }
     /**
      * Test of getNombre method, of class Equipo.
      */
     @Test
     public void testGetNombre() {
         System.out.println("getNombre");
-        Equipo instance = new Equipo();
-        String expResult = "";
+        Equipo instance = CrearEquipoBase();
+        String expResult = "EquipacionAlfa";
         String result = instance.getNombre();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals("EquipamientoOmega", result);
     }
 
     /**
@@ -56,11 +62,10 @@ public class EquipoTest {
     @Test
     public void testSetNombre() {
         System.out.println("setNombre");
-        String nombre = "";
-        Equipo instance = new Equipo();
+        String nombre = "EquipamientoOmega";
+        Equipo instance = CrearEquipoBase();
         instance.setNombre(nombre);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(nombre, instance);
     }
 
     /**
@@ -69,12 +74,11 @@ public class EquipoTest {
     @Test
     public void testGetModDanio() {
         System.out.println("getModDanio");
-        Equipo instance = new Equipo();
-        int expResult = 0;
+        Equipo instance = CrearEquipoBase();
+        int expResult = 5;
         int result = instance.getModDanio();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(2, result);
     }
 
     /**
@@ -83,11 +87,11 @@ public class EquipoTest {
     @Test
     public void testSetModDanio() {
         System.out.println("setModDanio");
-        int modDanio = 0;
-        Equipo instance = new Equipo();
+        int modDanio = 1;
+        Equipo instance = CrearEquipoBase();
         instance.setModDanio(modDanio);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(modDanio, instance.getModDanio());
+        assertNotEquals(5, instance.getModDanio());
     }
 
     /**
@@ -96,12 +100,11 @@ public class EquipoTest {
     @Test
     public void testGetModDefensa() {
         System.out.println("getModDefensa");
-        Equipo instance = new Equipo();
+        Equipo instance = CrearEquipoBase();
         int expResult = 0;
         int result = instance.getModDefensa();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(expResult, result);
+        assertEquals(3, result);
     }
 
     /**
@@ -110,39 +113,9 @@ public class EquipoTest {
     @Test
     public void testSetModDefensa() {
         System.out.println("setModDefensa");
-        int modDefensa = 0;
+        int modDefensa = 6;
         Equipo instance = new Equipo();
         instance.setModDefensa(modDefensa);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of devolverAtaque method, of class Equipo.
-     */
-    @Test
-    public void testDevolverAtaque() {
-        System.out.println("devolverAtaque");
-        Equipo instance = new Equipo();
-        int expResult = 0;
-        int result = instance.devolverAtaque();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of devolverDefensa method, of class Equipo.
-     */
-    @Test
-    public void testDevolverDefensa() {
-        System.out.println("devolverDefensa");
-        Equipo instance = new Equipo();
-        int expResult = 0;
-        int result = instance.devolverDefensa();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
+        assertEquals(modDefensa, instance.getModDefensa());
+    }   
 }

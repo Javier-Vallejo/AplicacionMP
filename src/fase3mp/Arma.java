@@ -62,7 +62,8 @@ public class Arma extends Equipo implements IEquipo{
     
     @Override
     public int devolverModificadores() {
-        return super.devolverAtaque();
+        //return super.devolverAtaque();
+        return super.getModDanio();
     }
     
     
