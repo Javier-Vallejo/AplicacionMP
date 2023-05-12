@@ -68,7 +68,7 @@ public class Licantropo extends Personaje {
         if (rabia >= don.getLimitante() && opcion.equals("Ataque")) {
             return don.activar(danioBase, opcion);
         } else if ((rabia >= don.getLimitante() && opcion.equals("Defensa"))) {
-            return don.activar(danioBase, opcion);
+            return don.activar(defensa, opcion);
         }
         return 0;
     }

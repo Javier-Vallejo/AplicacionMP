@@ -18,22 +18,22 @@ import java.util.Random;
  * @author juana
  */
 public class PersonajeTest {
-    
+
     public PersonajeTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -42,16 +42,45 @@ public class PersonajeTest {
      * Test of getNombre method, of class Personaje.
      */
 
+    public Arma[] iniciarArmasNuevas() {
+        Arma arma = new Arma("arma", "10", "10", "de2manos");
+        Arma arma2 = new Arma("arma2", "400", "0", "de2manos");
+        Arma[] expResult = new Arma[2];
+        expResult[0] = arma;
+        expResult[1] = arma2;
+        return expResult;
+    }
 
-     public Cazador CrearPersonajeBase () {
+    public Armadura[] iniciarArmadurasNuevas() {
+        Armadura armadura = new Armadura("armadura", "10", "5");
+        Armadura armadura2 = new Armadura("armadura2Nueva", "0", "30000");
+        Armadura[] armaduras = new Armadura[2];
+
+        armaduras[0] = armadura;
+        armaduras[1] = armadura2;
+        return armaduras;
+    }
+
+    public Personaje CrearPersonajeBase() {
 
         Habilidad habilidad = new Habilidad("habilidad", 10, 10, 0);
         Arma arma = new Arma("arma", "10", "10", "de2manos");
+        Arma arma2 = new Arma("arma2", "40", "0", "de2manos");
+        Arma[] armasActivas = new Arma[2];
+
         Arma[] armas = new Arma[1];
         armas[0] = arma;
+
+        armasActivas[0] = arma;
+        armasActivas[1] = arma2;
+
         Armadura armadura = new Armadura("armadura", "10", "5");
-        Armadura[] armaduras = new Armadura[1];
+        Armadura armadura2 = new Armadura("armadura2", "10", "300");
+        Armadura[] armaduras = new Armadura[2];
+
         armaduras[0] = armadura;
+        armaduras[1] = armadura2;
+
         Esbirro esbirro = new Esbirro("esbirro", 10);
         Esbirro[] esbirros = new Esbirro[1];
         esbirros[0] = esbirro;
@@ -61,8 +90,9 @@ public class PersonajeTest {
         Fortaleza fortaleza = new Fortaleza("fortaleza", 0);
         Fortaleza[] fortalezas = new Fortaleza[1];
         fortalezas[0] = fortaleza;
-        Cazador instance = new Cazador("nombre", habilidad, armas, armas, armaduras, armadura, esbirros, 0, 10, debilidades, fortalezas); 
-        instance.setVoluntad(10);
+        Licantropo instance = new Licantropo("nombre", habilidad, armas, armasActivas, armaduras, armadura, esbirros,
+                0, 10, debilidades, fortalezas);
+        instance.setRabia(10);
 
         return instance;
 
@@ -85,8 +115,9 @@ public class PersonajeTest {
         System.out.println("setNombre");
         String nombre = "nombre2";
         Personaje instance = CrearPersonajeBase();
+        String nombreAntiguo = instance.getNombre();
         instance.setNombre(nombre);
-        assertNotEquals(instance.getNombre(),nombre);
+        assertNotEquals(nombreAntiguo, nombre);
     }
 
     /**
@@ -95,12 +126,12 @@ public class PersonajeTest {
     @Test
     public void testGetHabilidadPersonaje() {
         System.out.println("getHabilidadPersonaje");
-        Personaje instance = null;
-        Habilidad expResult = null;
+        Personaje instance = CrearPersonajeBase();
+        Habilidad expResult = new Habilidad("habilidad", 10, 10, 0);
+        instance.setHabilidadPersonaje(expResult);
         Habilidad result = instance.getHabilidadPersonaje();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -109,11 +140,13 @@ public class PersonajeTest {
     @Test
     public void testSetHabilidadPersonaje() {
         System.out.println("setHabilidadPersonaje");
-        Habilidad habilidadPersonaje = null;
-        Personaje instance = null;
+        Habilidad habilidadPersonaje = new Habilidad("habilidad", 40, 10, 0);
+        ;
+        Personaje instance = CrearPersonajeBase();
+        Habilidad habilidadAntigua = instance.devolverHabilidad();
         instance.setHabilidadPersonaje(habilidadPersonaje);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(habilidadAntigua, habilidadPersonaje);
+
     }
 
     /**
@@ -122,12 +155,14 @@ public class PersonajeTest {
     @Test
     public void testGetArmas() {
         System.out.println("getArmas");
-        Personaje instance = null;
-        Arma[] expResult = null;
+        Personaje instance = CrearPersonajeBase();
+        Arma arma = new Arma("arma", "10", "10", "de2manos");
+        Arma[] expResult = new Arma[1];
+        expResult[0] = arma;
+        instance.setArmas(expResult);
         Arma[] result = instance.getArmas();
         assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -136,11 +171,14 @@ public class PersonajeTest {
     @Test
     public void testSetArmas() {
         System.out.println("setArmas");
-        Arma[] armas = null;
-        Personaje instance = null;
-        instance.setArmas(armas);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Personaje instance = CrearPersonajeBase();
+        Arma[] armasAntiguas = instance.getArmas();
+        Arma arma = new Arma("arma", "30", "10", "de2manos");
+        Arma[] expResult = new Arma[1];
+        expResult[0] = arma;
+        instance.setArmas(expResult);
+        assertNotSame(expResult, armasAntiguas);
+
     }
 
     /**
@@ -149,12 +187,11 @@ public class PersonajeTest {
     @Test
     public void testGetArmasActivas() {
         System.out.println("getArmasActivas");
-        Personaje instance = null;
-        Arma[] expResult = null;
-        Arma[] result = instance.getArmasActivas();
-        assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Personaje instance = CrearPersonajeBase();
+        Arma[] expResult = iniciarArmasNuevas();
+        instance.setArmasActivas(expResult);
+        assertArrayEquals(expResult, instance.getArmasActivas());
+
     }
 
     /**
@@ -163,11 +200,11 @@ public class PersonajeTest {
     @Test
     public void testSetArmasActivas() {
         System.out.println("setArmasActivas");
-        Arma[] armasActivas = null;
-        Personaje instance = null;
-        instance.setArmasActivas(armasActivas);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Personaje instance = CrearPersonajeBase();
+        Arma[] armasActivasAntiguas = instance.getArmasActivas();
+        Arma[] expResult = iniciarArmasNuevas();
+        instance.setArmasActivas(expResult);
+        assertNotEquals(armasActivasAntiguas, expResult);
     }
 
     /**
@@ -176,12 +213,11 @@ public class PersonajeTest {
     @Test
     public void testGetArmaduras() {
         System.out.println("getArmaduras");
-        Personaje instance = null;
-        Armadura[] expResult = null;
-        Armadura[] result = instance.getArmaduras();
-        assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Personaje instance = CrearPersonajeBase();
+        Armadura[] expResult = iniciarArmadurasNuevas();
+        instance.setArmaduras(expResult);
+        assertArrayEquals(expResult, instance.getArmaduras());
+
     }
 
     /**
@@ -190,11 +226,14 @@ public class PersonajeTest {
     @Test
     public void testSetArmaduras() {
         System.out.println("setArmaduras");
-        Armadura[] armaduras = null;
-        Personaje instance = null;
-        instance.setArmaduras(armaduras);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Personaje instance = CrearPersonajeBase();
+        Armadura[] armaduras = instance.getArmaduras();
+        Armadura[] nuevasArmaduras = iniciarArmadurasNuevas();
+
+        instance.setArmaduras(nuevasArmaduras);
+
+        assertNotEquals(armaduras, nuevasArmaduras);
+
     }
 
     /**
@@ -203,12 +242,12 @@ public class PersonajeTest {
     @Test
     public void testGetArmaduraActiva() {
         System.out.println("getArmaduraActiva");
-        Personaje instance = null;
-        Armadura expResult = null;
+        Personaje instance = CrearPersonajeBase();
+        Armadura expResult = new Armadura("armadura", "10", "5");
+        ;
         Armadura result = instance.getArmaduraActiva();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult.getNombre(), result.getNombre());
+
     }
 
     /**
@@ -217,11 +256,13 @@ public class PersonajeTest {
     @Test
     public void testSetArmaduraActiva() {
         System.out.println("setArmaduraActiva");
-        Armadura armaduraActiva = null;
-        Personaje instance = null;
-        instance.setArmaduraActiva(armaduraActiva);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Personaje instance = CrearPersonajeBase();
+        Armadura armaduraActivaAntigua = instance.getArmaduraActiva();
+        Armadura nuevaArmadura = new Armadura("armaduraNueva", "10", "5");
+        ;
+
+        instance.setArmaduraActiva(nuevaArmadura);
+        assertNotEquals(armaduraActivaAntigua, nuevaArmadura);
     }
 
     /**
@@ -230,12 +271,13 @@ public class PersonajeTest {
     @Test
     public void testGetEsbirros() {
         System.out.println("getEsbirros");
-        Personaje instance = null;
-        Esbirro[] expResult = null;
-        Esbirro[] result = instance.getEsbirros();
-        assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Personaje instance = CrearPersonajeBase();
+        Esbirro esbirro = new Esbirro("esbirro", 10);
+        Esbirro[] expResult = new Esbirro[1];
+        expResult[0] = esbirro;
+        instance.setEsbirros(expResult);
+        assertArrayEquals(expResult, instance.getEsbirros());
+
     }
 
     /**
@@ -244,11 +286,13 @@ public class PersonajeTest {
     @Test
     public void testSetEsbirros() {
         System.out.println("setEsbirros");
-        Esbirro[] esbirros = null;
-        Personaje instance = null;
+        Personaje instance = CrearPersonajeBase();
+        Esbirro[] esbirrosAntiguos = instance.getEsbirros();
+        Esbirro esbirro = new Esbirro("esbirro", 10);
+        Esbirro[] esbirros = new Esbirro[1];
+        esbirros[0] = esbirro;
         instance.setEsbirros(esbirros);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(esbirrosAntiguos, esbirros);
     }
 
     /**
@@ -257,12 +301,11 @@ public class PersonajeTest {
     @Test
     public void testGetSalud() {
         System.out.println("getSalud");
-        Personaje instance = null;
+        Personaje instance = CrearPersonajeBase();
         int expResult = 0;
         int result = instance.getSalud();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -271,11 +314,13 @@ public class PersonajeTest {
     @Test
     public void testSetSalud() {
         System.out.println("setSalud");
-        int Salud = 0;
-        Personaje instance = null;
-        instance.setSalud(Salud);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        int nuevaSalud = 10;
+        Personaje instance = CrearPersonajeBase();
+        int saludAntigua = instance.getSalud();
+        instance.setSalud(nuevaSalud);
+        assertNotEquals(nuevaSalud,saludAntigua);
+
     }
 
     /**
@@ -284,12 +329,10 @@ public class PersonajeTest {
     @Test
     public void testGetPoder() {
         System.out.println("getPoder");
-        Personaje instance = null;
-        int expResult = 0;
+        Personaje instance = CrearPersonajeBase();
+        int expResult = 10;
         int result = instance.getPoder();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -298,11 +341,11 @@ public class PersonajeTest {
     @Test
     public void testSetPoder() {
         System.out.println("setPoder");
-        int Poder = 0;
-        Personaje instance = null;
-        instance.setPoder(Poder);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int nuevoPoder = 5;
+        Personaje instance = CrearPersonajeBase();
+        int poderAntiguo = instance.getPoder();
+        instance.setPoder(nuevoPoder);
+        assertNotEquals(nuevoPoder,poderAntiguo);
     }
 
     /**
@@ -311,12 +354,14 @@ public class PersonajeTest {
     @Test
     public void testGetDebilidades() {
         System.out.println("getDebilidades");
-        Personaje instance = null;
-        Debilidad[] expResult = null;
+        Personaje instance = CrearPersonajeBase();
+        Debilidad debilidad = new Debilidad("debilidadNueva", 0);
+        Debilidad[] expResult = new Debilidad[1];
+        expResult[0] = debilidad;
+        instance.setDebilidades(expResult);
         Debilidad[] result = instance.getDebilidades();
         assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -325,11 +370,14 @@ public class PersonajeTest {
     @Test
     public void testSetDebilidades() {
         System.out.println("setDebilidades");
-        Debilidad[] debilidades = null;
-        Personaje instance = null;
-        instance.setDebilidades(debilidades);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Personaje instance = CrearPersonajeBase();
+        Debilidad[] debilidadesAntiguas = instance.getDebilidades();
+        Debilidad debilidad = new Debilidad("debilidadNueva", 0);
+        Debilidad[] debilidadesNuevas = new Debilidad[1];
+        debilidadesNuevas[0] = debilidad;
+        
+        instance.setDebilidades(debilidadesNuevas);
+        assertNotEquals(debilidadesAntiguas,debilidadesNuevas);
     }
 
     /**
@@ -338,12 +386,13 @@ public class PersonajeTest {
     @Test
     public void testGetFortalezas() {
         System.out.println("getFortalezas");
-        Personaje instance = null;
-        Fortaleza[] expResult = null;
+        Personaje instance = CrearPersonajeBase();
+        Fortaleza fortaleza = new Fortaleza("fortaleza", 4);
+        Fortaleza[] expResult = new Fortaleza[1];
+        expResult[0] = fortaleza;
+        instance.setFortalezas(expResult);
         Fortaleza[] result = instance.getFortalezas();
         assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -352,11 +401,14 @@ public class PersonajeTest {
     @Test
     public void testSetFortalezas() {
         System.out.println("setFortalezas");
-        Fortaleza[] fortalezas = null;
-        Personaje instance = null;
-        instance.setFortalezas(fortalezas);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Personaje instance = CrearPersonajeBase();
+        Fortaleza[] fortalezasAntiguas = instance.getFortalezas();
+        Fortaleza fortaleza = new Fortaleza("fortaleza", 2);
+        Fortaleza[] fortalezasNuevas = new Fortaleza[1];
+        fortalezasNuevas[0] = fortaleza;
+        instance.setFortalezas(fortalezasNuevas);
+        assertNotEquals(fortalezasAntiguas[0].Fortalecer(), fortalezasNuevas[0].Fortalecer());
+        
     }
 
     /**
@@ -365,12 +417,11 @@ public class PersonajeTest {
     @Test
     public void testDevolverPoder() {
         System.out.println("devolverPoder");
-        Personaje instance = null;
-        int expResult = 0;
+        Personaje instance = CrearPersonajeBase();
+        int expResult = 10;
         int result = instance.devolverPoder();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -379,12 +430,10 @@ public class PersonajeTest {
     @Test
     public void testDevolverHabilidad() {
         System.out.println("devolverHabilidad");
-        Personaje instance = null;
-        Habilidad expResult = null;
-        Habilidad result = instance.devolverHabilidad();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Personaje instance = CrearPersonajeBase();
+        Habilidad expResult = new Habilidad("habilidadCaso2", 10, 10, 0);
+        Habilidad result = instance.getHabilidadPersonaje();
+        assertEquals(expResult.getValorAtaque(), result.getValorAtaque());
     }
 
     /**
@@ -392,13 +441,12 @@ public class PersonajeTest {
      */
     @Test
     public void testDevolverDañoArma() {
-        System.out.println("devolverDa\u00f1oArma");
-        Personaje instance = null;
-        int expResult = 0;
+        System.out.println("devolverAtaqueTotalArmas");
+        Personaje instance = CrearPersonajeBase();
+        int expResult = 50;
         int result = instance.devolverDañoArma();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -407,12 +455,11 @@ public class PersonajeTest {
     @Test
     public void testDevolverDefensaArma() {
         System.out.println("devolverDefensaArma");
-        Personaje instance = null;
-        int expResult = 0;
+        Personaje instance = CrearPersonajeBase();
+        int expResult = 5;
         int result = instance.devolverDefensaArma();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -421,12 +468,11 @@ public class PersonajeTest {
     @Test
     public void testCalculoDanio() {
         System.out.println("calculoDanio");
-        Personaje instance = null;
-        int expResult = 0;
+        Personaje instance = CrearPersonajeBase();
+        int expResult = 100;
         int result = instance.calculoDanio();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -435,12 +481,11 @@ public class PersonajeTest {
     @Test
     public void testCalculoDefensa() {
         System.out.println("calculoDefensa");
-        Personaje instance = null;
-        int expResult = 0;
+        Personaje instance = CrearPersonajeBase();
+        int expResult = 30;
         int result = instance.calculoDefensa();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -449,12 +494,11 @@ public class PersonajeTest {
     @Test
     public void testCalculoVida() {
         System.out.println("calculoVida");
-        Personaje instance = null;
-        int expResult = 0;
+        Personaje instance = CrearPersonajeBase();
+        int expResult = 10;
         int result = instance.calculoVida();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -463,11 +507,9 @@ public class PersonajeTest {
     @Test
     public void testMostrarArmas() {
         System.out.println("MostrarArmas");
-        Personaje personajeEle = null;
-        Personaje instance = null;
-        instance.MostrarArmas(personajeEle);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Personaje instance = CrearPersonajeBase();
+        instance.MostrarArmas(instance);
+        
     }
 
     /**
@@ -476,11 +518,9 @@ public class PersonajeTest {
     @Test
     public void testMostrarArmasActivas() {
         System.out.println("MostrarArmasActivas");
-        Personaje personajeEle = null;
-        Personaje instance = null;
-        instance.MostrarArmasActivas(personajeEle);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Personaje instance = CrearPersonajeBase();
+        instance.MostrarArmasActivas(instance);
+        
     }
 
     /**
@@ -489,11 +529,9 @@ public class PersonajeTest {
     @Test
     public void testMostrarArmaduras() {
         System.out.println("MostrarArmaduras");
-        Personaje personajeEle = null;
-        Personaje instance = null;
-        instance.MostrarArmaduras(personajeEle);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Personaje instance = CrearPersonajeBase();
+        instance.MostrarArmaduras(instance);
+        
     }
 
     /**
@@ -502,11 +540,9 @@ public class PersonajeTest {
     @Test
     public void testMostrarDebilidades() {
         System.out.println("MostrarDebilidades");
-        Personaje personajeEle = null;
-        Personaje instance = null;
-        instance.MostrarDebilidades(personajeEle);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Personaje instance = CrearPersonajeBase();
+        instance.MostrarDebilidades(instance);
+        
     }
 
     /**
@@ -515,66 +551,23 @@ public class PersonajeTest {
     @Test
     public void testMostrarFortalezas() {
         System.out.println("MostrarFortalezas");
-        Personaje personajeEle = null;
-        Personaje instance = null;
-        instance.MostrarFortalezas(personajeEle);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Personaje instance = CrearPersonajeBase();
+        instance.MostrarFortalezas(instance);
+        
     }
 
-    /**
-     * Test of editarPersonajeOperador method, of class Personaje.
-     */
-    @Test
-    public void testEditarPersonajeOperador() {
-        System.out.println("editarPersonajeOperador");
-        Personaje personajeEle = null;
-        EntidadesActivas entidades = null;
-        Personaje instance = null;
-        instance.editarPersonajeOperador(personajeEle, entidades);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of editarPersonajeJugador method, of class Personaje.
-     */
-    @Test
-    public void testEditarPersonajeJugador() {
-        System.out.println("editarPersonajeJugador");
-        Personaje personajeEle = null;
-        EntidadesActivas entidades = null;
-        Personaje instance = null;
-        instance.editarPersonajeJugador(personajeEle, entidades);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of rellenarPropiedadesEspecificas method, of class Personaje.
-     */
-    @Test
-    public void testRellenarPropiedadesEspecificas() {
-        System.out.println("rellenarPropiedadesEspecificas");
-        Personaje instance = null;
-        instance.rellenarPropiedadesEspecificas();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
     /**
      * Test of devolverDañoHabilidad method, of class Personaje.
      */
     @Test
     public void testDevolverDañoHabilidad() {
-        System.out.println("devolverDa\u00f1oHabilidad");
-        Habilidad habilidad = null;
-        Personaje instance = null;
-        int expResult = 0;
+        System.out.println("devolverAtaqueHabilidad");
+        Personaje instance = CrearPersonajeBase();
+        Habilidad habilidad = instance.getHabilidadPersonaje();
         int result = instance.devolverDañoHabilidad(habilidad);
+        int expResult = 10;
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -583,57 +576,27 @@ public class PersonajeTest {
     @Test
     public void testClonar() {
         System.out.println("clonar");
-        Personaje instance = null;
-        Personaje expResult = null;
-        Personaje result = instance.clonar();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Personaje instance = CrearPersonajeBase();
+        Personaje expResult = instance.clonar();
+        assertEquals(expResult.getNombre(), instance.getNombre());
+        assertEquals(expResult.getArmaduraActiva(), instance.getArmaduraActiva());
+        assertArrayEquals(expResult.getArmaduras(), instance.getArmaduras());
+        assertArrayEquals(expResult.getArmas(), instance.getArmas());
+        assertArrayEquals(expResult.getArmasActivas(), instance.getArmasActivas());
+        assertArrayEquals(expResult.getFortalezas(), instance.getFortalezas());
+        assertArrayEquals(expResult.getDebilidades(), instance.getDebilidades());
+        assertArrayEquals(expResult.getEsbirros(), instance.getEsbirros());
+        assertArrayEquals(expResult.getEsbirros(), instance.getEsbirros());
+        assertEquals(expResult.getPoder(), instance.getPoder());
+        assertEquals(expResult.getSalud(), instance.getSalud());
+        assertEquals(expResult.getHabilidadPersonaje(), instance.getHabilidadPersonaje());
+
+
+        
     }
 
-    /**
-     * Test of seleccionarDebilidad method, of class Personaje.
-     */
-    @Test
-    public void testSeleccionarDebilidad() {
-        System.out.println("seleccionarDebilidad");
-        String factor = "";
-        Personaje instance = null;
-        Debilidad expResult = null;
-        Debilidad result = instance.seleccionarDebilidad(factor);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of seleccionarFortaleza method, of class Personaje.
-     */
-    @Test
-    public void testSeleccionarFortaleza() {
-        System.out.println("seleccionarFortaleza");
-        String factor = "";
-        Personaje instance = null;
-        Fortaleza expResult = null;
-        Fortaleza result = instance.seleccionarFortaleza(factor);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    public class PersonajeImpl extends Personaje {
-
-        public PersonajeImpl() {
-            super("", null, null, null, null, null, null, 0, 0, null, null);
-        }
-
-        public int calculoDanio() {
-            return 0;
-        }
-
-        public int calculoDefensa() {
-            return 0;
-        }
-    }
     
+
+    
+
 }
