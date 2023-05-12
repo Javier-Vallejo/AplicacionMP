@@ -7,3 +7,4 @@ armadura juanitoperez 1 1
 debilidad luz 3
 debilidad sol 2
 fortaleza luna 3
+arma AkumaNoMi 4 3 de2manos

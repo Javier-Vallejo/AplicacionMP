@@ -17,8 +17,6 @@ public class FabricaArmas extends FabricaEquipo{
 
              // por aqui paso los parametros base para crear equipo base. Supongo que para el tipo de si es de una o mas manos
              // habria que hacer como cuando seteamos el valor de sangre o rabia.
-             // Aunque no se cuando se usaran estas fabricas supongo que al mismo tiempo que el resto.
-
     }
      
 }

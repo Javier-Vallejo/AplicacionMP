@@ -32,10 +32,6 @@ public class Ronda {
         int numeroClima = (int) (Math.floor(Math.random() * (0 - 1 + 1) + 1));  // Valor entre M y N, ambos incluidos.
         String tiempoCombate = climas[numeroClima];
 
-        // danio1 = comprobarDebilidades(tiempoCombate,per1,danio1,per2);
-        // danio2 = comprobarDebilidades(tiempoCombate,per2,danio2,per1);
-        // danio1 = comprobarFortalezas( tiempoCombate,  per1,   danio1,  per2);
-        // danio2 = comprobarFortalezas( tiempoCombate,  per2,   danio2,  per2);
         for (Debilidad debilidad : debilidadesElegidasDesafiante) {
             danio1 = danio1 - debilidad.debilitar();
         }
@@ -103,6 +99,7 @@ public class Ronda {
 
         return vidasActualizadas;
     }
+
 
     public int getPotencialPer1() {
         return PotencialPer1;

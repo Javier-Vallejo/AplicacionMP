@@ -42,6 +42,7 @@ class Ranking {
            System.out.println("Nick: "+ rankingG.get(i).getNick() + " --- Puntuacion: " + rankingG.get(i).getOro()); 
         }
         System.out.println("====================");
+
     }
 
     public ManagerUsuarios getManager() {

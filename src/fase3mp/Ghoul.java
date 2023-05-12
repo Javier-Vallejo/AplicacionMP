@@ -31,8 +31,7 @@ public class Ghoul extends Esbirro implements IEsbirros {
 
     @Override
     public int calcularVidaRestante() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from
-                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     public void setDependencia(int dependencia) {
