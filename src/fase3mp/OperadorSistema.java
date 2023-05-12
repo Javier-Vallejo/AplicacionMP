@@ -413,7 +413,8 @@ public class OperadorSistema extends Usuario {
                 super.getEntidades().aniadir(licanNuevo);
                 rellenarStringBuilder(sb, licanNuevo);
                 escritorFich.write(sb.toString());
-                escritorFich.flush(); 
+                escritorFich.flush();
+                lectura.close();
             }
             case 2 -> {
                 // creamos un vampiro
@@ -426,7 +427,8 @@ public class OperadorSistema extends Usuario {
                 super.getEntidades().aniadir(vampNuevo);
                 rellenarStringBuilder(sb, vampNuevo);
                 escritorFich.write(sb.toString());
-                escritorFich.flush(); 
+                escritorFich.flush();
+                lectura.close();
             }
             case 3 -> {
                 // creamos un cazador
@@ -438,7 +440,8 @@ public class OperadorSistema extends Usuario {
                 super.getEntidades().aniadir(cazNuevo);
                 rellenarStringBuilder(sb, cazNuevo);
                 escritorFich.write(sb.toString());
-                escritorFich.flush(); 
+                escritorFich.flush();
+                lectura.close();
             }
         }
 

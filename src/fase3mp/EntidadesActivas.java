@@ -260,7 +260,7 @@ public class EntidadesActivas {
                     } else {
                         fortalezasElegidas.add(fortalezaEle);
                     }
-                } else {
+                } else if(fortalezaEle>fortalezas.size() || fortalezaEle<0){
                     System.out.println("Fortaleza erronea. Por favor, introduzca una fortaleza de la lista");
                 }
             }
@@ -284,7 +284,7 @@ public class EntidadesActivas {
                     } else {
                         debilidadesElegidas.add(debilidadEle);
                     }
-                } else {
+                } else if (debilidadEle>debilidades.size() || debilidadEle<0){
                     System.out.println("Debilidad erronea. Por favor, introduzca una debilidad de la lista.");
                 }
             }

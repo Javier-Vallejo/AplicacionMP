@@ -1,4 +1,3 @@
 javi/3/humano/NORMAL
 david/1/ghoul/4
 juan/3/ghoul/3
-
