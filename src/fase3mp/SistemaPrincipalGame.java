@@ -23,9 +23,7 @@ public class SistemaPrincipalGame {
     private EntidadesActivas entidadesSistema;
     private Ranking rankingSistema;
 
-    /**
-     * public Registro registro;
-     */
+
     private SistemaPrincipalGame() {// constructor hay que ver como aplicar singleton
     }
 
@@ -44,7 +42,6 @@ public class SistemaPrincipalGame {
         ManagerUsuarios manager = new ManagerUsuarios();
         usuariosSistema = manager;
         Publisher publisher = new Publisher();
-        //leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
         EntidadesActivas entidadesActivas = new EntidadesActivas();
         entidadesActivas.LeerEntidades();
         entidadesSistema = entidadesActivas;
@@ -54,7 +51,6 @@ public class SistemaPrincipalGame {
         entidadesSistema.leerEsbirros();
         leerPersonajes("Ficheros/Personajes.txt");//habra que hacer un leer Usuarios tambien
         manager.LeerUsuarios(entidadesSistema);
-        //leerDebilidadesYFortalezas("debilidadesyfortalezas.txt");
         inicializarHabilidades(entidadesActivas);
         Scanner escanerMain = new Scanner(System.in);
         int opcionElegida = 0;
@@ -150,17 +146,17 @@ public class SistemaPrincipalGame {
 
     }
 
-    private void registrarse() throws IOException {//// habria que hacer que devolviera usuario para despues mostrar menu
+    private void registrarse() throws IOException {
         System.out.println("-----Registro-----");
         Scanner escanerRegistro = new Scanner(System.in);
         String rol = "";
         // escanerRegistro.close();
         while (!(rol.equals("operador") ^ rol.equals("jugador"))) {
             System.out.print("Desea registrarse como jugador o como operador: \n");
-            rol = escanerRegistro.nextLine();// habria que poner un while por si introduce otra cosa
+            rol = escanerRegistro.nextLine();
             rol = rol.toLowerCase();
             if (rol.equals("jugador")) {
-                Registro registro = new RegistroJugador(usuariosSistema); // nuevas clases
+                Registro registro = new RegistroJugador(usuariosSistema); 
                 Usuario usuario = registro.registrarse(TipoUsuario.Jugador);
                 System.out.println("Ya casi has terminado de registrarte, ahora elige un personaje que luche a tu lado");
                 ArrayList<Integer> personajes = entidadesSistema.MostraryElegir("PERSONAJES");

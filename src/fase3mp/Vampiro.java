@@ -81,7 +81,6 @@ public class Vampiro extends Personaje{
         int defensa = habilidad.getValorDefensa();
        int limitante = habilidad.getLimitante();
         Disciplinas disciplina = new Disciplinas(nombre, ataque, defensa, limitante);
-        //Disciplinas disciplina  =  (Disciplinas) super.devolverHabilidad();
 
         if (sangre >= disciplina.getLimitante() && opcion.equals("Ataque")) {
                 return disciplina.activar(opcion);

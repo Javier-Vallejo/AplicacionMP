@@ -140,8 +140,6 @@ public class OperadorSistema extends Usuario {
                 case 2 -> {
                     System.out.println("Escriba los numeros de las armas que quiere que tenga su personaje: ");
                     ArrayList<Integer> armasEleg = super.getEntidades().MostraryElegir("ARMAS");
-                    // Arma[] armasPersonajeArray = mochilaArmasPersonaje.toArray(new
-                    // Arma[armasEleg.size()]);
 
                     for (int i = 0; i < armasEleg.size(); i++) {
                         if (!(mochilaArmasPersonaje.contains(super.getEntidades().elegirArma(armasEleg.get(i))))){
@@ -247,7 +245,6 @@ public class OperadorSistema extends Usuario {
                     System.out.println("Escriba el numero de la armadura que quiere que tenga su personaje: ");
                     ArrayList<Integer> armadurasEleg = super.getEntidades().MostraryElegir("ARMADURAS");
                     
-                    // Armadura[] armadurasArrayPersonaje = new Armadura[armadurasEleg.size()];
                     for (int i = 0; i < armadurasEleg.size(); i++) {
                         if (!(mochilaArmadurasPersonaje.contains(super.getEntidades().elegirArmadura(armadurasEleg.get(i))))){
                             mochilaArmadurasPersonaje.add(super.getEntidades().elegirArmadura(armadurasEleg.get(i)));
@@ -449,8 +446,7 @@ public class OperadorSistema extends Usuario {
 
     }
 
-    private void rellenarStringBuilder(StringBuilder sb, Personaje personaje) {// hay que cambiar la forma de guardar
-                                                                               // los esbirros
+    private void rellenarStringBuilder(StringBuilder sb, Personaje personaje) {
         if (personaje instanceof Vampiro) {
             sb.append("vampiro;");
         } else if (personaje instanceof Licantropo) {
@@ -493,7 +489,7 @@ public class OperadorSistema extends Usuario {
             sb.append("/");
             sb.append(armas[i].getTipodeArma().toString());
             sb.append(",");
-        } // se me guarda una barrita de mas
+        } 
         sb.append(";");
         // armaduras
         Armadura[] armaduras = personaje.getArmaduras();
@@ -538,7 +534,6 @@ public class OperadorSistema extends Usuario {
             sb.append(fortalezas[i].getNombre());
             sb.append("/");
             sb.append(fortalezas[i].getValor());
-            // sb.append("|");
         }
         sb.append(";");
         if (personaje instanceof Vampiro vamp) {
@@ -683,7 +678,7 @@ public class OperadorSistema extends Usuario {
         while (!validacion.equals("SI") && !validacion.equals("NO")) {
             scanner = new Scanner(System.in);
             validacion = scanner.nextLine();
-            if (validacion.equals("SI")) { // habria que hacer que se cambie a mayus lo que escriba para que da
+            if (validacion.equals("SI")) { //Se cambie a mayus lo que escriba para que da
                                            // igual que pona si, Si, o SI
                 desafio.setEstado(Desafio.State.Validado);
                 notificador.suscribirUsuario(desafio.getJugadorDesafiado());
@@ -697,9 +692,7 @@ public class OperadorSistema extends Usuario {
     }
 
     public void realizarFuncionMenuOperador(int opcion) throws IOException {
-        // manager = super.getManagerUsuarios();
         ArrayList<Usuario> usuarioEle = manager.getUsuariosRegistrados();
-        // insertar variables duplicadas en las opciones de banear y desbanear?
         switch (opcion) {
             case 1 -> {// Darse de baja
                 DarseDeBaja(this); // DarseDeBaja(null)
@@ -710,18 +703,14 @@ public class OperadorSistema extends Usuario {
                 // Editar Personaje
                 System.out.println("Personajes disponibles:");
                 entidades = super.getEntidades();
-                ArrayList<Integer> personajeEle = super.getEntidades().MostraryElegir("PERSONAJES");// se podria hacer
-                                                                                                    // que entidades de
-                                                                                                    // usuario fuera
-                                                                                                    // publico
+                ArrayList<Integer> personajeEle = super.getEntidades().MostraryElegir("PERSONAJES");
                 Personaje personaje = super.getEntidades().elegirPersonaje(personajeEle.get(0));// para que lo hereden
                                                                                                 // los hijos sin tener
                                                                                                 // que hacer get
 
                 personaje.editarPersonajeOperador(personaje, entidades);
                 for (int i = 0; i < manager.getUsuariosRegistrados().size(); i++) { // esto
-                    if (manager.getUsuariosRegistrados().get(i) instanceof Jugador jugador) {// comprobar otros
-                                                                                             // parametros a lo mejor
+                    if (manager.getUsuariosRegistrados().get(i) instanceof Jugador jugador) {
                         if (jugador.getPersonajeActivo().getNombre().equals(personaje.getNombre())) {
                             jugador.setPersonajeActivo(personaje.clonar()); // por polimorfismo se ejecutara el clonar
                                                                             // del personaje especifico
@@ -756,21 +745,14 @@ public class OperadorSistema extends Usuario {
                 if (opc == 1) {
                     usuario.setEstadoObservador(State.baneado);
                 }
-                /*
-                 * Creo que lo sig no haria falta pero por si acaso lo dejo:
-                 * String nick = usuario.getNick();
-                 * String password = usuario.getPassword();
-                 * Usuario usuario = super.getManagerUsuarios().obtenerUsuario(nick, password);
-                 */
             }
             case 6 -> {
                 // Desbanear Usuario
-                imprimirListaUsuariosDesbaneadosBaneados(usuarioEle, opcion);// a lo mejor estaria mejor ponerlo en
-                                                                             // operador del sistema
+                imprimirListaUsuariosDesbaneadosBaneados(usuarioEle, opcion);
                 Scanner escanerUsu = new Scanner(System.in);
                 System.out.println("Introduzca el numero del usuario que desea banear: ");
                 Integer num = escanerUsu.nextInt();
-                Usuario usu = usuarioEle.get(num);// habria que ver como elegir al usuario a banear
+                Usuario usu = usuarioEle.get(num);
                 System.out.println("¿Esta seguro de que quier desbanear al usuario " + usu.getNick() + "?");
                 System.out.println("Pulse 1 si asi es, en caso contrario pulse culaquier otro numero");
                 Integer op = escanerUsu.nextInt();
@@ -897,10 +879,7 @@ public class OperadorSistema extends Usuario {
         }
     }
 
-    public void imprimirListaUsuariosDesbaneadosBaneados(ArrayList<Usuario> usuarioEle, int opcion) {// no tiene sentido
-                                                                                                     // crearse otro
-                                                                                                     // array
-        // list nuevo
+    public void imprimirListaUsuariosDesbaneadosBaneados(ArrayList<Usuario> usuarioEle, int opcion) {
         for (int i = 0; i < usuarioEle.size(); i++) {
             Usuario usuario = usuarioEle.get(i);
             TipoUsuario rol = usuario.getRol();

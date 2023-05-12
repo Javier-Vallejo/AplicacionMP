@@ -13,7 +13,7 @@ public class Usuario implements UsuariosANotificar{
     private String nick;
     private String password;
     private TipoUsuario rol;
-    private State estadoObservador; //que es????
+    private State estadoObservador; 
     private EntidadesActivas entidades;
     private DesafiosActivos desafiosAct;
     private ManagerUsuarios managerUsuarios;
@@ -23,7 +23,7 @@ public class Usuario implements UsuariosANotificar{
     private Combate combateRealizado;
     private Ranking ranking;
     
-    public Usuario(String nombre, String nick, String password, TipoUsuario rol, ManagerUsuarios manager){//habria que pasarle un objeto ranking
+    public Usuario(String nombre, String nick, String password, TipoUsuario rol, ManagerUsuarios manager){
         setNombre(nombre);
         setNick(nick);
         setPassword(password);
@@ -31,7 +31,6 @@ public class Usuario implements UsuariosANotificar{
         setDesafioPendiente(null);
         setCombateRealizado(null);
         setManagerUsuarios(manager);
-       // Desafio desafio = new Desafio();
         desafiosAct = new DesafiosActivos();
         setDesafiosAct(desafiosAct);
     }
@@ -135,7 +134,6 @@ public class Usuario implements UsuariosANotificar{
     
     @Override
     public void update(Object objeto) {
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         if (objeto instanceof Desafio desafio){
             //System.out.println("Recibes un desafio: Quieres hacerlo?");
             setDesafioPendiente(desafio);

@@ -37,7 +37,7 @@ public class ManagerUsuarios {
 
     public Jugador CrearJugador(String nombre, String nick, String password, TipoUsuario rol, State estadoObservador,
             int oro) {
-        // deberia comprobar aqui si existe ya en el sistema el jugador
+        //Comprobar si existe ya en el sistema el jugador
         if (usuariosRegistrados.isEmpty()) {
             Jugador jugador = new Jugador(nombre, nick, password, TipoUsuario.Jugador, oro, this);                                                                                          
             guardarUsuario(jugador);

@@ -335,9 +335,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                     if (eleccion == 1) {
                         int armadurasAeliminar = 0;
                         System.out.println("Selecciona las armaduras que desea eliminar: ");
-                        while (armadurasAeliminar != arrayListArmaduras.size()) {// habria que limitar para que no
-                                                                                 // acepte enteros
-                            // mayores que el size
+                        while (armadurasAeliminar != arrayListArmaduras.size()) {
                             System.out.println("Armaduras actuales: ");
                             MostrarArmaduras(personajeEle);
                             armadurasAeliminar = escanerLectura.nextInt();
@@ -385,9 +383,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                     if (eleccion == 1) {
                         int debilidadesAeliminar = 0;
                         System.out.println("Selecciona las debilidades que desea eliminar:");
-                        while (debilidadesAeliminar != arrayListDebilidades.size()) {// habria que limitar para que no
-                                                                                     // acepte enteros
-                            // mayores que el size
+                        while (debilidadesAeliminar != arrayListDebilidades.size()) {
                             System.out.println("Debilidades actuales:");
                             MostrarDebilidades(personajeEle);
                             debilidadesAeliminar = escanerLectura.nextInt();
@@ -429,9 +425,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                     if (eleccion == 1) {
                         int fortalezasAeliminar = 0;
                         System.out.println("Selecciona las fortalezas que desea eliminar: ");
-                        while (fortalezasAeliminar != arrayListFortalezas.size()) {// habria que limitar para que no
-                                                                                   // acepte enteros
-                            // mayores que el size
+                        while (fortalezasAeliminar != arrayListFortalezas.size()) {
                             System.out.println("Fortalezas actuales: ");
                             MostrarFortalezas(personajeEle);
                             fortalezasAeliminar = escanerLectura.nextInt();

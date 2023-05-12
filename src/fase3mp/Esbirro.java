@@ -41,8 +41,6 @@ public class Esbirro  {
     }
     
     public int devolverSalud () {
-        //int saludTotal = salud;
-        
         return salud;
     }
 

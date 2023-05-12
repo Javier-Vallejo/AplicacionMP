@@ -43,18 +43,7 @@ class Ranking {
            System.out.println("Nick: "+ rankingG.get(i).getNick() + " --- Puntuacion: " + rankingG.get(i).getOro()); 
         }
         System.out.println("====================");
-       /** Collections.reverse(ordenados);
-        
-        TreeMap<Integer, String> sorted = new TreeMap<>();
-        sorted.putAll((Map<? extends Integer, ? extends String>) ordenados.get(0));
-        System.out.println("--Aquí tiene el ranking actual del juego--");
-        /**for (int j = 0; j < sorted.size(); j++) {
-            System.out.println(sorted.values());
-            System.out.println(sorted.keySet());
-        }
-        
-        System.out.println(sorted.values());
-        System.out.println(sorted.keySet());*/
+
     }
 
     public ManagerUsuarios getManager() {

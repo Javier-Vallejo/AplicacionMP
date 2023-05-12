@@ -18,10 +18,5 @@ public class Fortaleza extends Modificador{
     public int Fortalecer () {
         return super.getValor();
     }
-    /*
-     * Habria que ver el como operarlo
-     * Tipo que si es una fortaleza devuelve el valor en positivo y si es debilidad en negativo
-     * O si ambos devuelven el valor
-     */
     
 }

@@ -125,9 +125,7 @@ public class Jugador extends Usuario {
             }
             System.out.println(armasPersonaje.length + 1 + " Salir");
             int numArmaActiva = 0;
-            ArrayList<Arma> armasActivas = new ArrayList<>();// habria que hacer tambien un proceso para que pueda
-            // quitarse
-            // alguna que tenga activa
+            ArrayList<Arma> armasActivas = new ArrayList<>();
             while (numArmaActiva != armasPersonaje.length + 1) {
                 numArmaActiva = escanerArmas.nextInt();
                 if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de2manos && armasActivas.isEmpty()) {
@@ -271,7 +269,7 @@ public class Jugador extends Usuario {
             notificador.desSuscribirUsuario(combate.getDesafiado());
             notificador.desSuscribirUsuario(combate.getDesafiante());
 
-            // Falta ver en que lista/estructura añadimos la ronda//combate
+
         } else if (opcion == 2) { // Rechaza el desafio
             this.setOro((int) (this.getOro() - (this.getOro() * 0.1)));
             this.setDesafioPendiente(null);
@@ -333,9 +331,6 @@ public class Jugador extends Usuario {
         rellenarStringBuilderDesafio(sb, desafio);
         File file = new File("Ficheros/Desafios.txt");
         FileWriter escritorFich = new FileWriter("Ficheros/Desafios.txt",true);
-        //
-        /* BufferedWriter bw = new BufferedWriter(escritorFich);
-        bw.newLine(); */
 
         BufferedReader br = new BufferedReader(new FileReader(file));
             if (br.readLine() != null) {
@@ -428,8 +423,6 @@ public class Jugador extends Usuario {
             case 5:// Desafiar
                 Desafio desafio = new Desafio();
                 this.Desafiar(desafio);
-                // super.getDesafiosAct().guardarDesafio(desafio); Esta linea en teoria sobra
-                // porque como operador siempre leemos todos los desafios del fichero
                 persistenciaDesafio(desafio);
                 break;
             case 6:// Consultar Oro
