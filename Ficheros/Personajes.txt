@@ -1,1 +1,1 @@
-licantropo;fiddle;GolpeDeRabia/7/2/1;Navaja/2/1/de1mano,Palo/1/1/de1mano,;Navaja/2/1/de1mano,Palo/1/1/de1mano,;pechoMachoPechoPeludo/3/5,juanitoperez/1/1,;pechoMachoPechoPeludo/3/5;javi/3/humano,david/1/ghoul,juan/3/ghoul,juan/3/ghoul,;3;2;sol/2;luna/3;4
+cazador;Ilia;Cazar/6/6/0;Cefiro/1/2/de1mano,;Cefiro/1/2/de1mano,;juanitoperez/1/1,;juanitoperez/1/1;javi/3/humano,javi/3/humano,david/1/ghoul,juan/3/ghoul,juan/3/ghoul,;2;5;luz/3;luna/3;0

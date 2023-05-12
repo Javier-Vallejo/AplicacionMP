@@ -143,6 +143,7 @@ public class SistemaPrincipalGame {
                     menu.mostrarOpciones();
                     eleccionMenu = escIniSes.nextInt();
                     operador.realizarFuncionMenuOperador(eleccionMenu);
+                    escIniSes.nextLine();
                 }
             }
         }
