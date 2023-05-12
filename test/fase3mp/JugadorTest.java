@@ -36,18 +36,50 @@ public class JugadorTest {
     public void tearDown() {
     }
 
+    public Cazador CrearCazadorBase () {
+
+        Habilidad habilidad = new Habilidad("habilidad", 10, 10, 0);
+        Arma arma = new Arma("arma", "10", "10", "de2manos");
+        Arma[] armas = new Arma[1];
+        armas[0] = arma;
+        Armadura armadura = new Armadura("armadura", "10", "5");
+        Armadura[] armaduras = new Armadura[1];
+        armaduras[0] = armadura;
+        Esbirro esbirro = new Esbirro("esbirro", 10);
+        Esbirro[] esbirros = new Esbirro[1];
+        esbirros[0] = esbirro;
+        Debilidad debilidad = new Debilidad("debilidad", 0);
+        Debilidad[] debilidades = new Debilidad[1];
+        debilidades[0] = debilidad;
+        Fortaleza fortaleza = new Fortaleza("fortaleza", 0);
+        Fortaleza[] fortalezas = new Fortaleza[1];
+        fortalezas[0] = fortaleza;
+        Cazador instance = new Cazador("nombre", habilidad, armas, armas, armaduras, armadura, esbirros, 0, 10, debilidades, fortalezas); 
+        instance.setVoluntad(10);
+
+        return instance;
+
+    }
+    public Jugador crearJugador(Publisher notificador, Personaje personaje, ManagerUsuarios managerUsuarios, Ranking ranking){
+        Jugador instance = new Jugador("a", "A", "123",TipoUsuario.Jugador , 10, managerUsuarios);
+        instance.setEstaBaneado(false);
+        instance.setNotificador(notificador);
+        instance.setPersonajeActivo(personaje);
+        instance.setNumeroRegistro("1234567");
+        instance.setRankingGlobal(ranking);
+        return instance;
+    }
     /**
      * Test of getOro method, of class Jugador.
      */
     @Test
     public void testGetOro() {
         System.out.println("getOro");
-        Jugador instance = null;
-        int expResult = 0;
+        ManagerUsuarios manager = new ManagerUsuarios();
+        Jugador instance = crearJugador(null, null, manager, null);
+        int expResult = 10;
         int result = instance.getOro();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -56,12 +88,12 @@ public class JugadorTest {
     @Test
     public void testSetOro() {
         System.out.println("setOro");
+        ManagerUsuarios manager = new ManagerUsuarios();
         int oro = 500;
-        Jugador instance = null;
-        //Jugador instance = new Jugador();
+        Jugador instance = crearJugador(null, null, manager, null);
+        int oroAntiguo = instance.getOro();
         instance.setOro(oro);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(oroAntiguo, instance.getOro());
     }
 
     /**
@@ -70,13 +102,13 @@ public class JugadorTest {
     @Test
     public void testGetNotificador() {
         System.out.println("getNotificador");
-        Jugador instance = null;
-        Publisher expResult = null;
+        ManagerUsuarios manager = new ManagerUsuarios();
+        Publisher notificador = new Publisher();
+        Jugador instance = crearJugador(notificador, null, manager, null);
         Publisher result = instance.getNotificador();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(notificador, result);
     }
+
 
     /**
      * Test of setNotificador method, of class Jugador.
@@ -84,11 +116,12 @@ public class JugadorTest {
     @Test
     public void testSetNotificador() {
         System.out.println("setNotificador");
-        Publisher notificador = null;
-        Jugador instance = null;
+        ManagerUsuarios manager = new ManagerUsuarios();
+        Publisher notificadorAntiguo = new Publisher();
+        Publisher notificador = new Publisher();
+        Jugador instance = crearJugador(notificadorAntiguo, null, manager, null);
         instance.setNotificador(notificador);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(instance.getNotificador(), notificadorAntiguo);
     }
 
     /**
@@ -97,12 +130,11 @@ public class JugadorTest {
     @Test
     public void testGetEstaBaneado() {
         System.out.println("getEstaBaneado");
-        Jugador instance = null;
+        ManagerUsuarios manager = new ManagerUsuarios();
+        Jugador instance = crearJugador(null, null, manager, null);
         boolean expResult = false;
         boolean result = instance.getEstaBaneado();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -111,11 +143,12 @@ public class JugadorTest {
     @Test
     public void testSetEstaBaneado() {
         System.out.println("setEstaBaneado");
-        boolean estaBaneado = false;
-        Jugador instance = null;
+        ManagerUsuarios manager = new ManagerUsuarios();
+        boolean estaBaneado = true;
+        Jugador instance = crearJugador(null, null, manager, null);
+        boolean estadoAntiguo = instance.getEstaBaneado();
         instance.setEstaBaneado(estaBaneado);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(estadoAntiguo, instance.getEstaBaneado());
     }
 
     /**
@@ -124,12 +157,11 @@ public class JugadorTest {
     @Test
     public void testGetPersonajeActivo() {
         System.out.println("getPersonajeActivo");
-        Jugador instance = null;
-        Personaje expResult = null;
+        ManagerUsuarios manager = new ManagerUsuarios();
+        Personaje expResult = CrearCazadorBase();
+        Jugador instance = crearJugador(null, expResult, manager, null);
         Personaje result = instance.getPersonajeActivo();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -138,11 +170,12 @@ public class JugadorTest {
     @Test
     public void testSetPersonajeActivo() {
         System.out.println("setPersonajeActivo");
-        Personaje personajeActivo = null;
-        Jugador instance = null;
+        ManagerUsuarios manager = new ManagerUsuarios();
+        Personaje personajeActivoAntiguo = CrearCazadorBase();
+        Jugador instance = crearJugador(null, personajeActivoAntiguo, manager, null);
+        Personaje personajeActivo = CrearCazadorBase();
         instance.setPersonajeActivo(personajeActivo);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(personajeActivoAntiguo, instance.getPersonajeActivo());
     }
 
     /**
@@ -151,12 +184,11 @@ public class JugadorTest {
     @Test
     public void testGetNumeroRegistro() {
         System.out.println("getNumeroRegistro");
-        Jugador instance = null;
-        String expResult = "";
+        ManagerUsuarios manager = new ManagerUsuarios();
+        Jugador instance = crearJugador(null, null, manager, null);
+        String expResult = "1234567";
         String result = instance.getNumeroRegistro();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -165,11 +197,12 @@ public class JugadorTest {
     @Test
     public void testSetNumeroRegistro() {
         System.out.println("setNumeroRegistro");
-        String NumeroRegistro = "";
-        Jugador instance = null;
+        ManagerUsuarios manager = new ManagerUsuarios();
+        String NumeroRegistro = "7654321";
+        Jugador instance = crearJugador(null, null, manager, null);
+        String NumAntiguo = instance.getNumeroRegistro();
         instance.setNumeroRegistro(NumeroRegistro);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(NumAntiguo, instance.getNumeroRegistro());
     }
 
     /**
@@ -178,12 +211,10 @@ public class JugadorTest {
     @Test
     public void testGetManager() {
         System.out.println("getManager");
-        Jugador instance = null;
-        ManagerUsuarios expResult = null;
+        ManagerUsuarios expResult = new ManagerUsuarios();
+        Jugador instance = crearJugador(null, null, expResult, null);
         ManagerUsuarios result = instance.getManager();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -192,11 +223,11 @@ public class JugadorTest {
     @Test
     public void testSetManager() {
         System.out.println("setManager");
-        ManagerUsuarios manager = null;
-        Jugador instance = null;
+        ManagerUsuarios managerAntiguo = new ManagerUsuarios();
+        ManagerUsuarios manager = new ManagerUsuarios();
+        Jugador instance = crearJugador(null, null, managerAntiguo, null);
         instance.setManager(manager);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(managerAntiguo, instance.getManager());
     }
 
     /**
@@ -205,12 +236,11 @@ public class JugadorTest {
     @Test
     public void testGetRankingGlobal() {
         System.out.println("getRankingGlobal");
-        Jugador instance = null;
-        Ranking expResult = null;
+        ManagerUsuarios manager = new ManagerUsuarios();
+        Ranking expResult = new Ranking();
+        Jugador instance = crearJugador(null, null, manager, expResult);
         Ranking result = instance.getRankingGlobal();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -219,11 +249,12 @@ public class JugadorTest {
     @Test
     public void testSetRankingGlobal() {
         System.out.println("setRankingGlobal");
-        Ranking rankingGlobal = null;
-        Jugador instance = null;
+        ManagerUsuarios manager = new ManagerUsuarios();
+        Ranking rankingAnterior = new Ranking();
+        Ranking rankingGlobal = new Ranking();;
+        Jugador instance = crearJugador(null, null, manager, rankingAnterior);;
         instance.setRankingGlobal(rankingGlobal);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(rankingAnterior, instance.getRankingGlobal());
     }
 
     /**
@@ -235,19 +266,6 @@ public class JugadorTest {
         Desafio desafio = null;
         Jugador instance = null;
         instance.AceptaroRechazarDesafio(desafio);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of resultadosCombate method, of class Jugador.
-     */
-    @Test
-    public void testResultadosCombate() {
-        System.out.println("resultadosCombate");
-        Combate combate = null;
-        Jugador instance = null;
-        instance.resultadosCombate(combate);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

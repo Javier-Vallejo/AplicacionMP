@@ -36,6 +36,14 @@ public class GhoulTest {
     public void tearDown() {
     }
 
+    public Ghoul crearGhoul () {
+
+        Ghoul instance = new Ghoul("ghoul", 3);
+        instance.setDependencia(3);
+        return instance;
+
+    }
+
     /**
      * Test of rellenarPropiedadesEspec method, of class Ghoul.
      */
@@ -54,7 +62,7 @@ public class GhoulTest {
     @Test
     public void testCalcularVidaRestante() {
         System.out.println("calcularVidaRestante");
-        Ghoul instance = null;
+        Ghoul instance = crearGhoul();
         int expResult = 0;
         int result = instance.calcularVidaRestante();
         assertEquals(expResult, result);
@@ -68,11 +76,11 @@ public class GhoulTest {
     @Test
     public void testSetDependencia() {
         System.out.println("setDependencia");
-        int dependencia = 0;
-        Ghoul instance = null;
+        int dependencia = 5;
+        Ghoul instance = crearGhoul();
+        int dependenciaAntigua = instance.getDependencia();
         instance.setDependencia(dependencia);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(dependenciaAntigua,instance.getDependencia());
     }
 
     /**
@@ -81,12 +89,10 @@ public class GhoulTest {
     @Test
     public void testGetDependencia() {
         System.out.println("getDependencia");
-        Ghoul instance = null;
-        int expResult = 0;
+        Ghoul instance = crearGhoul();
+        int expResult = 3;
         int result = instance.getDependencia();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

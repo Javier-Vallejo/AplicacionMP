@@ -184,13 +184,13 @@ public class Demonio extends Esbirro implements IEsbirros {
     }
 
     @Override
-    public int devolverSalud() {
-        int saludTotal = super.devolverSalud();
+    public int getSalud() {
+        int saludTotal = super.getSalud();
         if (tieneEsbirros()) {
 
             for (int i2 = 0; i2 < esbirros.size(); i2++) {
                 Esbirro esbirro = esbirros.get(i2);
-                int saludEsbirro = esbirro.devolverSalud();
+                int saludEsbirro = esbirro.getSalud();
                 saludTotal += saludEsbirro;
             }
         }

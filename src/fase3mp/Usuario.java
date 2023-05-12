@@ -40,6 +40,14 @@ public class Usuario implements UsuariosANotificar{
         return fabricaEsbirros;
     }
 
+    public void setFabricaPersonajes(FabricaPersonajes fabricaPersonajes) {
+        this.fabricaPersonajes = fabricaPersonajes;
+    }
+
+    public void setFabricaEsbirros(FabricaEsbirros fabricaEsbirros) {
+        this.fabricaEsbirros = fabricaEsbirros;
+    }
+
     public Desafio getDesafioPendiente() {
         return desafioPendiente;
     }

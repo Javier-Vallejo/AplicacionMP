@@ -36,18 +36,47 @@ public class PactoTest {
     public void tearDown() {
     }
 
+    public Cazador CrearCazadorBase () {
+
+        Habilidad habilidad = new Habilidad("habilidad", 10, 10, 0);
+        Arma arma = new Arma("arma", "10", "10", "de2manos");
+        Arma[] armas = new Arma[1];
+        armas[0] = arma;
+        Armadura armadura = new Armadura("armadura", "10", "5");
+        Armadura[] armaduras = new Armadura[1];
+        armaduras[0] = armadura;
+        Esbirro esbirro = new Esbirro("esbirro", 10);
+        Esbirro[] esbirros = new Esbirro[1];
+        esbirros[0] = esbirro;
+        Debilidad debilidad = new Debilidad("debilidad", 0);
+        Debilidad[] debilidades = new Debilidad[1];
+        debilidades[0] = debilidad;
+        Fortaleza fortaleza = new Fortaleza("fortaleza", 0);
+        Fortaleza[] fortalezas = new Fortaleza[1];
+        fortalezas[0] = fortaleza;
+        Cazador instance = new Cazador("nombre", habilidad, armas, armas, armaduras, armadura, esbirros, 0, 10, debilidades, fortalezas); 
+        instance.setVoluntad(10);
+
+        return instance;
+
+    }
+    public Pacto crearPacto(Personaje personaje){
+        Pacto instance = new Pacto();
+        instance.setDescripcion("pacto");
+        instance.setAmo(personaje);
+        return instance;
+    }
     /**
      * Test of getDescripcion method, of class Pacto.
      */
     @Test
     public void testGetDescripcion() {
         System.out.println("getDescripcion");
-        Pacto instance = new Pacto();
-        String expResult = "";
+        Personaje personaje = CrearCazadorBase();
+        Pacto instance = crearPacto(personaje);
+        String expResult = "pacto";
         String result = instance.getDescripcion();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -56,11 +85,11 @@ public class PactoTest {
     @Test
     public void testSetDescripcion() {
         System.out.println("setDescripcion");
-        String descripcion = "";
-        Pacto instance = new Pacto();
+        String descripcion = "pacto_2";
+        Pacto instance = crearPacto(CrearCazadorBase());
+        String descripcionAntigua = instance.getDescripcion();
         instance.setDescripcion(descripcion);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(descripcionAntigua, instance.getAmo());
     }
 
     /**
@@ -69,12 +98,11 @@ public class PactoTest {
     @Test
     public void testGetAmo() {
         System.out.println("getAmo");
-        Pacto instance = new Pacto();
-        Personaje expResult = null;
+        Personaje personaje = CrearCazadorBase();
+        Pacto instance = crearPacto(personaje);
+        Personaje expResult = personaje;
         Personaje result = instance.getAmo();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -83,11 +111,10 @@ public class PactoTest {
     @Test
     public void testSetAmo() {
         System.out.println("setAmo");
-        Personaje amo = null;
-        Pacto instance = new Pacto();
+        Personaje personajeAntiguo = CrearCazadorBase();
+        Personaje amo = CrearCazadorBase();
+        Pacto instance = crearPacto(personajeAntiguo);
         instance.setAmo(amo);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(personajeAntiguo, instance.getAmo());
     }
-    
 }

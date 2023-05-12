@@ -36,18 +36,20 @@ public class HabilidadTest {
     public void tearDown() {
     }
 
+    public Habilidad crearHabilidad(){
+        Habilidad instance = new Habilidad("habilidad", 3, 3, 3);
+        return instance;
+    }
     /**
      * Test of getNombre method, of class Habilidad.
      */
     @Test
     public void testGetNombre() {
         System.out.println("getNombre");
-        Habilidad instance = null;
-        String expResult = "";
+        Habilidad instance = crearHabilidad();
+        String expResult = "habilidad";
         String result = instance.getNombre();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -56,11 +58,11 @@ public class HabilidadTest {
     @Test
     public void testSetNombre() {
         System.out.println("setNombre");
-        String nombre = "";
-        Habilidad instance = null;
+        String nombre = "habilidad2";
+        Habilidad instance = crearHabilidad();
+        String nombreAntiguo = instance.getNombre();
         instance.setNombre(nombre);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(nombreAntiguo,instance.getNombre());
     }
 
     /**
@@ -69,12 +71,10 @@ public class HabilidadTest {
     @Test
     public void testGetValorAtaque() {
         System.out.println("getValorAtaque");
-        Habilidad instance = null;
-        int expResult = 0;
+        Habilidad instance = crearHabilidad();
+        int expResult = 3;
         int result = instance.getValorAtaque();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -83,11 +83,11 @@ public class HabilidadTest {
     @Test
     public void testSetValorAtaque() {
         System.out.println("setValorAtaque");
-        int valorAtaque = 0;
-        Habilidad instance = null;
+        int valorAtaque = 1;
+        Habilidad instance = crearHabilidad();
+        int ataqueAntiguo = instance.getValorAtaque();
         instance.setValorAtaque(valorAtaque);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(ataqueAntiguo, instance.getValorAtaque());
     }
 
     /**
@@ -96,12 +96,10 @@ public class HabilidadTest {
     @Test
     public void testGetValorDefensa() {
         System.out.println("getValorDefensa");
-        Habilidad instance = null;
-        int expResult = 0;
+        Habilidad instance = crearHabilidad();
+        int expResult = 3;
         int result = instance.getValorDefensa();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -110,11 +108,11 @@ public class HabilidadTest {
     @Test
     public void testSetValorDefensa() {
         System.out.println("setValorDefensa");
-        int valorDefensa = 0;
-        Habilidad instance = null;
+        int valorDefensa = 4;
+        Habilidad instance = crearHabilidad();
+        int defensaAntigua = instance.getValorDefensa();
         instance.setValorDefensa(valorDefensa);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(instance.getValorDefensa(), defensaAntigua);
     }
 
     /**
@@ -123,12 +121,10 @@ public class HabilidadTest {
     @Test
     public void testGetLimitante() {
         System.out.println("getLimitante");
-        Habilidad instance = null;
-        int expResult = 0;
+        Habilidad instance = crearHabilidad();
+        int expResult = 3;
         int result = instance.getLimitante();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -137,11 +133,11 @@ public class HabilidadTest {
     @Test
     public void testSetLimitante() {
         System.out.println("setLimitante");
-        int limitante = 0;
-        Habilidad instance = null;
+        int limitante = 2;
+        Habilidad instance = crearHabilidad();
+        int limitanteAntiguo = instance.getLimitante();
         instance.setLimitante(limitante);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(limitanteAntiguo, instance.getLimitante());
     }
     
 }

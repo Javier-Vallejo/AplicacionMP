@@ -36,18 +36,20 @@ public class ModificadorTest {
     public void tearDown() {
     }
 
+    public Modificador crearModificador(){
+        Modificador instance = new Modificador("modificador", 3);
+        return instance;
+    }
     /**
      * Test of getNombre method, of class Modificador.
      */
     @Test
     public void testGetNombre() {
         System.out.println("getNombre");
-        Modificador instance = null;
-        String expResult = "";
+        Modificador instance = crearModificador();
+        String expResult = "modificador";
         String result = instance.getNombre();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -56,11 +58,11 @@ public class ModificadorTest {
     @Test
     public void testSetNombre() {
         System.out.println("setNombre");
-        String nombre = "";
-        Modificador instance = null;
+        String nombre = "modificador_2";
+        Modificador instance = crearModificador();
+        String nombreAntiguo = instance.getNombre();
         instance.setNombre(nombre);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(nombreAntiguo, instance.getNombre());
     }
 
     /**
@@ -69,12 +71,10 @@ public class ModificadorTest {
     @Test
     public void testGetValor() {
         System.out.println("getValor");
-        Modificador instance = null;
-        int expResult = 0;
+        Modificador instance = crearModificador();
+        int expResult = 3;
         int result = instance.getValor();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -83,11 +83,11 @@ public class ModificadorTest {
     @Test
     public void testSetValor() {
         System.out.println("setValor");
-        int valor = 0;
-        Modificador instance = null;
+        int valor = 2;
+        Modificador instance = crearModificador();
+        int valorAntiguo = instance.getValor();
         instance.setValor(valor);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(instance.getValor(), valorAntiguo);
     }
     
 }

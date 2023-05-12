@@ -4,7 +4,10 @@
  */
 package fase3mp;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -18,52 +21,82 @@ import static org.junit.Assert.*;
  * @author juana
  */
 public class ManagerUsuariosTest {
-    
+
     public ManagerUsuariosTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
 
+    public Usuario crearUsuario() {
+        ManagerUsuarios manager = new ManagerUsuarios();
+        Jugador instance = new Jugador("Juan", "ElBoss", "1234", TipoUsuario.Jugador, manager);
+        instance.setNumeroRegistro("1234567");
+        return instance;
+    }
+
     /**
      * Test of getCredencialesUsuarios method, of class ManagerUsuarios.
+     * 
+     * @throws SecurityException
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
      */
     @Test
-    public void testGetCredencialesUsuarios() {
+    public void testGetCredencialesUsuarios() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         System.out.println("getCredencialesUsuarios");
         ManagerUsuarios instance = new ManagerUsuarios();
-        ArrayList<Map<String, String>> expResult = null;
+        Usuario usuario = crearUsuario();
+        Map<String, String> credenciales = new HashMap<>();
+        credenciales.put(usuario.getNick(), usuario.getPassword());
+        ArrayList<Map<String, String>> expResult = new ArrayList<>();
+        expResult.add(credenciales);
+
+        Method guardarCredenciales = instance.getClass().getDeclaredMethod("guardarCredenciales", Usuario.class);
+        guardarCredenciales.setAccessible(true);
+        guardarCredenciales.invoke(instance, usuario);
+
         ArrayList<Map<String, String>> result = instance.getCredencialesUsuarios();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
      * Test of getUsuariosRegistrados method, of class ManagerUsuarios.
+     * @throws SecurityException
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
      */
     @Test
-    public void testGetUsuariosRegistrados() {
+    public void testGetUsuariosRegistrados() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         System.out.println("getUsuariosRegistrados");
         ManagerUsuarios instance = new ManagerUsuarios();
-        ArrayList<Usuario> expResult = null;
+        Usuario usuario = crearUsuario();
+        ArrayList<Usuario> expResult = new ArrayList<>();
+        expResult.add(usuario);
+
+        Method guardarUsuario = instance.getClass().getDeclaredMethod("guardarUsuario", Usuario.class);
+        guardarUsuario.setAccessible(true);
+        guardarUsuario.invoke(instance, usuario);
+
         ArrayList<Usuario> result = instance.getUsuariosRegistrados();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -72,18 +105,19 @@ public class ManagerUsuariosTest {
     @Test
     public void testCrearJugador() {
         System.out.println("CrearJugador");
-        String nombre = "";
-        String nick = "";
-        String password = "";
-        TipoUsuario rol = null;
+        String nombre = "jugador";
+        String nick = "usuario";
+        String password = "12345";
+        TipoUsuario rol = TipoUsuario.Jugador;
         State estadoObservador = null;
-        int oro = 0;
+        int oro = 30;
         ManagerUsuarios instance = new ManagerUsuarios();
-        Jugador expResult = null;
         Jugador result = instance.CrearJugador(nombre, nick, password, rol, estadoObservador, oro);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(nombre, result.getNombre());
+        assertEquals(nick, result.getNick());
+        assertEquals(password, result.getPassword());
+        assertEquals(rol, result.getRol());
+        assertEquals(oro, result.getOro());
     }
 
     /**
@@ -92,66 +126,98 @@ public class ManagerUsuariosTest {
     @Test
     public void testCrearOperador() {
         System.out.println("CrearOperador");
-        String nombre = "";
-        String nick = "";
-        String password = "";
-        TipoUsuario rol = null;
+        String nombre = "operador";
+        String nick = "usuario";
+        String password = "12345";
+        TipoUsuario rol = TipoUsuario.OperadorSistema;
         State estadoObservador = null;
         ManagerUsuarios instance = new ManagerUsuarios();
-        OperadorSistema expResult = null;
         OperadorSistema result = instance.CrearOperador(nombre, nick, password, rol, estadoObservador);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(nombre, result.getNombre());
+        assertEquals(nick, result.getNick());
+        assertEquals(password, result.getPassword());
+        assertEquals(rol, result.getRol());
     }
 
     /**
      * Test of existeUsuario method, of class ManagerUsuarios.
+     * @throws SecurityException
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
      */
     @Test
-    public void testExisteUsuario() {
+    public void testExisteUsuario() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         System.out.println("existeUsuario");
         ManagerUsuarios instance = new ManagerUsuarios();
-        Boolean result = instance.existeUsuario("megaboy", "123");
-        Boolean result2 = instance.existeUsuario("negaboy", "123");
-        Boolean result3 = instance.existeUsuario("megaboy", "4567689");
-        Boolean result4 = instance.existeUsuario(" ", "\n");
+        Usuario usuario = crearUsuario();
+
+        Method guardarCredenciales = instance.getClass().getDeclaredMethod("guardarCredenciales", Usuario.class);
+        guardarCredenciales.setAccessible(true);
+        guardarCredenciales.invoke(instance, usuario);
+
+        Boolean result = instance.existeUsuario("ElBoss", "1234");
+        Boolean result2 = instance.existeUsuario("Niggaboy", "123");
         assertEquals(true, result);
         assertEquals(false, result2);
-        assertEquals(false, result3);
-        assertEquals(false, result4);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
      * Test of obtenerUsuario method, of class ManagerUsuarios.
+     * @throws SecurityException
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
      */
     @Test
-    public void testObtenerUsuario() {
+    public void testObtenerUsuario() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         System.out.println("obtenerUsuario");
-        String nick = "";
-        String password = "";
+        String nick = "ElBoss";
+        String password = "1234";
         ManagerUsuarios instance = new ManagerUsuarios();
-        Usuario expResult = null;
+        Usuario usuario = crearUsuario();
+
+        Method guardarCredenciales = instance.getClass().getDeclaredMethod("guardarCredenciales", Usuario.class);
+        guardarCredenciales.setAccessible(true);
+        guardarCredenciales.invoke(instance, usuario);
+
+        Method guardarUsuario = instance.getClass().getDeclaredMethod("guardarUsuario", Usuario.class);
+        guardarUsuario.setAccessible(true);
+        guardarUsuario.invoke(instance, usuario);
+
         Usuario result = instance.obtenerUsuario(nick, password);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(usuario, result);
     }
 
     /**
      * Test of eliminarUsuario method, of class ManagerUsuarios.
+     * @throws SecurityException
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
      */
     @Test
-    public void testEliminarUsuario() {
+    public void testEliminarUsuario() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         System.out.println("eliminarUsuario");
-        String nick = "";
-        String password = "";
+        String nick = "ElBoss";
+        String password = "1234";
         ManagerUsuarios instance = new ManagerUsuarios();
+        Usuario usuario = crearUsuario();
+
+        Method guardarCredenciales = instance.getClass().getDeclaredMethod("guardarCredenciales", Usuario.class);
+        guardarCredenciales.setAccessible(true);
+        guardarCredenciales.invoke(instance, usuario);
+
+        Method guardarUsuario = instance.getClass().getDeclaredMethod("guardarUsuario", Usuario.class);
+        guardarUsuario.setAccessible(true);
+        guardarUsuario.invoke(instance, usuario);
+        
         instance.eliminarUsuario(nick, password);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Usuario result = instance.obtenerUsuario(nick, password);
+        assertEquals(result, null);
     }
 
     /**
@@ -210,17 +276,34 @@ public class ManagerUsuariosTest {
 
     /**
      * Test of existeNumRegistro method, of class ManagerUsuarios.
+     * @throws SecurityException
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
      */
     @Test
-    public void testExisteNumRegistro() {
+    public void testExisteNumRegistro() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         System.out.println("existeNumRegistro");
-        String numRegistro = "";
+        String numRegistro = "1234567";
         ManagerUsuarios instance = new ManagerUsuarios();
-        boolean expResult = false;
+        Usuario usuario = crearUsuario();
+
+        Method guardarCredenciales = instance.getClass().getDeclaredMethod("guardarCredenciales", Usuario.class);
+        guardarCredenciales.setAccessible(true);
+        guardarCredenciales.invoke(instance, usuario);
+
+        Method guardarUsuario = instance.getClass().getDeclaredMethod("guardarUsuario", Usuario.class);
+        guardarUsuario.setAccessible(true);
+        guardarUsuario.invoke(instance, usuario);
+        
+        boolean expResult = true;
         boolean result = instance.existeNumRegistro(numRegistro);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        numRegistro = "7654321";
+        expResult = false;
+        result = instance.existeNumRegistro(numRegistro);
+        assertEquals(expResult, result);
     }
-    
+
 }

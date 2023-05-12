@@ -36,19 +36,26 @@ public class DisciplinasTest {
     public void tearDown() {
     }
 
+    public Disciplinas crearDisciplinas(){
+        Disciplinas instance = new Disciplinas("disciplinas", 3, 3, 3);
+        return instance;
+    }
     /**
      * Test of activar method, of class Disciplinas.
      */
     @Test
     public void testActivar() {
         System.out.println("activar");
-        String opcion = "";
-        Disciplinas instance = null;
-        int expResult = 0;
+        String opcion = "Ataque";
+        Disciplinas instance = crearDisciplinas();
+        int expResult = 15;
         int result = instance.activar(opcion);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        opcion = "Defensa";
+        expResult = 10;
+        result = instance.activar(opcion);
+        assertEquals(expResult, result);
+
     }
     
 }

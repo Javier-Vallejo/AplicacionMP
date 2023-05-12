@@ -162,7 +162,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
         int saludTotal = 0;
         saludTotal += vidaPersonaje;
         for (Esbirro esbirro : esbirros) {
-            int saludEsbirro = esbirro.devolverSalud();
+            int saludEsbirro = esbirro.getSalud();
             saludTotal += saludEsbirro;
         }
         return saludTotal;

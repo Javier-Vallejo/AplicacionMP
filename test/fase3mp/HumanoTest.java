@@ -9,7 +9,14 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import fase3mp.Humano.nivelLealtad;
+
 import static org.junit.Assert.*;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 
 /**
  *
@@ -36,6 +43,11 @@ public class HumanoTest {
     public void tearDown() {
     }
 
+    public Humano crearHumano(){
+        Humano instance = new Humano("humano", 3);
+        instance.setLealtad(nivelLealtad.ALTA);
+        return instance;
+    }
     /**
      * Test of rellenarPropiedadesEspec method, of class Humano.
      */
@@ -68,12 +80,10 @@ public class HumanoTest {
     @Test
     public void testGetLealtad() {
         System.out.println("getLealtad");
-        Humano instance = null;
-        Humano.nivelLealtad expResult = null;
+        Humano instance = crearHumano();
+        Humano.nivelLealtad expResult = nivelLealtad.ALTA;
         Humano.nivelLealtad result = instance.getLealtad();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -82,11 +92,11 @@ public class HumanoTest {
     @Test
     public void testSetLealtad() {
         System.out.println("setLealtad");
-        Humano.nivelLealtad lealtad = null;
-        Humano instance = null;
+        Humano.nivelLealtad lealtad = nivelLealtad.BAJA;
+        Humano instance = crearHumano();
+        Humano.nivelLealtad lealtadAntigua = instance.getLealtad();
         instance.setLealtad(lealtad);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(lealtadAntigua, instance.getLealtad());
     }
     
 }

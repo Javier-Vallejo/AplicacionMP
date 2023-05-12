@@ -215,7 +215,7 @@ public class DemonioTest {
         /*
          *  10 es su salud base y 15 es su salud total asi que no deberia devolver 10
          */
-        int result = instance.devolverSalud();
+        int result = instance.getSalud();
         assertNotEquals(expResult, result);
     }
 

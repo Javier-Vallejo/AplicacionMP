@@ -36,20 +36,26 @@ public class DonesTest {
     public void tearDown() {
     }
 
+    public Dones crearDones(){
+        Dones instance = new Dones("don", 3, 3, 3);
+        return instance;
+    }
     /**
      * Test of activar method, of class Dones.
      */
     @Test
     public void testActivar() {
         System.out.println("activar");
-        int valor = 0;
-        String opcion = "";
-        Dones instance = null;
-        int expResult = 0;
+        int valor = 10;
+        String opcion = "Ataque";
+        Dones instance = crearDones();
+        int expResult = 20;
         int result = instance.activar(valor, opcion);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        opcion = "Defensa";
+        expResult = 15;
+        result = instance.activar(valor, opcion);
+        assertEquals(expResult, result);
     }
     
 }

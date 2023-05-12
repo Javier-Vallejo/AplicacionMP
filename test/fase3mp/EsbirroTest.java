@@ -36,18 +36,20 @@ public class EsbirroTest {
     public void tearDown() {
     }
 
+    public Esbirro crearEsbirro(){
+        Esbirro instance = new Esbirro("esbirro", 3);
+        return instance;
+    }
     /**
      * Test of getNombre method, of class Esbirro.
      */
     @Test
     public void testGetNombre() {
         System.out.println("getNombre");
-        Esbirro instance = null;
-        String expResult = "";
+        Esbirro instance = crearEsbirro();
+        String expResult = "esbirro";
         String result = instance.getNombre();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -56,11 +58,11 @@ public class EsbirroTest {
     @Test
     public void testSetNombre() {
         System.out.println("setNombre");
-        String nombre = "";
-        Esbirro instance = null;
+        String nombre = "esbirro_2";
+        Esbirro instance = crearEsbirro();
+        String nombreAntiguo = instance.getNombre();
         instance.setNombre(nombre);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(nombreAntiguo, instance.getNombre());
     }
 
     /**
@@ -69,14 +71,21 @@ public class EsbirroTest {
     @Test
     public void testGetSalud() {
         System.out.println("getSalud");
-        Esbirro instance = null;
-        int expResult = 0;
+        Esbirro instance = crearEsbirro();
+        int expResult = 3;
         int result = instance.getSalud();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
+    @Test
+    public void testSetSalud() {
+        System.out.println("setSalud");
+        int salud = 2;
+        Esbirro instance = crearEsbirro();
+        int saludAntiguo = instance.getSalud();
+        instance.setSalud(salud);
+        assertNotEquals(saludAntiguo, instance.getSalud());
+    }
     /**
      * Test of rellenarPropiedadesEspec method, of class Esbirro.
      */
@@ -85,20 +94,6 @@ public class EsbirroTest {
         System.out.println("rellenarPropiedadesEspec");
         Esbirro instance = null;
         instance.rellenarPropiedadesEspec();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of devolverSalud method, of class Esbirro.
-     */
-    @Test
-    public void testDevolverSalud() {
-        System.out.println("devolverSalud");
-        Esbirro instance = null;
-        int expResult = 0;
-        int result = instance.devolverSalud();
-        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

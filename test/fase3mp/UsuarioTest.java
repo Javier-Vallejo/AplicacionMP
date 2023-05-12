@@ -9,7 +9,11 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  *
@@ -36,18 +40,48 @@ public class UsuarioTest {
     public void tearDown() {
     }
 
+    public Cazador CrearCazadorBase () {
+
+        Habilidad habilidad = new Habilidad("habilidad", 10, 10, 0);
+        Arma arma = new Arma("arma", "10", "10", "de2manos");
+        Arma[] armas = new Arma[1];
+        armas[0] = arma;
+        Armadura armadura = new Armadura("armadura", "10", "5");
+        Armadura[] armaduras = new Armadura[1];
+        armaduras[0] = armadura;
+        Esbirro esbirro = new Esbirro("esbirro", 10);
+        Esbirro[] esbirros = new Esbirro[1];
+        esbirros[0] = esbirro;
+        Debilidad debilidad = new Debilidad("debilidad", 0);
+        Debilidad[] debilidades = new Debilidad[1];
+        debilidades[0] = debilidad;
+        Fortaleza fortaleza = new Fortaleza("fortaleza", 0);
+        Fortaleza[] fortalezas = new Fortaleza[1];
+        fortalezas[0] = fortaleza;
+        Cazador instance = new Cazador("nombre", habilidad, armas, armas, armaduras, armadura, esbirros, 0, 10, debilidades, fortalezas); 
+        instance.setVoluntad(10);
+
+        return instance;
+
+    }
+
+    public Jugador crearUsuario(){
+        ManagerUsuarios manager = new ManagerUsuarios();
+        Jugador instance = new Jugador("Juan", "Jua", "1234", TipoUsuario.Jugador, manager);
+        instance.setEstadoObservador(State.baneado);
+        return instance;
+    }
     /**
      * Test of getFabricaEsbirros method, of class Usuario.
      */
     @Test
     public void testGetFabricaEsbirros() {
         System.out.println("getFabricaEsbirros");
-        Usuario instance = null;
-        FabricaEsbirros expResult = null;
+        Usuario instance = crearUsuario();
+        FabricaEsbirros expResult = new FabricaGhoul();
+        instance.setFabricaEsbirros(expResult);
         FabricaEsbirros result = instance.getFabricaEsbirros();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -56,12 +90,11 @@ public class UsuarioTest {
     @Test
     public void testGetDesafioPendiente() {
         System.out.println("getDesafioPendiente");
-        Usuario instance = null;
-        Desafio expResult = null;
+        Usuario instance =crearUsuario();
+        Desafio expResult = new Desafio();
+        instance.setDesafioPendiente(expResult);
         Desafio result = instance.getDesafioPendiente();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -70,11 +103,10 @@ public class UsuarioTest {
     @Test
     public void testSetDesafioPendiente() {
         System.out.println("setDesafioPendiente");
-        Desafio desafioPendiente = null;
-        Usuario instance = null;
+        Desafio desafioPendiente = new Desafio();
+        Usuario instance = crearUsuario();
         instance.setDesafioPendiente(desafioPendiente);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(desafioPendiente, instance.getDesafioPendiente());
     }
 
     /**
@@ -83,12 +115,16 @@ public class UsuarioTest {
     @Test
     public void testGetCombateRealizado() {
         System.out.println("getCombateRealizado");
-        Usuario instance = null;
-        Combate expResult = null;
+        ManagerUsuarios manager = new ManagerUsuarios();
+        Jugador instance = crearUsuario();
+        Jugador jugador2 = new Jugador("saul", "s", "1234", TipoUsuario.Jugador, 0, manager);
+        Cazador personaje1 = CrearCazadorBase();
+        instance.setPersonajeActivo(personaje1);
+        jugador2.setPersonajeActivo(personaje1);
+        Combate expResult = new Combate(instance, jugador2, 0);
+        instance.setCombateRealizado(expResult);
         Combate result = instance.getCombateRealizado();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -97,25 +133,27 @@ public class UsuarioTest {
     @Test
     public void testSetCombateRealizado() {
         System.out.println("setCombateRealizado");
-        Combate combateRealizado = null;
-        Usuario instance = null;
+        ManagerUsuarios manager = new ManagerUsuarios();
+        Jugador instance = crearUsuario();
+        Jugador jugador2 = new Jugador("saul", "s", "1234", TipoUsuario.Jugador, 0, manager);
+        Cazador personaje1 = CrearCazadorBase();
+        instance.setPersonajeActivo(personaje1);
+        jugador2.setPersonajeActivo(personaje1);
+        Combate combateRealizado = new Combate(instance, jugador2, 0);
         instance.setCombateRealizado(combateRealizado);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(combateRealizado, instance.getCombateRealizado());
     }
-
     /**
      * Test of getFabricaPersonajes method, of class Usuario.
      */
     @Test
     public void testGetFabricaPersonajes() {
         System.out.println("getFabricaPersonajes");
-        Usuario instance = null;
-        FabricaPersonajes expResult = null;
+        Usuario instance = crearUsuario();
+        FabricaPersonajes expResult = new FabricaCazador();
+        instance.setFabricaPersonajes(expResult);
         FabricaPersonajes result = instance.getFabricaPersonajes();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -124,12 +162,10 @@ public class UsuarioTest {
     @Test
     public void testGetNombre() {
         System.out.println("getNombre");
-        Usuario instance = null;
-        String expResult = "";
+        Usuario instance = crearUsuario();
+        String expResult = "Juan";
         String result = instance.getNombre();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -138,11 +174,11 @@ public class UsuarioTest {
     @Test
     public void testSetNombre() {
         System.out.println("setNombre");
-        String nombre = "";
-        Usuario instance = null;
+        String nombre = "Nauj";
+        Usuario instance = crearUsuario();
+        String nombreAntiguo = instance.getNombre();
         instance.setNombre(nombre);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(nombreAntiguo, instance.getNombre());
     }
 
     /**
@@ -151,12 +187,10 @@ public class UsuarioTest {
     @Test
     public void testGetNick() {
         System.out.println("getNick");
-        Usuario instance = null;
-        String expResult = "";
+        Usuario instance = crearUsuario();
+        String expResult = "Jua";
         String result = instance.getNick();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -165,11 +199,11 @@ public class UsuarioTest {
     @Test
     public void testSetNick() {
         System.out.println("setNick");
-        String nick = "";
-        Usuario instance = null;
+        String nick = "Auj";
+        Usuario instance = crearUsuario();
+        String nickAntiguo = instance.getNick();
         instance.setNick(nick);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(nickAntiguo, instance.getNick());
     }
 
     /**
@@ -178,12 +212,10 @@ public class UsuarioTest {
     @Test
     public void testGetPassword() {
         System.out.println("getPassword");
-        Usuario instance = null;
-        String expResult = "";
+        Usuario instance = crearUsuario();
+        String expResult = "1234";
         String result = instance.getPassword();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -192,11 +224,11 @@ public class UsuarioTest {
     @Test
     public void testSetPassword() {
         System.out.println("setPassword");
-        String password = "";
-        Usuario instance = null;
+        String password = "4321";
+        Usuario instance = crearUsuario();
+        String passwordAntigua = instance.getPassword();
         instance.setPassword(password);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(passwordAntigua, instance.getPassword());
     }
 
     /**
@@ -205,12 +237,10 @@ public class UsuarioTest {
     @Test
     public void testGetRol() {
         System.out.println("getRol");
-        Usuario instance = null;
-        TipoUsuario expResult = null;
+        Usuario instance = crearUsuario();
+        TipoUsuario expResult = TipoUsuario.Jugador;
         TipoUsuario result = instance.getRol();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -219,11 +249,10 @@ public class UsuarioTest {
     @Test
     public void testSetRol() {
         System.out.println("setRol");
-        TipoUsuario rol = null;
-        Usuario instance = null;
+        Usuario instance = new Usuario(null, null, null, null, null);
+        TipoUsuario rol = TipoUsuario.OperadorSistema;
         instance.setRol(rol);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(instance.getRol(), rol);
     }
 
     /**
@@ -232,12 +261,10 @@ public class UsuarioTest {
     @Test
     public void testGetEstadoObservador() {
         System.out.println("getEstadoObservador");
-        Usuario instance = null;
-        State expResult = null;
+        Usuario instance = crearUsuario();
+        State expResult = State.baneado;
         State result = instance.getEstadoObservador();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -246,11 +273,10 @@ public class UsuarioTest {
     @Test
     public void testSetEstadoObservador() {
         System.out.println("setEstadoObservador");
-        State estadoObservador = null;
-        Usuario instance = null;
+        State estadoObservador = State.noBaneado;
+        Usuario instance = crearUsuario();
         instance.setEstadoObservador(estadoObservador);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(instance.getEstadoObservador(), State.baneado);
     }
 
     /**
@@ -259,12 +285,11 @@ public class UsuarioTest {
     @Test
     public void testGetEntidades() {
         System.out.println("getEntidades");
-        Usuario instance = null;
-        EntidadesActivas expResult = null;
+        Usuario instance = crearUsuario();
+        EntidadesActivas expResult = new EntidadesActivas();
+        instance.setEntidades(expResult);
         EntidadesActivas result = instance.getEntidades();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -273,11 +298,10 @@ public class UsuarioTest {
     @Test
     public void testSetEntidades() {
         System.out.println("setEntidades");
-        EntidadesActivas entidades = null;
-        Usuario instance = null;
-        instance.setEntidades(entidades);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        EntidadesActivas expResult = new EntidadesActivas();
+        Usuario instance = crearUsuario();
+        instance.setEntidades(expResult);
+        assertEquals(expResult, instance.getEntidades());
     }
 
     /**
@@ -286,12 +310,11 @@ public class UsuarioTest {
     @Test
     public void testGetDesafiosAct() {
         System.out.println("getDesafiosAct");
-        Usuario instance = null;
-        DesafiosActivos expResult = null;
+        Usuario instance = crearUsuario();
+        DesafiosActivos expResult = new DesafiosActivos();
+        instance.setDesafiosAct(expResult);
         DesafiosActivos result = instance.getDesafiosAct();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -300,11 +323,10 @@ public class UsuarioTest {
     @Test
     public void testSetDesafiosAct() {
         System.out.println("setDesafiosAct");
-        DesafiosActivos desafiosAct = null;
-        Usuario instance = null;
+        DesafiosActivos desafiosAct = new DesafiosActivos();
+        Usuario instance = crearUsuario();
         instance.setDesafiosAct(desafiosAct);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(desafiosAct, instance.getDesafiosAct());
     }
 
     /**
@@ -313,12 +335,11 @@ public class UsuarioTest {
     @Test
     public void testGetManagerUsuarios() {
         System.out.println("getManagerUsuarios");
-        Usuario instance = null;
-        ManagerUsuarios expResult = null;
+        ManagerUsuarios expResult = new ManagerUsuarios();
+        Usuario instance = crearUsuario();
+        instance.setManagerUsuarios(expResult);
         ManagerUsuarios result = instance.getManagerUsuarios();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -327,11 +348,10 @@ public class UsuarioTest {
     @Test
     public void testSetManagerUsuarios() {
         System.out.println("setManagerUsuarios");
-        ManagerUsuarios managerUsuarios = null;
-        Usuario instance = null;
+        ManagerUsuarios managerUsuarios = new ManagerUsuarios();
+        Usuario instance = crearUsuario();
         instance.setManagerUsuarios(managerUsuarios);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(instance.getManagerUsuarios(), managerUsuarios);
     }
 
     /**
@@ -340,12 +360,11 @@ public class UsuarioTest {
     @Test
     public void testGetRanking() {
         System.out.println("getRanking");
-        Usuario instance = null;
-        Ranking expResult = null;
+        Usuario instance = crearUsuario();
+        Ranking expResult = new Ranking();
+        instance.setRanking(expResult);
         Ranking result = instance.getRanking();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -354,11 +373,10 @@ public class UsuarioTest {
     @Test
     public void testSetRanking() {
         System.out.println("setRanking");
-        Ranking ranking = null;
-        Usuario instance = null;
+        Ranking ranking = new Ranking();
+        Usuario instance = crearUsuario();
         instance.setRanking(ranking);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(instance.getRanking(), ranking);
     }
 
     /**
@@ -367,24 +385,47 @@ public class UsuarioTest {
     @Test
     public void testUpdate() {
         System.out.println("update");
-        Object objeto = null;
-        Usuario instance = null;
-        instance.update(objeto);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Desafio desafio = new Desafio();
+        Jugador instance = crearUsuario();
+        instance.update(desafio);
+        assertEquals(desafio, instance.getDesafioPendiente());
+
+        ManagerUsuarios manager = new ManagerUsuarios();
+        Jugador jugador2 = new Jugador("saul", "s", "1234", TipoUsuario.Jugador, 0, manager);
+        Cazador personaje1 = CrearCazadorBase();
+        instance.setPersonajeActivo(personaje1);
+        jugador2.setPersonajeActivo(personaje1);
+        Combate combate = new Combate(instance, jugador2, 0);
+        instance.update(combate);
+        assertEquals(combate, instance.getCombateRealizado());
+
     }
 
     /**
      * Test of DarseDeBaja method, of class Usuario.
+     * @throws SecurityException
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
      */
     @Test
-    public void testDarseDeBaja() {
+    public void testDarseDeBaja() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         System.out.println("DarseDeBaja");
-        Usuario usuario = null;
-        Usuario instance = null;
-        instance.DarseDeBaja(usuario);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        ManagerUsuarios instance = new ManagerUsuarios();
+        Usuario usuario = crearUsuario();
+        usuario.setManagerUsuarios(instance);
+        Method guardarCredenciales = instance.getClass().getDeclaredMethod("guardarCredenciales", Usuario.class);
+        guardarCredenciales.setAccessible(true);
+        guardarCredenciales.invoke(instance, usuario);
+
+        Method guardarUsuario = instance.getClass().getDeclaredMethod("guardarUsuario", Usuario.class);
+        guardarUsuario.setAccessible(true);
+        guardarUsuario.invoke(instance, usuario);
+        
+        usuario.DarseDeBaja(usuario);
+        Usuario result = instance.obtenerUsuario(usuario.getNick(), usuario.getPassword());
+        assertEquals(result, null);
     }
     
 }

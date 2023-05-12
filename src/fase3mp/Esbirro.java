@@ -32,7 +32,7 @@ public class Esbirro  {
         return salud;
     }
 
-    private void setSalud(int salud) {
+    public void setSalud(int salud) {
         this.salud = salud;
     }
     
@@ -40,11 +40,6 @@ public class Esbirro  {
         
     }
     
-    public int devolverSalud () {
-        //int saludTotal = salud;
-        
-        return salud;
-    }
 
     
     

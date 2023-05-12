@@ -109,12 +109,12 @@ public class ManagerUsuarios {
 
     public void eliminarUsuario(String nick, String password) {
         if (existeUsuario(nick, password)) {
-            for (int i = 0; i == usuariosRegistrados.size(); i++) {
+            for (int i = 0; i <= usuariosRegistrados.size(); i++) {
                 if (usuariosRegistrados.get(i).getNick() == nick) {
                     usuariosRegistrados.remove(i);
                 }
             }
-            for (int i = 0; i == credencialesUsuarios.size(); i++) {
+            for (int i = 0; i <= credencialesUsuarios.size(); i++) {
                 if (credencialesUsuarios.get(i).containsKey(nick)) {
                     credencialesUsuarios.remove(i);
                 }
