@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package fase3mp;
 
 import java.io.File;
@@ -14,10 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-/**
- *
- * @author david
- */
 public class ManagerUsuarios {
     private ArrayList<Map<String, String>> credencialesUsuarios;
     private ArrayList<Usuario> usuariosRegistrados;

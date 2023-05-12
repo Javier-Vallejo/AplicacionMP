@@ -1,13 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package fase3mp;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,10 +9,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-/**
- *
- * @author d.rubio.2019
- */
 public class Jugador extends Usuario {
 
     private int oro;
@@ -99,18 +89,6 @@ public class Jugador extends Usuario {
 
     public void setRankingGlobal(Ranking rankingGlobal) {
         this.rankingGlobal = rankingGlobal;
-    }
-
-    private void RegistrarPersonaje(Personaje personaje) {
-
-    }
-
-    private void GestionarPersonaje(Personaje personaje) {
-
-    }
-
-    private void DarDeBajaPersonaje(Personaje personaje) {
-
     }
 
     private void elegirArmasActivas() {

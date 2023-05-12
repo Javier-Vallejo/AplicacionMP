@@ -1,12 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package fase3mp;
-/**
- *
- * @author david
- */
+
 public class Usuario implements UsuariosANotificar{
     
     private String nombre;
@@ -17,7 +10,7 @@ public class Usuario implements UsuariosANotificar{
     private EntidadesActivas entidades;
     private DesafiosActivos desafiosAct;
     private ManagerUsuarios managerUsuarios;
-    private FabricaPersonajes fabricaPersonajes;//habra que pasarselo en el constructor tambien
+    private FabricaPersonajes fabricaPersonajes;
     private FabricaEsbirros fabricaEsbirros;
     private Desafio desafioPendiente;
     private Combate combateRealizado;
@@ -143,20 +136,15 @@ public class Usuario implements UsuariosANotificar{
     @Override
     public void update(Object objeto) {
         if (objeto instanceof Desafio desafio){
-            //System.out.println("Recibes un desafio: Quieres hacerlo?");
             setDesafioPendiente(desafio);
         } else if(objeto instanceof Combate combate){
-            //System.out.println("Recibes el combate, muestra cada ronda");
             setCombateRealizado(combate);
         }
     }
     
     public void DarseDeBaja(Usuario usuario){
-        //if (usuario instanceof OperadorSistema){
         managerUsuarios.eliminarUsuario(usuario.getNick(), usuario.getPassword());    
-        //} else if (usuario instanceof Jugador){
-            //SmanagerUsuarios.eliminarUsuario(nick, password);
-        //}
+        
             
     }
 

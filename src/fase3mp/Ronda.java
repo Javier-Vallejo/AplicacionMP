@@ -3,14 +3,6 @@ package fase3mp;
 import java.util.ArrayList;
 import java.util.Random;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-/**
- *
- * @author juana
- */
 public class Ronda {
 
     private int PotencialPer1;
@@ -75,14 +67,12 @@ public class Ronda {
         Random rand = new Random();
 
         for (int i = 0; i < pot1; i++) {
-            //int numero = rand.nextInt(10);
             int dado = (int) (Math.floor(Math.random() * (6 - 0 + 1) + 0));
             if (dado > 5) {
                 daño1 = daño1 + 1;
             }
         }
         for (int i = 0; i < pot2; i++) {
-            //int numero = rand.nextInt(10);
             int dado = (int) (Math.floor(Math.random() * (6 - 0 + 1) + 0));
             if (dado > 5) {
                 daño2 = daño2 + 1;

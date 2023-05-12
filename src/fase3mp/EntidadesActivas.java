@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package fase3mp;
 
 import java.io.File;
@@ -13,10 +9,7 @@ import java.util.Scanner;
 
 import fase3mp.Humano.nivelLealtad;
 
-/**
- *
- * @author david
- */
+
 public class EntidadesActivas {
 
     private ArrayList<Personaje> personajes;
@@ -26,7 +19,7 @@ public class EntidadesActivas {
     private ArrayList<Debilidad> debilidades;
     private ArrayList<Habilidad> habilidades;
     private ArrayList<Esbirro> esbirros;
-    private FabricaEsbirros fabricaEsbirros;// habra que pasarselo como parametro
+    private FabricaEsbirros fabricaEsbirros;
 
     public EntidadesActivas() {
         personajes = new ArrayList<>();
@@ -36,7 +29,7 @@ public class EntidadesActivas {
         debilidades = new ArrayList<>();
         habilidades = new ArrayList<>();
         esbirros = new ArrayList<>();
-        // leer de los ficheros correspondientes y rellenar
+        
     }
 
     public ArrayList<Fortaleza> getFortalezas() {
@@ -211,7 +204,7 @@ public class EntidadesActivas {
                     }
                 } else if (armaEle != armas.size()) {
                     System.out.println("Arma erronea. Por favor, introduzca un arma de la lista.");
-                    // armaEle = escaner.nextInt();
+                    
                 }
             }
             return armasElegidas;

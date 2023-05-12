@@ -1,19 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package fase3mp;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author d.rubio.2019
- */
 class Ranking {
 
     public ManagerUsuarios manager;
@@ -31,8 +22,6 @@ class Ranking {
             if (user.getRol() == TipoUsuario.Jugador) {
                 jugador = (Jugador) user;
                 rankingG.add(jugador);
-                //ranking.put(jugador.getOro(), user.getNick());
-                //ordenados.add(ranking);
             }
         }
         
@@ -52,14 +41,6 @@ class Ranking {
     public void setManager(ManagerUsuarios manager) {
         this.manager = manager;
     }
-
-    /**public ArrayList<Map<Integer, String>> getOrdenados() {
-        return ordenados;
-    }
-
-    public void setOrdenados(ArrayList<Map<Integer, String>> ordenados) {
-        this.ordenados = ordenados;
-    }*/
 
 }
 

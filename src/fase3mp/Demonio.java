@@ -1,18 +1,12 @@
 
 package fase3mp;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author d.rubio.2019
- */
 public class Demonio extends Esbirro implements IEsbirros {
 
     private ArrayList<Esbirro> esbirros;

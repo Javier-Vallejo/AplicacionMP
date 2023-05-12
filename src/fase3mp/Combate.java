@@ -4,10 +4,6 @@ package fase3mp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-/**
- *
- * @author juana
- */
 public class Combate {
     private Ronda[] rondas;
     private Jugador desafiante;
@@ -139,7 +135,7 @@ public class Combate {
         recalcularPropiedadPersonaje(per2);
 
 
-        ArrayList<Integer> potencialesaMostrar = new ArrayList<>();
+       
 
         rondaX.setPotencialPer1(potenciales.get(0));
         rondaX.setPotencialPer2(potenciales.get(1));

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package fase3mp;
 
 import java.util.ArrayList;
@@ -9,10 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- *
- * @author david
- */
 public abstract class Personaje implements InterfazPersonaje { // a lo mejor habria que hacer que fueran ArrayList
 
     private String nombre;

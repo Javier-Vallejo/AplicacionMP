@@ -1,9 +1,5 @@
 package fase3mp;
 
-/**
- *
- * @author d.rubio.2019
- */
 public class Debilidad extends Modificador{
 
     

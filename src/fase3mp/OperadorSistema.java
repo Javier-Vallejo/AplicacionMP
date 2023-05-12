@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package fase3mp;
 
 import java.io.File;
@@ -9,19 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-//import java.util.Locale;
 import java.util.Scanner;
 
-import javax.swing.text.html.parser.Element;
 
-import fase3mp.Arma.tipoArma;
-
-/**
- *
- * @author d.rubio.2019
- */
 public class OperadorSistema extends Usuario {
 
     private Publisher notificador;
