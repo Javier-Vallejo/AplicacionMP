@@ -25,10 +25,10 @@ public class Licantropo extends Personaje {
     @Override
     public void rellenarPropiedadesEspecificas() {
         System.out.println("Introduzca el valor de rabia: ");
-        try (Scanner escanerlican = new Scanner(System.in);) {
-            int valorRabia = escanerlican.nextInt();
-            rabia = valorRabia;
-        }
+        Scanner escanerlican = new Scanner(System.in);
+
+        int valorRabia = escanerlican.nextInt();
+        rabia = valorRabia;
 
     }
 

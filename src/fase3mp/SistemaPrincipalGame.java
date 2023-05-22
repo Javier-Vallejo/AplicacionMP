@@ -2,6 +2,7 @@ package fase3mp;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
@@ -13,11 +14,10 @@ public class SistemaPrincipalGame {
     private EntidadesActivas entidadesSistema;
     private Ranking rankingSistema;
 
-
     private SistemaPrincipalGame() {// constructor hay que ver como aplicar singleton
     }
 
-    public static SistemaPrincipalGame obtenerInstancia() {//singleton
+    public static SistemaPrincipalGame obtenerInstancia() {// singleton
         if (sistema == null) {
             sistema = new SistemaPrincipalGame();
         }
@@ -39,12 +39,12 @@ public class SistemaPrincipalGame {
         rankingSistema = ranking;
         rankingSistema.setManager(usuariosSistema);
         entidadesSistema.leerEsbirros();
-        leerPersonajes("Ficheros/Personajes.txt");//habra que hacer un leer Usuarios tambien
+        leerPersonajes("Ficheros/Personajes.txt");// habra que hacer un leer Usuarios tambien
         manager.LeerUsuarios(entidadesSistema);
         inicializarHabilidades(entidadesActivas);
         Scanner escanerMain = new Scanner(System.in);
         int opcionElegida = 0;
-        while ( opcionElegida != 3 ) {
+        while (opcionElegida != 3) {
             System.out.println("Pulse 1 si desea iniciar sesion y 2 si desea registrarse:");
             System.out.println("Pulse 3 si desea salir");
             opcionElegida = escanerMain.nextInt();
@@ -67,12 +67,10 @@ public class SistemaPrincipalGame {
                     System.out.println("Saliendo del programa ¡Hasta Luego!");
                 }
 
-            }
-            else if (opcionElegida == 3) {
+            } else if (opcionElegida == 3) {
                 System.exit(0);
                 System.out.println("Saliendo del programa ¡Hasta Luego!");
-            }
-            else {
+            } else {
                 System.out.println("Por favor escoja una de las opciones proporcionadas.");
             }
 
@@ -91,7 +89,8 @@ public class SistemaPrincipalGame {
             System.out.println("Introduzca su password: ");
             password = escIniSes.nextLine();
             if (usuariosSistema.existeUsuario(nick, password) == false && intentos != 2) {
-                System.out.println("Usuario no encontrado. Por favor, asegurese de insertar su usuario y contraseña correctamente.");
+                System.out.println(
+                        "Usuario no encontrado. Por favor, asegurese de insertar su usuario y contraseña correctamente.");
             }
             ++intentos;
         }
@@ -109,9 +108,9 @@ public class SistemaPrincipalGame {
                 Jugador jugador = (Jugador) usuario;
                 jugador.setRankingGlobal(rankingSistema);
                 while (eleccionMenu != 8) {// hacer restriccion para que solo meta enteros
-                    
+
                     Menu menu = new MenuJugador();
-                    
+
                     if (jugador.getDesafioPendiente() != null) {
                         jugador.AceptaroRechazarDesafio(jugador.getDesafioPendiente());
                     }
@@ -125,17 +124,22 @@ public class SistemaPrincipalGame {
             } else {
                 OperadorSistema operador = (OperadorSistema) usuario;
                 usuario.setEntidades(entidadesSistema);
+                eleccionMenu = 0;
+
                 while (eleccionMenu != 7) {
                     Menu menu = new MenuOperador();
                     menu.mostrarOpciones();
-                    eleccionMenu = escIniSes.nextInt();
-                    operador.realizarFuncionMenuOperador(eleccionMenu);
-                    escIniSes.nextLine();
+                        eleccionMenu = escIniSes.nextInt();
+                        escIniSes.nextLine();
+                        operador.realizarFuncionMenuOperador(eleccionMenu);
                 }
+                
             }
-        }
 
+        }
     }
+
+    
 
     private void registrarse() throws IOException {
         System.out.println("-----Registro-----");
@@ -147,9 +151,10 @@ public class SistemaPrincipalGame {
             rol = escanerRegistro.nextLine();
             rol = rol.toLowerCase();
             if (rol.equals("jugador")) {
-                Registro registro = new RegistroJugador(usuariosSistema); 
+                Registro registro = new RegistroJugador(usuariosSistema);
                 Usuario usuario = registro.registrarse(TipoUsuario.Jugador);
-                System.out.println("Ya casi has terminado de registrarte, ahora elige un personaje que luche a tu lado");
+                System.out
+                        .println("Ya casi has terminado de registrarte, ahora elige un personaje que luche a tu lado");
                 ArrayList<Integer> personajes = entidadesSistema.MostraryElegir("PERSONAJES");
 
                 Personaje personajeElegido = entidadesSistema.elegirPersonaje(personajes.get(0));
@@ -171,34 +176,38 @@ public class SistemaPrincipalGame {
         }
     }
 
-    private void leerPersonajes(String fichero) throws FileNotFoundException { // habria que hacer uno para cada tipo de entidad
+    private void leerPersonajes(String fichero) throws FileNotFoundException { // habria que hacer uno para cada tipo de
+                                                                               // entidad
         File miFichero = new File(fichero);
         Scanner scanner = new Scanner(miFichero);
         while (scanner.hasNextLine()) {
             String linea = scanner.nextLine();
             String[] camposPersonaje = linea.split(";");
-            //gaurdo la habilidad
+            // gaurdo la habilidad
             String[] camposHabilidad = camposPersonaje[2].split("/");
-            Habilidad habilidad = new Habilidad(camposHabilidad[0], Integer.parseInt(camposHabilidad[1]), Integer.parseInt(camposHabilidad[2]), Integer.parseInt(camposHabilidad[3]));
-            //guardo las armas
+            Habilidad habilidad = new Habilidad(camposHabilidad[0], Integer.parseInt(camposHabilidad[1]),
+                    Integer.parseInt(camposHabilidad[2]), Integer.parseInt(camposHabilidad[3]));
+            // guardo las armas
             String[] armasLeidas = camposPersonaje[3].split(",");
             ArrayList<Arma> armas = new ArrayList<>();
             for (int i = 0; i < armasLeidas.length; i++) {
                 String[] caracteristicaArma = armasLeidas[i].split("/");
-                Arma arma = new Arma(caracteristicaArma[0], caracteristicaArma[1], caracteristicaArma[2], caracteristicaArma[3]);
+                Arma arma = new Arma(caracteristicaArma[0], caracteristicaArma[1], caracteristicaArma[2],
+                        caracteristicaArma[3]);
                 armas.add(arma);
             }
             Arma[] arrayArmas = armas.toArray(new Arma[0]);
-            //guardo armas activas
+            // guardo armas activas
             String[] armasActivasLeidas = camposPersonaje[4].split(",");
             ArrayList<Arma> armasActivas = new ArrayList<>();
             for (int i = 0; i < armasActivasLeidas.length; i++) {
                 String[] caracteristicaArmaActiva = armasActivasLeidas[i].split("/");
-                Arma arma = new Arma(caracteristicaArmaActiva[0], caracteristicaArmaActiva[1], caracteristicaArmaActiva[2], caracteristicaArmaActiva[3]);
+                Arma arma = new Arma(caracteristicaArmaActiva[0], caracteristicaArmaActiva[1],
+                        caracteristicaArmaActiva[2], caracteristicaArmaActiva[3]);
                 armasActivas.add(arma);
             }
             Arma[] arrayArmasActivas = armasActivas.toArray(new Arma[0]);
-            //guardo armaduras
+            // guardo armaduras
             String[] armadurasLeidas = camposPersonaje[5].split(",");
             ArrayList<Armadura> armaduras = new ArrayList<>();
             for (int j = 0; j < armadurasLeidas.length; j++) {
@@ -208,13 +217,15 @@ public class SistemaPrincipalGame {
                 armaduras.add(armadura);
             }
             Armadura[] arrayArmaduras = armaduras.toArray(new Armadura[0]);
-            //guardo armadura activa
+            // guardo armadura activa
             String[] camposArmaduraActiva = camposPersonaje[6].split("/");
-            Armadura armaduraActiva = new Armadura(camposArmaduraActiva[0], camposArmaduraActiva[1], camposArmaduraActiva[2]);
-            //guardo esbirros
+            Armadura armaduraActiva = new Armadura(camposArmaduraActiva[0], camposArmaduraActiva[1],
+                    camposArmaduraActiva[2]);
+            // guardo esbirros
             String[] esbirrosLeidos = camposPersonaje[7].split(",");
             ArrayList<Esbirro> esbirros = new ArrayList<>();
-            for (int i = 0; i < esbirrosLeidos.length; i++) {//habria que cambiar la forma de leer los esbirros para hacerlo igual que se guardan
+            for (int i = 0; i < esbirrosLeidos.length; i++) {// habria que cambiar la forma de leer los esbirros para
+                                                             // hacerlo igual que se guardan
                 String[] caracteristicaEsbirro = esbirrosLeidos[i].split("/");
                 String nombreEsb = caracteristicaEsbirro[0];
                 int saludEsb = Integer.parseInt(caracteristicaEsbirro[1]);
@@ -223,30 +234,32 @@ public class SistemaPrincipalGame {
                 esbirros.add(esbirro);
             }
             Esbirro[] arrayEsbirros = esbirros.toArray(new Esbirro[0]);
-            //guardo salud
+            // guardo salud
             int salud = Integer.parseInt(camposPersonaje[8]);
-            //guardo poder
+            // guardo poder
             int poder = Integer.parseInt(camposPersonaje[9]);
-            //guardo debilidades
+            // guardo debilidades
             String[] debilidadesLeidas = camposPersonaje[10].split(",");
             ArrayList<Debilidad> debilidades = new ArrayList<>();
             for (int i = 0; i < debilidadesLeidas.length; i++) {
                 String[] caracteristicaDebilidades = debilidadesLeidas[i].split("/");
-                Debilidad debilidad = new Debilidad(caracteristicaDebilidades[0], Integer.parseInt(caracteristicaDebilidades[1]));
+                Debilidad debilidad = new Debilidad(caracteristicaDebilidades[0],
+                        Integer.parseInt(caracteristicaDebilidades[1]));
                 debilidades.add(debilidad);
             }
             Debilidad[] arrayDebilidades = debilidades.toArray(new Debilidad[0]);
-            //guardar fortalezas
-            //guardo debilidades
+            // guardar fortalezas
+            // guardo debilidades
             String[] fortalezasLeidas = camposPersonaje[11].split(",");
             ArrayList<Fortaleza> fortalezas = new ArrayList<>();
             for (int i = 0; i < fortalezasLeidas.length; i++) {
                 String[] caracteristicaFortalezas = debilidadesLeidas[i].split("/");
-                Fortaleza fortaleza = new Fortaleza(caracteristicaFortalezas[0], Integer.parseInt(caracteristicaFortalezas[1]));
+                Fortaleza fortaleza = new Fortaleza(caracteristicaFortalezas[0],
+                        Integer.parseInt(caracteristicaFortalezas[1]));
                 fortalezas.add(fortaleza);
             }
             Fortaleza[] arrayFortalezas = fortalezas.toArray(new Fortaleza[0]);
-            //creo personaje
+            // creo personaje
             if (camposPersonaje[0].equals("vampiro")) {
                 Vampiro vampiro = new Vampiro(camposPersonaje[1], habilidad, arrayArmas,
                         arrayArmasActivas, arrayArmaduras, armaduraActiva, arrayEsbirros,

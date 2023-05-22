@@ -175,12 +175,12 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
         System.out.println("- " + armasPersonaje.length + ".Salir");
     }
 
-    public void MostrarArmasActivas(Personaje personajeEle){
+    public void MostrarArmasActivas(Personaje personajeEle) {
         int indice = 0;
         Arma[] armasActivasLista = personajeEle.getArmasActivas();
-        if (armasActivasLista.length==0){
+        if (armasActivasLista.length == 0) {
             System.out.println("Este personaje no tiene armas activas");
-        }else{
+        } else {
             for (Arma arma : armasActivasLista) {
                 System.out.println(
                         "- " + indice + ".Arma: " + arma.getNombre() + ", "
@@ -188,7 +188,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                 ++indice;
             }
             System.out.println("Escoja el arma o las armas que desea cambiar:");
-            
+
         }
     }
 
@@ -241,8 +241,9 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
     }
 
     public void editarPersonajeOperador(Personaje personajeEle, EntidadesActivas entidades) {
-        int opcion = 0;
+        
         while (true) {
+            int opcion = 0;
             Scanner escanerLectura = new Scanner(System.in);
             System.out.println();
             System.out.println("Que desea editar del personaje:");
@@ -502,7 +503,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
             }
             switch (opcion) {
                 case 1 -> {
-                    
+
                     List<Arma> listaArmasActivas = Arrays.asList(personajeEle.getArmasActivas());
                     ArrayList<Arma> arrayListArmas = new ArrayList<>(listaArmasActivas);
                     Arma[] armasPersonaje = personajeEle.getArmas();
@@ -517,7 +518,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                             if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de2manos
                                     && arrayListArmas.isEmpty()) {
                                 arrayListArmas.add(armasPersonaje[numArmaActiva]);
-                                System.out.println("Arma " + numArmaActiva +" activada con exito.");
+                                System.out.println("Arma " + numArmaActiva + " activada con exito.");
                             } else if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de1mano
                                     && arrayListArmas.isEmpty()) {
                                 arrayListArmas.add(armasPersonaje[numArmaActiva]);
@@ -533,14 +534,15 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                                 System.out.println("- 1.Si");
                                 System.out.println("- 2.No");
                                 int eleccion = escanerLectura.nextInt();
-                                if(eleccion==1){
+                                if (eleccion == 1) {
                                     System.out.println("Estas son sus armas Activas");
                                     MostrarArmasActivas(personajeEle);
                                     eleccion = escanerLectura.nextInt();
                                     arrayListArmas.remove(eleccion);
-                                }else if(eleccion ==2){
-                                    System.out.println("El arma que intentas establecer como activa no se activara por falta de hueco.");
-                                }else{
+                                } else if (eleccion == 2) {
+                                    System.out.println(
+                                            "El arma que intentas establecer como activa no se activara por falta de hueco.");
+                                } else {
                                     System.out.println("Por favor, introduzca 1 o 2.");
                                 }
                             }

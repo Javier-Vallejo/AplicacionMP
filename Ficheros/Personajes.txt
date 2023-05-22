@@ -1,1 +1,1 @@
-cazador;Ilia;Cazar/6/6/0;Cefiro/1/2/de1mano,;Cefiro/1/2/de1mano,;juanitoperez/1/1,;juanitoperez/1/1;javi/3/humano,javi/3/humano,david/1/ghoul,juan/3/ghoul,juan/3/ghoul,;2;5;luz/3;luna/3;0
+cazador;a;Cazar/6/6/0;FiloInfinito/3/1/de2manos,;FiloInfinito/3/1/de2manos,;juanitoperez/1/1,;juanitoperez/1/1;javi/3/humano,javi/3/humano,;3;3;luz/3;luna/3;0

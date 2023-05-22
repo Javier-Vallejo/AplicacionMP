@@ -381,6 +381,7 @@ public class OperadorSistema extends Usuario {
         System.out.println("1. Licantropo --- 2. Vampiro --- 3.Cazador");
         // habria que poner un while por si mete otro valor
         Integer leido = lectura.nextInt();
+        lectura.nextLine();
         FileWriter escritorFich = new FileWriter(ficheroPersonajes);
         FabricaPersonajes fabricaPersonajes = super.getFabricaPersonajes();
         StringBuilder sb = new StringBuilder();
@@ -398,7 +399,7 @@ public class OperadorSistema extends Usuario {
                 rellenarStringBuilder(sb, licanNuevo);
                 escritorFich.write(sb.toString());
                 escritorFich.flush();
-                lectura.close();
+                //lectura.close();
             }
             case 2 -> {
                 // creamos un vampiro
@@ -412,7 +413,7 @@ public class OperadorSistema extends Usuario {
                 rellenarStringBuilder(sb, vampNuevo);
                 escritorFich.write(sb.toString());
                 escritorFich.flush();
-                lectura.close();
+                //lectura.close();
             }
             case 3 -> {
                 // creamos un cazador
@@ -425,9 +426,10 @@ public class OperadorSistema extends Usuario {
                 rellenarStringBuilder(sb, cazNuevo);
                 escritorFich.write(sb.toString());
                 escritorFich.flush();
-                lectura.close();
+                //lectura.close();
             }
         }
+
 
         // }
 
