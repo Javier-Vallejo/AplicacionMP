@@ -1,5 +1,6 @@
 package fase3mp;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -46,9 +47,10 @@ public class OperadorSistema extends Usuario {
         StringBuilder sb = new StringBuilder();
         rellenarStringBuilderArma(sb, arma);
         FileWriter escritorFich = new FileWriter(file, true);
-        escritorFich.write(sb.toString());
-        escritorFich.write("\n");
-        escritorFich.flush();
+        BufferedWriter bufferedWriterArma = new BufferedWriter(escritorFich);
+        bufferedWriterArma.newLine();
+        bufferedWriterArma.write(sb.toString());
+        bufferedWriterArma.flush();
         return arma;
     }
 
@@ -71,9 +73,10 @@ public class OperadorSistema extends Usuario {
         StringBuilder sb = new StringBuilder();
         rellenarStringBuilderArmadura(sb, armadura);
         FileWriter escritorFich = new FileWriter(file, true);
-        escritorFich.write(sb.toString());
-        escritorFich.write("\n");
-        escritorFich.flush();
+        BufferedWriter bufferedWriterArmadura = new BufferedWriter(escritorFich);
+        bufferedWriterArmadura.newLine();
+        bufferedWriterArmadura.write(sb.toString());
+        bufferedWriterArmadura.flush();
         return armadura;
     }
 
@@ -382,7 +385,8 @@ public class OperadorSistema extends Usuario {
         // habria que poner un while por si mete otro valor
         Integer leido = lectura.nextInt();
         lectura.nextLine();
-        FileWriter escritorFich = new FileWriter(ficheroPersonajes);
+        FileWriter escritorFich = new FileWriter(ficheroPersonajes,true);//al poner true no sobreescribe
+        BufferedWriter escritorbuff = new BufferedWriter(escritorFich);
         FabricaPersonajes fabricaPersonajes = super.getFabricaPersonajes();
         StringBuilder sb = new StringBuilder();
         switch (leido) {
@@ -397,8 +401,9 @@ public class OperadorSistema extends Usuario {
                 licanNuevo.rellenarPropiedadesEspecificas();
                 super.getEntidades().aniadir(licanNuevo);
                 rellenarStringBuilder(sb, licanNuevo);
-                escritorFich.write(sb.toString());
-                escritorFich.flush();
+                escritorbuff.newLine();//me hace un salto de linea
+                escritorbuff.write(sb.toString());
+                escritorbuff.flush();
                 //lectura.close();
             }
             case 2 -> {
@@ -411,8 +416,9 @@ public class OperadorSistema extends Usuario {
                 vampNuevo.rellenarPropiedadesEspecificas();
                 super.getEntidades().aniadir(vampNuevo);
                 rellenarStringBuilder(sb, vampNuevo);
-                escritorFich.write(sb.toString());
-                escritorFich.flush();
+                escritorbuff.newLine();
+                escritorbuff.write(sb.toString());
+                escritorbuff.flush();
                 //lectura.close();
             }
             case 3 -> {
@@ -425,8 +431,9 @@ public class OperadorSistema extends Usuario {
                 cazNuevo.rellenarPropiedadesEspecificas();
                 super.getEntidades().aniadir(cazNuevo);
                 rellenarStringBuilder(sb, cazNuevo);
-                escritorFich.write(sb.toString());
-                escritorFich.flush();
+                escritorbuff.newLine();
+                escritorbuff.write(sb.toString());
+                escritorbuff.flush();
                 //lectura.close();
             }
         }
@@ -515,7 +522,7 @@ public class OperadorSistema extends Usuario {
             sb.append(debilidades[i].getNombre());
             sb.append("/");
             sb.append(debilidades[i].getValor());
-            // sb.append("|");
+            sb.append(",");
         }
         sb.append(";");
         // fortalezas
@@ -524,6 +531,7 @@ public class OperadorSistema extends Usuario {
             sb.append(fortalezas[i].getNombre());
             sb.append("/");
             sb.append(fortalezas[i].getValor());
+            sb.append(",");
         }
         sb.append(";");
         if (personaje instanceof Vampiro vamp) {

@@ -249,7 +249,6 @@ public class SistemaPrincipalGame {
             }
             Debilidad[] arrayDebilidades = debilidades.toArray(new Debilidad[0]);
             // guardar fortalezas
-            // guardo debilidades
             String[] fortalezasLeidas = camposPersonaje[11].split(",");
             ArrayList<Fortaleza> fortalezas = new ArrayList<>();
             for (int i = 0; i < fortalezasLeidas.length; i++) {
@@ -260,23 +259,28 @@ public class SistemaPrincipalGame {
             }
             Fortaleza[] arrayFortalezas = fortalezas.toArray(new Fortaleza[0]);
             // creo personaje
+            //habria que llamar a las fabricas
             if (camposPersonaje[0].equals("vampiro")) {
                 Vampiro vampiro = new Vampiro(camposPersonaje[1], habilidad, arrayArmas,
                         arrayArmasActivas, arrayArmaduras, armaduraActiva, arrayEsbirros,
                         salud, poder, arrayDebilidades,
                         arrayFortalezas);
+                vampiro.setSangre(Integer.parseInt(camposPersonaje[12]));
+                vampiro.setEdad(Integer.parseInt(camposPersonaje[13]));
                 entidadesSistema.aniadir(vampiro);
             } else if (camposPersonaje[0].equals("cazador")) {
                 Cazador cazador = new Cazador(camposPersonaje[1], habilidad, arrayArmas,
                         arrayArmasActivas, arrayArmaduras, armaduraActiva, arrayEsbirros,
                         salud, poder, arrayDebilidades,
                         arrayFortalezas);
+                cazador.setVoluntad(Integer.parseInt(camposPersonaje[12]));
                 entidadesSistema.aniadir(cazador);
             } else if (camposPersonaje[0].equals("licantropo")) {
                 Licantropo licantropo = new Licantropo(camposPersonaje[1], habilidad, arrayArmas,
                         arrayArmasActivas, arrayArmaduras, armaduraActiva, arrayEsbirros,
-                        salud, poder, arrayDebilidades,
+                        salud, poder, arrayDebilidades, 
                         arrayFortalezas);
+                licantropo.setRabia(Integer.parseInt(camposPersonaje[12]));
                 entidadesSistema.aniadir(licantropo);
             }
         }

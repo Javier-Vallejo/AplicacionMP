@@ -8,3 +8,8 @@ debilidad luz 3
 debilidad sol 2
 fortaleza luna 3
 arma AkumaNoMi 4 3 de2manos
+arma yoummu 4 2 de2manos
+armadura Picapiedra 2 5
+arma Sabiduria 3 5 de2manos
+armadura Perla 2 5
+arma Kike 3 3 de1mano

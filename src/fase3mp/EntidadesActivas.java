@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import fase3mp.Humano.nivelLealtad;
+import java.io.BufferedWriter;
 
 
 public class EntidadesActivas {
@@ -305,6 +306,7 @@ public class EntidadesActivas {
             return esbirrosElegidos;
         } else if (objetoMostrar.equals(
                 "ESBIRRO")) {
+            System.out.println("Si eliges uno y luego otro, se sobreescribira el primero");
             int esbirroEle = 0;
             for (int i = 0; i < esbirros.size(); i++) {
                 System.out.println("- " + i + ".Esbirro " + esbirros.get(i).getNombre() + " "
@@ -398,9 +400,10 @@ public class EntidadesActivas {
             StringBuilder sb = new StringBuilder();
             rellenarStringBuilderEsbirro(esbirro, sb);
             FileWriter escritor = new FileWriter(file, true);
-            escritor.write(sb.toString());
-            escritor.write("\n");
-            escritor.flush();
+            BufferedWriter bufferedWriterEsbirro = new BufferedWriter(escritor);
+            bufferedWriterEsbirro.newLine();
+            bufferedWriterEsbirro.write(sb.toString());
+            bufferedWriterEsbirro.flush();
         } else {
             System.out.println("El esbirro ya estaba guardado");
         }
