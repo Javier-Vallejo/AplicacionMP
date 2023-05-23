@@ -1,9 +1,19 @@
 package fase3mp;
 
+import java.util.Scanner;
+
 public class Cazador extends Personaje{
     
     private int voluntad ;
 
+
+    public void rellenarPropiedadesEspecificas() {
+        System.out.println("Introduzca el valor de voluntad: ");
+        Scanner escanerCazador = new Scanner(System.in);
+
+        int nuevaVoluntad = escanerCazador.nextInt();
+        voluntad = nuevaVoluntad;
+    }
 
     public Cazador (String nombre,Habilidad habilidadPersonaje,Arma[] armas,Arma[] armasActivas,Armadura[] armaduras, 
     Armadura armaduraActiva,Esbirro[] esbirros,int Salud,int Poder,Debilidad[] debilidades,Fortaleza[] fortalezas) {

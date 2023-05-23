@@ -17,22 +17,22 @@ import static org.junit.Assert.*;
  * @author juana
  */
 public class DemonioTest {
-    
+
     public DemonioTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -41,14 +41,14 @@ public class DemonioTest {
      * Test of setEsbirros method, of class Demonio.
      */
 
-     public Demonio crearDemonio () {
+    public Demonio crearDemonio() {
 
         Demonio instance = new Demonio("demonio", 5);
         boolean tienePacto = true;
         Pacto pacto = new Pacto();
         pacto.setDescripcion("a");
         instance.setPacto(pacto);
-        ArrayList<Esbirro> esbirros= new ArrayList<>();
+        ArrayList<Esbirro> esbirros = new ArrayList<>();
         Esbirro esbirro = new Esbirro("esbirro1", 10);
         esbirros.add(esbirro);
         instance.setEsbirros(esbirros);
@@ -69,9 +69,9 @@ public class DemonioTest {
         Demonio instance = crearDemonio();
         ArrayList<Esbirro> esbirrosAntiguos = instance.getEsbirros();
         ArrayList<Esbirro> esbirros = new ArrayList<>();
-        
+
         instance.setEsbirros(esbirros);
-        assertNotEquals(esbirrosAntiguos,instance.getEsbirros());
+        assertNotEquals(esbirrosAntiguos, instance.getEsbirros());
     }
 
     /**
@@ -84,7 +84,7 @@ public class DemonioTest {
         Demonio instance = crearDemonio();
         boolean pactoAntiguo = instance.getTienePacto();
         instance.setBooleanPacto(tienePacto);
-        assertNotEquals(pactoAntiguo,instance.getTienePacto());
+        assertNotEquals(pactoAntiguo, instance.getTienePacto());
     }
 
     /**
@@ -95,9 +95,9 @@ public class DemonioTest {
         System.out.println("setPacto");
         Pacto pacto = new Pacto();
         Demonio instance = crearDemonio();
-        Pacto pactoAntiguo  = instance.getPacto();
+        Pacto pactoAntiguo = instance.getPacto();
         instance.setPacto(pacto);
-        assertNotEquals(pactoAntiguo,instance.getPacto());
+        assertNotEquals(pactoAntiguo, instance.getPacto());
     }
 
     /**
@@ -110,7 +110,7 @@ public class DemonioTest {
         Demonio instance = crearDemonio();
         FabricaEsbirros fabricaAntigua = instance.getFabricaEsbirros();
         instance.setFabricaEsbirros(fabricaEsbirros);
-        assertNotEquals(fabricaAntigua,instance.getFabricaEsbirros());
+        assertNotEquals(fabricaAntigua, instance.getFabricaEsbirros());
     }
 
     /**
@@ -138,7 +138,7 @@ public class DemonioTest {
         boolean expResult = true;
         boolean result = instance.getTienePacto();
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -149,8 +149,8 @@ public class DemonioTest {
         System.out.println("getPacto");
         Demonio instance = crearDemonio();
         Pacto pactoExperado = new Pacto();
-         pactoExperado.setDescripcion("a");
-         String expResult = pactoExperado.getDescripcion();
+        pactoExperado.setDescripcion("a");
+        String expResult = pactoExperado.getDescripcion();
         Pacto pactoResultado = instance.getPacto();
         String result = pactoResultado.getDescripcion();
         assertEquals(expResult, result);
@@ -166,9 +166,8 @@ public class DemonioTest {
         Demonio instance = crearDemonio();
         EntidadesActivas entidadesAntiguas = instance.getEntidades();
         instance.setEntidades(entidades);
-        assertNotEquals(entidadesAntiguas,entidades);
+        assertNotEquals(entidadesAntiguas, entidades);
     }
-
 
     /**
      * Test of devolverSalud method, of class Demonio.
@@ -179,7 +178,7 @@ public class DemonioTest {
         Demonio instance = crearDemonio();
         int expResult = 10;
         /*
-         *  10 es su salud base y 15 es su salud total asi que no deberia devolver 10
+         * 10 es su salud base y 15 es su salud total asi que no deberia devolver 10
          */
         int result = instance.getSalud();
         assertNotEquals(expResult, result);
@@ -196,5 +195,190 @@ public class DemonioTest {
         boolean result = instance.tieneEsbirros();
         assertEquals(expResult, result);
     }
-    
+
+    public void booleanPactoEnRellenarPropiedad(String opcion, Demonio instance) {
+        if (opcion.equals("si")) {
+            instance.setBooleanPacto(true);
+            Pacto pactoDem = new Pacto();
+            instance.setPacto(pactoDem);
+        } else if (opcion.equals("no")) {
+            instance.setBooleanPacto(false);
+        }
+    }
+
+    @Test
+    public void rellenarPropiedadesEspecPartePacto() {
+        System.out.println("rellenarPartePacto");
+        Demonio instance = crearDemonio();
+        boolean booleanAntiguo = instance.getTienePacto();
+        String tienePact = "no";
+        tienePact = tienePact.toLowerCase().trim();
+        booleanPactoEnRellenarPropiedad(tienePact, instance);
+        assertNotEquals(booleanAntiguo, instance.getTienePacto());
+
+    }
+
+    @Test
+    public void rellenarPropiedadesEspecPartePactoOpcionSI() {
+        System.out.println("rellenarPartePacto");
+        Demonio instance = crearDemonio();
+        instance.setBooleanPacto(false);
+        boolean booleanAntiguo = instance.getTienePacto();
+        String tienePact = "si";
+        tienePact = tienePact.toLowerCase().trim();
+        booleanPactoEnRellenarPropiedad(tienePact, instance);
+        assertNotEquals(booleanAntiguo, instance.getTienePacto());
+
+    }
+
+    @Test
+    public void rellenarPropiedadesEspecParteEsbirroGhoul() {
+        Demonio instance = crearDemonio();
+        System.out.println("Tiene esbirros tu demonio? Si o no");
+        String tieneEsbi = "si";
+        tieneEsbi = tieneEsbi.toLowerCase().trim();
+        if (tieneEsbi.equals("si")) {
+            int eleccionEsbirro = 2;
+            EntidadesActivas entidades = new EntidadesActivas();
+            while (eleccionEsbirro != 4) {
+                System.out.println("Desea aniadir esbirros que esten en el sistema o crear nuevos: ");
+                System.out.println("1-Aniadir conjunto de esbirros sistema ");
+                System.out.println("2-Crear nuevos "); //// habra que añadirlos a entidades activas
+                System.out.println("3-Aniadir un esbirro del sistema");
+                System.out.println("4-Salir");
+                switch (eleccionEsbirro) {
+
+                    case 2 -> {
+                        ArrayList<Esbirro> esbirrosDeEsbirro = new ArrayList<>();
+                        String tipoEsbirro = "";
+                        tipoEsbirro = "ghoul";
+                        tipoEsbirro = tipoEsbirro.toLowerCase().trim();
+                        if (!(tipoEsbirro.equals("salir"))) {
+                            String nombreEsbirro = "ghoul";
+                            FabricaEsbirros fabricaEsbirros;
+                            switch (tipoEsbirro) {
+                                case "ghoul" -> {
+                                    int saludGhoul = 2;
+                                    fabricaEsbirros = new FabricaGhoul();
+                                    Ghoul ghoul = (Ghoul) fabricaEsbirros.crearEsbirro(nombreEsbirro, saludGhoul);
+                                    ghoul.setDependencia(2);
+                                    esbirrosDeEsbirro.add(ghoul);
+                                    entidades.aniadir(ghoul);
+                                    assertTrue(true);
+                                    eleccionEsbirro = 4;
+                                    break;
+                                }
+
+                                case "demonio" -> {
+                                    assertTrue(false);
+                                    int saludDemonioEsbi = 2;
+                                    fabricaEsbirros = new FabricaDemonio();
+                                    Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsbirro,
+                                            saludDemonioEsbi);
+                                    demonio.setFabricaEsbirros(fabricaEsbirros);
+                                    demonio.setEntidades(entidades);
+                                    esbirrosDeEsbirro.add(demonio);
+                                    entidades.aniadir(demonio);
+
+                                }
+
+                                default -> {
+                                    System.out.println("Nombre de esbirro no correcto");
+                                }
+                            }
+                        } else {
+                            System.out.println("No se aniadiran mas esbirros a " + instance.getNombre());
+                            instance.setEsbirros(esbirrosDeEsbirro);
+                        }
+
+                    }
+
+                    case 4 -> {
+                        break;
+                    }
+                    default -> {
+                        System.out.println("Opcion no valida");
+                    }
+                }
+            }
+        } else if (tieneEsbi.equals("no")) {
+            System.out.println("No se aniadiran esbirros a " + instance.getNombre());
+        }
+    }
+
+    @Test
+    public void rellenarPropiedadesEspecParteEsbirroDemonio() {
+        Demonio instance = crearDemonio();
+        System.out.println("Tiene esbirros tu demonio? Si o no");
+        String tieneEsbi = "si";
+        tieneEsbi = tieneEsbi.toLowerCase().trim();
+        if (tieneEsbi.equals("si")) {
+            int eleccionEsbirro = 2;
+            EntidadesActivas entidades = new EntidadesActivas();
+            while (eleccionEsbirro != 4) {
+                System.out.println("Desea aniadir esbirros que esten en el sistema o crear nuevos: ");
+                System.out.println("1-Aniadir conjunto de esbirros sistema ");
+                System.out.println("2-Crear nuevos ");
+                System.out.println("3-Aniadir un esbirro del sistema");
+                System.out.println("4-Salir");
+                switch (eleccionEsbirro) {
+
+                    case 2 -> {
+                        ArrayList<Esbirro> esbirrosDeEsbirro = new ArrayList<>();
+                        String tipoEsbirro = "";
+
+                        tipoEsbirro = "demonio";
+                        tipoEsbirro = tipoEsbirro.toLowerCase().trim();
+                        if (!(tipoEsbirro.equals("salir"))) {
+                            String nombreEsbirro = "demonio";
+                            FabricaEsbirros fabricaEsbirros;
+                            switch (tipoEsbirro) {
+
+                                case "ghoul" -> {
+                                    assertTrue(false);
+                                    int saludGhoul = 2;
+                                    fabricaEsbirros = new FabricaGhoul();
+                                    Ghoul ghoul = (Ghoul) fabricaEsbirros.crearEsbirro(nombreEsbirro, saludGhoul);
+                                    ghoul.setDependencia(2);
+                                    esbirrosDeEsbirro.add(ghoul);
+                                    entidades.aniadir(ghoul);
+                                }
+
+                                case "demonio" -> {
+                                    int saludDemonioEsbi = 2;
+                                    fabricaEsbirros = new FabricaDemonio();
+                                    Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsbirro,
+                                            saludDemonioEsbi);
+                                    demonio.setFabricaEsbirros(fabricaEsbirros);
+                                    demonio.setEntidades(entidades);
+                                    esbirrosDeEsbirro.add(demonio);
+                                    entidades.aniadir(demonio);
+                                    assertTrue(true);
+                                    eleccionEsbirro = 4;
+                                    break;
+                                }
+
+                                default -> {
+                                    System.out.println("Nombre de esbirro no correcto");
+                                }
+                            }
+                        } else {
+                            System.out.println("No se aniadiran mas esbirros a " + instance.getNombre());
+                            instance.setEsbirros(esbirrosDeEsbirro);
+                        }
+
+                    }
+                    case 4 -> {
+                        break;
+                    }
+                    default -> {
+                        System.out.println("Opcion no valida");
+                    }
+                }
+            }
+        } else if (tieneEsbi.equals("no")) {
+            System.out.println("No se aniadiran esbirros a " + instance.getNombre());
+        }
+    }
+
 }

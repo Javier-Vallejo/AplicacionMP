@@ -422,6 +422,7 @@ public class OperadorSistema extends Usuario {
                         armasPersonaje, armasActivasPersonaje, armadurasPersonaje, armaduraActivaPersonaje,
                         esbirrosPersonaje, saludPersonaje, poderPersonaje, debilidadesPersonaje,
                         fortalezasPersonaje);
+                cazNuevo.rellenarPropiedadesEspecificas();
                 super.getEntidades().aniadir(cazNuevo);
                 rellenarStringBuilder(sb, cazNuevo);
                 escritorFich.write(sb.toString());
