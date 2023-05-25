@@ -10,7 +10,6 @@ import java.util.Scanner;
 import fase3mp.Humano.nivelLealtad;
 import java.io.BufferedWriter;
 
-
 public class EntidadesActivas {
 
     private ArrayList<Personaje> personajes;
@@ -30,7 +29,27 @@ public class EntidadesActivas {
         debilidades = new ArrayList<>();
         habilidades = new ArrayList<>();
         esbirros = new ArrayList<>();
-        
+
+    }
+
+    public void setFortalezas(ArrayList<Fortaleza> fortalezas) {
+        this.fortalezas = fortalezas;
+    }
+
+    public void setDebilidades(ArrayList<Debilidad> debilidades) {
+        this.debilidades = debilidades;
+    }
+
+    public void setHabilidades(ArrayList<Habilidad> habilidades) {
+        this.habilidades = habilidades;
+    }
+
+    public void setEsbirros(ArrayList<Esbirro> esbirros) {
+        this.esbirros = esbirros;
+    }
+
+    public void setFabricaEsbirros(FabricaEsbirros fabricaEsbirros) {
+        this.fabricaEsbirros = fabricaEsbirros;
     }
 
     public ArrayList<Fortaleza> getFortalezas() {
@@ -43,6 +62,10 @@ public class EntidadesActivas {
 
     public ArrayList<Personaje> getPersonajes() {
         return personajes;
+    }
+
+    public ArrayList<Esbirro> getEsbirros() {
+        return esbirros;
     }
 
     public void setPersonajes(ArrayList<Personaje> personajes) {
@@ -205,7 +228,7 @@ public class EntidadesActivas {
                     }
                 } else if (armaEle != armas.size()) {
                     System.out.println("Arma erronea. Por favor, introduzca un arma de la lista.");
-                    
+
                 }
             }
             return armasElegidas;
@@ -253,7 +276,7 @@ public class EntidadesActivas {
                     } else {
                         fortalezasElegidas.add(fortalezaEle);
                     }
-                } else if(fortalezaEle>fortalezas.size() || fortalezaEle<0){
+                } else if (fortalezaEle > fortalezas.size() || fortalezaEle < 0) {
                     System.out.println("Fortaleza erronea. Por favor, introduzca una fortaleza de la lista");
                 }
             }
@@ -277,7 +300,7 @@ public class EntidadesActivas {
                     } else {
                         debilidadesElegidas.add(debilidadEle);
                     }
-                } else if (debilidadEle>debilidades.size() || debilidadEle<0){
+                } else if (debilidadEle > debilidades.size() || debilidadEle < 0) {
                     System.out.println("Debilidad erronea. Por favor, introduzca una debilidad de la lista.");
                 }
             }
@@ -298,7 +321,7 @@ public class EntidadesActivas {
                 if (esbirroEle < 0 || esbirroEle > esbirros.size()) {
                     System.out.println(
                             "Esbirro inexistente. Por favor introduzca el numero de uno de los esbirros disponibles.");
-                }else if(esbirroEle != esbirros.size()){
+                } else if (esbirroEle != esbirros.size()) {
                     esbirro = esbirroEle;
                 }
                 esbirrosElegidos.add(esbirro);
@@ -320,7 +343,7 @@ public class EntidadesActivas {
                 if (esbirroEle < 0 || esbirroEle > esbirros.size()) {
                     System.out.println(
                             "Esbirro inexistente. Por favor introduzca el numero de uno de los esbirros disponibles.");
-                }else if(esbirroEle != esbirros.size()){
+                } else if (esbirroEle != esbirros.size()) {
                     esbirro = esbirroEle;
                 }
             }
@@ -420,13 +443,13 @@ public class EntidadesActivas {
             sb.append("/");
             Ghoul ghoul = (Ghoul) esbirro;
             sb.append(ghoul.getDependencia());
-            //sb.append(",");
+            // sb.append(",");
         } else if (esbirro instanceof Humano) {
             sb.append("humano");
             sb.append("/");
             Humano humano = (Humano) esbirro;
             sb.append(humano.getLealtad());
-            //sb.append(",");
+            // sb.append(",");
         } else if (esbirro instanceof Demonio) {
             sb.append("demonio");
             sb.append("/");
@@ -446,7 +469,7 @@ public class EntidadesActivas {
             sb.append("#");
             ArrayList<Esbirro> esbirrosDeEsbirro = demonio.getEsbirros();
             for (int j = 0; j < esbirrosDeEsbirro.size(); j++) {
-                rellenarStringBuilderSubEsbirros(esbirrosDeEsbirro.get(j), sb); 
+                rellenarStringBuilderSubEsbirros(esbirrosDeEsbirro.get(j), sb);
             }
             sb.append("#");
         }
@@ -490,7 +513,7 @@ public class EntidadesActivas {
             sb.append("#");
             ArrayList<Esbirro> esbirrosDeEsbirro = demonio.getEsbirros();
             for (int j = 0; j < esbirrosDeEsbirro.size(); j++) {
-                rellenarStringBuilderSubEsbirros(esbirrosDeEsbirro.get(j), sb); 
+                rellenarStringBuilderSubEsbirros(esbirrosDeEsbirro.get(j), sb);
             }
             sb.append("#");
             sb.append(",");
@@ -504,7 +527,7 @@ public class EntidadesActivas {
         while (scannerEsbi.hasNextLine()) {
             boolean esta = false;
             String lineaEsbi = scannerEsbi.nextLine();
-            //String[] partesComas = lineaEsbi.split(",");
+            // String[] partesComas = lineaEsbi.split(",");
             String[] partesEsbirro = lineaEsbi.split("/");
             String nombreEsbi = partesEsbirro[0];
             int salud = Integer.parseInt(partesEsbirro[1]);
@@ -525,12 +548,12 @@ public class EntidadesActivas {
                 fabricaEsbirros = new FabricaGhoul();
                 Ghoul ghoul = (Ghoul) fabricaEsbirros.crearEsbirro(nombreEsbi, salud);
                 ghoul.setDependencia(dependencia);
-                for(int j = 0; j < esbirros.size(); j++){
-                    if(esbirros.get(j).getNombre().equals(ghoul.getNombre()) && esbirros.get(j) instanceof Ghoul){
-                        esta=true;
+                for (int j = 0; j < esbirros.size(); j++) {
+                    if (esbirros.get(j).getNombre().equals(ghoul.getNombre()) && esbirros.get(j) instanceof Ghoul) {
+                        esta = true;
                     }
                 }
-                if (!esta){
+                if (!esta) {
                     esbirros.add(ghoul);
                 }
 
@@ -556,12 +579,12 @@ public class EntidadesActivas {
                 demonio.setFabricaEsbirros(fabricaEsbirros);
                 demonio.setEntidades(this);
                 demonio.setEsbirros(esbirrosPrinc);
-                for(int j = 0; j < esbirros.size(); j++){
-                    if(esbirros.get(j).getNombre().equals(demonio.getNombre()) && esbirros.get(j) instanceof Demonio){
-                        esta=true;
+                for (int j = 0; j < esbirros.size(); j++) {
+                    if (esbirros.get(j).getNombre().equals(demonio.getNombre()) && esbirros.get(j) instanceof Demonio) {
+                        esta = true;
                     }
                 }
-                if (!esta){
+                if (!esta) {
                     esbirros.add(demonio);
                 }
             }
@@ -583,12 +606,12 @@ public class EntidadesActivas {
                     Ghoul ghoul = (Ghoul) fabricaEsbirros.crearEsbirro(nombreEsb, saludEsb);
                     ghoul.setDependencia(dependencia);
                     esbirrosPert.add(ghoul);
-                    for(int j = 0; j < esbirros.size(); j++){
-                        if(esbirros.get(j).getNombre().equals(ghoul.getNombre()) && esbirros.get(j) instanceof Ghoul){
-                            estaSecundario=true;
+                    for (int j = 0; j < esbirros.size(); j++) {
+                        if (esbirros.get(j).getNombre().equals(ghoul.getNombre()) && esbirros.get(j) instanceof Ghoul) {
+                            estaSecundario = true;
                         }
                     }
-                    if (!estaSecundario){
+                    if (!estaSecundario) {
                         esbirros.add(ghoul);
                     }
                 } else if (partesEsb[2].equals("demonio")) {
@@ -614,14 +637,15 @@ public class EntidadesActivas {
                     demonio.setEntidades(this);
                     esbirrosPert.add(demonio);
                     demonio.setEsbirros(esbirrosDeEsb);
-                    for(int j = 0; j < esbirros.size(); j++){
-                        if(esbirros.get(j).getNombre().equals(demonio.getNombre()) && esbirros.get(j) instanceof Demonio){
-                            estaSecundario=true;
+                    for (int j = 0; j < esbirros.size(); j++) {
+                        if (esbirros.get(j).getNombre().equals(demonio.getNombre())
+                                && esbirros.get(j) instanceof Demonio) {
+                            estaSecundario = true;
+                        }
                     }
-                }
-                if (!estaSecundario){
-                    esbirros.add(demonio);
-                }
+                    if (!estaSecundario) {
+                        esbirros.add(demonio);
+                    }
                 }
             }
 

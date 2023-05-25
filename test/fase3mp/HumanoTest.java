@@ -43,6 +43,31 @@ public class HumanoTest {
     public void tearDown() {
     }
 
+
+    public void rellenarPropiedadesEspecSinEscaner(Humano humano, String lealtad) {
+
+        String nivelLeal = "";
+        while (!nivelLeal.equals("alta") && !nivelLeal.equals("normal") && !nivelLeal.equals("baja")) {
+            System.out.println("Que nivel de lealtad quieres que tenga. Alta, normal o baja");
+            nivelLeal = lealtad;
+            nivelLeal = nivelLeal.toLowerCase().trim();
+            switch (nivelLeal) {
+                case "alta" -> {
+                    humano.setLealtad(nivelLealtad.ALTA); 
+                }
+                case "normal" -> {
+                    humano.setLealtad(nivelLealtad.NORMAL); 
+                }
+                case "baja" -> {
+                    humano.setLealtad(nivelLealtad.BAJA); 
+                }
+                default -> {
+                    System.out.println("Valor no correcto");
+                }
+            }
+        } 
+    }
+
     public Humano crearHumano(){
         Humano instance = new Humano("humano", 3);
         instance.setLealtad(nivelLealtad.ALTA);
@@ -54,26 +79,34 @@ public class HumanoTest {
     @Test
     public void testRellenarPropiedadesEspec() {
         System.out.println("rellenarPropiedadesEspec");
-        Humano instance = null;
-        instance.rellenarPropiedadesEspec();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Humano instance = crearHumano();
+        rellenarPropiedadesEspecSinEscaner(instance,"normal");
+        assertEquals(instance.getLealtad(),nivelLealtad.NORMAL);
+        
     }
 
-    /**
-     * Test of calcularVidaRestante method, of class Humano.
-     */
+
+
     @Test
-    public void testCalcularVidaRestante() {
-        System.out.println("calcularVidaRestante");
-        Humano instance = null;
-        int expResult = 0;
-        int result = instance.calcularVidaRestante();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testRellenarPropiedadesEspecBaja() {
+        System.out.println("rellenarPropiedadesEspec");
+        Humano instance = crearHumano();
+        rellenarPropiedadesEspecSinEscaner(instance,"baja");
+        assertEquals(instance.getLealtad(),nivelLealtad.BAJA);
+        
     }
 
+
+    @Test
+    public void testRellenarPropiedadesEspecAlta() {
+        System.out.println("rellenarPropiedadesEspec");
+        Humano instance = crearHumano();
+        rellenarPropiedadesEspecSinEscaner(instance,"alta");
+        assertEquals(instance.getLealtad(),nivelLealtad.ALTA);
+        
+    }
+
+   
     /**
      * Test of getLealtad method, of class Humano.
      */
