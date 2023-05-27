@@ -1,0 +1,8 @@
+cazador;atun;Cazar/6/6/0;Cefiro/1/2/de1mano,FiloInfinito/3/1/de2manos,Palo/1/1/de1mano,;FiloInfinito/3/1/de2manos,;pechoMachoPechoPeludo/3/5,juanitoperez/1/1,;juanitoperez/1/1;javi/3/humano,david/1/ghoul,david/1/ghoul,;4;3;luz/3;luna/3;3
+vampiro;Manzana;GolpeDeRabia/7/2/1;yoummu/4/2/de2manos,AkumaNoMi/4/3/de2manos,Palo/1/1/de1mano,;yoummu/4/2/de2manos,;Picapiedra/2/5,;Picapiedra/2/5;david/1/ghoul,;4;4;luz/3;luna/3;3;140
+licantropo;Titous;GolpeDeRabia/7/2/1;Palo/1/1/de1mano,;Palo/1/1/de1mano,;Picapiedra/2/5,;Picapiedra/2/5;david/1/ghoul,javi/3/humano,javi/3/humano,;2;1;sol/2;luna/3;3
+vampiro;Iago;ChuparSangre/4/4/3;Cefiro/1/2/de1mano,FiloInfinito/3/1/de2manos,Palo/1/1/de1mano,;Cefiro/1/2/de1mano,Palo/1/1/de1mano,;Picapiedra/2/5,juanitoperez/1/1,;juanitoperez/1/1;juan/3/ghoul,;3;2;luz/3;luna/3;4;160
+cazador;Courtois;Cazar/6/6/0;FiloInfinito/3/1/de2manos,AkumaNoMi/4/3/de2manos,;AkumaNoMi/4/3/de2manos,;pechoMachoPechoPeludo/3/5,juanitoperez/1/1,Picapiedra/2/5,;pechoMachoPechoPeludo/3/5;david/1/ghoul,juan/3/ghoul,juan/3/ghoul,;5;5;luz/3;luna/3;4
+vampiro;Pollo;GolpeDeRabia/7/2/1;Sabiduria/3/5/de2manos,;Sabiduria/3/5/de2manos,;Perla/2/5,Picapiedra/2/5,;Perla/2/5;juan/3/ghoul,;3;2;sol/2;luna/3;4;180
+cazador;Luli;Cazar/6/6/0;Sabiduria/3/5/de2manos,;Sabiduria/3/5/de2manos,;Perla/2/5,;Perla/2/5;david/1/ghoul,;2;2;sol/2;luna/3;5
+cazador;Yunus;Cazar/6/6/0;Kike/3/3/de1mano,yoummu/4/2/de2manos,Navaja/2/1/de1mano,;Kike/3/3/de1mano,Navaja/2/1/de1mano,;Perla/2/5,juanitoperez/1/1,;juanitoperez/1/1;javi/3/humano,david/1/ghoul,juan/3/ghoul,juan/3/ghoul,;4;3;luz/3,sol/2,;luna/3,;2

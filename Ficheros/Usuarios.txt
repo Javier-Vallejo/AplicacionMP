@@ -1,0 +1,3 @@
+operador;juan;megaboy;123;
+operador;aaa;1789;1789;
+operador;judas;judas33;15;
