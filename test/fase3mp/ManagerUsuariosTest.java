@@ -158,7 +158,7 @@ public class ManagerUsuariosTest {
         guardarCredenciales.invoke(instance, usuario);
 
         Boolean result = instance.existeUsuario("ElBoss", "1234");
-        Boolean result2 = instance.existeUsuario("Niggaboy", "123");
+        Boolean result2 = instance.existeUsuario("Loolero", "123");
         assertEquals(true, result);
         assertEquals(false, result2);
     }
