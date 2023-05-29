@@ -2,7 +2,7 @@ package fase3mp;
 
 public class Pacto {
     private String descripcion;
-    private Personaje amo;
+    private String amo;
 
     public String getDescripcion() {
         return descripcion;
@@ -12,11 +12,11 @@ public class Pacto {
         this.descripcion = descripcion;
     }
 
-    public Personaje getAmo() {
+    public String getAmo() {
         return amo;
     }
 
-    public void setAmo(Personaje amo) {
+    public void setAmo(String amo) {
         this.amo = amo;
     }
     

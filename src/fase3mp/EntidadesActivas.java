@@ -197,7 +197,7 @@ public class EntidadesActivas {
             int personajeEle = escaner.nextInt(); // Si nos mete una letra peta
 
             ArrayList<Integer> personajesElegidos = new ArrayList<>();
-            while (personajeEle > personajesElegidos.size() || personajeEle < 0) {
+            while (personajeEle > personajes.size() ^ personajeEle < 0) {
                 System.out.println("Por favor ingrese un numero de la lista indicada anteriormente.");
                 personajeEle = escaner.nextInt();
             }
@@ -457,7 +457,9 @@ public class EntidadesActivas {
             if (demonio.getTienePacto()) {
                 sb.append("si");
                 sb.append("/");
-                sb.append(demonio.getPacto().getAmo().getNombre());
+                sb.append(demonio.getPacto().getAmo());
+                sb.append("/");
+                sb.append(demonio.getPacto().getDescripcion());
                 sb.append("/");
             } else {
                 sb.append("no");
@@ -465,10 +467,10 @@ public class EntidadesActivas {
                 sb.append("null");
                 sb.append("/");
             }
-
             sb.append("#");
             ArrayList<Esbirro> esbirrosDeEsbirro = demonio.getEsbirros();
             for (int j = 0; j < esbirrosDeEsbirro.size(); j++) {
+                esbirros.add(esbirrosDeEsbirro.get(j));
                 rellenarStringBuilderSubEsbirros(esbirrosDeEsbirro.get(j), sb);
             }
             sb.append("#");
@@ -501,8 +503,9 @@ public class EntidadesActivas {
             if (demonio.getTienePacto()) {
                 sb.append("si");
                 sb.append("-");
-                sb.append(demonio.getPacto().getAmo().getNombre());
+                sb.append(demonio.getPacto().getAmo());
                 sb.append("-");
+                sb.append(demonio.getPacto().getDescripcion());
             } else {
                 sb.append("no");
                 sb.append("-");
@@ -513,6 +516,7 @@ public class EntidadesActivas {
             sb.append("#");
             ArrayList<Esbirro> esbirrosDeEsbirro = demonio.getEsbirros();
             for (int j = 0; j < esbirrosDeEsbirro.size(); j++) {
+                esbirros.add(esbirrosDeEsbirro.get(j));
                 rellenarStringBuilderSubEsbirros(esbirrosDeEsbirro.get(j), sb);
             }
             sb.append("#");
@@ -558,19 +562,24 @@ public class EntidadesActivas {
                 }
 
             } else if (partesEsbirro[2].equals("demonio")) {
-                String[] partesEsbirroDeEsbirro = partesEsbirro[5].split("#");
+                String[] partesEsbirroDeEsbirro = partesEsbirro[6].split("#");
                 Pacto pacto = null;
                 Boolean tienePacto = false;
                 if (partesEsbirro[3].equals("si")) {
                     tienePacto = true;
-                    String nombreAmo = partesEsbirroDeEsbirro[0];
+                    String descripcion = partesEsbirro[5];
                     pacto = new Pacto();
+                    pacto.setDescripcion(descripcion);
+                    pacto.setAmo(partesEsbirro[4]);
                 } else if (partesEsbirro[3].equals("no")) {
                     String nombreAmo = null;
                     pacto = null;
                 }
                 ArrayList<Esbirro> esbirrosPrinc = new ArrayList<>();
-                leerEsbirrosPertenecientesAEsbirro(partesEsbirroDeEsbirro, esbirrosPrinc, 0);
+                if (partesEsbirroDeEsbirro.length > 0) {
+                    leerEsbirrosPertenecientesAEsbirro(partesEsbirroDeEsbirro, esbirrosPrinc, 0);
+
+                }
                 // aqui me creare el primer demonio ahora que tengo sus subesbirros
                 fabricaEsbirros = new FabricaDemonio();
                 Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsbi, salud);
@@ -596,7 +605,12 @@ public class EntidadesActivas {
         if (i + 1 != partesEsbirroDeEsbirro.length) {
             String[] Esbirr = partesEsbirroDeEsbirro[i + 1].split(",");
             boolean estaSecundario = false;
-            for (int x = 0; x < Esbirr.length; x++) {
+            int longitud = 0;
+            if (!Esbirr[0].equals("")) {
+                longitud = Esbirr.length;
+            }            
+
+            for (int x = 0; x < longitud; x++) {
                 String[] partesEsb = Esbirr[x].split("-");
                 if (partesEsb[2].equals("ghoul")) {
                     String nombreEsb = partesEsb[0];
@@ -623,8 +637,10 @@ public class EntidadesActivas {
                     Pacto pacto = null;
                     if (partesEsb[3].equals("si")) {
                         tienePacto = true;
-                        String nombreAmo = partesEsbirroDeEsbirro[4];// habra que pasarselo como parametro a pacto
+                        String descripcion = partesEsb[5];
                         pacto = new Pacto();
+                        pacto.setDescripcion(descripcion);
+                        pacto.setAmo(partesEsb[4]);
                     } else if (partesEsb[3].equals("no")) {
                         tienePacto = false;
                         String nombreAmo = null;

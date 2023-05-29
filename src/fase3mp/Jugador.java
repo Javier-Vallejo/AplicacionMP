@@ -151,7 +151,7 @@ public class Jugador extends Usuario {
             System.out.println(">>>A qué jugador desea enfrentarse? (Ingrese el numero del jugador por favor)<<<");
             for (int i = 0; i < users.size(); i++) {
                 Usuario usuarioX = (Usuario) users.get(i);
-                if (usuarioX instanceof Jugador) {
+                if (usuarioX instanceof Jugador && usuarioX.getNick() != this.getNick()) {
                     System.out.println("Jugador " + i + ": " + usuarioX.getNick());
                 }
             }
