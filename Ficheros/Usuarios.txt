@@ -1,5 +1,5 @@
 operador;juan;megaboy;123;
 operador;aaa;1789;1789;
 operador;judas;judas33;15;
-jugador;a;a;a;H27OG;100;false;vampiro-Manzana-4
-jugador;a;aaa;a;F16GG;100;false;vampiro-Iago-3
+jugador;a;a;a;A68BD;100;false;vampiro-Iago-3
+jugador;a;aaa;a;M19QR;100;false;licantropo-Titous-2

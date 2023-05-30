@@ -390,7 +390,7 @@ public class Jugador extends Usuario {
                     System.out.println("No tienes ningun personaje activo");
                 } else {
                     Personaje personaje = getPersonajeActivo();
-                    personaje.editarPersonajeJugador(personaje, super.getEntidades());
+                    personaje.editarPersonajeJugador(personaje);
                     //guardar en fichero los personajes clonados
                     //guardar en fichero los cambios en el personaje del jugador
                 }

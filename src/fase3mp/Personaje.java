@@ -490,7 +490,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
         }
     }
 
-    public void editarPersonajeJugador(Personaje personajeEle, EntidadesActivas entidades) {  
+    public void editarPersonajeJugador(Personaje personajeEle) {  
         while (true) {
             int opcion = 0;
             Scanner escanerLectura = new Scanner(System.in);
