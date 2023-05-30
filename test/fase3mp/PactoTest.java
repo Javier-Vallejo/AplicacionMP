@@ -63,7 +63,7 @@ public class PactoTest {
     public Pacto crearPacto(Personaje personaje){
         Pacto instance = new Pacto();
         instance.setDescripcion("pacto");
-        instance.setAmo(personaje);
+        instance.setAmo(personaje.getNombre());
         return instance;
     }
     /**
@@ -101,8 +101,8 @@ public class PactoTest {
         Personaje personaje = CrearCazadorBase();
         Pacto instance = crearPacto(personaje);
         Personaje expResult = personaje;
-        Personaje result = instance.getAmo();
-        assertEquals(expResult, result);
+        String result = instance.getAmo();
+        assertEquals(expResult.getNombre(), result);
     }
 
     /**
@@ -114,7 +114,7 @@ public class PactoTest {
         Personaje personajeAntiguo = CrearCazadorBase();
         Personaje amo = CrearCazadorBase();
         Pacto instance = crearPacto(personajeAntiguo);
-        instance.setAmo(amo);
+        instance.setAmo(amo.getNombre());
         assertNotEquals(personajeAntiguo, instance.getAmo());
     }
 }
