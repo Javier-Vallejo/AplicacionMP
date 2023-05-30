@@ -72,6 +72,9 @@ public class Demonio extends Esbirro implements IEsbirros {
         if (tienePact.equals("si")) {
             tienePacto = true;
             Pacto pactoDem = new Pacto();
+            System.out.println("¿Que descripcion quieres asignarle?");
+            String descripcion = escanerDemon.nextLine();
+            pactoDem.setDescripcion(descripcion);
             pacto = pactoDem;
         } else if (tienePact.equals("no")) {
             tienePacto = false;
@@ -133,11 +136,6 @@ public class Demonio extends Esbirro implements IEsbirros {
                                         demonio.setEntidades(entidades);
                                         demonio.rellenarPropiedadesEspec();
                                         esbirrosDeEsbirro.add(demonio);
-                                        try {
-                                            entidades.GuardarEsbirroFichero(demonio);
-                                        } catch (IOException ex) {
-                                            Logger.getLogger(Demonio.class.getName()).log(Level.SEVERE, null, ex);
-                                        }
                                         entidades.aniadir(demonio);
                                     }
                                     default -> {

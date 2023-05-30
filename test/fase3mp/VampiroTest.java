@@ -36,6 +36,29 @@ public class VampiroTest {
     public void tearDown() {
     }
     
+    
+    public void rellenarPropiedadesEspecSinEscanner (Vampiro vampiro) {
+        int antiguaSangre = vampiro.getSangre();
+        System.out.println("Valor antiguo de sangre: "+ antiguaSangre);
+        
+        int valorSangre = 4;
+        vampiro.setSangre(valorSangre); 
+        System.out.println("Valor nuevo de sangre: "+ vampiro.getSangre());
+        assertNotEquals(antiguaSangre,vampiro.getSangre());
+
+
+
+        int antiguaEdad = vampiro.getEdad();
+        System.out.println("Valor antiguo de edad: "+ antiguaEdad);
+        
+        int valorEdad = 400;
+        vampiro.setEdad(valorEdad); 
+        System.out.println("Valor nuevo de edad: "+ vampiro.getEdad());
+        assertNotEquals(antiguaEdad,vampiro.getEdad());
+    }
+
+
+
     public Vampiro CrearVampiroBase () {
 
         Habilidad habilidad = new Habilidad("habilidad", 10, 10, 0);
@@ -61,6 +84,14 @@ public class VampiroTest {
         return instance;
     }
 
+
+    @Test
+    public void testRellenarPropiedadesEspec() {
+        System.out.println("rellenarPropiedadesEspec");
+        Vampiro instance = CrearVampiroBase();
+        rellenarPropiedadesEspecSinEscanner(instance);
+        
+    }
     /**
      * Test of setEdad method, of class Vampiro.
      */

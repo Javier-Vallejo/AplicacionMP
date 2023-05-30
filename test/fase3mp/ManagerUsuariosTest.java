@@ -158,7 +158,7 @@ public class ManagerUsuariosTest {
         guardarCredenciales.invoke(instance, usuario);
 
         Boolean result = instance.existeUsuario("ElBoss", "1234");
-        Boolean result2 = instance.existeUsuario("Niggaboy", "123");
+        Boolean result2 = instance.existeUsuario("Loolero", "123");
         assertEquals(true, result);
         assertEquals(false, result2);
     }
@@ -226,11 +226,11 @@ public class ManagerUsuariosTest {
     @Test
     public void testLeerUsuarios() throws Exception {
         System.out.println("LeerUsuarios");
-        EntidadesActivas entidades = null;
+        EntidadesActivas entidades = new EntidadesActivas();
+        // Ficheros\Usuarios.txt
         ManagerUsuarios instance = new ManagerUsuarios();
         instance.LeerUsuarios(entidades);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**

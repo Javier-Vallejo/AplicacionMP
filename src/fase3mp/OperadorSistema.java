@@ -6,9 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-
 
 public class OperadorSistema extends Usuario {
 
@@ -19,7 +19,6 @@ public class OperadorSistema extends Usuario {
     public OperadorSistema(String nombre, String nick, String password, TipoUsuario rol, ManagerUsuarios manager) {
         super(nombre, nick, password, rol, manager);
         this.manager = manager;
-        entidades = super.getEntidades();
         notificador = new Publisher();
         notificador.setOperador(this);
     }
@@ -43,7 +42,7 @@ public class OperadorSistema extends Usuario {
     public Arma CrearArma(String nombre, String modDanio, String modDefensa, String tipoArma) throws IOException {
         File file = new File("Ficheros/Entidades.txt");
         Arma arma = new Arma(nombre, modDanio, modDefensa, tipoArma);
-        super.getEntidades().aniadir(arma);
+        entidades.aniadir(arma);
         StringBuilder sb = new StringBuilder();
         rellenarStringBuilderArma(sb, arma);
         FileWriter escritorFich = new FileWriter(file, true);
@@ -69,7 +68,7 @@ public class OperadorSistema extends Usuario {
     public Armadura CrearArmadura(String nombre, String modDanio, String modDefensa) throws IOException {
         File file = new File("Ficheros/Entidades.txt");
         Armadura armadura = new Armadura(nombre, modDanio, modDefensa);
-        super.getEntidades().aniadir(armadura);
+        entidades.aniadir(armadura);
         StringBuilder sb = new StringBuilder();
         rellenarStringBuilderArmadura(sb, armadura);
         FileWriter escritorFich = new FileWriter(file, true);
@@ -95,6 +94,11 @@ public class OperadorSistema extends Usuario {
         Scanner lectura = new Scanner(System.in);
         System.out.println("Escriba el nombre del personaje:");
         String nombreCarac = lectura.nextLine();
+        while (existeNombre(nombreCarac)) {
+        System.out.println("Ya existe un personaje con este nombre");
+        System.out.println("Escriba el nombre del personaje:");
+        nombreCarac = lectura.nextLine();
+        }
         // armas
         int opcionArma = 0;
         ArrayList<Arma> mochilaArmasPersonaje = new ArrayList<>();
@@ -117,10 +121,9 @@ public class OperadorSistema extends Usuario {
                     String defensa = lectura.nextLine();
                     System.out.println("Escriba si es de 1 o 2 manos");
                     String tipo = lectura.nextLine();
-                    if(tipo.equals("1")){
+                    if (tipo.equals("1")) {
                         tipo = "de1mano";
-                    }
-                    else if(tipo.equals("2")){
+                    } else if (tipo.equals("2")) {
                         tipo = "de2manos";
                     }
                     Arma arma = CrearArma(nombre, danio, defensa, tipo);
@@ -129,11 +132,11 @@ public class OperadorSistema extends Usuario {
 
                 case 2 -> {
                     System.out.println("Escriba los numeros de las armas que quiere que tenga su personaje: ");
-                    ArrayList<Integer> armasEleg = super.getEntidades().MostraryElegir("ARMAS");
+                    ArrayList<Integer> armasEleg = entidades.MostraryElegir("ARMAS");
 
                     for (int i = 0; i < armasEleg.size(); i++) {
-                        if (!(mochilaArmasPersonaje.contains(super.getEntidades().elegirArma(armasEleg.get(i))))){
-                            mochilaArmasPersonaje.add(super.getEntidades().elegirArma(armasEleg.get(i)));
+                        if (!(mochilaArmasPersonaje.contains(entidades.elegirArma(armasEleg.get(i))))) {
+                            mochilaArmasPersonaje.add(entidades.elegirArma(armasEleg.get(i)));
                         }
                     }
                 }
@@ -143,7 +146,6 @@ public class OperadorSistema extends Usuario {
         Arma[] armasPersonaje = mochilaArmasPersonaje.toArray(new Arma[0]);
 
         // armas activas
-       
 
         int numArmaActiva = 0;
         int longitudListaArmas = 0;
@@ -151,28 +153,29 @@ public class OperadorSistema extends Usuario {
         while (numArmaActiva != armasPersonaje.length) {
             System.out.println("Elige el numero del arma o armas que quiera activar: ");
             System.out.println("(Ten en cuenta que puede escoger o una de dos manos o dos de una mano)");
-    
+
             for (int i = 0; i < armasPersonaje.length; i++) {
-                System.out.println(i + "_ " + armasPersonaje[i].getNombre() + " " + armasPersonaje[i].getTipodeArma().toString());
+                System.out.println(
+                        i + "_ " + armasPersonaje[i].getNombre() + " " + armasPersonaje[i].getTipodeArma().toString());
             }
             System.out.println(armasPersonaje.length + " Salir");
             numArmaActiva = lectura.nextInt();
             if (!(numArmaActiva == armasPersonaje.length)) {
                 if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de2manos
-                        && longitudListaArmas==0) {
+                        && longitudListaArmas == 0) {
                     armasActivas.add(armasPersonaje[numArmaActiva]);
                     longitudListaArmas = 2;
                     System.out.println("Arma " + numArmaActiva + " activada con exito.");
                 } else if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de1mano
-                        && longitudListaArmas==0) {
+                        && longitudListaArmas == 0) {
                     armasActivas.add(armasPersonaje[numArmaActiva]);
-                    longitudListaArmas=1;
+                    longitudListaArmas = 1;
                     System.out.println("Arma " + numArmaActiva + " activada con exito.");
                 } else if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de1mano
-                        && longitudListaArmas==1
+                        && longitudListaArmas == 1
                         && armasActivas.contains(armasPersonaje[numArmaActiva]) == false) {
                     armasActivas.add(armasPersonaje[numArmaActiva]);
-                    longitudListaArmas=2;
+                    longitudListaArmas = 2;
                     System.out.println("Arma " + numArmaActiva + " activada con exito.");
                 } else if (armasActivas.contains(armasPersonaje[numArmaActiva])) {
                     System.out.println("Arma ya activa");
@@ -186,16 +189,17 @@ public class OperadorSistema extends Usuario {
                         System.out.println("Estas son sus armas Activas");
                         for (int i = 0; i < armasActivas.size(); i++) {
                             System.out.println(
-                                    i + "_ " + armasActivas.get(i).getNombre() + " " + armasPersonaje[i].getTipodeArma().toString());
+                                    i + "_ " + armasActivas.get(i).getNombre() + " "
+                                            + armasPersonaje[i].getTipodeArma().toString());
                         }
                         eleccion = lectura.nextInt();
-                        if (armasActivas.get(eleccion).getTipodeArma() == Arma.tipoArma.de1mano){
-                            longitudListaArmas=1;
-                        }else{
-                            longitudListaArmas=0;
+                        if (armasActivas.get(eleccion).getTipodeArma() == Arma.tipoArma.de1mano) {
+                            longitudListaArmas = 1;
+                        } else {
+                            longitudListaArmas = 0;
                         }
                         armasActivas.remove(eleccion);
-                        
+
                     } else if (eleccion == 2) {
                         System.out.println(
                                 "El arma que intentas establecer como activa no se activara por falta de hueco.");
@@ -211,7 +215,7 @@ public class OperadorSistema extends Usuario {
         int opcionArmadura = 0;
         ArrayList<Armadura> mochilaArmadurasPersonaje = new ArrayList<>();
         System.out.println("Vas a introducir armaduras hasta que pulses salir");
-        while(opcionArmadura != 3){
+        while (opcionArmadura != 3) {
             System.out.println("Desea crear una armadura de 0 o elegirla del sistema: ");
             System.out.println("1- Crear la armadura ");
             System.out.println("2- Elegir armaduras del sistema");
@@ -233,11 +237,12 @@ public class OperadorSistema extends Usuario {
 
                 case 2 -> {
                     System.out.println("Escriba el numero de la armadura que quiere que tenga su personaje: ");
-                    ArrayList<Integer> armadurasEleg = super.getEntidades().MostraryElegir("ARMADURAS");
-                    
+                    ArrayList<Integer> armadurasEleg = entidades.MostraryElegir("ARMADURAS");
+
                     for (int i = 0; i < armadurasEleg.size(); i++) {
-                        if (!(mochilaArmadurasPersonaje.contains(super.getEntidades().elegirArmadura(armadurasEleg.get(i))))){
-                            mochilaArmadurasPersonaje.add(super.getEntidades().elegirArmadura(armadurasEleg.get(i)));
+                        if (!(mochilaArmadurasPersonaje
+                                .contains(entidades.elegirArmadura(armadurasEleg.get(i))))) {
+                            mochilaArmadurasPersonaje.add(entidades.elegirArmadura(armadurasEleg.get(i)));
                         }
                     }
                 }
@@ -261,17 +266,17 @@ public class OperadorSistema extends Usuario {
         }
         // fortaleza
         System.out.println("Escriba el numero de la/las fortaleza/fortalezas que quiere que tenga su personaje: ");
-        ArrayList<Integer> fortalezasEleg = super.getEntidades().MostraryElegir("FORTALEZAS");
+        ArrayList<Integer> fortalezasEleg = entidades.MostraryElegir("FORTALEZAS");
         Fortaleza[] fortalezasPersonaje = new Fortaleza[fortalezasEleg.size()];
         for (int i = 0; i < fortalezasEleg.size(); i++) {
-            fortalezasPersonaje[i] = super.getEntidades().elegirFortaleza(fortalezasEleg.get(i));
+            fortalezasPersonaje[i] = entidades.elegirFortaleza(fortalezasEleg.get(i));
         }
         // debilidad
         System.out.println("Escriba el numero de la/las debilidad/debilidades que quiere que tenga su personaje: ");
-        ArrayList<Integer> debilidadesEleg = super.getEntidades().MostraryElegir("DEBILIDADES");
+        ArrayList<Integer> debilidadesEleg = entidades.MostraryElegir("DEBILIDADES");
         Debilidad[] debilidadesPersonaje = new Debilidad[debilidadesEleg.size()];
         for (int i = 0; i < debilidadesEleg.size(); i++) {
-            debilidadesPersonaje[i] = super.getEntidades().elegirDebilidad(debilidadesEleg.get(i));
+            debilidadesPersonaje[i] = entidades.elegirDebilidad(debilidadesEleg.get(i));
         }
 
         // salud personaje
@@ -293,8 +298,8 @@ public class OperadorSistema extends Usuario {
 
         // habilidad
         System.out.println("Escriba el numero de la habilidad que quiere que tenga su personaje: ");
-        int habilidadElegida = super.getEntidades().MostraryElegirHabilidad();
-        Habilidad habilidadPersonaje = super.getEntidades().getHabilidades().get(habilidadElegida);
+        int habilidadElegida = entidades.MostraryElegirHabilidad();
+        Habilidad habilidadPersonaje = entidades.getHabilidades().get(habilidadElegida);
 
         // Esbirros
         FabricaEsbirros fabricaEsbirros = super.getFabricaEsbirros();
@@ -309,9 +314,9 @@ public class OperadorSistema extends Usuario {
             eleccionEsbirro = lectura.nextInt();
             switch (eleccionEsbirro) {
                 case 1 -> {
-                    ArrayList<Integer> esbirros = super.getEntidades().MostraryElegir("ESBIRROS");
+                    ArrayList<Integer> esbirros = entidades.MostraryElegir("ESBIRROS");
                     for (int i = 0; i < esbirros.size(); i++) {
-                        esbirrosPers.add(super.getEntidades().obtenerEsbirro(esbirros.get(i)));
+                        esbirrosPers.add(entidades.obtenerEsbirro(esbirros.get(i)));
                     }
 
                 }
@@ -336,16 +341,16 @@ public class OperadorSistema extends Usuario {
                                     fabricaEsbirros = new FabricaHumano();
                                     Humano humano = (Humano) fabricaEsbirros.crearEsbirro(nombreEsbirro, saludEsbirro);
                                     humano.rellenarPropiedadesEspec();
-                                    super.getEntidades().GuardarEsbirroFichero(humano);
-                                    super.getEntidades().aniadir(humano);
+                                    entidades.GuardarEsbirroFichero(humano);
+                                    entidades.aniadir(humano);
                                     esbirrosPers.add(humano);
                                 }
                                 case "ghoul" -> {
                                     fabricaEsbirros = new FabricaGhoul();
                                     Ghoul ghoul = (Ghoul) fabricaEsbirros.crearEsbirro(nombreEsbirro, saludEsbirro);
                                     ghoul.rellenarPropiedadesEspec();
-                                    super.getEntidades().GuardarEsbirroFichero(ghoul);
-                                    super.getEntidades().aniadir(ghoul);
+                                    entidades.GuardarEsbirroFichero(ghoul);
+                                    entidades.aniadir(ghoul);
                                     esbirrosPers.add(ghoul);
                                 }
                                 case "demonio" -> {
@@ -353,10 +358,8 @@ public class OperadorSistema extends Usuario {
                                     Demonio demonio = (Demonio) fabricaEsbirros.crearEsbirro(nombreEsbirro,
                                             saludEsbirro);
                                     demonio.setFabricaEsbirros(super.getFabricaEsbirros());
-                                    demonio.setEntidades(super.getEntidades());
+                                    demonio.setEntidades(entidades);
                                     demonio.rellenarPropiedadesEspec();
-                                    super.getEntidades().GuardarEsbirroFichero(demonio);
-                                    super.getEntidades().aniadir(demonio);
                                     esbirrosPers.add(demonio);
                                 }
                                 default -> {
@@ -367,8 +370,8 @@ public class OperadorSistema extends Usuario {
                     }
                 }
                 case 3 -> {
-                    ArrayList<Integer> esbirroEle = super.getEntidades().MostraryElegir("ESBIRRO");
-                    esbirrosPers.add(super.getEntidades().obtenerEsbirro(esbirroEle.get(0)));
+                    ArrayList<Integer> esbirroEle = entidades.MostraryElegir("ESBIRRO");
+                    esbirrosPers.add(entidades.obtenerEsbirro(esbirroEle.get(0)));
                 }
                 case 4 -> {
                     System.out.println("No se aniadiran mas esbirros");
@@ -385,7 +388,7 @@ public class OperadorSistema extends Usuario {
         // habria que poner un while por si mete otro valor
         Integer leido = lectura.nextInt();
         lectura.nextLine();
-        FileWriter escritorFich = new FileWriter(ficheroPersonajes,true);//al poner true no sobreescribe
+        FileWriter escritorFich = new FileWriter(ficheroPersonajes, true);// al poner true no sobreescribe
         BufferedWriter escritorbuff = new BufferedWriter(escritorFich);
         FabricaPersonajes fabricaPersonajes = super.getFabricaPersonajes();
         StringBuilder sb = new StringBuilder();
@@ -399,12 +402,18 @@ public class OperadorSistema extends Usuario {
                         esbirrosPersonaje, saludPersonaje, poderPersonaje, debilidadesPersonaje,
                         fortalezasPersonaje);
                 licanNuevo.rellenarPropiedadesEspecificas();
-                super.getEntidades().aniadir(licanNuevo);
+                establecerPacto(licanNuevo);
+                for (Esbirro esbirro: esbirrosPersonaje) {
+                    entidades.GuardarEsbirroFichero(esbirro);
+                }
+                
+                
+                entidades.aniadir(licanNuevo);
                 rellenarStringBuilder(sb, licanNuevo);
-                escritorbuff.newLine();//me hace un salto de linea
+                escritorbuff.newLine();// me hace un salto de linea
                 escritorbuff.write(sb.toString());
                 escritorbuff.flush();
-                //lectura.close();
+                // lectura.close();
             }
             case 2 -> {
                 // creamos un vampiro
@@ -414,12 +423,16 @@ public class OperadorSistema extends Usuario {
                         esbirrosPersonaje, saludPersonaje, poderPersonaje, debilidadesPersonaje,
                         fortalezasPersonaje);
                 vampNuevo.rellenarPropiedadesEspecificas();
-                super.getEntidades().aniadir(vampNuevo);
+                establecerPacto(vampNuevo);
+                for (Esbirro esbirro: esbirrosPersonaje) {
+                    entidades.GuardarEsbirroFichero(esbirro);
+                }
+                entidades.aniadir(vampNuevo);
                 rellenarStringBuilder(sb, vampNuevo);
                 escritorbuff.newLine();
                 escritorbuff.write(sb.toString());
                 escritorbuff.flush();
-                //lectura.close();
+                // lectura.close();
             }
             case 3 -> {
                 // creamos un cazador
@@ -429,17 +442,68 @@ public class OperadorSistema extends Usuario {
                         esbirrosPersonaje, saludPersonaje, poderPersonaje, debilidadesPersonaje,
                         fortalezasPersonaje);
                 cazNuevo.rellenarPropiedadesEspecificas();
-                super.getEntidades().aniadir(cazNuevo);
+                establecerPacto(cazNuevo);
+                for (Esbirro esbirro: esbirrosPersonaje) {
+                    entidades.GuardarEsbirroFichero(esbirro);
+                }
+                entidades.aniadir(cazNuevo);
                 rellenarStringBuilder(sb, cazNuevo);
                 escritorbuff.newLine();
                 escritorbuff.write(sb.toString());
                 escritorbuff.flush();
-                //lectura.close();
+                // lectura.close();
             }
         }
 
-
         // }
+
+    }
+
+    private boolean existeNombre(String nombreCarac) {
+
+        ArrayList<Personaje> personajes = entidades.getPersonajes();
+        for (Personaje personaje: personajes) {
+                if (personaje.getNombre().equals(nombreCarac)) {
+                        return true;
+                }
+                
+        }
+        return false;
+    }
+
+    private void establecerPacto(Personaje personaje) throws IOException {
+
+        Esbirro[] esbirros = personaje.getEsbirros();
+        ArrayList<Esbirro> esbirrosDemonio = new ArrayList<>(Arrays.asList(esbirros));
+
+        pactoEsbirros(esbirrosDemonio, personaje);
+
+    }
+
+    private void pactoEsbirros(ArrayList<Esbirro> esbirrosDemonio, Personaje personaje) throws IOException {
+
+        for (Esbirro esbirro : esbirrosDemonio) {
+
+            if (esbirro instanceof Demonio) {
+                Demonio demonio = (Demonio) esbirro;
+                if (demonio.getTienePacto() != false) {
+                    Pacto pacto = demonio.getPacto();
+                    pacto.setAmo(personaje.getNombre());
+                    
+
+                }
+                if (demonio.getEsbirros() != null) {
+                    ArrayList<Esbirro> subEsbirrosDemonio = demonio.getEsbirros();
+                    subEsbirros(subEsbirrosDemonio, personaje);
+                }
+            }
+        }
+
+    }
+
+    private void subEsbirros(ArrayList<Esbirro> esbirrosDemonio, Personaje personaje) throws IOException {
+
+        pactoEsbirros(esbirrosDemonio, personaje);
 
     }
 
@@ -486,7 +550,7 @@ public class OperadorSistema extends Usuario {
             sb.append("/");
             sb.append(armas[i].getTipodeArma().toString());
             sb.append(",");
-        } 
+        }
         sb.append(";");
         // armaduras
         Armadura[] armaduras = personaje.getArmaduras();
@@ -544,8 +608,8 @@ public class OperadorSistema extends Usuario {
             sb.append(cazador.getVoluntad());
         }
     }
-    
-    private void escribirEsbirrosPers(Esbirro[] esbirros, StringBuilder sb) { // guardar cada esbirro del personaje                                                                                  
+
+    private void escribirEsbirrosPers(Esbirro[] esbirros, StringBuilder sb) { // guardar cada esbirro del personaje
         for (int i = 0; i < esbirros.length; i++) {
             sb.append(esbirros[i].getNombre());
             sb.append("/");
@@ -581,7 +645,7 @@ public class OperadorSistema extends Usuario {
         ArrayList<Debilidad> DElegDesafiado = new ArrayList<>();
 
         // mostramos debilidades por pantalla del desafiantes
-        
+
         System.out.println("Escoja los números de las debilidades del Jugador desafiante deseas: ");
         listarDebilidades(debilidadesDesafiante);
         System.out.println(debilidadesDesafiante.length + ":Salir");
@@ -602,7 +666,7 @@ public class OperadorSistema extends Usuario {
         }
         desafio.setDElegDesafiante(DElegDesafiante);
         // mostramos fortalezas por pantalla del desafiantes
-        
+
         System.out.println("Escoja los números de las fortalezas del Jugador desafiante que desea: ");
         listarFortalezas(fortalezasDesafiante);
         System.out.println(fortalezasDesafiante.length + ":Salir");
@@ -624,7 +688,7 @@ public class OperadorSistema extends Usuario {
         desafio.setFElegDesafiante(FElegDesafiante);
 
         // mostramos debilidades por pantalla del desafiado
-       
+
         System.out.println("Escoja los números de las debilidades del Jugador desafiado que desea: ");
         listarDebilidades(debilidadesDesafiado);
         System.out.println(debilidadesDesafiado.length + ":Salir");
@@ -643,7 +707,7 @@ public class OperadorSistema extends Usuario {
 
         }
         desafio.setDElegDesafiado(DElegDesafiado);
-        
+
         System.out.println("Escoja los números de las fortalezas del Jugador desafiado que desea: ");
         listarFortalezas(fortalezasDesafiado);
         System.out.println(fortalezasDesafiado.length + ":Salir");
@@ -676,7 +740,7 @@ public class OperadorSistema extends Usuario {
         while (!validacion.equals("SI") && !validacion.equals("NO")) {
             scanner = new Scanner(System.in);
             validacion = scanner.nextLine();
-            if (validacion.equals("SI")) { //Se cambie a mayus lo que escriba para que da
+            if (validacion.equals("SI")) { // Se cambie a mayus lo que escriba para que da
                                            // igual que pona si, Si, o SI
                 desafio.setEstado(Desafio.State.Validado);
                 notificador.suscribirUsuario(desafio.getJugadorDesafiado());
@@ -690,6 +754,7 @@ public class OperadorSistema extends Usuario {
     }
 
     public void realizarFuncionMenuOperador(int opcion) throws IOException {
+        entidades = super.getEntidades();
         ArrayList<Usuario> usuarioEle = manager.getUsuariosRegistrados();
         switch (opcion) {
             case 1 -> {// Darse de baja
@@ -700,9 +765,8 @@ public class OperadorSistema extends Usuario {
             case 2 -> {
                 // Editar Personaje
                 System.out.println("Personajes disponibles:");
-                entidades = super.getEntidades();
-                ArrayList<Integer> personajeEle = super.getEntidades().MostraryElegir("PERSONAJES");
-                Personaje personaje = super.getEntidades().elegirPersonaje(personajeEle.get(0));// para que lo hereden
+                ArrayList<Integer> personajeEle = entidades.MostraryElegir("PERSONAJES");
+                Personaje personaje = entidades.elegirPersonaje(personajeEle.get(0));// para que lo hereden
                                                                                                 // los hijos sin tener
                                                                                                 // que hacer get
 
@@ -760,7 +824,7 @@ public class OperadorSistema extends Usuario {
             case 7 -> {
                 // Salir
                 System.out.println("Cerrando sesion");
-                //System.exit(0);
+                // System.exit(0);
             }
         }
     }
@@ -806,7 +870,7 @@ public class OperadorSistema extends Usuario {
             // escribir la lista actualizada de nuevo en el archivo
             FileWriter escritor = new FileWriter(archivo);
             for (String linea : lineas) {
-                escritor.write(linea+ "\n");
+                escritor.write(linea + "\n");
             }
             escritor.close();
 

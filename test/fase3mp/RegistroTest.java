@@ -42,12 +42,11 @@ public class RegistroTest {
     @Test
     public void testGetManager() {
         System.out.println("getManager");
-        Registro instance = null;
-        ManagerUsuarios expResult = null;
+        ManagerUsuarios managerUsuarios = new ManagerUsuarios();
+        Registro instance = new Registro(managerUsuarios);
         ManagerUsuarios result = instance.getManager();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(managerUsuarios, result);
+       
     }
 
     /**
@@ -56,11 +55,12 @@ public class RegistroTest {
     @Test
     public void testSetManager() {
         System.out.println("setManager");
-        ManagerUsuarios manager = null;
-        Registro instance = null;
-        instance.setManager(manager);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        ManagerUsuarios manager = new ManagerUsuarios();
+        ManagerUsuarios managerUsuarios = new ManagerUsuarios();
+        managerUsuarios.CrearJugador("null", "null", "null", TipoUsuario.Jugador, null, 10);
+        Registro instance = new Registro(manager);
+        instance.setManager(managerUsuarios);
+        assertNotEquals(instance.getManager().getUsuariosRegistrados().size(),manager.getUsuariosRegistrados().size());
     }
 
     /**
@@ -69,13 +69,11 @@ public class RegistroTest {
     @Test
     public void testRegistrarse() {
         System.out.println("registrarse");
-        TipoUsuario rol = null;
-        Registro instance = null;
-        Usuario expResult = null;
-        Usuario result = instance.registrarse(rol);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        ManagerUsuarios manager = new ManagerUsuarios();
+        Registro instance = new Registro(null);
+        Usuario result = instance.registrarse(TipoUsuario.Jugador);
+        assertEquals(null, result);
+       
     }
     
 }

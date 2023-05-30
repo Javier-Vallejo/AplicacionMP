@@ -53,6 +53,7 @@ public class SistemaPrincipalGame {
             } else if (opcionElegida == 2) {
                 registrarse();
                 String opcion = "";
+                escanerMain.nextLine();
                 while (!(opcion.equals("si") ^ opcion.equals("no"))) {
                     // escanerMain.hasNextLine();
                     System.out.println("Deseas iniciar sesion? si o no");

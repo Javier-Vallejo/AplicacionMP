@@ -38,7 +38,7 @@ public class Humano extends Esbirro implements IEsbirros {
                     System.out.println("Valor no correcto");
                 }
             }
-        } // fin try
+        } 
     }
 
     @Override

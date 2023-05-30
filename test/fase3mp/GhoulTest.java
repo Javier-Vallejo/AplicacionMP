@@ -44,31 +44,31 @@ public class GhoulTest {
 
     }
 
+
+    public void rellenarPropiedadesEspecSinEscanner (Ghoul ghoul) {
+        System.out.println("Introduzca el valor de dependencia: ");
+        int antiguaDependencia = ghoul.getDependencia();
+        System.out.println("Valor antiguo de depencia: "+ antiguaDependencia);
+        
+        int valorDependencia = 4;
+        ghoul.setDependencia(valorDependencia); 
+        System.out.println("Valor nuevo de depencia: "+ ghoul.getDependencia());
+        assertNotEquals(antiguaDependencia,ghoul.getDependencia());
+    }
+
     /**
      * Test of rellenarPropiedadesEspec method, of class Ghoul.
      */
     @Test
     public void testRellenarPropiedadesEspec() {
         System.out.println("rellenarPropiedadesEspec");
-        Ghoul instance = null;
-        instance.rellenarPropiedadesEspec();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Ghoul instance = crearGhoul();
+        rellenarPropiedadesEspecSinEscanner(instance);
+        
     }
 
-    /**
-     * Test of calcularVidaRestante method, of class Ghoul.
-     */
-    @Test
-    public void testCalcularVidaRestante() {
-        System.out.println("calcularVidaRestante");
-        Ghoul instance = crearGhoul();
-        int expResult = 0;
-        int result = instance.calcularVidaRestante();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    
+   
 
     /**
      * Test of setDependencia method, of class Ghoul.

@@ -16,24 +16,55 @@ import static org.junit.Assert.*;
  * @author juana
  */
 public class RegistroOperadorTest {
-    
+
     public RegistroOperadorTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
+    }
+
+    public void registrarse(OperadorSistema operador, TipoUsuario rol) {
+        ManagerUsuarios usuariosSistema = new ManagerUsuarios();
+        String nick = null;
+        String password = null;
+        String nombre = null;
+
+        System.out.print("Introduzca su nombre: \n");
+        nombre = "a";
+        System.out.print("Introduzca su nick: \n");
+        nick = "a";
+        System.out.print("Introduzca su password: \n");
+        password = "123";
+        if (!usuariosSistema.existeUsuario(nick, password)) {
+            operador.getManager().CrearOperador(nombre, nick, password, rol, null);
+        } else {
+            System.out.print("Ya estás registrado en el sistema \n");
+        }
+
+    }
+
+    public OperadorSistema CrearOperador() {
+        ManagerUsuarios managerUsuarios = new ManagerUsuarios();
+        managerUsuarios.CrearJugador("nombre", "A", "a", TipoUsuario.Jugador, null, 100);
+        OperadorSistema instance = new OperadorSistema("operador", "ope", "123", TipoUsuario.OperadorSistema,
+                managerUsuarios);
+        Publisher expResult = new Publisher();
+        instance.setNotificador(expResult);
+        instance.setManagerUsuarios(managerUsuarios);
+        return instance;
     }
 
     /**
@@ -42,13 +73,31 @@ public class RegistroOperadorTest {
     @Test
     public void testRegistrarse() {
         System.out.println("registrarse");
-        TipoUsuario rol = null;
-        RegistroOperador instance = null;
-        Usuario expResult = null;
-        Usuario result = instance.registrarse(rol);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        TipoUsuario rol = TipoUsuario.OperadorSistema;
+        OperadorSistema operador = CrearOperador();
+        ManagerUsuarios managerUsuarios = operador.getManager();
+        RegistroOperador instance = new RegistroOperador(managerUsuarios);
+        int tamañoAntiguo = managerUsuarios.getUsuariosRegistrados().size();
+        registrarse(operador, rol);
+        int tamañoNuevo = managerUsuarios.getUsuariosRegistrados().size();
+        assertNotEquals(tamañoAntiguo, tamañoNuevo);
     }
-    
+
+
+
+
+    @Test
+    public void testRegistrarseConUsuarioIgualGuardado() {
+        System.out.println("registrarse");
+        TipoUsuario rol = TipoUsuario.OperadorSistema;
+        OperadorSistema operador = CrearOperador();
+        ManagerUsuarios managerUsuarios = operador.getManager();
+        RegistroOperador instance = new RegistroOperador(managerUsuarios);
+        managerUsuarios.CrearOperador("a", "a", "123", rol, null);
+        int tamañoAntiguo = managerUsuarios.getUsuariosRegistrados().size();
+        registrarse(operador, rol);
+        int tamañoNuevo = managerUsuarios.getUsuariosRegistrados().size();
+        assertEquals(tamañoAntiguo, tamañoNuevo);
+    }
+
 }

@@ -37,6 +37,19 @@ public class CazadorTest {
     public void tearDown() {
     }
 
+    @Test
+    public void rellenarPropiedadesEspecificas() {
+        System.out.println("rellenarPropiedadesEspecificas");
+        Cazador cazador = CrearCazadorBase();
+        int antiguaVoluntad = cazador.getVoluntad();
+        System.out.println("Antiguo valor de voluntad :" + antiguaVoluntad);
+
+        int nuevaVoluntad = 3;
+        cazador.setVoluntad(nuevaVoluntad);
+        System.out.println("Nuevo valor de voluntad :" + cazador.getVoluntad());
+
+    }
+
     /**
      * Test of clonar method, of class Cazador.
      */

@@ -36,6 +36,17 @@ public class LicantropoTest {
     public void tearDown() {
     }
     
+    @Test
+    public void rellenarPropiedadesEspecificas() {
+        System.out.println("rellenarPropiedadesEspecificas");
+        Licantropo licantropo = CrearLicantropoBase();
+        System.out.println("Antiguo valor de voluntad :" + licantropo.getRabia());
+
+        int nuevaRabia = 5;
+        licantropo.setRabia(nuevaRabia);
+        System.out.println("Nuevo valor de voluntad :" + licantropo.getRabia());
+    }
+
     public Licantropo CrearLicantropoBase () {
 
         Habilidad habilidad = new Habilidad("garrasToFUertes", 10, 10, 0);
