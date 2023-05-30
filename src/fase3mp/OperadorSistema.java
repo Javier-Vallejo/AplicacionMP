@@ -774,7 +774,7 @@ public class OperadorSistema extends Usuario {
                 for (int i = 0; i < manager.getUsuariosRegistrados().size(); i++) { // esto
                     if (manager.getUsuariosRegistrados().get(i) instanceof Jugador jugador) {
                         if (jugador.getPersonajeActivo().getNombre().equals(personaje.getNombre())) {
-                            jugador.setPersonajeActivo(personaje.clonar()); // por polimorfismo se ejecutara el clonar
+                            jugador.setPersonajeActivo(personaje.clone()); // por polimorfismo se ejecutara el clonar
                                                                             // del personaje especifico
                         }
                     }

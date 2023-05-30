@@ -21,7 +21,7 @@ public class Cazador extends Personaje{
     }
 
     @Override
-    public Personaje clonar() {
+    public Personaje clone() {
         Cazador cazadorCopia = new Cazador(super.getNombre(),super.getHabilidadPersonaje(), super.getArmas(), super.getArmasActivas(), super.getArmaduras(), super.getArmaduraActiva(), super.getEsbirros(), super.getSalud(), super.getPoder(), super.getDebilidades(), super.getFortalezas());
         return cazadorCopia;
     }
