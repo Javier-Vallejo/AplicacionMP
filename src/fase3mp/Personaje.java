@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public abstract class Personaje implements InterfazPersonaje { // a lo mejor habria que hacer que fueran ArrayList
+public abstract class Personaje implements Cloneable { // a lo mejor habria que hacer que fueran ArrayList
 
     private String nombre;
     private Habilidad habilidadPersonaje;
@@ -613,10 +613,13 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
     public int devolverDañoHabilidad(Habilidad habilidad) {
         return habilidad.getValorAtaque();
     }
-
     @Override
-    public Personaje clonar() {
-        return null;
+    public Personaje clone() {
+        try {
+            return (Personaje) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException("No se puede clonar el objeto");
+        }
     }
 
     public Debilidad seleccionarDebilidad(String factor) {

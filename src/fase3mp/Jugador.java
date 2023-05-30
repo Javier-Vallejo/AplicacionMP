@@ -372,7 +372,7 @@ public class Jugador extends Usuario {
                     if (opcionSioNO == 1) {
                         ArrayList<Integer> personaje = super.getEntidades().MostraryElegir("PERSONAJES");
                         Personaje personajeAct =(super.getEntidades().elegirPersonaje(personaje.get(0)));
-                        setPersonajeActivo(personajeAct.clonar());
+                        setPersonajeActivo(personajeAct.clone());
                         super.getManagerUsuarios().editarUsuarioEnFichero(this.getNick(), this.getPassword());
                     } else if (opcionSioNO == 2) {
                         System.out.println("Su personaje no se cambiara.");
@@ -380,7 +380,7 @@ public class Jugador extends Usuario {
                 } else {
                     ArrayList<Integer> personaje = super.getEntidades().MostraryElegir("PERSONAJES");
                     Personaje personajeAct =(super.getEntidades().elegirPersonaje(personaje.get(0)));
-                    setPersonajeActivo(personajeAct.clonar());
+                    setPersonajeActivo(personajeAct.clone());
                     super.getManagerUsuarios().editarUsuarioEnFichero(this.getNick(), this.getPassword());
                 }
 

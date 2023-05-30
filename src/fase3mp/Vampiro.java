@@ -46,13 +46,17 @@ public class Vampiro extends Personaje {
     }
 
     @Override
-    public Personaje clonar() {
-        Vampiro vampiroCopia = new Vampiro(super.getNombre(), super.getHabilidadPersonaje(), super.getArmas(),
+    public Personaje clone() {
+        Vampiro vampiroCopia = (Vampiro) super.clone();
+        return vampiroCopia;
+            
+      
+        /*Vampiro vampiroCopia = new Vampiro(super.getNombre(), super.getHabilidadPersonaje(), super.getArmas(),
                 super.getArmasActivas(), super.getArmaduras(), super.getArmaduraActiva(), super.getEsbirros(),
                 super.getSalud(), super.getPoder(), super.getDebilidades(), super.getFortalezas());
         vampiroCopia.setSangre(sangre);
         vampiroCopia.setEdad(edad);
-        return vampiroCopia;
+        return vampiroCopia;*/
     }
 
     public int dañoDeSangre(int sangre) {
