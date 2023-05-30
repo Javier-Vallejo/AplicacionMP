@@ -607,6 +607,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
         }
     }
     
+    
     public Object[] clonarLista (Object[] lista) {
 
         Object[] listaclonada = new Array[lista.length] ;
