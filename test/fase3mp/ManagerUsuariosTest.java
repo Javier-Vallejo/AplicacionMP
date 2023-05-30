@@ -41,10 +41,37 @@ public class ManagerUsuariosTest {
     public void tearDown() {
     }
 
+
+    public Cazador CrearCazadorBase () {
+        Habilidad habilidad = new Habilidad("habilidad", 10, 10, 0);
+        Arma arma = new Arma("arma", "10", "10", "de2manos");
+        Arma[] armas = new Arma[1];
+        armas[0] = arma;
+        Armadura armadura = new Armadura("armadura", "10", "5");
+        Armadura[] armaduras = new Armadura[1];
+        armaduras[0] = armadura;
+        Esbirro esbirro = new Esbirro("esbirro", 10);
+        Esbirro[] esbirros = new Esbirro[1];
+        esbirros[0] = esbirro;
+        Debilidad debilidad = new Debilidad("debilidad", 0);
+        Debilidad[] debilidades = new Debilidad[1];
+        debilidades[0] = debilidad;
+        Fortaleza fortaleza = new Fortaleza("fortaleza", 0);
+        Fortaleza[] fortalezas = new Fortaleza[1];
+        fortalezas[0] = fortaleza;
+        Cazador instance = new Cazador("nombre", habilidad, armas, armas, armaduras, armadura, esbirros, 0, 10, debilidades, fortalezas); 
+        instance.setVoluntad(10);
+
+        return instance;
+
+    }
+
     public Usuario crearUsuario() {
         ManagerUsuarios manager = new ManagerUsuarios();
         Jugador instance = new Jugador("Juan", "ElBoss", "1234", TipoUsuario.Jugador, manager);
         instance.setNumeroRegistro("1234567");
+        Cazador cazador = CrearCazadorBase();
+        instance.setPersonajeActivo(cazador);
         return instance;
     }
 
@@ -239,7 +266,7 @@ public class ManagerUsuariosTest {
     @Test
     public void testGuardarUsuariosFichero() throws Exception {
         System.out.println("guardarUsuariosFichero");
-        Usuario usuario = null;
+        Usuario usuario = crearUsuario();
         ManagerUsuarios instance = new ManagerUsuarios();
         instance.guardarUsuariosFichero(usuario);
         // TODO review the generated test code and remove the default call to fail.
@@ -252,12 +279,11 @@ public class ManagerUsuariosTest {
     @Test
     public void testRellenarStringBuilderUsuario() {
         System.out.println("rellenarStringBuilderUsuario");
-        StringBuilder sb = null;
-        Usuario usuario = null;
+        StringBuilder sb = new StringBuilder();
+        Usuario usuario = crearUsuario();
         ManagerUsuarios instance = new ManagerUsuarios();
         instance.rellenarStringBuilderUsuario(sb, usuario);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
