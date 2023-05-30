@@ -391,6 +391,8 @@ public class Jugador extends Usuario {
                 } else {
                     Personaje personaje = getPersonajeActivo();
                     personaje.editarPersonajeJugador(personaje, super.getEntidades());
+                    //guardar en fichero los personajes clonados
+                    //guardar en fichero los cambios en el personaje del jugador
                 }
                 super.getManagerUsuarios().editarUsuarioEnFichero(this.getNick(), this.getPassword());
                 break;
