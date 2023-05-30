@@ -64,6 +64,7 @@ public class PactoTest {
         Pacto instance = new Pacto();
         instance.setDescripcion("pacto");
         instance.setAmo(personaje.getNombre());
+        instance.setAmo(personaje.getNombre());
         return instance;
     }
     /**

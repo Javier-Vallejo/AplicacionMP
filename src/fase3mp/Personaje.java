@@ -172,7 +172,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                             + armaPersonaje.devolverModificadores());
             ++indice;
         }
-        System.out.println("- " + armasPersonaje.length + ".Salir");
+        System.out.println("-  " + armasPersonaje.length + ".Salir");
     }
 
     public void MostrarArmasActivas(Personaje personajeEle) {
@@ -187,6 +187,7 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                                 + arma.devolverModificadores());
                 ++indice;
             }
+            System.out.println("-"+armasActivasLista.length+".Salir");
             System.out.println("Escoja el arma o las armas que desea cambiar:");
 
         }
@@ -488,9 +489,9 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
         }
     }
 
-    public void editarPersonajeJugador(Personaje personajeEle, EntidadesActivas entidades) {
-        int opcion = 0;
+    public void editarPersonajeJugador(Personaje personajeEle, EntidadesActivas entidades) {  
         while (true) {
+            int opcion = 0;
             Scanner escanerLectura = new Scanner(System.in);
             System.out.println("Que desea gestionar del personaje:");
             System.out.println("- 1.Elegir Armas Activas");
@@ -506,15 +507,15 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
 
                     List<Arma> listaArmasActivas = Arrays.asList(personajeEle.getArmasActivas());
                     ArrayList<Arma> arrayListArmas = new ArrayList<>(listaArmasActivas);
-                    Arma[] armasPersonaje = personajeEle.getArmas();
-                    System.out.println(
-                            "Seleccione que arma desea activar (Ten en cuenta que va a ser una de dos manos o dos de una mano):");
-                    System.out.println("Estas son sus armas actuales:");
-                    MostrarArmas(personajeEle);
+                    Arma[] armasPersonaje = personajeEle.getArmas();        
                     int numArmaActiva = 0;
-                    while (numArmaActiva != armasPersonaje.length) {
+                    while (numArmaActiva < armasPersonaje.length) {
+                        System.out.println(
+                            "Seleccione que arma desea activar (Ten en cuenta que va a ser una de dos manos o dos de una mano):");
+                        System.out.println("Estas son sus armas actuales:");
+                        MostrarArmas(personajeEle);
                         numArmaActiva = escanerLectura.nextInt();
-                        if (!(numArmaActiva == armasPersonaje.length)) {
+                        if (!(numArmaActiva == armasPersonaje.length)&& numArmaActiva<armasPersonaje.length) {
                             if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de2manos
                                     && arrayListArmas.isEmpty()) {
                                 arrayListArmas.add(armasPersonaje[numArmaActiva]);
@@ -530,15 +531,31 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                                 System.out.println("Arma ya activa");
                             } else {
                                 System.out.println("El arma que intentas establecer como activa no cabe");
-                                System.out.println("¿Desea eliminar un arma que ya tenga?");
+                                System.out.println("¿Desea sustituir un arma que ya tenga?");
                                 System.out.println("- 1.Si");
                                 System.out.println("- 2.No");
                                 int eleccion = escanerLectura.nextInt();
                                 if (eleccion == 1) {
                                     System.out.println("Estas son sus armas Activas");
                                     MostrarArmasActivas(personajeEle);
-                                    eleccion = escanerLectura.nextInt();
-                                    arrayListArmas.remove(eleccion);
+                                    int eleccionSustitucion = escanerLectura.nextInt();
+                                    while (eleccionSustitucion != arrayListArmas.size()){
+                                        arrayListArmas.remove(eleccionSustitucion);                                       
+                                        personajeEle.setArmasActivas(arrayListArmas.toArray(new Arma[arrayListArmas.size()]));
+                                        System.out.println("Quieres seguir sustituyendo?");
+                                        System.out.println("1.Si");
+                                        System.out.println("2.No");
+                                        int op = escanerLectura.nextInt();
+                                        if (op == 1){
+                                            MostrarArmasActivas(personajeEle);
+                                            if (personajeEle.getArmasActivas().length >0){
+                                                eleccionSustitucion = escanerLectura.nextInt();
+                                            }
+                                        }
+                                        else{
+                                            eleccionSustitucion=arrayListArmas.size();//aqui poner que se sustituya si cabe
+                                        }                                       
+                                    }     
                                 } else if (eleccion == 2) {
                                     System.out.println(
                                             "El arma que intentas establecer como activa no se activara por falta de hueco.");
@@ -571,22 +588,21 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                     return;
                 }
             }
-            int eleccion = 0;
-            while (!(eleccion == 1 ^ eleccion == 2)) {
+            int eleccionCambios = 0;
+            while (!(eleccionCambios == 1 ^ eleccionCambios == 2)) {
                 System.out.println("Desea realizar algun cambio mas:");
                 System.out.println("1.Si");
                 System.out.println("2.No");
                 System.out.println("Por favor seleccione el numero");
-                eleccion = escanerLectura.nextInt();
-                if (eleccion == 2) {
+                eleccionCambios = escanerLectura.nextInt();
+                if (eleccionCambios == 2) {
                     System.out.println("Volviendo a la pantalla del menu del operador");
                     System.out.println();
                     return;
-                } else if (eleccion != 1 && eleccion != 2) {
+                } else if (eleccionCambios != 1 && eleccionCambios != 2) {
                     System.out.println("Por favor seleccione 1 o 2");
                 }
             }
-
         }
     }
 
