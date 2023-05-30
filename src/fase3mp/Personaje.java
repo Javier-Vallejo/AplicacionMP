@@ -1,5 +1,6 @@
 package fase3mp;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -604,6 +605,16 @@ public abstract class Personaje implements InterfazPersonaje { // a lo mejor hab
                 }
             }
         }
+    }
+    
+    public Object[] clonarLista (Object[] lista) {
+
+        Object[] listaclonada = new Array[lista.length] ;
+        for (int i = 0; i< lista.length; i++){
+                listaclonada[i] = lista[i];
+        }
+        return listaclonada;
+
     }
 
     public void rellenarPropiedadesEspecificas() {

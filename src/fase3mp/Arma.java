@@ -11,7 +11,6 @@ public class Arma extends Equipo implements IEquipo{
     public void setTipodeArma(tipoArma tipodeArma) {
         this.tipodeArma = tipodeArma;
     }
-    
     public Arma(String nombre, String potenciadorDanio, String potenciadorDefensa, String tipoDeArma) {
         super.setNombre(nombre);
         int potDanio = Integer.parseInt(potenciadorDanio);
