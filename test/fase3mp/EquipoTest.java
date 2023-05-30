@@ -65,7 +65,7 @@ public class EquipoTest {
         String nombre = "EquipamientoOmega";
         Equipo instance = CrearEquipoBase();
         instance.setNombre(nombre);
-        assertEquals(nombre, instance);
+        assertEquals(nombre, instance.getNombre());
     }
 
     /**

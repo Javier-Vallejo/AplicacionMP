@@ -119,7 +119,7 @@ public class LicantropoTest {
         System.out.println("clonar");
         Licantropo instance = CrearLicantropoBase();
         Personaje expResult = CrearLicantropoBase();
-        Personaje result = instance.clonar();
+        Personaje result = instance.clone();
         assertEquals(expResult.getNombre(), result.getNombre());
         System.out.println("Nombre de la habilidad del Licantropo: " + instance.getNombre() + " = " + instance.getHabilidadPersonaje().getNombre());
         assertNotEquals("GarrasTOFUERTOTAS", result.getHabilidadPersonaje().getNombre());

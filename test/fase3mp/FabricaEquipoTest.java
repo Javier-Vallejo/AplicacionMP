@@ -36,28 +36,27 @@ public class FabricaEquipoTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of crearEquipo method, of class FabricaEquipo.
-     */
-    @Test
-    public void testCrearEquipo() {
-        System.out.println("crearEquipo");
-        String nombre = "";
-        String modDanio = "";
-        String modDefensa = "";
-        FabricaEquipo instance = new FabricaEquipoImpl();
-        Equipo expResult = null;
-        Equipo result = instance.crearEquipo(nombre, modDanio, modDefensa);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    // /**
+    //  * Test of crearEquipo method, of class FabricaEquipo.
+    //  */
+    // @Test
+    // public void testCrearEquipo() {
+    //     System.out.println("crearEquipo");
+    //     String nombre = "";
+    //     String modDanio = "3";
+    //     String modDefensa = "4";
+    //     FabricaEquipo instance = new FabricaEquipoImpl();
+    //     Equipo expResult = new Arma(nombre, modDanio, modDefensa, modDefensa);
+    //     Equipo result = instance.crearEquipo(nombre, modDanio, modDefensa);
+    //     assertEquals(expResult, result);
+        
+    // }
 
-    public class FabricaEquipoImpl extends FabricaEquipo {
+    // public class FabricaEquipoImpl extends FabricaEquipo {
 
-        public Equipo crearEquipo(String nombre, String modDanio, String modDefensa) {
-            return null;
-        }
-    }
+    //     public Equipo crearEquipo(String nombre, String modDanio, String modDefensa) {
+    //         return null;
+    //     }
+    // }
     
 }

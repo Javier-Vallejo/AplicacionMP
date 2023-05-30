@@ -34,11 +34,15 @@ public class Licantropo extends Personaje {
 
     @Override
     public Personaje clone() {
-        Licantropo licantropoCopia = new Licantropo(super.getNombre(), super.getHabilidadPersonaje(), super.getArmas(),
-                super.getArmasActivas(), super.getArmaduras(), super.getArmaduraActiva(), super.getEsbirros(),
-                super.getSalud(), super.getPoder(), super.getDebilidades(), super.getFortalezas());
-        licantropoCopia.setRabia(rabia);
+
+
+        Licantropo licantropoCopia = (Licantropo) super.clone();
+        Armadura[] armadurasClonadas = (Armadura[]) super.clonarLista(getArmaduras());
+        Arma[] armasClonadas = (Arma[]) super.clonarLista(getArmas());
+        licantropoCopia.setArmas(armasClonadas);
+        licantropoCopia.setArmaduras(armadurasClonadas);
         return licantropoCopia;
+        
     }
 
     @Override

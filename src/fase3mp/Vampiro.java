@@ -48,6 +48,10 @@ public class Vampiro extends Personaje {
     @Override
     public Personaje clone() {
         Vampiro vampiroCopia = (Vampiro) super.clone();
+        Armadura[] armadurasClonadas = (Armadura[]) super.clonarLista(getArmaduras());
+        Arma[] armasClonadas = (Arma[]) super.clonarLista(getArmas());
+        vampiroCopia.setArmas(armasClonadas);
+        vampiroCopia.setArmaduras(armadurasClonadas);
         return vampiroCopia;
             
       

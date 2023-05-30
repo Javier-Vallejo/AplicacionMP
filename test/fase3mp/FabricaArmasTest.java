@@ -9,6 +9,9 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import fase3mp.Arma.tipoArma;
+
 import static org.junit.Assert.*;
 
 /**
@@ -42,15 +45,20 @@ public class FabricaArmasTest {
     @Test
     public void testCrearEquipo() {
         System.out.println("crearEquipo");
-        String nombre = "";
-        String modDanio = "";
-        String modDefensa = "";
+        String nombre = "nombre";
+        String modDanio = "2";
+        String modDefensa = "2";
+        String tipo = "de2manos";
         FabricaArmas instance = new FabricaArmas();
-        Equipo expResult = null;
+        Arma expResult = new Arma(nombre,modDanio,modDefensa,tipo);
         Equipo result = instance.crearEquipo(nombre, modDanio, modDefensa);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult.getNombre(), result.getNombre());
+        assertEquals(expResult.getModDanio(), result.getModDanio());
+        assertEquals(expResult.getModDefensa(), result.getModDefensa());
+        assertEquals(expResult.getTipodeArma(), tipoArma.de2manos);
+
+
+        
     }
     
 }

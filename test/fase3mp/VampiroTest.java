@@ -164,7 +164,7 @@ public class VampiroTest {
     public void testClonar() {
         System.out.println("clonar");
         Vampiro instance = CrearVampiroBase();
-        Personaje expResult = instance.clonar();
+        Personaje expResult = instance.clone();
         assertEquals(expResult.getNombre(), instance.getNombre());
     }
     /**

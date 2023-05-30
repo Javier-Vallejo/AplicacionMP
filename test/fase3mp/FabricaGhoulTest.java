@@ -42,14 +42,13 @@ public class FabricaGhoulTest {
     @Test
     public void testCrearEsbirro() {
         System.out.println("crearEsbirro");
-        String nombre = "";
+        String nombre = "ghoul";
         int salud = 0;
         FabricaGhoul instance = new FabricaGhoul();
-        Esbirro expResult = null;
+        Esbirro expResult = new Ghoul(nombre, salud);
         Esbirro result = instance.crearEsbirro(nombre, salud);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult.getClass(), result.getClass());
+        
     }
     
 }

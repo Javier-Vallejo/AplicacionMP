@@ -170,7 +170,7 @@ public class JugadorTest {
                         personaje.add(0);
                         personaje.add(1);
                         Personaje personajeAct = (jugador.getEntidades().elegirPersonaje(personaje.get(0)));
-                        jugador.setPersonajeActivo(personajeAct.clonar());
+                        jugador.setPersonajeActivo(personajeAct.clone());
                     } else if (opcionSioNO == 2) {
                         System.out.println("Su personaje no se cambiara.");
                     }

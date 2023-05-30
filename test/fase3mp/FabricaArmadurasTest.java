@@ -42,15 +42,17 @@ public class FabricaArmadurasTest {
     @Test
     public void testCrearEquipo() {
         System.out.println("crearEquipo");
-        String nombre = "";
-        String modDanio = "";
-        String modDefensa = "";
+        String nombre = "nombre";
+        String modDanio = "2";
+        String modDefensa = "2";
         FabricaArmaduras instance = new FabricaArmaduras();
-        Equipo expResult = null;
+        Armadura expResult = new Armadura(nombre,modDanio,modDefensa);
         Equipo result = instance.crearEquipo(nombre, modDanio, modDefensa);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult.getNombre(), result.getNombre());
+        assertEquals(expResult.getModDanio(), result.getModDanio());
+        assertEquals(expResult.getModDefensa(), result.getModDefensa());
+
+        
     }
     
 }

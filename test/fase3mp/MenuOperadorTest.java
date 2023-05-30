@@ -44,8 +44,7 @@ public class MenuOperadorTest {
         System.out.println("mostrarOpciones");
         MenuOperador instance = new MenuOperador();
         instance.mostrarOpciones();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
     
 }

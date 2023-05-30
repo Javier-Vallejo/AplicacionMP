@@ -576,7 +576,7 @@ public class PersonajeTest {
     public void testClonar() {
         System.out.println("clonar");
         Personaje instance = CrearPersonajeBase();
-        Personaje expResult = instance.clonar();
+        Personaje expResult = instance.clone();
         assertEquals(expResult.getNombre(), instance.getNombre());
         assertEquals(expResult.getArmaduraActiva(), instance.getArmaduraActiva());
         assertArrayEquals(expResult.getArmaduras(), instance.getArmaduras());

@@ -188,7 +188,7 @@ public abstract class Personaje implements Cloneable { // a lo mejor habria que 
                                 + arma.devolverModificadores());
                 ++indice;
             }
-            System.out.println("-"+armasActivasLista.length+".Salir");
+            System.out.println("-" + armasActivasLista.length + ".Salir");
             System.out.println("Escoja el arma o las armas que desea cambiar:");
 
         }
@@ -243,7 +243,7 @@ public abstract class Personaje implements Cloneable { // a lo mejor habria que 
     }
 
     public void editarPersonajeOperador(Personaje personajeEle, EntidadesActivas entidades) {
-        
+
         while (true) {
             int opcion = 0;
             Scanner escanerLectura = new Scanner(System.in);
@@ -490,7 +490,7 @@ public abstract class Personaje implements Cloneable { // a lo mejor habria que 
         }
     }
 
-    public void editarPersonajeJugador(Personaje personajeEle) {  
+    public void editarPersonajeJugador(Personaje personajeEle) {
         while (true) {
             int opcion = 0;
             Scanner escanerLectura = new Scanner(System.in);
@@ -508,15 +508,15 @@ public abstract class Personaje implements Cloneable { // a lo mejor habria que 
 
                     List<Arma> listaArmasActivas = Arrays.asList(personajeEle.getArmasActivas());
                     ArrayList<Arma> arrayListArmas = new ArrayList<>(listaArmasActivas);
-                    Arma[] armasPersonaje = personajeEle.getArmas();        
+                    Arma[] armasPersonaje = personajeEle.getArmas();
                     int numArmaActiva = 0;
                     while (numArmaActiva < armasPersonaje.length) {
                         System.out.println(
-                            "Seleccione que arma desea activar (Ten en cuenta que va a ser una de dos manos o dos de una mano):");
+                                "Seleccione que arma desea activar (Ten en cuenta que va a ser una de dos manos o dos de una mano):");
                         System.out.println("Estas son sus armas actuales:");
                         MostrarArmas(personajeEle);
                         numArmaActiva = escanerLectura.nextInt();
-                        if (!(numArmaActiva == armasPersonaje.length)&& numArmaActiva<armasPersonaje.length) {
+                        if (!(numArmaActiva == armasPersonaje.length) && numArmaActiva < armasPersonaje.length) {
                             if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de2manos
                                     && arrayListArmas.isEmpty()) {
                                 arrayListArmas.add(armasPersonaje[numArmaActiva]);
@@ -540,23 +540,24 @@ public abstract class Personaje implements Cloneable { // a lo mejor habria que 
                                     System.out.println("Estas son sus armas Activas");
                                     MostrarArmasActivas(personajeEle);
                                     int eleccionSustitucion = escanerLectura.nextInt();
-                                    while (eleccionSustitucion != arrayListArmas.size()){
-                                        arrayListArmas.remove(eleccionSustitucion);                                       
-                                        personajeEle.setArmasActivas(arrayListArmas.toArray(new Arma[arrayListArmas.size()]));
+                                    while (eleccionSustitucion != arrayListArmas.size()) {
+                                        arrayListArmas.remove(eleccionSustitucion);
+                                        personajeEle.setArmasActivas(
+                                                arrayListArmas.toArray(new Arma[arrayListArmas.size()]));
                                         System.out.println("Quieres seguir sustituyendo?");
                                         System.out.println("1.Si");
                                         System.out.println("2.No");
                                         int op = escanerLectura.nextInt();
-                                        if (op == 1){
+                                        if (op == 1) {
                                             MostrarArmasActivas(personajeEle);
-                                            if (personajeEle.getArmasActivas().length >0){
+                                            if (personajeEle.getArmasActivas().length > 0) {
                                                 eleccionSustitucion = escanerLectura.nextInt();
                                             }
+                                        } else {
+                                            eleccionSustitucion = arrayListArmas.size();// aqui poner que se sustituya
+                                                                                        // si cabe
                                         }
-                                        else{
-                                            eleccionSustitucion=arrayListArmas.size();//aqui poner que se sustituya si cabe
-                                        }                                       
-                                    }     
+                                    }
                                 } else if (eleccion == 2) {
                                     System.out.println(
                                             "El arma que intentas establecer como activa no se activara por falta de hueco.");
@@ -606,15 +607,26 @@ public abstract class Personaje implements Cloneable { // a lo mejor habria que 
             }
         }
     }
-    
-    
-    public Object[] clonarLista (Object[] lista) {
 
-        Object[] listaclonada = new Array[lista.length] ;
-        for (int i = 0; i< lista.length; i++){
-                listaclonada[i] = lista[i];
+    public Object[] clonarLista(Object[] lista) {
+
+        if (lista instanceof Arma[]) {
+            ArrayList<Arma> listaclonada = new ArrayList<>();
+            for (int i = 0; i < lista.length; i++) {
+                listaclonada.add((Arma) lista[i]);
+            }
+            return listaclonada.toArray(new Arma[listaclonada.size()]);
         }
-        return listaclonada;
+
+        if (lista instanceof Armadura[]) {
+            ArrayList<Armadura> listaclonada = new ArrayList<>();
+            for (int i = 0; i < lista.length; i++) {
+                listaclonada.add((Armadura) lista[i]);
+            }
+            return listaclonada.toArray(new Armadura[listaclonada.size()]);
+        }
+
+        return null;
 
     }
 
@@ -625,6 +637,7 @@ public abstract class Personaje implements Cloneable { // a lo mejor habria que 
     public int devolverDañoHabilidad(Habilidad habilidad) {
         return habilidad.getValorAtaque();
     }
+
     @Override
     public Personaje clone() {
         try {

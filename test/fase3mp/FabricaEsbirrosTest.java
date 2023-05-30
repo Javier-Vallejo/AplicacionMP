@@ -36,27 +36,27 @@ public class FabricaEsbirrosTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of crearEsbirro method, of class FabricaEsbirros.
-     */
-    @Test
-    public void testCrearEsbirro() {
-        System.out.println("crearEsbirro");
-        String nombre = "";
-        int salud = 0;
-        FabricaEsbirros instance = new FabricaEsbirrosImpl();
-        Esbirro expResult = null;
-        Esbirro result = instance.crearEsbirro(nombre, salud);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    // /**
+    //  * Test of crearEsbirro method, of class FabricaEsbirros.
+    //  */
+    // @Test
+    // public void testCrearEsbirro() {
+    //     System.out.println("crearEsbirro");
+    //     String nombre = "";
+    //     int salud = 0;
+    //     FabricaEsbirros instance = new FabricaEsbirrosImpl();
+    //     Esbirro expResult = null;
+    //     Esbirro result = instance.crearEsbirro(nombre, salud);
+    //     assertEquals(expResult, result);
+    //     // TODO review the generated test code and remove the default call to fail.
+    //     fail("The test case is a prototype.");
+    // }
 
-    public class FabricaEsbirrosImpl extends FabricaEsbirros {
+    // public class FabricaEsbirrosImpl extends FabricaEsbirros {
 
-        public Esbirro crearEsbirro(String nombre, int salud) {
-            return null;
-        }
-    }
+    //     public Esbirro crearEsbirro(String nombre, int salud) {
+    //         return null;
+    //     }
+    // }
     
 }

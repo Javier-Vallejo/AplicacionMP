@@ -290,9 +290,7 @@ public class SistemaPrincipalGameTest {
         System.out.println("obtenerInstancia");
         SistemaPrincipalGame expResult = null;
         SistemaPrincipalGame result = SistemaPrincipalGame.obtenerInstancia();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(expResult, result);
     }
 
     /**
@@ -301,12 +299,10 @@ public class SistemaPrincipalGameTest {
     @Test
     public void testGetSistema() {
         System.out.println("getSistema");
-        SistemaPrincipalGame instance = null;
-        SistemaPrincipalGame expResult = null;
+        SistemaPrincipalGame instance = SistemaPrincipalGame.obtenerInstancia();
         SistemaPrincipalGame result = instance.getSistema();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNull(result);
+        
     }
 
     @Test

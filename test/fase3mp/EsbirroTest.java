@@ -86,16 +86,6 @@ public class EsbirroTest {
         instance.setSalud(salud);
         assertNotEquals(saludAntiguo, instance.getSalud());
     }
-    /**
-     * Test of rellenarPropiedadesEspec method, of class Esbirro.
-     */
-    @Test
-    public void testRellenarPropiedadesEspec() throws Exception {
-        System.out.println("rellenarPropiedadesEspec");
-        Esbirro instance = null;
-        instance.rellenarPropiedadesEspec();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    
     
 }

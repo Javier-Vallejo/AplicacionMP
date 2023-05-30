@@ -82,7 +82,7 @@ public class CazadorTest {
     public void testClonar() {
         System.out.println("clonar");
         Cazador instance = CrearCazadorBase();
-        Personaje expResult = instance.clonar();
+        Personaje expResult = instance.clone();
         assertEquals(expResult.getNombre(), instance.getNombre());
     }
 
