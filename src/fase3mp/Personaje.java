@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import fase3mp.Arma.tipoArma;
+
 public abstract class Personaje implements Cloneable { // a lo mejor habria que hacer que fueran ArrayList
 
     private String nombre;
@@ -526,6 +528,7 @@ public abstract class Personaje implements Cloneable { // a lo mejor habria que 
                                 arrayListArmas.add(armasPersonaje[numArmaActiva]);
                             } else if (armasPersonaje[numArmaActiva].getTipodeArma() == Arma.tipoArma.de1mano
                                     && arrayListArmas.size() == 1
+                                    && arrayListArmas.get(0).getTipodeArma() == Arma.tipoArma.de1mano
                                     && arrayListArmas.contains(armasPersonaje[numArmaActiva]) == false) {
                                 arrayListArmas.add(armasPersonaje[numArmaActiva]);
                             } else if (arrayListArmas.contains(armasPersonaje[numArmaActiva])) {
@@ -538,6 +541,8 @@ public abstract class Personaje implements Cloneable { // a lo mejor habria que 
                                 int eleccion = escanerLectura.nextInt();
                                 if (eleccion == 1) {
                                     System.out.println("Estas son sus armas Activas");
+                                    Arma[] armasActivasPersonaje = arrayListArmas.toArray(new Arma[0]);
+                                    personajeEle.setArmasActivas(armasActivasPersonaje);
                                     MostrarArmasActivas(personajeEle);
                                     int eleccionSustitucion = escanerLectura.nextInt();
                                     while (eleccionSustitucion != arrayListArmas.size()) {
@@ -554,8 +559,19 @@ public abstract class Personaje implements Cloneable { // a lo mejor habria que 
                                                 eleccionSustitucion = escanerLectura.nextInt();
                                             }
                                         } else {
-                                            eleccionSustitucion = arrayListArmas.size();// aqui poner que se sustituya
-                                                                                        // si cabe
+                                            // aqui poner que se sustituya
+                                            if (cabe(armasPersonaje[numArmaActiva], arrayListArmas)) {
+                                                arrayListArmas.add(armasPersonaje[numArmaActiva]);
+                                                armasActivasPersonaje = arrayListArmas.toArray(new Arma[0]);
+                                                personajeEle.setArmasActivas(armasActivasPersonaje);
+                                                System.out.println("Arma activada con exito");
+                                                eleccionSustitucion = arrayListArmas.size();
+                                            } else {
+                                                System.out.println("Todavia no cabe");
+                                                eleccionSustitucion = arrayListArmas.size();
+                                            }
+
+                                            // si cabe
                                         }
                                     }
                                 } else if (eleccion == 2) {
@@ -606,6 +622,29 @@ public abstract class Personaje implements Cloneable { // a lo mejor habria que 
                 }
             }
         }
+    }
+
+    private boolean cabe(Arma arma, ArrayList<Arma> listaArmas) {
+
+        tipoArma tipoDelArma = arma.getTipodeArma();
+
+        if (listaArmas.isEmpty()) {
+            return true;
+        }
+        else if (!listaArmas.contains(arma)) {
+
+            if (tipoDelArma == tipoArma.de1mano && listaArmas.size() == 1) {
+                Arma armaDeLista = listaArmas.get(0);
+                tipoArma tipoDeArmaLista = armaDeLista.getTipodeArma();
+                if (tipoDeArmaLista == tipoArma.de1mano) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        return false;
     }
 
     public Object[] clonarLista(Object[] lista) {
